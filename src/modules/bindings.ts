@@ -1,5 +1,5 @@
 import { FILES, PATHS } from "./paths.js"
-import { isEmpty, nullsToUndefined, type ISO8601TimeString, type Unique } from "./flow.js"
+import { isEmpty, nullsToUndefined, type ISO8601TimeString, type Unique, type UnixTimestamp } from "./flow.js"
 import type { IdBinding } from "../types/BoundTypes.js"
 import type { GameModeId, LobbyTypeId, PatchId, RegionId, UnitOrderId} from "../types/DotaConstantsTypes.js"
 import { BARRACK_FLAGS, TOWER_FLAGS, type AccountId, type BarracksBitmask,
@@ -13,9 +13,6 @@ import { BARRACK_FLAGS, TOWER_FLAGS, type AccountId, type BarracksBitmask,
 import heroIds from '../../public/generated/data/heroBindings.json'
 import abilityIds from '../../public/generated/data/abilityBindings.json'
 import itemIds from '../../public/generated/data/itemBindings.json'
-
-const ABILITY_BINDINGS_FILE = `${PATHS.GENERATED_DATA}/${FILES.BINDINGS.ABILITIES}`
-const ITEM_BINDINGS_FILE = `${PATHS.GENERATED_DATA}/${FILES.BINDINGS.ITEMS}`
 
 export type HeroKey = typeof heroIds[number]['key']
 export type HeroLabel = typeof heroIds[number]['label']
@@ -373,9 +370,9 @@ export interface Performance {
 }
 
 export interface MatchBase {
-	fetchTime: ISO8601TimeString,
+	fetchTime: UnixTimestamp,
 	id: MatchId,
-	startTime?: ISO8601TimeString,
+	startTime?: UnixTimestamp,
 	lengthSeconds: number,
 	winningTeam: SideKey,
 	gameMode: GameModeId,
@@ -402,7 +399,8 @@ export function formatMatchSummary(summary: MatchForPlayer, player: AccountId): 
 	const matchSummary: PlayerMatchSummary = {
 		match: {
 			id: summary.match_id,
-			fetchTime : new Date().toISOString() as ISO8601TimeString,
+			fetchTime: new Date().getTime() as UnixTimestamp,
+			startTime: summary.start_time ?? undefined,
 			lengthSeconds: summary.duration,
 			winningTeam: summary.radiant_win ? 0 : 1,
 			gameMode: summary.game_mode,
@@ -423,8 +421,7 @@ export function formatMatchSummary(summary: MatchForPlayer, player: AccountId): 
 		}
 	}
 	if(summary.start_time) {
-		const timestamp = new Date(summary.start_time as number).toISOString()
-		matchSummary.match.startTime = timestamp as ISO8601TimeString
+		matchSummary.match.startTime = summary.start_time
 	}
 	if(summary.party_size) {
 		matchSummary.player.partySize = summary.party_size
@@ -467,8 +464,8 @@ export interface SparseMatch extends MatchBase {
 export function formatSparseMatch(match: UnparsedMatch): SparseMatch {
 	const formattedMatch: SparseMatch = {
 		id: match.match_id,
-		fetchTime: new Date().toISOString() as ISO8601TimeString,
-		startTime: match.start_time ? new Date(match.start_time).toISOString() as ISO8601TimeString : undefined,
+		fetchTime: new Date().getTime() as UnixTimestamp,
+		startTime: match.start_time ?? undefined,
 		lengthSeconds: match.duration,
 		winningTeam: match.radiant_win ? 0 : 1,
 		gameMode: match.game_mode,
@@ -543,7 +540,7 @@ export interface FullMatch extends SparseMatch {
 export function formatFullMatch(match: ParsedMatch): FullMatch {
 	const formattedMatch: FullMatch = {
 		id: match.match_id,
-		fetchTime : new Date().toISOString() as ISO8601TimeString,
+		fetchTime : new Date().getTime() as UnixTimestamp,
 		lengthSeconds: match.duration,
 		winningTeam: match.radiant_win ? 0 : 1,
 		gameMode: match.game_mode,
