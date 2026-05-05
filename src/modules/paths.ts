@@ -1,4 +1,5 @@
 export const DIR = {
+	ROOT: `public`,
 	BUILD: `public`,
 	GENERATED: `generated`,
 	STATIC: 'static',
