@@ -1,0 +1,400 @@
+:root {
+	--c-common: #2BAB01;
+	--c-common-transparent: #2BAB0188;
+	--c-rare: #1A87F9;
+	--c-rare-transparent: #1a87f988;
+	--c-epic: #B812F9;
+	--c-epic-transparent: #B812F988;
+	--c-artifact: #E29B01;
+	--c-artifact-transparent: #E29B0188;
+
+	--strength-red: #ec3d06;
+	--strength-red-transparent: #ec3d0688;
+	--strength-red-transparent-border: #ec3d0622;
+	--agility-green: #26e030;
+	--agility-green-transparent: #26e03088;
+	--agility-green-transparent-border: #26e03022;
+	--intelligence-blue: #01d8eb;
+	--universe-purple: #a82be6;
+
+	--white: white;
+	--grey-lit: #b2b2b2;
+	--grey-dim: #4c4c4c;
+	--slate: #242627;
+	--slate-transparent: #242627cc;
+	--black: #101415;
+
+	--border: 0.1em solid var(--grey-dim);
+	--corner-radius: 0.2em;
+}
+
+body {
+	margin: 0;
+	color: white;
+	background-color: var(--black);
+	font-family:'Noto Serif', serif;
+}
+
+h1, h2 {
+	margin: 0;
+	text-shadow: 0 0 0.3rem var(--c-rare);
+	transition: all 360ms;
+	&:hover {
+		text-shadow: 0 0 0.6rem var(--c-rare);
+	}
+}
+
+header {
+	padding: 0.5rem 1rem;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	place-items: center;
+	background: linear-gradient(150deg, #333, #111);
+	border-bottom: 0.1rem solid var(--grey-dim);
+	& h1 {
+		justify-self: start;
+		margin: 0;
+	}
+}
+main {
+	padding: 1rem 1rem;
+	background: linear-gradient(45deg, var(--slate), var(--black));
+}
+
+button {
+	font-size: 1.5rem;
+	padding: 0.2lh 1ch;
+	font-family: 'Noto Serif', serif;
+	font-weight: 600;
+	border: 0.1em solid var(--color);
+	outline: 0.05em solid #fff3;
+	outline-offset: -0.1em;
+	border-radius: var(--corner-radius);
+	color: var(--color);
+	background-color: var(--bg-color);
+	transition: all 360ms;
+		&:hover {
+		cursor: pointer;
+		text-shadow: 0 0 0.2em var(--color);
+		box-shadow: 0 0 0.4em var(--color);
+		outline-width: 0.1em;
+		transition: all 120ms;
+	}
+	&:disabled {
+		cursor: auto;
+		text-shadow: none;
+		box-shadow: none;
+		outline-width: 0.05em;
+		outline-offset: -0.05em;
+		opacity: 50%;
+	}
+}
+
+input {
+	font-size: 1.5rem;
+	padding: 0.2lh 1ch;
+	font-family: 'Noto Serif', serif;
+	font-weight: 600;
+	border: 0.1em solid var(--color);
+	outline: 0.05em solid #fff3;
+	outline-offset: -0.1em;
+	border-radius: 0.2em;
+	color: var(--white);
+	background-color: var(--bg-color);
+}
+
+table {
+	border-collapse: collapse;
+	width: 90%;
+	text-align: left;
+	margin: 1rem;
+}
+th, td, table > caption {
+	padding: 0 1rem;
+}
+
+table > caption {
+	text-align: left;
+	font-size: 2.5rem;
+}
+
+tr:has([data-result='Victory']) {
+	background: linear-gradient(to left, var(--agility-green-transparent), transparent 90%);
+	border: 2px solid var(--agility-green-transparent-border);
+	border-right-color: var(--agility-green);
+	border-left: none;
+	background: linear-gradient(to left, var(--agility-green-transparent), transparent);
+}
+tr:has([data-result='Defeat']) {
+	background: linear-gradient(to left, var(--strength-red-transparent), transparent 90%);
+	border: 2px solid var(--strength-red-transparent-border);
+	border-right-color: var(--strength-red);
+	border-left: none;
+	background: linear-gradient(to left, var(--strength-red-transparent), transparent);
+}
+
+
+.rare {
+	--color: var(--c-rare);
+	--bg-color: var(--slate);
+}
+
+.epic {
+	--color: var(--c-epic);
+	--bg-color: var(--slate);
+}
+.artifact {
+	--color: var(--c-artifact);
+	--bg-color: var(--c-artifact);
+}
+
+.radiant {
+	--color: var(--agility-green);
+	color: var(--color);
+	text-shadow: 0 0 0.4em var(--color);
+	&.gradient {
+		background: linear-gradient(to right, var(--agility-green-transparent), transparent);
+	}
+}
+
+.dire {
+	--color: var(--strength-red);
+	color: var(--color);
+	text-shadow: 0 0 0.4em var(--color);
+	&.gradient {
+		background: linear-gradient(to left, var(--strength-red-transparent), transparent);
+	}
+}
+
+.neutral {
+	--color: var(--white);
+	color: var(--color);
+	text-shadow: none;
+}
+
+.box {
+	padding: 0.2lh 1ch;
+	border: 0.1em solid var(--color);
+	border-radius: var(--corner-radius);
+	outline: 0.05em solid #fff3;
+	outline-offset: -0.1em;
+	background-color: var(--bg-color);
+	transition: all 360ms;
+	&:hover {
+		text-shadow: 0 0 0.2em var(--color);
+		box-shadow: 0 0 0.4em var(--color);
+		outline-width: 0.1em;
+		transition: all 120ms;
+	}
+}
+
+.flex-row {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	gap: 1em;
+}
+
+.flex-column {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.even-row {
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: 1fr;
+	place-items: center;
+}
+
+.match-grid {
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
+}
+
+.hover-box {
+	position: absolute;
+	bottom: 10%;
+	left: -6ch;
+	display: none;
+	z-index: 1;
+	width: 12ch;
+	background-color: var(--slate-transparent);
+	& h2 {
+		font-size: 1rem;
+		margin: 0;
+	}
+	& span {
+		font-size: 0.8rem;
+	}
+}
+
+.match-summary:hover {
+	cursor: pointer;	
+	filter: brightness(1.2);
+}
+
+#calls-left {
+	text-align: center;
+	& h2 {
+		font-size: 1.2rem;
+		margin: 0 0 0.2lh;
+		letter-spacing: 8%;
+	}
+}
+
+#profile {
+	display: grid;
+	width: fit-content;
+	place-items: center start;
+	gap: 0.5rem;
+	grid-template-areas: 
+	"pnm avt mdl"
+	"pnm avt mdl"
+	"acc avt mdl"
+	;
+	& > * {
+		margin: 0;
+		padding: 0;
+	}
+}
+
+[data-grid='pnm'] {grid-area: pnm;}
+[data-grid='acc'] {grid-area: acc;}
+[data-grid='avt'] {
+	grid-area: avt;
+	height: 3lh;
+}
+[data-grid='mdl'] {
+	grid-area: mdl;
+	height: 3lh;
+	justify-self: center;
+}
+[data-grid='rnk'] {
+	grid-row: 3;
+	grid-column: 3;
+}
+
+[data-cell='hero-img'] {
+	display: grid;
+	place-items: center;
+	padding: 0.2em;
+	& img {
+		height: 4lh;
+		outline: 1px solid #fff1;
+		outline-offset: -1px;
+		box-shadow: -8px 0 8px #0002;
+		transition: all 360ms;
+		&:hover {
+			outline-color: #fff2;
+			box-shadow: 0 0 16px #8882;
+			transition: all 120ms;
+		}
+	}
+}
+
+[data-cell='result'], [data-cell='side'], .kda {
+	font-size: 1.5rem;
+}
+[data-result='Victory'] {
+	color: var(--c-artifact);
+
+}
+[data-result='Defeat'] {
+	color: var(--grey-lit);
+}
+[data-side='Radiant'] {
+	color: var(--agility-green);
+	text-shadow: 0 0 4px var(--agility-green);
+}
+[data-side='Dire'] {
+	color: var(--strength-red);
+	text-shadow: 0 0 4px var(--strength-red);
+}
+[data-cell='duration'] {
+	font-size: 2.5rem;
+}
+
+#match-history {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#rank-distribution {
+	margin: 0.5rem;
+	border: var(--border);
+	border-radius: var(--corner-radius);
+	background: linear-gradient(-180deg, var(--black), var(--slate));
+	padding: 1rem 6ch 0.5rem;
+	aspect-ratio: 5/2;
+	display: flex;
+	flex-direction: row;
+	align-items: end;
+	justify-content: space-around;
+	gap: 0.4em;
+	& .rank-bar {
+		position: relative;
+		gap: 0.2em 0;
+		& > .flex-row {
+			height: 100%;
+			gap: 0;
+			align-items: end;
+		}
+		display: flex;
+		flex-direction: column;
+		justify-content: end;
+		height: 100%;
+		border-radius: 0.5em;
+		& .bar {
+			border: var(--border);
+			width: 100%;
+			border-top-left-radius: 0.1rem;
+			border-top-right-radius: 0.1rem;
+			&[data-role="count"] {
+				background-color: var(--c-artifact-transparent);
+				border-color: var(--c-artifact);
+				&.player-rank {
+					background-color: var(--c-common-transparent);
+					border-color: var(--c-common);
+				}
+			}
+			&[data-role="percentile"] {
+				background-color: var(--c-rare-transparent);
+				border-color: var(--c-rare);
+				&.player-rank {
+					background-color: var(--c-epic-transparent);
+					border-color: var(--c-epic);
+				}
+			}
+		}
+		& img.rank-medal {
+			width: 100%;
+		}
+	}
+	& .rank-bar:hover {
+		background-color: #fff1;
+		& .bar {
+			&[data-role="count"] {
+				background-color: var(--c-artifact);
+				&.player-rank {
+					background-color: var(--c-common);
+				}
+			}
+			&[data-role="percentile"] {
+				background-color: var(--c-rare);
+				&.player-rank {
+					background-color: var(--c-epic);
+				}
+			}
+		}
+		& .hover-box {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+
+		}
+	}
+}

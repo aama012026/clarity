@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="../../public/static/style.css">
+	<script src="../../public/static/datastar.js" type="module"></script>
+	<script src="../main.ts" type="module"></script>
+	<title>Clarity - Dota2 stat viewer</title>
+</head>
+
+<body>
+	<header>
+		<h1>Clarity</h1>
+		<section id="calls-left" data-signals="{callsLeft: {minute: 60, today: 3000}}" data-on:callsleftupdate__document="$callsLeft = evt.detail">
+			<h2>API calls remaining</h2>
+			<div class="flex-row">
+				<div class="epic box"><span>minute: </span><span data-text="$callsLeft.minute"></span></div>
+				<div class="rare box"><span>today: </span><span data-text="$callsLeft.today"></span></div>
+			</div>
+		</section>
+	</header>
+	<main>
+		<div class="flex-row">
+			<section id="profile" data-show="!!$accountId" data-on:profileupdate__document="[
+					$personaName, $accountId, $steamAvatar,	$rankMedal,	$rankString
+				] = evt.detail"
+			>
+				<h2 data-grid="pnm" data-text="$personaName"></h2>
+				<span data-grid="acc">ID: <span data-text="$accountId"></span></span>
+				<img data-grid="avt" data-attr="{src: $steamAvatar, alt:`${$personaname}'s steam avatar`}">
+				<img data-grid="mdl" data-attr="{src: $rankMedal, alt:$rankString}">
+				<span data-grid="rnk" data-text="$rankString"></span>
+			</section>
+			<div>
+				<label for="search-input">Enter a 8 or 9-digit steam account-id or a persona-name</label>
+				<input type="text" data-bind:search-term data-init="$searchTerm = ''" 
+					data-computed:is-number="!!$searchTerm.match(/^\d*$/)" data-class="{rare: !!$isNumber, epic: !$isNumber}">
+				<button type="button" class="epic" disabled data-show="!$isNumber" data-attr:disabled="!$searchTerm" 
+					data-on:click="searchTypedAccount($searchTerm)">search persona
+				</button>
+				<button type="button" class="rare" disabled data-show="$isNumber" data-attr:disabled="!$searchTerm.match(/^\d{8,9}$/)"
+					data-on:click="searchTypedAccount(parseInt($searchTerm))">search account
+				</button>
+			</div>
+		</div>
+		<div id="rank-distribution"></div>
+		<article id="match-view" data-show="!!$matchId" data-on:matchset__document="[
+			$matchId, $matchFetchTime, $matchStartTime, $matchLength, $matchGameMode,
+			$matchLobbyType, $matchRadiantKills, $matchDireKills, $matchWinner
+			] = evt.detail"
+		>
+			<section class="match-grid">
+				<h2 data-text="`Match ${$matchId}`"></h2>
+				<div class="flex-column">
+					<span data-text="`Start: ${$matchStartTime}`"></span>
+					<span data-text="`Fetch: ${$matchFetchTime}`"></span>
+				</div>
+				<div class="flex-column">
+					<span data-text="`Gamemode ${$matchGameMode}`"></span>
+					<span data-text="`LobbyType ${$matchLobbyType}`"></span>
+				</div>
+			</section>
+			<section class="match-grid" data-computed:radiant-won="$matchWinner === 1">
+				<div class="even-row radiant" data-class:gradient="$radiantWon">
+					<span class="radiant">Radiant</span>
+					<span data-class="{radiant:$radiantWon, neutral:!$radiantWon}" data-text="$radiantWon ? 'Victory' : 'Defeat'"></span>
+					<span class="neutral" data-text="`Kills: ${$matchRadiantKills}`"></span>
+				</div>
+				<span data-text="`${$matchLength}`"></span>
+				<div class="even-row dire" data-class:gradient="!$radiant.won">
+					<span class="neutral" data-text="`Kills: ${$matchDireKills}`"></span>
+					<span data-class="{dire:!$radiantWon, neutral:$radiantWon}" data-text="!$radiantWon ? 'Victory' : 'Defeat'"></span>
+					<span class="dire">Dire</span>
+				</div>
+			</section>
+		</article>
+		<div id="match-history"></div>
+	</main>
+</body>
+
+<template id="match-history-template">
+	<h2>Match History</h2>
+	<table>
+		<thead>
+			<tr>
+				<th scope="col">Match</th>
+				<th scope="col">Hero</th>
+				<th scope="col">Result</th>
+				<th scope="col">Duration</th>
+				<th scope="col">Score</th>
+				<th scope="col">Type</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+</template>
+
+<template id="match-summary-template">
+	<tr class="match-summary">
+		<td>
+			<div data-cell="match-id">Match:</div>
+			<div data-cell="match-time">Time:</div>
+		</td>
+		<td data-cell="hero-img"></td>
+		<td>
+			<div data-cell="result"></div>
+			<div data-cell="side"></div>
+		</td>
+		<td data-cell="duration"></td>
+		<td class="kda">
+			<span>Kda:
+				<span data-cell="kills"></span> /
+				<span data-cell="deaths"></span> /
+				<span data-cell="assists"></span>
+			</span>
+		</td>
+		<td >
+			<div data-cell="gamemode"></div>
+			<div data-cell="lobby-type"></div>
+			<div data-cell="left"></div>
+		</td>
+	</tr>
+</template>
+</html>
+
+<template id="rank-bar-template">
+	<div class="rank-bar">
+		<div class="flex-row">
+			<div class="bar" data-role="count"></div>
+			<div class="bar" data-role="percentile"></div>
+		</div>
+		<div>
+			<img class="rank-medal">
+		</div>
+		<div class="rare hover-box box">
+			<h2 data-role="rank-name"></h2>
+			<span data-role="player-count"></span>
+			<span data-role="player-percentile"></span>
+		</div>
+	</div>
+</template>

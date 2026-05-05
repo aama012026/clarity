@@ -1,0 +1,637 @@
+[
+	{
+		"key": 1,
+		"label": "npc_dota_hero_antimage",
+		"extId": 1
+	},
+	{
+		"key": 2,
+		"label": "npc_dota_hero_axe",
+		"extId": 2
+	},
+	{
+		"key": 3,
+		"label": "npc_dota_hero_bane",
+		"extId": 3
+	},
+	{
+		"key": 4,
+		"label": "npc_dota_hero_bloodseeker",
+		"extId": 4
+	},
+	{
+		"key": 5,
+		"label": "npc_dota_hero_crystal_maiden",
+		"extId": 5
+	},
+	{
+		"key": 6,
+		"label": "npc_dota_hero_drow_ranger",
+		"extId": 6
+	},
+	{
+		"key": 7,
+		"label": "npc_dota_hero_earthshaker",
+		"extId": 7
+	},
+	{
+		"key": 8,
+		"label": "npc_dota_hero_juggernaut",
+		"extId": 8
+	},
+	{
+		"key": 9,
+		"label": "npc_dota_hero_mirana",
+		"extId": 9
+	},
+	{
+		"key": 10,
+		"label": "npc_dota_hero_morphling",
+		"extId": 10
+	},
+	{
+		"key": 11,
+		"label": "npc_dota_hero_nevermore",
+		"extId": 11
+	},
+	{
+		"key": 12,
+		"label": "npc_dota_hero_phantom_lancer",
+		"extId": 12
+	},
+	{
+		"key": 13,
+		"label": "npc_dota_hero_puck",
+		"extId": 13
+	},
+	{
+		"key": 14,
+		"label": "npc_dota_hero_pudge",
+		"extId": 14
+	},
+	{
+		"key": 15,
+		"label": "npc_dota_hero_razor",
+		"extId": 15
+	},
+	{
+		"key": 16,
+		"label": "npc_dota_hero_sand_king",
+		"extId": 16
+	},
+	{
+		"key": 17,
+		"label": "npc_dota_hero_storm_spirit",
+		"extId": 17
+	},
+	{
+		"key": 18,
+		"label": "npc_dota_hero_sven",
+		"extId": 18
+	},
+	{
+		"key": 19,
+		"label": "npc_dota_hero_tiny",
+		"extId": 19
+	},
+	{
+		"key": 20,
+		"label": "npc_dota_hero_vengefulspirit",
+		"extId": 20
+	},
+	{
+		"key": 21,
+		"label": "npc_dota_hero_windrunner",
+		"extId": 21
+	},
+	{
+		"key": 22,
+		"label": "npc_dota_hero_zuus",
+		"extId": 22
+	},
+	{
+		"key": 23,
+		"label": "npc_dota_hero_kunkka",
+		"extId": 23
+	},
+	{
+		"key": 25,
+		"label": "npc_dota_hero_lina",
+		"extId": 25
+	},
+	{
+		"key": 26,
+		"label": "npc_dota_hero_lion",
+		"extId": 26
+	},
+	{
+		"key": 27,
+		"label": "npc_dota_hero_shadow_shaman",
+		"extId": 27
+	},
+	{
+		"key": 28,
+		"label": "npc_dota_hero_slardar",
+		"extId": 28
+	},
+	{
+		"key": 29,
+		"label": "npc_dota_hero_tidehunter",
+		"extId": 29
+	},
+	{
+		"key": 30,
+		"label": "npc_dota_hero_witch_doctor",
+		"extId": 30
+	},
+	{
+		"key": 31,
+		"label": "npc_dota_hero_lich",
+		"extId": 31
+	},
+	{
+		"key": 32,
+		"label": "npc_dota_hero_riki",
+		"extId": 32
+	},
+	{
+		"key": 33,
+		"label": "npc_dota_hero_enigma",
+		"extId": 33
+	},
+	{
+		"key": 34,
+		"label": "npc_dota_hero_tinker",
+		"extId": 34
+	},
+	{
+		"key": 35,
+		"label": "npc_dota_hero_sniper",
+		"extId": 35
+	},
+	{
+		"key": 36,
+		"label": "npc_dota_hero_necrolyte",
+		"extId": 36
+	},
+	{
+		"key": 37,
+		"label": "npc_dota_hero_warlock",
+		"extId": 37
+	},
+	{
+		"key": 38,
+		"label": "npc_dota_hero_beastmaster",
+		"extId": 38
+	},
+	{
+		"key": 39,
+		"label": "npc_dota_hero_queenofpain",
+		"extId": 39
+	},
+	{
+		"key": 40,
+		"label": "npc_dota_hero_venomancer",
+		"extId": 40
+	},
+	{
+		"key": 41,
+		"label": "npc_dota_hero_faceless_void",
+		"extId": 41
+	},
+	{
+		"key": 42,
+		"label": "npc_dota_hero_skeleton_king",
+		"extId": 42
+	},
+	{
+		"key": 43,
+		"label": "npc_dota_hero_death_prophet",
+		"extId": 43
+	},
+	{
+		"key": 44,
+		"label": "npc_dota_hero_phantom_assassin",
+		"extId": 44
+	},
+	{
+		"key": 45,
+		"label": "npc_dota_hero_pugna",
+		"extId": 45
+	},
+	{
+		"key": 46,
+		"label": "npc_dota_hero_templar_assassin",
+		"extId": 46
+	},
+	{
+		"key": 47,
+		"label": "npc_dota_hero_viper",
+		"extId": 47
+	},
+	{
+		"key": 48,
+		"label": "npc_dota_hero_luna",
+		"extId": 48
+	},
+	{
+		"key": 49,
+		"label": "npc_dota_hero_dragon_knight",
+		"extId": 49
+	},
+	{
+		"key": 50,
+		"label": "npc_dota_hero_dazzle",
+		"extId": 50
+	},
+	{
+		"key": 51,
+		"label": "npc_dota_hero_rattletrap",
+		"extId": 51
+	},
+	{
+		"key": 52,
+		"label": "npc_dota_hero_leshrac",
+		"extId": 52
+	},
+	{
+		"key": 53,
+		"label": "npc_dota_hero_furion",
+		"extId": 53
+	},
+	{
+		"key": 54,
+		"label": "npc_dota_hero_life_stealer",
+		"extId": 54
+	},
+	{
+		"key": 55,
+		"label": "npc_dota_hero_dark_seer",
+		"extId": 55
+	},
+	{
+		"key": 56,
+		"label": "npc_dota_hero_clinkz",
+		"extId": 56
+	},
+	{
+		"key": 57,
+		"label": "npc_dota_hero_omniknight",
+		"extId": 57
+	},
+	{
+		"key": 58,
+		"label": "npc_dota_hero_enchantress",
+		"extId": 58
+	},
+	{
+		"key": 59,
+		"label": "npc_dota_hero_huskar",
+		"extId": 59
+	},
+	{
+		"key": 60,
+		"label": "npc_dota_hero_night_stalker",
+		"extId": 60
+	},
+	{
+		"key": 61,
+		"label": "npc_dota_hero_broodmother",
+		"extId": 61
+	},
+	{
+		"key": 62,
+		"label": "npc_dota_hero_bounty_hunter",
+		"extId": 62
+	},
+	{
+		"key": 63,
+		"label": "npc_dota_hero_weaver",
+		"extId": 63
+	},
+	{
+		"key": 64,
+		"label": "npc_dota_hero_jakiro",
+		"extId": 64
+	},
+	{
+		"key": 65,
+		"label": "npc_dota_hero_batrider",
+		"extId": 65
+	},
+	{
+		"key": 66,
+		"label": "npc_dota_hero_chen",
+		"extId": 66
+	},
+	{
+		"key": 67,
+		"label": "npc_dota_hero_spectre",
+		"extId": 67
+	},
+	{
+		"key": 68,
+		"label": "npc_dota_hero_ancient_apparition",
+		"extId": 68
+	},
+	{
+		"key": 69,
+		"label": "npc_dota_hero_doom_bringer",
+		"extId": 69
+	},
+	{
+		"key": 70,
+		"label": "npc_dota_hero_ursa",
+		"extId": 70
+	},
+	{
+		"key": 71,
+		"label": "npc_dota_hero_spirit_breaker",
+		"extId": 71
+	},
+	{
+		"key": 72,
+		"label": "npc_dota_hero_gyrocopter",
+		"extId": 72
+	},
+	{
+		"key": 73,
+		"label": "npc_dota_hero_alchemist",
+		"extId": 73
+	},
+	{
+		"key": 74,
+		"label": "npc_dota_hero_invoker",
+		"extId": 74
+	},
+	{
+		"key": 75,
+		"label": "npc_dota_hero_silencer",
+		"extId": 75
+	},
+	{
+		"key": 76,
+		"label": "npc_dota_hero_obsidian_destroyer",
+		"extId": 76
+	},
+	{
+		"key": 77,
+		"label": "npc_dota_hero_lycan",
+		"extId": 77
+	},
+	{
+		"key": 78,
+		"label": "npc_dota_hero_brewmaster",
+		"extId": 78
+	},
+	{
+		"key": 79,
+		"label": "npc_dota_hero_shadow_demon",
+		"extId": 79
+	},
+	{
+		"key": 80,
+		"label": "npc_dota_hero_lone_druid",
+		"extId": 80
+	},
+	{
+		"key": 81,
+		"label": "npc_dota_hero_chaos_knight",
+		"extId": 81
+	},
+	{
+		"key": 82,
+		"label": "npc_dota_hero_meepo",
+		"extId": 82
+	},
+	{
+		"key": 83,
+		"label": "npc_dota_hero_treant",
+		"extId": 83
+	},
+	{
+		"key": 84,
+		"label": "npc_dota_hero_ogre_magi",
+		"extId": 84
+	},
+	{
+		"key": 85,
+		"label": "npc_dota_hero_undying",
+		"extId": 85
+	},
+	{
+		"key": 86,
+		"label": "npc_dota_hero_rubick",
+		"extId": 86
+	},
+	{
+		"key": 87,
+		"label": "npc_dota_hero_disruptor",
+		"extId": 87
+	},
+	{
+		"key": 88,
+		"label": "npc_dota_hero_nyx_assassin",
+		"extId": 88
+	},
+	{
+		"key": 89,
+		"label": "npc_dota_hero_naga_siren",
+		"extId": 89
+	},
+	{
+		"key": 90,
+		"label": "npc_dota_hero_keeper_of_the_light",
+		"extId": 90
+	},
+	{
+		"key": 91,
+		"label": "npc_dota_hero_wisp",
+		"extId": 91
+	},
+	{
+		"key": 92,
+		"label": "npc_dota_hero_visage",
+		"extId": 92
+	},
+	{
+		"key": 93,
+		"label": "npc_dota_hero_slark",
+		"extId": 93
+	},
+	{
+		"key": 94,
+		"label": "npc_dota_hero_medusa",
+		"extId": 94
+	},
+	{
+		"key": 95,
+		"label": "npc_dota_hero_troll_warlord",
+		"extId": 95
+	},
+	{
+		"key": 96,
+		"label": "npc_dota_hero_centaur",
+		"extId": 96
+	},
+	{
+		"key": 97,
+		"label": "npc_dota_hero_magnataur",
+		"extId": 97
+	},
+	{
+		"key": 98,
+		"label": "npc_dota_hero_shredder",
+		"extId": 98
+	},
+	{
+		"key": 99,
+		"label": "npc_dota_hero_bristleback",
+		"extId": 99
+	},
+	{
+		"key": 100,
+		"label": "npc_dota_hero_tusk",
+		"extId": 100
+	},
+	{
+		"key": 101,
+		"label": "npc_dota_hero_skywrath_mage",
+		"extId": 101
+	},
+	{
+		"key": 102,
+		"label": "npc_dota_hero_abaddon",
+		"extId": 102
+	},
+	{
+		"key": 103,
+		"label": "npc_dota_hero_elder_titan",
+		"extId": 103
+	},
+	{
+		"key": 104,
+		"label": "npc_dota_hero_legion_commander",
+		"extId": 104
+	},
+	{
+		"key": 105,
+		"label": "npc_dota_hero_techies",
+		"extId": 105
+	},
+	{
+		"key": 106,
+		"label": "npc_dota_hero_ember_spirit",
+		"extId": 106
+	},
+	{
+		"key": 107,
+		"label": "npc_dota_hero_earth_spirit",
+		"extId": 107
+	},
+	{
+		"key": 108,
+		"label": "npc_dota_hero_abyssal_underlord",
+		"extId": 108
+	},
+	{
+		"key": 109,
+		"label": "npc_dota_hero_terrorblade",
+		"extId": 109
+	},
+	{
+		"key": 110,
+		"label": "npc_dota_hero_phoenix",
+		"extId": 110
+	},
+	{
+		"key": 111,
+		"label": "npc_dota_hero_oracle",
+		"extId": 111
+	},
+	{
+		"key": 112,
+		"label": "npc_dota_hero_winter_wyvern",
+		"extId": 112
+	},
+	{
+		"key": 113,
+		"label": "npc_dota_hero_arc_warden",
+		"extId": 113
+	},
+	{
+		"key": 114,
+		"label": "npc_dota_hero_monkey_king",
+		"extId": 114
+	},
+	{
+		"key": 119,
+		"label": "npc_dota_hero_dark_willow",
+		"extId": 119
+	},
+	{
+		"key": 120,
+		"label": "npc_dota_hero_pangolier",
+		"extId": 120
+	},
+	{
+		"key": 121,
+		"label": "npc_dota_hero_grimstroke",
+		"extId": 121
+	},
+	{
+		"key": 123,
+		"label": "npc_dota_hero_hoodwink",
+		"extId": 123
+	},
+	{
+		"key": 126,
+		"label": "npc_dota_hero_void_spirit",
+		"extId": 126
+	},
+	{
+		"key": 128,
+		"label": "npc_dota_hero_snapfire",
+		"extId": 128
+	},
+	{
+		"key": 129,
+		"label": "npc_dota_hero_mars",
+		"extId": 129
+	},
+	{
+		"key": 131,
+		"label": "npc_dota_hero_ringmaster",
+		"extId": 131
+	},
+	{
+		"key": 135,
+		"label": "npc_dota_hero_dawnbreaker",
+		"extId": 135
+	},
+	{
+		"key": 136,
+		"label": "npc_dota_hero_marci",
+		"extId": 136
+	},
+	{
+		"key": 137,
+		"label": "npc_dota_hero_primal_beast",
+		"extId": 137
+	},
+	{
+		"key": 138,
+		"label": "npc_dota_hero_muerta",
+		"extId": 138
+	},
+	{
+		"key": 145,
+		"label": "npc_dota_hero_kez",
+		"extId": 145
+	},
+	{
+		"key": 155,
+		"label": "npc_dota_hero_largo",
+		"extId": 155
+	}
+]
