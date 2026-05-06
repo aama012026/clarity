@@ -5,7 +5,7 @@ import {getLocalOrSet, round, setLocal, tryGetElement, tryGetLocal, type NamedEl
 	type Result, type UnixTimestamp 
 } from './modules/flow.js';
 import {bindPlayer, formatFullMatch, formatMatchSummary, formatRankDistribution,
-	formatSparseMatch, heroLabels, RANK_NAMES, type Benchmark, type FullMatch,
+	formatSparseMatch, heroLabels, RANK_NAMES, type FullMatch,
 	type Player, type PlayerMatchSummary, type RankDistribution, type RankStats,
 	type SparseMatch
 } from './modules/bindings.js';
@@ -109,18 +109,6 @@ function updateCallsLeft(callsToSubtract?: number): void {
 	document.dispatchEvent( new CustomEvent('callsleftupdate', evtObj))
 }
 
-function setProfile(player: Player) {
-	const {id, personaName} = player.profile.account
-	const avatar = player.profile.steam?.avatar
-	const selImg = avatar?.full ? avatar?.full : (
-		avatar?.medium ? avatar.medium : avatar?.small
-	)
-	const rankMedal = getMedalImgPath(player.rank)
-	const rankTitle = getRankTitle(player.rank, player.leaderboardPos)
-	const evtObj = {detail: [personaName, id, selImg, rankMedal, rankTitle]}
-	document.dispatchEvent(new CustomEvent('profileupdate', evtObj))
-}
-
 async function setMatch(matchId: MatchId) {
 	console.log(`Setting match: ${matchId}`)
 	const match = await tryGetMatch(matchId)
@@ -181,7 +169,6 @@ async function searchTypedAccount(searchTerm: string | AccountId) {
 		throw new Error(`could not get player data for ${searchTerm}`)
 	}
 	const player = playerResult.data
-	setProfile(player)
 	const matchesResponse = await tryGetMatches(player.profile.account.id)
 	const matchHistory: PlayerMatchSummary[] = matchesResponse.data.map(match => 
 		formatMatchSummary(match, player.profile.account.id)

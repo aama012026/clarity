@@ -1,0 +1,25 @@
+<template id="match-summary">
+	<tr class="match-summary" data-on:click="@get('/match/%{matchId: number}')">
+		<td>
+			<div>Match: %{matchId: number}</div>
+			<div>Time: %{startTime: string}<div>
+		</td>
+		<td><img class="hero %{attribute: string}" data-hero="%{heroKey: number}"
+				src="%{imgSrc: string}" alt="%{imgAlt: string}"
+			>
+		</td>
+		<td>
+			<div data-result="%{result: string}">%{result: string}</div>
+			<div data-side="%{side: string}">%{side: string}</div>
+		</td>
+		<td>%{duration: string}</td>
+		<td>
+			<span>Kda: %{kills: number} / %{deaths: number} / %{assists: number}</span>
+		</td>
+		<td>
+			<div>%{gameMode: string}</div>
+			<div>%{lobbyType: string}</div>
+			<div data-show="%{showLeaverStatus: boolean}">%{leaverStatus: string}</div>
+		</td>
+	</tr>
+</template>

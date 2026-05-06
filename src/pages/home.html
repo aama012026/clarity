@@ -27,15 +27,12 @@
 	</header>
 	<main>
 		<div class="flex-row">
-			<section id="profile" data-show="!!$accountId" data-on:profileupdate__document="[
-					$personaName, $accountId, $steamAvatar,	$rankMedal,	$rankString
-				] = evt.detail"
-			>
+			<section id="profile" data-show="!!$accountId">
 				<h2 data-grid="pnm" data-text="$personaName"></h2>
 				<span data-grid="acc">ID: <span data-text="$accountId"></span></span>
 				<img data-grid="avt" data-attr="{src: $steamAvatar, alt:`${$personaname}'s steam avatar`}">
-				<img data-grid="mdl" data-attr="{src: $rankMedal, alt:$rankString}">
-				<span data-grid="rnk" data-text="$rankString"></span>
+				<img data-grid="mdl" data-attr="{src: $rankMedal, alt:$rankTitle}">
+				<span data-grid="rnk" data-text="$rankTitle"></span>
 			</section>
 			<div>
 				<label for="search-input">Enter a 8 or 9-digit steam account-id or a persona-name</label>
@@ -45,7 +42,7 @@
 					data-on:click="searchTypedAccount($searchTerm)">search persona
 				</button>
 				<button type="button" class="rare" disabled data-show="$isNumber" data-attr:disabled="!$searchTerm.match(/^\d{8,9}$/)"
-					data-on:click="@get('/profile')">search account
+					data-on:click="@get(`/account/${$searchTerm}`)">search account
 				</button>
 			</div>
 		</div>
