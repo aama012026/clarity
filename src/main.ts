@@ -4,7 +4,7 @@ import {PATHS} from './modules/paths.js';
 import {getLocalOrSet, round, setLocal, tryGetElement, tryGetLocal, type NamedElement,
 	type Result, type UnixTimestamp 
 } from './modules/flow.js';
-import {bindPlayer, formatFullMatch, formatMatchSummary, formatRankDistribution,
+import {bindPlayer, formatFullMatch, bindMatchSummary, formatRankDistribution,
 	formatSparseMatch, heroLabels, RANK_NAMES, type FullMatch,
 	type Player, type PlayerMatchSummary, type RankDistribution, type RankStats,
 	type SparseMatch
@@ -66,8 +66,6 @@ Object.assign(window, {
 // let benchmarks = tryGetLocal<Benchmark[]>(LocalDataKey.Benchmarks)
 
 const templates = {
-	matchHistory: tryGetElement<HTMLTemplateElement>('#match-history-template'),
-	matchSummary: tryGetElement<HTMLTemplateElement>('#match-summary-template'),
 	rankBar: tryGetElement<HTMLTemplateElement>('#rank-bar-template')
 }
 
@@ -171,13 +169,7 @@ async function searchTypedAccount(searchTerm: string | AccountId) {
 	const player = playerResult.data
 	const matchesResponse = await tryGetMatches(player.profile.account.id)
 	const matchHistory: PlayerMatchSummary[] = matchesResponse.data.map(match => 
-		formatMatchSummary(match, player.profile.account.id)
-	)
-	const fragment = document.importNode(templates.matchHistory.content, true)
-	sections.matchHistory.replaceChildren(fragment)
-	const matchHistoryBody = sections.matchHistory.querySelector('tbody')
-	matchHistory.forEach(match => 
-		matchHistoryBody!.append(createMatchSummary(match))
+		bindMatchSummary(match, player.profile.account.id)
 	)
 }
 
@@ -280,62 +272,6 @@ function createRankDistributionBars(ranks: RankStats[]) {
 		el.percentile.textContent = `Percentile: ${round((cumulative / sum) * 100, 2)}`
 		sections.rankDistribution.append(rankBarFragment.node)
 	})
-
-}
-
-function createMatchSummary(playerMatch: PlayerMatchSummary): HTMLTableRowElement {
-	const {match, player, hero} = playerMatch
-	const startTime = match.startTime ? new Date(match.startTime).toLocaleString() : 'unknown'
-	const rowFragment: NamedElement = {
-		node: document.importNode(templates.matchSummary.content, true),
-		name: 'matchSummaryFragment'
-	}
-	const cells = {
-		root: tryGetElement<HTMLTableRowElement>('.match-summary', rowFragment),
-		matchId: tryGetElement<HTMLDivElement>('[data-cell="match-id"]', rowFragment),
-		matchTime: tryGetElement<HTMLDivElement>('[data-cell="match-time"]', rowFragment),
-		heroImg: tryGetElement<HTMLTableCellElement>('[data-cell="hero-img"]', rowFragment),
-		result: tryGetElement<HTMLDivElement>('[data-cell="result"]', rowFragment),
-		side: tryGetElement<HTMLDivElement>('[data-cell="side"]', rowFragment),
-		duration: tryGetElement<HTMLTableCellElement>('[data-cell="duration"]', rowFragment),
-		kills: tryGetElement<HTMLSpanElement>('[data-cell="kills"]', rowFragment),
-		deaths: tryGetElement<HTMLSpanElement>('[data-cell="deaths"]', rowFragment),
-		assists: tryGetElement<HTMLSpanElement>('[data-cell="assists"]', rowFragment),
-		gamemode: tryGetElement<HTMLDivElement>('[data-cell="gamemode"]', rowFragment),
-		lobbyType: tryGetElement<HTMLDivElement>('[data-cell="lobby-type"]', rowFragment),
-		leftGame: tryGetElement<HTMLDivElement>('[data-cell="left"]', rowFragment),
-	}
-	cells.root.addEventListener('click', _ => setMatch(match.id))
-	const heroImg = document.createElement('img')
-	heroImg.src = `${PATHS.IMG.HEROES}/${heroLabels[hero.id]}.png`
-	heroImg.alt = heroLabels[hero.id]!
-	let result = 'Result unavailable'
-	let side = 'Side unavailable'
-	if(player.slot) {
-		const playerTeam = player.slot < 128 ? 0 : 1
-		result = match.winningTeam === playerTeam ? 'Victory' : 'Defeat'
-		cells.result.dataset['result'] = result
-		side = playerTeam === 0 ? 'Radiant' : 'Dire'
-		cells.side.dataset['side'] = side
-	}
-	cells.matchId.textContent = `Match: ${match.id}`
-	cells.matchTime.textContent = `Time: ${startTime}`
-	cells.heroImg.append(heroImg)
-	cells.result.textContent = result
-	cells.side.textContent = side
-	cells.duration.textContent = timerStringFromSeconds(match.lengthSeconds)
-	cells.kills.textContent = hero.kda.kills.toString()
-	cells.deaths.textContent = hero.kda.deaths.toString()
-	cells.assists.textContent = hero.kda.assists.toString()
-	cells.gamemode.textContent = match.gameMode.toString()
-	cells.lobbyType.textContent = match.lobbyType.toString()
-	if(player.leaverStatus != LEAVER_STATUS.NONE) {
-		cells.leftGame.textContent = leaverStatusByKey[player.leaverStatus]
-	}
-	else {
-		cells.leftGame.remove()
-	}
-	return rowFragment.node as HTMLTableRowElement
 }
 
 function timerStringFromSeconds(duration: number): string {

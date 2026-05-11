@@ -203,3 +203,16 @@ export function round(number: number, decimals?: number): number {
 	const factor = Math.pow(10, decimals ?? 0)
 	return Math.round(number * factor) / factor
 }
+
+export function log(msg: string, log: string[]): void {
+	log.push(msg)
+	console.log(`\n${new Date().toUTCString()}\n${msg}`)
+}
+export function logWarning(msg: string, log: string[]): void {
+	log.push(msg)
+	console.warn(`\n${new Date().toUTCString()}\n${msg}`)
+}
+export function logError(msg: string, log: string[]): void {
+	log.push(msg)
+	console.error(`\n${new Date().toUTCString()}\n${msg}`)
+}

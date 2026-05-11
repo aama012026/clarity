@@ -395,7 +395,7 @@ export interface PlayerMatchSummary {
 	}
 }
 
-export function formatMatchSummary(summary: MatchForPlayer, player: AccountId): PlayerMatchSummary {
+export function bindMatchSummary(summary: MatchForPlayer, player: AccountId): PlayerMatchSummary {
 	const matchSummary: PlayerMatchSummary = {
 		match: {
 			id: summary.match_id,

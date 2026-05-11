@@ -1,12 +1,16 @@
 :root {
 	--c-common: #2BAB01;
 	--c-common-transparent: #2BAB0188;
+	--c-common-transparent-border: #2BAB0144;
 	--c-rare: #1A87F9;
 	--c-rare-transparent: #1a87f988;
+	--c-rare-transparent-border: #1a87f944;
 	--c-epic: #B812F9;
 	--c-epic-transparent: #B812F988;
+	--c-epic-transparent-border: #B812F944;
 	--c-artifact: #E29B01;
 	--c-artifact-transparent: #E29B0188;
+	--c-artifact-transparent-border: #E29B0144;
 
 	--strength-red: #ec3d06;
 	--strength-red-transparent: #ec3d0688;
@@ -133,19 +137,51 @@ tr:has([data-result='Defeat']) {
 	background: linear-gradient(to left, var(--strength-red-transparent), transparent);
 }
 
+img {
+	&.item {
+		border-radius: var(--corner-radius);
+	}
+}
+
+.consumable {
+	img& {
+		border: 1px solid var(--strength-red-transparent);
+	}
+}
+
+.component {
+	img& {
+		border: 1px solid #fff4;
+	}
+}
+
+.common {
+	img& {
+	border: 1px solid var(--c-common-transparent);
+	}
+}
 
 .rare {
 	--color: var(--c-rare);
 	--bg-color: var(--slate);
+	img& {
+		border: 1px solid var(--c-rare-transparent);
+	}
 }
 
 .epic {
 	--color: var(--c-epic);
 	--bg-color: var(--slate);
+	img& {
+		border: 1px solid var(--c-epic-transparent);
+	}
 }
 .artifact {
 	--color: var(--c-artifact);
 	--bg-color: var(--c-artifact);
+	img& {
+		border: 1px solid var(--c-artifact-transparent);
+	}
 }
 
 .radiant {
@@ -277,9 +313,9 @@ tr:has([data-result='Defeat']) {
 	grid-column: 3;
 }
 
-[data-cell='hero-img'] {
+td:has(img.hero) {
 	display: grid;
-	place-items: center;
+	place-items: center start;
 	padding: 0.2em;
 	& img {
 		height: 4lh;
@@ -295,7 +331,7 @@ tr:has([data-result='Defeat']) {
 	}
 }
 
-[data-cell='result'], [data-cell='side'], .kda {
+[data-result], [data-side], .kda {
 	font-size: 1.5rem;
 }
 [data-result='Victory'] {
@@ -313,7 +349,7 @@ tr:has([data-result='Defeat']) {
 	color: var(--strength-red);
 	text-shadow: 0 0 4px var(--strength-red);
 }
-[data-cell='duration'] {
+.match-clock {
 	font-size: 2.5rem;
 }
 
@@ -395,6 +431,31 @@ tr:has([data-result='Defeat']) {
 			flex-direction: column;
 			align-items: center;
 
+		}
+	}
+}
+#items {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1em;
+}
+
+.items-panel {
+	& > .grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1em;
+
+		& .grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr;
+			gap: 0.25em;
+			
+			& img {
+				min-height: 16px;
+				max-height: 64px;
+				aspect-ratio: 1/1;
+			}
 		}
 	}
 }

@@ -31,11 +31,21 @@ const functions = matches.map(([_, id, content]) => {
 	const body = content.trim()
 		.replaceAll(placehodlerExcludingType, '${$1}')
 		.replaceAll('`', '\\`')
-	return `export function ${name}(\n\t${params.join(',\n\t')}\n): string {
-		return html\`${body}\`
-	}`
+	const signatureName = `export function ${name}(`
+	const returnType = '): string {'
+	let paramString = params.join(', ')
+	if((signatureName + paramString + returnType).length > 80) {
+		paramString = `\n\t${params.join(',\n\t')}\n\t`
+	}
+	return(
+		`${signatureName}${paramString}${returnType}\n` +
+			`\treturn html\`${body}\`\n` +
+		`}`
+	)
 })
 
-await Bun.write('transpiled/templates.ts', `// We tag the literals for syntax highlighting
-const html = String.raw\n
-${functions.join('\n\n')}`)
+await Bun.write('transpiled/templates.ts',
+	'// We tag the literals for syntax highlighting\n' +
+	'const html = String.raw\n\n' +
+	functions.join('\n\n')
+)

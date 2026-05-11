@@ -1,3 +1,25 @@
+<!-- The templates in this file are converted to ts template literal generator
+functions by the builtTemplates.ts script. -->
+
+<template id="match-history-section">
+	<section id="match-history">
+		<h2>Match History</h2>
+		<table>
+			<thead>
+				<tr>
+					<th scope="col">Match</th>
+					<th scope="col">Hero</th>
+					<th scope="col">Result</th>
+					<th scope="col">Duration</th>
+					<th scope="col">Score</th>
+					<th scope="col">Type</th>
+				</tr>
+			</thead>
+			<tbody id="match-history-table"></tbody>
+		</table>
+	</section>
+</template>
+
 <template id="match-summary">
 	<tr class="match-summary" data-on:click="@get('/match/%{matchId: number}')">
 		<td>
@@ -12,7 +34,7 @@
 			<div data-result="%{result: string}">%{result: string}</div>
 			<div data-side="%{side: string}">%{side: string}</div>
 		</td>
-		<td>%{duration: string}</td>
+		<td class="match-clock">%{duration: string}</td>
 		<td>
 			<span>Kda: %{kills: number} / %{deaths: number} / %{assists: number}</span>
 		</td>
@@ -22,4 +44,66 @@
 			<div data-show="%{showLeaverStatus: boolean}">%{leaverStatus: string}</div>
 		</td>
 	</tr>
+</template>
+
+<template id="head">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+		<link rel="stylesheet" href="/static/style.css">
+		<script src="/static/datastar.js" type="module"></script>
+		<title>%{title: string}</title>
+	</head>
+</template>
+
+<template id="header">
+	<header>
+		<h1>%{title: string}</h1>
+		<nav>
+			<a href="%{a1Link: string}">%{a1Text: string}</a>
+			<a href="%{a2Link: string}">%{a2Text: string}</a>
+		</nav>
+	</header>
+</template>
+
+<template id="items-page">
+	<!DOCTYPE html>
+	<html>
+	%{head: string}
+	<body>
+		%{header: string}
+		<main>
+			<section class="flex" id="items">
+				%{basics: string}
+				%{upgrades: string}
+				%{neutrals: string}
+			</section>
+		</main>
+	</body>
+	</html>
+</template>
+
+<template id="items-panel">
+	<section class="items-panel">
+		<h2>%{panelName: string}</h2>
+		<div class="grid">%{itemGrids: string}</div>
+	</section>
+</template>
+
+<template id="item-grid">
+	<section id="items-%{category: string}">
+		<h3>%{category: string}</h3>
+		<div class="grid">%{items: string}</div>
+	</section>
+</template>
+
+<template id="item">
+	<img class="item %{quality: string}" src="%{imgSrc: string}" alt="%{imgAlt: string}"
+		data-attr="{inactive: !(/$itemSearch/gmi.test(%{name: string}))}"
+	>
 </template>

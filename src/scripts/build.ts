@@ -14,13 +14,21 @@ const ITEMS_PATH = `${DATA_PATH}/${FILES.DATA.ITEMS}`
 const ABILITY_ID_BINDINGS_PATH = `${DATA_PATH}/${FILES.BINDINGS.ABILITIES}`
 
 import type { DotaConstantsHero, DotaConstantsItem } from '../types/DotaConstantsTypes.js'
-import { tryGetImg, assert, tryGetJson } from '../modules/flow.js'
+import { tryGetImg, assert, tryGetJson, logWarning } from '../modules/flow.js'
 import { tryReadJSON, tryWriteImg, tryWriteJSON } from '../modules/flowNode.js'
 import type { Hero, IdBinding, Item, Targets } from '../types/BoundTypes.js'
 import { DIR, FILES, PATHS } from '../modules/paths.js'
+import type { ItemKey, ItemLabel } from '../modules/bindings.js'
+
+const itemLog = {
+	msg: [] as string[],
+	warnings: [] as string[],
+	errors: [] as string[]
+}
 
 const imgErrors: string[] = []
 await tryUpdateItems()
+
 // Heroes
 const heroResult = await tryGetJson<Record<string, DotaConstantsHero>>(HEROES_URL)
 if(heroResult.ok) {
@@ -85,6 +93,9 @@ async function tryUpdateItems() {
 	const ItemKeysByExtId = Object.fromEntries(
 		itemIdBindings.map(item => [item.extId, item.key])
 	) as Record<ItemExtId, ItemKey>
+	const itemsByKey = Object.fromEntries(
+		itemIdBindings.map(item => [item.key, item.label])
+	) as Record<ItemKey, ItemLabel>
 	
 	const itemsResult = await tryGetJson<Record<string, DotaConstantsItem>>(ITEMS_URL)
 	if(!(itemsResult.ok && itemIdsResult.data)) {
@@ -93,7 +104,7 @@ async function tryUpdateItems() {
 	}
 	const items = Object.entries(itemsResult.data!)
 	const boundItems = Object.fromEntries(
-		items.map(([label, item]) => [label, bindItem(item, ItemKeysByExtId)])
+		items.map(([label, item]) => [label, bindItem(item, ItemKeysByExtId, itemsByKey)])
 	) as Record<ItemLabel, Item>
 	
 	const err = await tryWriteJSON(ITEMS_PATH, boundItems)
@@ -286,14 +297,24 @@ function bindHero(hero: DotaConstantsHero, keysByExtId: Record<number, number>):
 	}
 }
 
-function bindItem(item: DotaConstantsItem, keysByExtId: Record<number, number>): Item {
+function bindItem(item: DotaConstantsItem, keysByExtId: Record<number, number>, itemsByKey: Record<ItemKey, ItemLabel>): Item {
+	const id = keysByExtId[item.id]!
+	let name = item.dname
+	if(!name) {
+		const label = itemsByKey[item.id]!
+		logWarning(`${label} does not have property dname. Attempting to generate name`, itemLog.warnings)
+		name = generateMissingItemName(label)
+	}
 	const boundItem: Item = {
 		id: keysByExtId[item.id]!,
-		name: item.dname,
+		name: name,
 		lore: item.lore,
-	}
-	if(item.cost) {
-		boundItem.goldPrice = item.cost
+		goldPrice: item.cost ?? undefined,
+		quality: item.qual ?? undefined,
+		notes: item.notes ?? undefined,
+		dispellable: item.dispellable ?? undefined,
+		dmgType: item.dmg_type ?? undefined,
+		tier: item.tier ?? undefined
 	}
 	if(typeof item.charges === 'number' && item.charges > 0) {
 		boundItem.charges = item.charges
@@ -306,12 +327,6 @@ function bindItem(item: DotaConstantsItem, keysByExtId: Record<number, number>):
 	}
 	if(typeof item.cd === 'number') {
 		boundItem.cooldown = item.cd
-	}
-	if(item.qual) {
-		boundItem.quality = item.qual
-	}
-	if(item.notes) {
-		boundItem.notes = item.notes
 	}
 	if(item.abilities && item.abilities.length > 0) {
 		boundItem.abilities = item.abilities
@@ -345,11 +360,16 @@ function bindItem(item: DotaConstantsItem, keysByExtId: Record<number, number>):
 	if(item.bkbpierce) {
 		boundItem.piercesBkb = item.bkbpierce === 'Yes' ? true : false
 	}
-	if(item.dmg_type) {
-		boundItem.dmgType = item.dmg_type
-	}
-	if(item.tier) {
-		boundItem.tier = item.tier
-	}
 	return boundItem
+}
+
+function generateMissingItemName(label: string): string {
+	const parts = label.split('_')
+	// If first part is recipe, we move it to the end
+	if(parts[0] === 'recipe') {
+		parts.push(parts.shift()!)
+	}
+	return parts.map(
+		(part) => part[0]?.toUpperCase() + part.slice(1)
+	).join(' ')
 }

@@ -1,15 +1,50 @@
 const VERSION = 0.0
+const LOG = {
+	SSE: 1,
+	OPENDOTA: 1,
+} satisfies Record<string, number>
 
-import home from './src/pages/home.html'
+import * as ITEMS from './src/modules/itemConstants'
 
 import heroes from './public/generated/data/heroes.json'
+import itemJson from './public/generated/data/items.json'
+const items = itemJson as Record<ItemLabel, Item>
 
-import { makeMatchSummary } from './transpiled/templates';
-import { DIR, PATHS } from './src/modules/paths';
-import { bindPlayer, heroLabels, RANK_NAMES, type Player, type PlayerMatchSummary } from './src/modules/bindings';
-import { LEAVER_STATUS, leaverStatusByKey, type MatchForPlayer, type OdotaPlayer, type RankBitmask } from './src/types/OpenDotaTypes';
+
+
+import homePage from './src/pages/home.html'
+import heroesPage from './src/pages/heroes.html'
+const itemsPage = makeItemsPage(
+	makeHead('Clarity - Items'),
+	makeHeader('Items', '/', 'home', '/heroes', 'heroes'),
+	makeItemsPanel('BASICS',
+		generateItemGrid('CONS') +
+		generateItemGrid('ATTR') +
+		generateItemGrid('EQUI') +
+		generateItemGrid('MISC') +
+		generateItemGrid('SECR'),
+	),
+	makeItemsPanel('UPGRADES',
+		generateItemGrid('ACCE') +
+		generateItemGrid('SUPP') +
+		generateItemGrid('MAGI') +
+		generateItemGrid('ARMO') +
+		generateItemGrid('WEAP') +
+		generateItemGrid('ARMA'),
+	),
+	makeItemsPanel('NEUTRAL ARTIFACTS',	
+		generateItemGrid('ARTI') +
+		generateItemGrid('ENCH')
+	)
+)
+
+import { makeHead, makeHeader, makeItem, makeItemGrid, makeItemsPage, makeItemsPanel, makeMatchHistorySection, makeMatchSummary } from './transpiled/templates';
+import { PATHS } from './src/modules/paths';
+import { bindPlayer, bindMatchSummary, heroLabels, RANK_NAMES, type Player, type PlayerMatchSummary, type ItemLabel } from './src/modules/bindings';
+import { LEAVER_STATUS, leaverStatusByKey, type AccountId, type MatchForPlayer, type OdotaPlayer, type RankBitmask } from './src/types/OpenDotaTypes';
 
 import axios from 'axios';
+import type { Item } from './src/types/BoundTypes'
 axios.defaults.baseURL = 'https://api.opendota.com/api'
 
 const ENDPOINT = {
@@ -40,15 +75,19 @@ const ENDPOINT = {
 	CONSTANTS: '/rankings',
 } as const
 
-
 console.log(`Clarity ver ${VERSION}`);
 const server = Bun.serve({
 	routes: {
-		'/': home, 
-		'/account/:accountId': async r => sendAccountIdResponse(r.params.accountId),
+		'/heroes': heroesPage,
+		'/items': new Response(itemsPage, {headers: {'Content-Type': 'text/html'}}),
+		'/': homePage, 
+		'/account/:accountId': async (r, s) => {
+			s.timeout(r, 0) 
+			return sendAccountIdResponse(r.params.accountId)
+		},
 		'/*': (request) => {
 			try {
-				return new Response(Bun.file(`./public/${new URL(request.url).pathname}`))
+				return new Response(Bun.file(`./public${new URL(request.url).pathname}`))
 			}
 			catch {
 				return Response.json({message: "Not found"}, {status: 404})
@@ -59,22 +98,27 @@ const server = Bun.serve({
 })
 console.log(`server running @ ${server.url}`)
 
-async function sendAccountIdResponse(id: string) {
-	let controller: ReadableStreamDefaultController
+function sendAccountIdResponse(accountId: string) {
+	const id = parseInt(accountId) as AccountId
 	const stream = new ReadableStream({
-		start(c) {controller = c},
+		start(c) {Promise.all([
+			axios.get<OdotaPlayer>(`${ENDPOINT.PLAYERS}/${id}`).then(
+				r => {
+					log(LOG.OPENDOTA, 1, `Fetched player from odota: ${id}\n`)
+					log(LOG.OPENDOTA, 2, JSON.stringify(r.data, null, '\t'))
+					c.enqueue(patchProfileSignals(bindPlayer(r.data)))}
+			),
+			axios.get<MatchForPlayer[]>(`${ENDPOINT.PLAYERS}/${id}/matches`).then(
+				r => {
+					c.enqueue(patchElements(makeMatchHistorySection().split('\n')))
+					r.data.forEach(match => {
+						c.enqueue(patchMatchSummary(bindMatchSummary(match, id)))
+					})
+				}
+			),
+		]).finally(() => c.close())},
 		cancel() {}
 	})
-	Promise.all([
-		axios.get<OdotaPlayer>(`${ENDPOINT.PLAYERS}/${parseInt(id)}`).then(
-			r => {controller.enqueue(patchProfileSignals(bindPlayer(r.data)))}
-		),
-		axios.get<MatchForPlayer[]>(`${ENDPOINT.PLAYERS}/${parseInt(id)}/matches`).then(
-			// Match history logic
-		),
-
-
-	])
 	return new Response(stream, {
 		headers: {
 			"Content-Type": "text/event-stream",
@@ -83,27 +127,46 @@ async function sendAccountIdResponse(id: string) {
 	})
 }
 
-function patchSignals(data: Record<string, any>, onlyIfMissing: boolean = false): string {
-	return ( 
+function patchSignals(
+	data: Record<string, any>,
+	onlyIfMissing: boolean = false
+): string {
+	const ssEvent = ( 
 		`event: datastar-patch-signals\n` + 
 		`data: onlyIfMissing ${onlyIfMissing}\n` +
 		`data: signals ${JSON.stringify(data)}\n\n`
 	)
-}
-
-function patchElements(data: string[], modifiers?: string[]) {
-	let ssEvent = `event: datastar-patch-elements\n`
-	modifiers?.forEach(mod => ssEvent += `data: ${mod}\n`)
-	data.forEach(line => ssEvent += `data: elements ${line}\n`)
-	ssEvent += '\n'
+	log(LOG.SSE, 2, ssEvent)
 	return ssEvent
 }
 
-function bindMatchDataToSummary(summary: PlayerMatchSummary) {
+interface DatastarEventModifiers {
+	selector?: string,
+	mode?: 'outer' | 'inner' | 'replace' | 'prepend' | 'append' | 'before' | 'after' | 'remove',
+	namespace?: 'svg' | 'mathml',
+	useViewTransition?: boolean
+}
+
+function patchElements(data: string[], modifiers?: DatastarEventModifiers) {
+	let ssEvent = `event: datastar-patch-elements\n`
+	if(modifiers) {
+		const {selector, mode, namespace, useViewTransition} = modifiers
+		ssEvent += selector ? `data: selector ${selector}\n` : ''
+		ssEvent += mode ? `data: mode ${mode}\n` : ''
+		ssEvent += namespace ? `namespace: ${namespace}\n` : ''
+		ssEvent += useViewTransition ? `useViewTransition true\n` : ''
+	}
+	data.forEach(line => ssEvent += `data: elements ${line}\n`)
+	ssEvent += '\n'
+	log(LOG.SSE, 2, ssEvent)
+	return ssEvent
+}
+
+function patchMatchSummary(summary: PlayerMatchSummary): string {
 	const {match, player, hero} = summary
 	const startTime = match.startTime ? new Date(match.startTime).toLocaleString() : 'unknown'
 	const heroAttribute = heroes[hero.id]?.attributes.primary ?? 'missingAttr'
-	const imgSrc = `${DIR.ROOT}/${PATHS.IMG.HEROES}/${heroLabels[hero.id]}`
+	const imgSrc = `${PATHS.IMG.HEROES}/${heroLabels[hero.id]}.png`
 	const imgAlt = heroLabels[hero.id] ?? 'not found'
 	const duration = timerStringFromSeconds(match.lengthSeconds)
 	const leaverStatus = leaverStatusByKey[player.leaverStatus]
@@ -115,13 +178,18 @@ function bindMatchDataToSummary(summary: PlayerMatchSummary) {
 		side = playerTeam === 0 ? 'Radiant' : 'Dire'
 
 	}
-	// TODO: make template function divide template into array by newlines.
-	return makeMatchSummary(match.id, startTime, heroAttribute,	hero.id,
-		imgSrc,	imgAlt,	result, side, duration,
-		hero.kda.kills, hero.kda.deaths, hero.kda.assists,
-		match.gameMode.toString(), match.lobbyType.toString(),
-		player.leaverStatus !== LEAVER_STATUS.NONE, leaverStatus
+	const matchSummary = patchElements(
+		makeMatchSummary(
+			match.id, startTime, heroAttribute,	hero.id,
+			imgSrc,	imgAlt,	result, side, duration,
+			hero.kda.kills, hero.kda.deaths, hero.kda.assists,
+			match.gameMode.toString(), match.lobbyType.toString(),
+			player.leaverStatus !== LEAVER_STATUS.NONE, leaverStatus
+		).split('\n'),
+		{selector: '#match-history-table', mode: 'append'}
 	)
+	log(LOG.SSE, 1, `Made SSE for match summary: ${match.id}`)
+	return matchSummary
 }
 
 function timerStringFromSeconds(duration: number): string {
@@ -133,19 +201,21 @@ function timerStringFromSeconds(duration: number): string {
 	return `${hoursString}${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
 
-function patchProfileSignals(player: Player) {
+function patchProfileSignals(player: Player): string {
 	const {id, personaName} = player.profile.account
 	const avatar = player.profile.steam?.avatar
 	const selImg = avatar?.full ? avatar?.full : (
 		avatar?.medium ? avatar.medium : avatar?.small
 	)
-	return patchSignals({
+	const profile = patchSignals({
 		accountId: id,
 		personaName: personaName ?? '',
 		steamAvatar: selImg ?? '',
 		rankMedal: getMedalImgPath(player.rank),
 		rankTitle: getRankTitle(player.rank, player.leaderboardPos)
 	})
+	log(LOG.SSE, 1, `Made signal patch for profile: ${id}`)
+	return profile
 }
 
 function getMedalImgPath(rank: RankBitmask | undefined, leaderboardPos?: number) {
@@ -174,4 +244,30 @@ function getRankTitle(rank: RankBitmask | undefined, leaderboardPos?: number): s
 	const star = rank % 10
 	const medal = RANK_NAMES[(rank - star) / 10]
 	return `${medal} ${medal != 'immortal' ? star : leaderboardPos}`
+}
+
+function log(lvlToBeat: number, level: number, msg: string) {
+	if(level <= lvlToBeat) {
+		console.log(`${new Date().toUTCString()}`)
+		console.log(msg + '\n')
+	}
+}
+
+function generateItemGrid(group: ITEMS.GroupName) {
+	return makeItemGrid(
+		ITEMS.GROUP[group].label.toUpperCase(),
+		Object.entries(ITEMS.GROUP_BY_ITEM).reduce(
+			(itemElements, [itemLabel, groupKey]) => { 
+				if(groupKey === ITEMS.GROUP[group].key) {
+					itemElements += makeItem(
+						(items[itemLabel]?.quality) ?? '',
+						`${PATHS.IMG.ITEMS}/${itemLabel}.png`,
+						itemLabel,
+						itemLabel
+					)
+				}
+				return itemElements
+			}, ''
+		)
+	)
 }

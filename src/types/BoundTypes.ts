@@ -1,6 +1,6 @@
 import type { ItemAbility, ItemAttribute } from "./DotaConstantsTypes.js"
 
-interface Id {key: number, label: string}
+export interface Id {key: number, label: string}
 export interface IdBinding<T> extends Id {extId: T}
 
 export interface Hero {

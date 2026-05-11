@@ -4,9 +4,9 @@
 		"name": "Blink Dagger",
 		"lore": "The fabled dagger used by the fastest assassin ever to walk the lands.",
 		"goldPrice": 2250,
-		"cooldown": 15,
 		"quality": "component",
 		"notes": "Self-casting will cause you to teleport in the direction of your team's fountain.",
+		"cooldown": 15,
 		"abilities": [
 			{
 				"type": "active",
@@ -37,9 +37,10 @@
 		"name": "Overwhelming Blink",
 		"lore": "A horrifying dagger forged in the chaos maw and nigh untouchable by mortal hands.",
 		"goldPrice": 6800,
-		"cooldown": 15,
 		"quality": "component",
 		"notes": "Self-casting will cause you to teleport in the direction of your team's fountain.",
+		"dmgType": "Magical",
+		"cooldown": 15,
 		"abilities": [
 			{
 				"type": "active",
@@ -100,17 +101,16 @@
 		],
 		"behavior": [
 			"Point Target"
-		],
-		"dmgType": "Magical"
+		]
 	},
 	"swift_blink": {
 		"id": 603,
 		"name": "Swift Blink",
 		"lore": "A cunning blade able to anticipate and enable its bearer's movements.",
 		"goldPrice": 6800,
-		"cooldown": 15,
 		"quality": "component",
 		"notes": "Self-casting will cause you to teleport in the direction of your team's fountain.",
+		"cooldown": 15,
 		"abilities": [
 			{
 				"type": "active",
@@ -162,9 +162,9 @@
 		"name": "Arcane Blink",
 		"lore": "A revitalizing tool to help bear the weight of arcane expenditure.",
 		"goldPrice": 6800,
-		"cooldown": 9,
 		"quality": "component",
 		"notes": "Self-casting will cause you to teleport in the direction of your team's fountain.",
+		"cooldown": 9,
 		"abilities": [
 			{
 				"type": "active",
@@ -219,19 +219,22 @@
 		"id": 606,
 		"name": "Arcane Blink Recipe",
 		"lore": "",
-		"goldPrice": 1750
+		"goldPrice": 1750,
+		"notes": ""
 	},
 	"recipe_swift_blink": {
 		"id": 607,
 		"name": "Swift Blink Recipe",
 		"lore": "",
-		"goldPrice": 1750
+		"goldPrice": 1750,
+		"notes": ""
 	},
 	"recipe_overwhelming_blink": {
 		"id": 608,
 		"name": "Overwhelming Blink Recipe",
 		"lore": "",
-		"goldPrice": 1750
+		"goldPrice": 1750,
+		"notes": ""
 	},
 	"blades_of_attack": {
 		"id": 2,
@@ -239,6 +242,7 @@
 		"lore": "The damage of these small, concealable blades should not be underestimated.",
 		"goldPrice": 450,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_damage",
@@ -253,6 +257,7 @@
 		"lore": "The classic weapon of choice for knights, this blade is sturdy and reliable for slaying enemies.",
 		"goldPrice": 1000,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_damage",
@@ -267,6 +272,7 @@
 		"lore": "A medium weave of metal chains.",
 		"goldPrice": 500,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_armor",
@@ -289,6 +295,7 @@
 		"lore": "",
 		"goldPrice": 950,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_armor",
@@ -303,6 +310,7 @@
 		"lore": "A sword that can cut through armor, it's a commonly chosen first weapon for budding swordsmen.",
 		"goldPrice": 1350,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_damage",
@@ -317,6 +325,7 @@
 		"lore": "The helmet of a legendary warrior who fell in battle.",
 		"goldPrice": 975,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_armor",
@@ -336,6 +345,7 @@
 		"lore": "A rather typical spear that can sometimes pierce through an enemy's armor when used to attack.",
 		"goldPrice": 900,
 		"quality": "component",
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -360,6 +370,7 @@
 		"lore": "A hammer forged of pure mithril.",
 		"goldPrice": 1600,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_damage",
@@ -374,6 +385,7 @@
 		"lore": "Thick metal plates that protect the entire upper body. Avoid dropping on feet.",
 		"goldPrice": 1400,
 		"quality": "secret_shop",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_armor",
@@ -388,6 +400,7 @@
 		"lore": "A basic staff that allows you to strike quickly.",
 		"goldPrice": 875,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_speed",
@@ -406,9 +419,9 @@
 		"name": "Quelling Blade",
 		"lore": "The axe of a fallen gnome, it allows you to effectively maneuver the forest.",
 		"goldPrice": 100,
-		"cooldown": 4,
 		"quality": "component",
 		"notes": "Effects of multiple quelling blades do not stack.",
+		"cooldown": 4,
 		"abilities": [
 			{
 				"type": "active",
@@ -449,9 +462,10 @@
 		"name": "Faerie Fire",
 		"lore": "The ethereal flames from the ever-burning ruins of Kindertree ignite across realities.",
 		"goldPrice": 65,
+		"quality": "consumable",
+		"notes": "",
 		"charges": 1,
 		"cooldown": 5,
-		"quality": "consumable",
 		"abilities": [
 			{
 				"type": "use",
@@ -488,10 +502,10 @@
 		"name": "Infused Raindrops",
 		"lore": "Elemental protection from magical assaults.",
 		"goldPrice": 225,
-		"charges": 6,
-		"cooldown": 7,
 		"quality": "component",
 		"notes": "Uses at most one charge per damage instance.",
+		"charges": 6,
+		"cooldown": 7,
 		"abilities": [
 			{
 				"type": "passive",
@@ -525,6 +539,7 @@
 		"lore": "Hasten to battle on wind-touched heels.",
 		"goldPrice": 225,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "movement_speed",
@@ -542,6 +557,7 @@
 		"lore": "A glimmering ring that defends its bearer.",
 		"goldPrice": 175,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_armor",
@@ -585,6 +601,7 @@
 		"lore": "Said to be a tear from the lunar goddess Selemene.",
 		"goldPrice": 4000,
 		"quality": "consumable",
+		"notes": "",
 		"abilities": [
 			{
 				"type": "use",
@@ -640,6 +657,7 @@
 		"lore": "Studded leather gloves that add brute strength.",
 		"goldPrice": 140,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_strength",
@@ -654,6 +672,7 @@
 		"lore": "Light boots made from spider skin that tingles your senses.",
 		"goldPrice": 140,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_agility",
@@ -668,6 +687,7 @@
 		"lore": "A beautiful sapphire mantle worn by generations of queens.",
 		"goldPrice": 140,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_intellect",
@@ -682,6 +702,7 @@
 		"lore": "A seemingly ordinary branch, its ironlike qualities are bestowed upon the bearer.",
 		"goldPrice": 55,
 		"quality": "consumable",
+		"notes": "",
 		"abilities": [
 			{
 				"type": "use",
@@ -710,6 +731,7 @@
 		"lore": "A valued accessory for improving vitality.",
 		"goldPrice": 450,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_strength",
@@ -724,6 +746,7 @@
 		"lore": "A tensile fabric often used for its light weight and ease of movement.",
 		"goldPrice": 450,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_agility",
@@ -738,6 +761,7 @@
 		"lore": "This robe corrupts the soul of the user, but provides wisdom in return.",
 		"goldPrice": 450,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_intellect",
@@ -752,6 +776,7 @@
 		"lore": "An elegant circlet designed for human princesses.",
 		"goldPrice": 155,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_all_stats",
@@ -766,6 +791,7 @@
 		"lore": "A stately crown created to ensure a well-meaning but ungifted heir could fend off usurpers and govern with a strong hand.",
 		"goldPrice": 450,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_all_stats",
@@ -780,6 +806,7 @@
 		"lore": "A crown that can never be removed.",
 		"goldPrice": 1000,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_all_stats",
@@ -794,6 +821,7 @@
 		"lore": "You grow stronger just by holding it.",
 		"goldPrice": 1000,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_strength",
@@ -808,6 +836,7 @@
 		"lore": "A long blade imbued with time magic.",
 		"goldPrice": 1000,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_agility",
@@ -822,6 +851,7 @@
 		"lore": "A staff of magical powers passed down from the eldest mages.",
 		"goldPrice": 1000,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_intellect",
@@ -836,6 +866,7 @@
 		"lore": "A mystical orb containing the essence of life.",
 		"goldPrice": 2800,
 		"quality": "secret_shop",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_all_stats",
@@ -850,6 +881,7 @@
 		"lore": "A pair of magical gloves that seems to render weapons weightless.",
 		"goldPrice": 450,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_attack_speed",
@@ -864,6 +896,7 @@
 		"lore": "An underground arcanist's update of a back-alley classic.",
 		"goldPrice": 1000,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_attack_speed",
@@ -878,6 +911,7 @@
 		"lore": "A mask that drains the energy of those caught in its gaze.",
 		"goldPrice": 900,
 		"quality": "component",
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -921,6 +955,7 @@
 		"lore": "This ring is considered a good luck charm among the Gnomes.",
 		"goldPrice": 175,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_health_regen",
@@ -935,6 +970,7 @@
 		"lore": "A mask commonly used by mages and warlocks for various rituals.",
 		"goldPrice": 175,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_mana_regen",
@@ -949,6 +985,7 @@
 		"lore": "Fleet footwear, increasing movement.",
 		"goldPrice": 500,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_movement_speed",
@@ -965,9 +1002,9 @@
 		"name": "Gem of True Sight",
 		"lore": "Not one thrall creature of the depths,\r\nNor spirit bound in drowning's keep,\r\nNor Maelrawn the Tentacular,\r\nShall rest till seas, gem comes to sleep.",
 		"goldPrice": 900,
-		"cooldown": 12,
 		"quality": "component",
 		"notes": "Disabled while on a courier.",
+		"cooldown": 12,
 		"abilities": [
 			{
 				"type": "active",
@@ -1062,10 +1099,10 @@
 		"name": "Cheese",
 		"lore": "Made from the milk of a long lost Furbolg vendor, it restores the vitality of those who taste it.",
 		"goldPrice": 1000,
-		"charges": 1,
-		"cooldown": 40,
 		"quality": "consumable",
 		"notes": "Cheese is shareable.",
+		"charges": 1,
+		"cooldown": 40,
 		"abilities": [
 			{
 				"type": "use",
@@ -1093,9 +1130,9 @@
 		"name": "Magic Stick",
 		"lore": "A simple wand used to channel magic energies, it is favored by apprentice wizards and great warlocks alike.",
 		"goldPrice": 200,
-		"cooldown": 17,
 		"quality": "component",
 		"notes": "Gains charges for spells cast by visible enemies in 1200 range.\nCertain abilities and item abilities will not add charges.",
+		"cooldown": 17,
 		"abilities": [
 			{
 				"type": "active",
@@ -1126,16 +1163,17 @@
 		"id": 35,
 		"name": "Magic Wand Recipe",
 		"lore": "",
-		"goldPrice": 150
+		"goldPrice": 150,
+		"notes": ""
 	},
 	"magic_wand": {
 		"id": 36,
 		"name": "Magic Wand",
 		"lore": "A simple wand used to channel magic energies, it is favored by apprentice wizards and great warlocks alike.",
 		"goldPrice": 460,
-		"cooldown": 15,
 		"quality": "common",
 		"notes": "Gains charges for spells cast by visible enemies in 1200 range.\nCertain abilities and item abilities will not add charges.",
+		"cooldown": 15,
 		"abilities": [
 			{
 				"type": "active",
@@ -1177,9 +1215,10 @@
 		"name": "Ghost Scepter",
 		"lore": "Imbues the wielder with a ghostly presence, allowing them to evade physical damage.",
 		"goldPrice": 1500,
-		"cooldown": 22,
 		"quality": "component",
 		"notes": "Ends if you become Debuff Immune, and will have no effect if you are already Debuff Immune.\nShares cooldown with all Ghost Scepter upgrades.",
+		"dispellable": "Yes",
+		"cooldown": 22,
 		"abilities": [
 			{
 				"type": "active",
@@ -1205,16 +1244,17 @@
 		"behavior": [
 			"No Target",
 			"Instant Cast"
-		],
-		"dispellable": "Yes"
+		]
 	},
 	"clarity": {
 		"id": 38,
 		"name": "Clarity",
 		"lore": "Clear water that enhances the ability to meditate.",
 		"goldPrice": 60,
-		"charges": 1,
 		"quality": "consumable",
+		"notes": "",
+		"dispellable": "Yes",
+		"charges": 1,
 		"abilities": [
 			{
 				"type": "use",
@@ -1243,17 +1283,16 @@
 			"type": [
 				"Hero"
 			]
-		},
-		"dispellable": "Yes"
+		}
 	},
 	"enchanted_mango": {
 		"id": 216,
 		"name": "Enchanted Mango",
 		"lore": "The bittersweet flavors of Jidi Isle are irresistible to amphibians.",
 		"goldPrice": 65,
-		"charges": 1,
 		"quality": "consumable",
 		"notes": "Hold Control to use on a nearby allied hero.",
+		"charges": 1,
 		"abilities": [
 			{
 				"type": "use",
@@ -1289,10 +1328,11 @@
 		"id": 4204,
 		"name": "Healing Lotus",
 		"lore": "",
-		"charges": 1,
-		"cooldown": 5,
+		"goldPrice": 0,
 		"quality": "consumable",
 		"notes": "Hold Control to use on a nearby allied hero.",
+		"charges": 1,
+		"cooldown": 5,
 		"abilities": [
 			{
 				"type": "use",
@@ -1323,10 +1363,11 @@
 		"id": 4205,
 		"name": "Great Healing Lotus",
 		"lore": "",
-		"charges": 1,
-		"cooldown": 5,
+		"goldPrice": 0,
 		"quality": "consumable",
 		"notes": "Hold Control to use on a nearby allied hero.",
+		"charges": 1,
+		"cooldown": 5,
 		"abilities": [
 			{
 				"type": "use",
@@ -1362,10 +1403,11 @@
 		"id": 4206,
 		"name": "Greater Healing Lotus",
 		"lore": "",
-		"charges": 1,
-		"cooldown": 5,
+		"goldPrice": 0,
 		"quality": "consumable",
 		"notes": "Hold Control to use on a nearby allied hero.",
+		"charges": 1,
+		"cooldown": 5,
 		"abilities": [
 			{
 				"type": "use",
@@ -1401,9 +1443,10 @@
 		"name": "Blood Grenade",
 		"lore": "Both the hunter and the hunted must pay the blood price.",
 		"goldPrice": 50,
+		"quality": "consumable",
+		"notes": "",
 		"charges": 1,
 		"cooldown": 10,
-		"quality": "consumable",
 		"abilities": [
 			{
 				"type": "use",
@@ -1465,9 +1508,11 @@
 		"name": "Block of Cheese",
 		"lore": "First there was the Belt of Strength. Then there were the Boots of Travel. Now, at long last, the Block of Cheese.",
 		"goldPrice": 2,
+		"quality": "consumable",
+		"notes": "",
+		"dispellable": "No",
 		"charges": 1,
 		"cooldown": 40,
-		"quality": "consumable",
 		"abilities": [
 			{
 				"type": "use",
@@ -1512,16 +1557,17 @@
 			"type": [
 				"Hero"
 			]
-		},
-		"dispellable": "No"
+		}
 	},
 	"flask": {
 		"id": 39,
 		"name": "Healing Salve",
 		"lore": "A magical salve that can quickly mend even the deepest of wounds.",
 		"goldPrice": 100,
-		"charges": 1,
 		"quality": "consumable",
+		"notes": "",
+		"dispellable": "Yes",
+		"charges": 1,
 		"abilities": [
 			{
 				"type": "use",
@@ -1554,18 +1600,18 @@
 			"type": [
 				"Hero"
 			]
-		},
-		"dispellable": "Yes"
+		}
 	},
 	"dust": {
 		"id": 40,
 		"name": "Dust of Appearance",
 		"lore": "One may hide visage, but never volume.",
 		"goldPrice": 80,
-		"charges": 1,
-		"cooldown": 30,
 		"quality": "consumable",
 		"notes": "Places a debuff on enemy units in the area that reveals them when they are invisible.",
+		"dispellable": "Yes",
+		"charges": 1,
+		"cooldown": 30,
 		"abilities": [
 			{
 				"type": "use",
@@ -1598,17 +1644,16 @@
 		"behavior": [
 			"Instant Cast",
 			"No Target"
-		],
-		"dispellable": "Yes"
+		]
 	},
 	"bottle": {
 		"id": 41,
 		"name": "Bottle",
 		"lore": "An old bottle that survived the ages, the contents placed inside become enchanted.",
 		"goldPrice": 675,
-		"charges": 3,
 		"quality": "common",
 		"notes": "Bottle is shareable. Stored runes cannot be shared.\nUsing a stored Bounty or Water rune fully refills the bottle if the bottle was full when the rune was stored; otherwise, it refills two charges.",
+		"charges": 3,
 		"abilities": [
 			{
 				"type": "active",
@@ -1672,9 +1717,11 @@
 		"id": 42,
 		"name": "Observer Ward",
 		"lore": "A form of half-sentient plant, often cultivated by apprentice wizards.",
+		"goldPrice": 0,
+		"quality": "consumable",
+		"notes": "",
 		"charges": 1,
 		"cooldown": 1,
-		"quality": "consumable",
 		"abilities": [
 			{
 				"type": "use",
@@ -1718,9 +1765,10 @@
 		"name": "Sentry Ward",
 		"lore": "A form of plant originally grown in the garden of a fearful king.",
 		"goldPrice": 50,
+		"quality": "consumable",
+		"notes": "",
 		"charges": 1,
 		"cooldown": 1,
-		"quality": "consumable",
 		"abilities": [
 			{
 				"type": "use",
@@ -1849,8 +1897,9 @@
 		"name": "Tango",
 		"lore": "Forage to survive on the battlefield.",
 		"goldPrice": 90,
-		"charges": 3,
 		"quality": "consumable",
+		"notes": "",
+		"charges": 3,
 		"abilities": [
 			{
 				"type": "use",
@@ -1886,8 +1935,9 @@
 		"name": "Tango (Shared)",
 		"lore": "Om nom nom.",
 		"goldPrice": 30,
-		"charges": 1,
 		"quality": "consumable",
+		"notes": "",
+		"charges": 1,
 		"abilities": [
 			{
 				"type": "use",
@@ -1924,6 +1974,7 @@
 		"lore": "",
 		"goldPrice": 50,
 		"quality": "consumable",
+		"notes": "",
 		"behavior": [
 			"No Target"
 		]
@@ -1934,6 +1985,7 @@
 		"lore": "",
 		"goldPrice": 100,
 		"quality": "consumable",
+		"notes": "",
 		"behavior": [
 			"No Target"
 		]
@@ -1943,11 +1995,11 @@
 		"name": "Town Portal Scroll",
 		"lore": "What a hero truly needs.",
 		"goldPrice": 100,
+		"quality": "consumable",
+		"notes": "If multiple heroes teleport to the same location in succession, the channeling time will be increased for each successive hero.\nTeleport can be prevented or canceled by Root abilities.",
 		"charges": 1,
 		"manaCost": 75,
 		"cooldown": 80,
-		"quality": "consumable",
-		"notes": "If multiple heroes teleport to the same location in succession, the channeling time will be increased for each successive hero.\nTeleport can be prevented or canceled by Root abilities.",
 		"abilities": [
 			{
 				"type": "use",
@@ -1990,7 +2042,8 @@
 		"id": 47,
 		"name": "Boots of Travel Recipe",
 		"lore": "",
-		"goldPrice": 2000
+		"goldPrice": 2000,
+		"notes": ""
 	},
 	"travel_boots": {
 		"id": 48,
@@ -1998,6 +2051,7 @@
 		"lore": "Winged boots that grant omnipresence.",
 		"goldPrice": 2500,
 		"quality": "common",
+		"notes": "",
 		"abilities": [
 			{
 				"type": "upgrade",
@@ -2046,6 +2100,7 @@
 		"lore": "Winged boots that grant omnipresence.",
 		"goldPrice": 4500,
 		"quality": "common",
+		"notes": "",
 		"abilities": [
 			{
 				"type": "upgrade",
@@ -2099,8 +2154,9 @@
 		"name": "Phase Boots",
 		"lore": "Boots that allow the wearer to travel between the ether.",
 		"goldPrice": 1450,
-		"cooldown": 8,
 		"quality": "common",
+		"notes": "",
+		"cooldown": 8,
 		"abilities": [
 			{
 				"type": "active",
@@ -2165,6 +2221,7 @@
 		"lore": "One of the oldest weapons forged by the Demon-Smith Abzidian, it killed its maker when he tested its edge.",
 		"goldPrice": 2200,
 		"quality": "secret_shop",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_damage",
@@ -2179,6 +2236,7 @@
 		"lore": "Capturing the majestic call of an eagle, this mystical horn brings limitless dexterity to those who hear it.",
 		"goldPrice": 2800,
 		"quality": "secret_shop",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_agility",
@@ -2193,6 +2251,7 @@
 		"lore": "A massive axe capable of tearing whole mountains down.",
 		"goldPrice": 2800,
 		"quality": "secret_shop",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_strength",
@@ -2207,6 +2266,7 @@
 		"lore": "An ancient weapon that often turns the tides of war.",
 		"goldPrice": 3400,
 		"quality": "secret_shop",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_damage",
@@ -2221,6 +2281,7 @@
 		"lore": "A mystical, carved stone that boosts the fervor of the holder.",
 		"goldPrice": 2000,
 		"quality": "secret_shop",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_attack_speed",
@@ -2235,6 +2296,7 @@
 		"lore": "A shiny ring found beneath a fat halfling's corpse.",
 		"goldPrice": 700,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_health_regen",
@@ -2249,6 +2311,7 @@
 		"lore": "An ageless ring forged with an otherwise simple blood magic amplified by the presumed source of its key component.",
 		"goldPrice": 1700,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_health_regen",
@@ -2263,6 +2326,7 @@
 		"lore": "Jewelry that was once used to channel nether realm magic, this ring pulses with energy.",
 		"goldPrice": 700,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_mana_regen",
@@ -2277,6 +2341,7 @@
 		"lore": "A symbol of favor bestowed upon the high priestess of Selemene.",
 		"goldPrice": 1700,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_mana_regen",
@@ -2291,6 +2356,7 @@
 		"lore": "Enigmatic staff made of only the most expensive crystals.",
 		"goldPrice": 2800,
 		"quality": "secret_shop",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_intellect",
@@ -2305,6 +2371,7 @@
 		"lore": "This lapis gemstone is commonly added to the collection of wizards seeking to improve their presence in combat.",
 		"goldPrice": 800,
 		"quality": "secret_shop",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_mana",
@@ -2319,6 +2386,7 @@
 		"lore": "A perfectly formed amethyst that nourishes body and mind when held.",
 		"goldPrice": 1200,
 		"quality": "secret_shop",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_mana",
@@ -2338,6 +2406,7 @@
 		"lore": "A ruby gemstone that has been passed down through generations of warrior kin.",
 		"goldPrice": 1000,
 		"quality": "secret_shop",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_health",
@@ -2352,6 +2421,7 @@
 		"lore": "Fine and functional foppery for the fashion-forward fighter.",
 		"goldPrice": 250,
 		"quality": "secret_shop",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_health",
@@ -2365,6 +2435,7 @@
 		"name": "Wizard Hat",
 		"lore": "",
 		"goldPrice": 250,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_mana",
@@ -2430,15 +2501,17 @@
 		"id": 1106,
 		"name": "Phylactery Recipe",
 		"lore": "",
-		"goldPrice": 200
+		"goldPrice": 200,
+		"notes": ""
 	},
 	"phylactery": {
 		"id": 1107,
 		"name": "Phylactery",
 		"lore": "An amulet overflowing with powerful magics.",
 		"goldPrice": 2600,
-		"cooldown": 9,
 		"quality": "common",
+		"notes": "",
+		"cooldown": 9,
 		"abilities": [
 			{
 				"type": "passive",
@@ -2497,9 +2570,10 @@
 		"name": "Khanda",
 		"lore": "A blade sharp enough to slice through magic itself.",
 		"goldPrice": 5600,
-		"cooldown": 9,
 		"quality": "common",
 		"notes": "The slow debuff is dispellable.\nThe break debuff is not dispellable.",
+		"dispellable": "Yes",
+		"cooldown": 9,
 		"abilities": [
 			{
 				"type": "passive",
@@ -2557,23 +2631,23 @@
 			"type": [
 				"Hero"
 			]
-		},
-		"dispellable": "Yes"
+		}
 	},
 	"recipe_hand_of_midas": {
 		"id": 64,
 		"name": "Hand of Midas Recipe",
 		"lore": "",
-		"goldPrice": 1750
+		"goldPrice": 1750,
+		"notes": ""
 	},
 	"hand_of_midas": {
 		"id": 65,
 		"name": "Hand of Midas",
 		"lore": "Preserved through unknown magical means, the Hand of Midas is a weapon of greed, sacrificing animals to line the owner's pockets.",
 		"goldPrice": 2200,
-		"charges": 1,
 		"quality": "common",
 		"notes": "The gold given is unreliable gold (you do not get the normal creep bounty).\nExperience gained by using Transmute is not shared.",
+		"charges": 1,
 		"abilities": [
 			{
 				"type": "active",
@@ -2610,6 +2684,7 @@
 		"lore": "Deceptively hidden as an ordinary staff, it is actually very powerful, much like the Eldritch who originally possessed it.",
 		"goldPrice": 1625,
 		"quality": "common",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_intellect",
@@ -2637,15 +2712,17 @@
 		"id": 533,
 		"name": "Witch Blade Recipe",
 		"lore": "",
-		"goldPrice": 300
+		"goldPrice": 300,
+		"notes": ""
 	},
 	"witch_blade": {
 		"id": 534,
 		"name": "Witch Blade",
 		"lore": "A spiteful blade inadvertently possessed by the soul of its incautious creator.",
 		"goldPrice": 2775,
-		"cooldown": 9,
 		"quality": "common",
+		"notes": "",
+		"cooldown": 9,
 		"abilities": [
 			{
 				"type": "passive",
@@ -2704,6 +2781,7 @@
 		"lore": "A gem that grants heart to the bearer.",
 		"goldPrice": 1400,
 		"quality": "common",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_health_regen",
@@ -2727,6 +2805,7 @@
 		"lore": "A source of spiritual and physical nourishment.",
 		"goldPrice": 1200,
 		"quality": "common",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_health_regen",
@@ -2749,8 +2828,10 @@
 		"id": 71,
 		"name": "Poor Man's Shield",
 		"lore": "A busted old shield that seems to block more than it should.",
+		"goldPrice": 0,
 		"quality": "common",
 		"notes": "Multiple sources of damage block do not stack.",
+		"tier": 2,
 		"abilities": [
 			{
 				"type": "passive",
@@ -2779,14 +2860,14 @@
 				"key": "block_chance_hero",
 				"value": "100"
 			}
-		],
-		"tier": 2
+		]
 	},
 	"recipe_bracer": {
 		"id": 72,
 		"name": "Bracer Recipe",
 		"lore": "",
-		"goldPrice": 210
+		"goldPrice": 210,
+		"notes": ""
 	},
 	"bracer": {
 		"id": 73,
@@ -2794,6 +2875,7 @@
 		"lore": "The bracer is a common choice to toughen up defenses and increase longevity.",
 		"goldPrice": 505,
 		"quality": "common",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_strength",
@@ -2834,7 +2916,8 @@
 		"id": 74,
 		"name": "Wraith Band Recipe",
 		"lore": "",
-		"goldPrice": 210
+		"goldPrice": 210,
+		"notes": ""
 	},
 	"wraith_band": {
 		"id": 75,
@@ -2842,6 +2925,7 @@
 		"lore": "A circlet with faint whispers echoing about it.",
 		"goldPrice": 505,
 		"quality": "common",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_agility",
@@ -2878,7 +2962,8 @@
 		"id": 76,
 		"name": "Null Talisman Recipe",
 		"lore": "",
-		"goldPrice": 210
+		"goldPrice": 210,
+		"notes": ""
 	},
 	"null_talisman": {
 		"id": 77,
@@ -2886,6 +2971,7 @@
 		"lore": "A small gemstone attached to several chains.",
 		"goldPrice": 505,
 		"quality": "common",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_intellect",
@@ -2922,17 +3008,18 @@
 		"id": 78,
 		"name": "Mekansm Recipe",
 		"lore": "",
-		"goldPrice": 850
+		"goldPrice": 850,
+		"notes": ""
 	},
 	"mekansm": {
 		"id": 79,
 		"name": "Mekansm",
 		"lore": "A glowing jewel formed out of assorted parts that somehow fit together perfectly.",
 		"goldPrice": 1775,
-		"manaCost": 100,
-		"cooldown": 50,
 		"quality": "rare",
 		"notes": "Restore does not affect units that have been affected by Restore or Guardian Greaves Mend within Mekansm's cooldown.\nMultiple instances of Mekansm Aura do not stack.",
+		"manaCost": 100,
+		"cooldown": 50,
 		"abilities": [
 			{
 				"type": "active",
@@ -3044,17 +3131,21 @@
 	},
 	"recipe_wraith_pact": {
 		"id": 907,
+		"name": "Wraith Pact Recipe",
 		"lore": "",
-		"goldPrice": 400
+		"goldPrice": 400,
+		"notes": ""
 	},
 	"wraith_pact": {
 		"id": 908,
 		"name": "Wraith Pact",
 		"lore": "",
 		"goldPrice": 3800,
+		"quality": "rare",
+		"notes": "",
+		"dmgType": "Magical",
 		"manaCost": 100,
 		"cooldown": 60,
-		"quality": "rare",
 		"attributes": [
 			{
 				"key": "bonus_health",
@@ -3108,14 +3199,14 @@
 		"behavior": [
 			"Point Target"
 		],
-		"piercesBkb": false,
-		"dmgType": "Magical"
+		"piercesBkb": false
 	},
 	"recipe_buckler": {
 		"id": 85,
 		"name": "Buckler Recipe",
 		"lore": "",
 		"goldPrice": 250,
+		"notes": "",
 		"dispellable": "Yes"
 	},
 	"buckler": {
@@ -3124,6 +3215,7 @@
 		"lore": "A powerful shield that imbues the bearer with the strength of heroes past, it is capable of protecting entire armies in battle.",
 		"goldPrice": 425,
 		"quality": "rare",
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -3154,7 +3246,8 @@
 		"id": 87,
 		"name": "Ring of Basilius Recipe",
 		"lore": "",
-		"goldPrice": 250
+		"goldPrice": 250,
+		"notes": ""
 	},
 	"ring_of_basilius": {
 		"id": 88,
@@ -3162,6 +3255,7 @@
 		"lore": "Ring given as a reward to the greatest mages.",
 		"goldPrice": 425,
 		"quality": "rare",
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -3192,15 +3286,17 @@
 		"id": 268,
 		"name": "Holy Locket Recipe",
 		"lore": "",
-		"goldPrice": 1340
+		"goldPrice": 1340,
+		"notes": ""
 	},
 	"holy_locket": {
 		"id": 269,
 		"name": "Holy Locket",
 		"lore": "A prized relic long thought lost forever in a failed crusade.",
 		"goldPrice": 2250,
-		"charges": 1,
 		"quality": "rare",
+		"notes": "",
+		"charges": 1,
 		"abilities": [
 			{
 				"type": "active",
@@ -3286,17 +3382,18 @@
 		"id": 89,
 		"name": "Pipe of Insight Recipe",
 		"lore": "",
-		"goldPrice": 675
+		"goldPrice": 675,
+		"notes": ""
 	},
 	"pipe": {
 		"id": 90,
 		"name": "Pipe of Insight",
 		"lore": "A powerful artifact of mysterious origin, it creates barriers against magical forces.",
 		"goldPrice": 3725,
-		"manaCost": 150,
-		"cooldown": 60,
 		"quality": "rare",
 		"notes": "Barrier does not affect units that have been affected by Barrier within Pipe of Insight's cooldown.\nStacks multiplicatively with other sources of magic resistance.",
+		"manaCost": 150,
+		"cooldown": 60,
 		"abilities": [
 			{
 				"type": "active",
@@ -3372,16 +3469,18 @@
 		"id": 91,
 		"name": "Urn of Shadows Recipe",
 		"lore": "",
-		"goldPrice": 320
+		"goldPrice": 320,
+		"notes": ""
 	},
 	"urn_of_shadows": {
 		"id": 92,
 		"name": "Urn of Shadows",
 		"lore": "Contains the ashes of powerful demons.",
 		"goldPrice": 825,
-		"cooldown": 10,
 		"quality": "rare",
 		"notes": "Empty urns gain 2 charges.\nIf the allied unit is attacked by an enemy hero or Roshan, the effect is lost.\nDoes not trigger spell block or spell reflect.",
+		"dispellable": "Yes",
+		"cooldown": 10,
 		"abilities": [
 			{
 				"type": "active",
@@ -3446,14 +3545,14 @@
 			"type": [
 				"Hero"
 			]
-		},
-		"dispellable": "Yes"
+		}
 	},
 	"recipe_headdress": {
 		"id": 93,
 		"name": "Headdress Recipe",
 		"lore": "",
-		"goldPrice": 250
+		"goldPrice": 250,
+		"notes": ""
 	},
 	"headdress": {
 		"id": 94,
@@ -3461,6 +3560,7 @@
 		"lore": "Creates a soothing aura that restores allies in battle.",
 		"goldPrice": 425,
 		"quality": "rare",
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -3491,17 +3591,19 @@
 		"id": 95,
 		"name": "Scythe of Vyse Recipe",
 		"lore": "",
-		"goldPrice": 700
+		"goldPrice": 700,
+		"notes": ""
 	},
 	"sheepstick": {
 		"id": 96,
 		"name": "Scythe of Vyse",
 		"lore": "The most guarded relic among the cult of Vyse, it is the most coveted weapon among magi.",
 		"goldPrice": 5200,
-		"manaCost": 250,
-		"cooldown": 20,
 		"quality": "rare",
 		"notes": "The target will have a base movement speed of 140, but buffs granting maximum movement speed won't be disabled.",
+		"dispellable": "Strong Dispels Only",
+		"manaCost": 250,
+		"cooldown": 20,
 		"abilities": [
 			{
 				"type": "active",
@@ -3548,15 +3650,17 @@
 				"Hero",
 				"Basic"
 			]
-		},
-		"dispellable": "Strong Dispels Only"
+		}
 	},
 	"caster_rapier": {
 		"id": 1801,
+		"name": "Caster Rapier",
 		"lore": "",
 		"goldPrice": 5600,
-		"cooldown": 9,
 		"quality": "rare",
+		"notes": "",
+		"dispellable": "Strong Dispels Only",
+		"cooldown": 9,
 		"attributes": [
 			{
 				"key": "bonus_spell_amp",
@@ -3579,23 +3683,25 @@
 				"Hero",
 				"Basic"
 			]
-		},
-		"dispellable": "Strong Dispels Only"
+		}
 	},
 	"recipe_orchid": {
 		"id": 97,
 		"name": "Orchid Malevolence Recipe",
 		"lore": "",
-		"goldPrice": 300
+		"goldPrice": 300,
+		"notes": ""
 	},
 	"orchid": {
 		"id": 98,
 		"name": "Orchid Malevolence",
 		"lore": "A garnet rod constructed from the essence of a fire demon.",
 		"goldPrice": 3275,
+		"quality": "rare",
+		"notes": "",
+		"dispellable": "Yes",
 		"manaCost": 125,
 		"cooldown": 18,
-		"quality": "rare",
 		"abilities": [
 			{
 				"type": "active",
@@ -3653,23 +3759,26 @@
 				"Hero",
 				"Basic"
 			]
-		},
-		"dispellable": "Yes"
+		}
 	},
 	"recipe_bloodthorn": {
 		"id": 245,
 		"name": "Bloodthorn Recipe",
 		"lore": "",
-		"goldPrice": 600
+		"goldPrice": 600,
+		"notes": ""
 	},
 	"bloodthorn": {
 		"id": 250,
 		"name": "Bloodthorn",
 		"lore": "A reviled blade that bites deeper with each wriggle of its victim's final throes.",
 		"goldPrice": 6400,
+		"quality": "epic",
+		"notes": "",
+		"dispellable": "Yes",
+		"dmgType": "Magical",
 		"manaCost": 150,
 		"cooldown": 15,
-		"quality": "epic",
 		"abilities": [
 			{
 				"type": "active",
@@ -3757,17 +3866,17 @@
 				"Hero",
 				"Basic"
 			]
-		},
-		"dispellable": "Yes",
-		"dmgType": "Magical"
+		}
 	},
 	"echo_sabre": {
 		"id": 252,
 		"name": "Echo Sabre",
 		"lore": "A deceptively swift blade imbued with resonant magic.",
 		"goldPrice": 2700,
-		"cooldown": 5,
 		"quality": "artifact",
+		"notes": "",
+		"dispellable": "Yes",
+		"cooldown": 5,
 		"abilities": [
 			{
 				"type": "passive",
@@ -3804,24 +3913,25 @@
 			"ogre_axe",
 			"broadsword",
 			"void_stone"
-		],
-		"dispellable": "Yes"
+		]
 	},
 	"recipe_cyclone": {
 		"id": 99,
 		"name": "Eul's Scepter Recipe",
 		"lore": "",
-		"goldPrice": 675
+		"goldPrice": 675,
+		"notes": ""
 	},
 	"cyclone": {
 		"id": 100,
 		"name": "Eul's Scepter of Divinity",
 		"lore": "A mysterious scepter passed down through the ages, its disruptive winds can be used for good or evil.",
 		"goldPrice": 2600,
-		"manaCost": 175,
-		"cooldown": 23,
 		"quality": "rare",
 		"notes": "You cannot cyclone allies.\nCyclones cast on yourself go through spell immunity.\nCyclone can dispel some buffs and debuffs.\nCyclone duration is unaffected by status resistance.",
+		"dispellable": "Yes",
+		"manaCost": 175,
+		"cooldown": 23,
 		"abilities": [
 			{
 				"type": "active",
@@ -3862,24 +3972,25 @@
 		"behavior": [
 			"Unit Target"
 		],
-		"validTargets": {},
-		"dispellable": "Yes"
+		"validTargets": {}
 	},
 	"recipe_wind_waker": {
 		"id": 612,
 		"name": "Wind Waker Recipe",
 		"lore": "",
-		"goldPrice": 1400
+		"goldPrice": 1400,
+		"notes": ""
 	},
 	"wind_waker": {
 		"id": 610,
 		"name": "Wind Waker",
 		"lore": "Proof enough to some that unseen forces manipulate the happenings of the material plane.",
 		"goldPrice": 6800,
-		"manaCost": 175,
-		"cooldown": 19,
 		"quality": "rare",
 		"notes": "Cyclone can dispel some buffs and debuffs.\nWhen cast on yourself, the cyclone can be moved anywhere at a speed of 360.\nCyclone duration is unaffected by status resistance.",
+		"dispellable": "Yes",
+		"manaCost": 175,
+		"cooldown": 19,
 		"abilities": [
 			{
 				"type": "active",
@@ -3923,14 +4034,14 @@
 		"behavior": [
 			"Unit Target"
 		],
-		"validTargets": {},
-		"dispellable": "Yes"
+		"validTargets": {}
 	},
 	"recipe_aether_lens": {
 		"id": 233,
 		"name": "Aether Lens Recipe",
 		"lore": "",
-		"goldPrice": 775
+		"goldPrice": 775,
+		"notes": ""
 	},
 	"aether_lens": {
 		"id": 232,
@@ -3965,17 +4076,18 @@
 		"id": 101,
 		"name": "Force Staff Recipe",
 		"lore": "",
-		"goldPrice": 950
+		"goldPrice": 950,
+		"notes": ""
 	},
 	"force_staff": {
 		"id": 102,
 		"name": "Force Staff",
 		"lore": "Allows you to manipulate others, for good or evil.",
 		"goldPrice": 2200,
-		"manaCost": 150,
-		"cooldown": 19,
 		"quality": "rare",
 		"notes": "Self-cast will cause you to use Force on yourself.\nForce Staff doesn't interrupt the target's actions.\nWill not work on a unit inside Chronosphere, Duel, or Black Hole.\nForce Staff has 850 cast range when cast on enemies.",
+		"manaCost": 150,
+		"cooldown": 19,
 		"abilities": [
 			{
 				"type": "active",
@@ -4028,17 +4140,18 @@
 		"id": 262,
 		"name": "Hurricane Pike Recipe",
 		"lore": "",
-		"goldPrice": 350
+		"goldPrice": 350,
+		"notes": ""
 	},
 	"hurricane_pike": {
 		"id": 263,
 		"name": "Hurricane Pike",
 		"lore": "A legendary pike once held as royal sigil of the ancient wyvern riders.",
 		"goldPrice": 4450,
-		"manaCost": 150,
-		"cooldown": 19,
 		"quality": "epic",
 		"notes": "Self-cast will use Hurricane Pike on yourself.\nHurricane Pike doesn't interrupt the target's actions.\nWill not work on a unit inside Chronosphere, Duel, or Black Hole.\nAttack Range bonuses from Dragon Lance and its upgrades do not stack.",
+		"manaCost": 150,
+		"cooldown": 19,
 		"abilities": [
 			{
 				"type": "active",
@@ -4130,17 +4243,18 @@
 		"id": 103,
 		"name": "Dagon Recipe",
 		"lore": "",
-		"goldPrice": 1150
+		"goldPrice": 1150,
+		"notes": ""
 	},
 	"dagon": {
 		"id": 104,
 		"name": "Dagon",
 		"lore": "A lesser wand that grows in power the longer it is used, it brings magic to the fingertips of the user.",
 		"goldPrice": 3050,
-		"manaCost": 120,
-		"cooldown": 27,
 		"quality": "rare",
 		"notes": "Instantly kills illusions.\nCast Range bonuses from Aether Lens and Dagon do not stack.",
+		"manaCost": 120,
+		"cooldown": 27,
 		"abilities": [
 			{
 				"type": "active",
@@ -4205,10 +4319,10 @@
 		"name": "Dagon",
 		"lore": "A lesser wand that grows in power the longer it is used, it brings magic to the fingertips of the user.",
 		"goldPrice": 4200,
-		"manaCost": 120,
-		"cooldown": 27,
 		"quality": "rare",
 		"notes": "Instantly kills illusions.\nCast Range bonuses from Aether Lens and Dagon do not stack.",
+		"manaCost": 120,
+		"cooldown": 27,
 		"abilities": [
 			{
 				"type": "active",
@@ -4268,10 +4382,10 @@
 		"name": "Dagon",
 		"lore": "A lesser wand that grows in power the longer it is used, it brings magic to the fingertips of the user.",
 		"goldPrice": 5350,
-		"manaCost": 120,
-		"cooldown": 27,
 		"quality": "rare",
 		"notes": "Instantly kills illusions.\nCast Range bonuses from Aether Lens and Dagon do not stack.",
+		"manaCost": 120,
+		"cooldown": 27,
 		"abilities": [
 			{
 				"type": "active",
@@ -4331,10 +4445,10 @@
 		"name": "Dagon",
 		"lore": "A lesser wand that grows in power the longer it is used, it brings magic to the fingertips of the user.",
 		"goldPrice": 6500,
-		"manaCost": 120,
-		"cooldown": 27,
 		"quality": "rare",
 		"notes": "Instantly kills illusions.\nCast Range bonuses from Aether Lens and Dagon do not stack.",
+		"manaCost": 120,
+		"cooldown": 27,
 		"abilities": [
 			{
 				"type": "active",
@@ -4394,10 +4508,10 @@
 		"name": "Dagon",
 		"lore": "A lesser wand that grows in power the longer it is used, it brings magic to the fingertips of the user.",
 		"goldPrice": 7650,
-		"manaCost": 120,
-		"cooldown": 27,
 		"quality": "rare",
 		"notes": "Instantly kills illusions.\nCast Range bonuses from Aether Lens and Dagon do not stack.",
+		"manaCost": 120,
+		"cooldown": 27,
 		"abilities": [
 			{
 				"type": "active",
@@ -4456,16 +4570,18 @@
 		"id": 105,
 		"name": "Necronomicon Recipe",
 		"lore": "",
-		"goldPrice": 1250
+		"goldPrice": 1250,
+		"notes": ""
 	},
 	"necronomicon": {
 		"id": 106,
 		"name": "Necronomicon",
 		"lore": "Considered the ultimate in necromancy and demonology, a powerful malefic force is locked within its pages.",
 		"goldPrice": 2050,
+		"quality": "rare",
+		"notes": "",
 		"manaCost": 150,
 		"cooldown": 80,
-		"quality": "rare",
 		"abilities": [
 			{
 				"type": "active",
@@ -4548,9 +4664,10 @@
 		"name": "Necronomicon",
 		"lore": "Considered the ultimate in necromancy and demonology, a powerful malefic force is locked within its pages.",
 		"goldPrice": 3300,
+		"quality": "rare",
+		"notes": "",
 		"manaCost": 150,
 		"cooldown": 80,
-		"quality": "rare",
 		"abilities": [
 			{
 				"type": "active",
@@ -4632,9 +4749,10 @@
 		"name": "Necronomicon",
 		"lore": "Considered the ultimate in necromancy and demonology, a powerful malefic force is locked within its pages.",
 		"goldPrice": 4550,
+		"quality": "rare",
+		"notes": "",
 		"manaCost": 150,
 		"cooldown": 80,
-		"quality": "rare",
 		"abilities": [
 			{
 				"type": "active",
@@ -4717,6 +4835,7 @@
 		"lore": "The scepter of a wizard with demigod-like powers.",
 		"goldPrice": 4200,
 		"quality": "rare",
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -4760,7 +4879,8 @@
 		"id": 270,
 		"name": "Aghanim's Blessing Recipe",
 		"lore": "",
-		"goldPrice": 1600
+		"goldPrice": 1600,
+		"notes": ""
 	},
 	"ultimate_scepter_2": {
 		"id": 271,
@@ -4768,6 +4888,7 @@
 		"lore": "The scepter of a wizard with demigod-like powers.",
 		"goldPrice": 5800,
 		"quality": "rare",
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -4785,6 +4906,7 @@
 		"lore": "The scepter of a wizard with demigod-like powers.",
 		"goldPrice": 5800,
 		"quality": "rare",
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -4802,6 +4924,7 @@
 		"lore": "With origins known only to a single wizard, fragments of this impossible crystal are nearly as coveted as the renowned scepter itself.",
 		"goldPrice": 1400,
 		"quality": "rare",
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -4816,6 +4939,7 @@
 		"lore": "With origins known only to a single wizard, fragments of this impossible crystal are nearly as coveted as the renowned scepter itself.",
 		"goldPrice": 1400,
 		"quality": "rare",
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -4831,6 +4955,8 @@
 		"id": 1850,
 		"name": "Eldwurm's Edda",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 600,
 		"abilities": [
 			{
@@ -4850,16 +4976,18 @@
 		"id": 109,
 		"name": "Refresher Orb Recipe",
 		"lore": "",
-		"goldPrice": 1600
+		"goldPrice": 1600,
+		"notes": ""
 	},
 	"refresher": {
 		"id": 110,
 		"name": "Refresher Orb",
 		"lore": "A powerful artifact created for wizards.",
 		"goldPrice": 5000,
+		"quality": "rare",
+		"notes": "",
 		"manaCost": 325,
 		"cooldown": 180,
-		"quality": "rare",
 		"abilities": [
 			{
 				"type": "active",
@@ -4908,7 +5036,8 @@
 		"id": 111,
 		"name": "Assault Cuirass Recipe",
 		"lore": "",
-		"goldPrice": 1300
+		"goldPrice": 1300,
+		"notes": ""
 	},
 	"assault": {
 		"id": 112,
@@ -4916,6 +5045,7 @@
 		"lore": "Forged in the depths of the nether reaches, this hellish mail provides an army with increased armor and attack speed.",
 		"goldPrice": 5125,
 		"quality": "epic",
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -4962,7 +5092,8 @@
 		"id": 113,
 		"name": "Heart of Tarrasque Recipe",
 		"lore": "",
-		"goldPrice": 600
+		"goldPrice": 600,
+		"notes": ""
 	},
 	"heart": {
 		"id": 114,
@@ -5003,17 +5134,18 @@
 		"id": 115,
 		"name": "Black King Bar Recipe",
 		"lore": "",
-		"goldPrice": 1450
+		"goldPrice": 1450,
+		"notes": ""
 	},
 	"black_king_bar": {
 		"id": 116,
 		"name": "Black King Bar",
 		"lore": "A powerful staff imbued with the strength of giants.",
 		"goldPrice": 4050,
-		"manaCost": 50,
-		"cooldown": 95,
 		"quality": "epic",
 		"notes": "Purchasing another Black King Bar will not reset its immunity duration.",
+		"manaCost": 50,
+		"cooldown": 95,
 		"abilities": [
 			{
 				"type": "active",
@@ -5062,6 +5194,7 @@
 		"id": 117,
 		"name": "Aegis of the Immortal",
 		"lore": "The Immortal was said to own a shield that protected him from death itself.",
+		"goldPrice": 0,
 		"quality": "artifact",
 		"notes": "Pronounced as ayy jis.",
 		"abilities": [
@@ -5094,17 +5227,19 @@
 		"id": 118,
 		"name": "Shiva's Guard Recipe",
 		"lore": "",
-		"goldPrice": 1350
+		"goldPrice": 1350,
+		"notes": ""
 	},
 	"shivas_guard": {
 		"id": 119,
 		"name": "Shiva's Guard",
 		"lore": "Said to have belonged to a goddess, today it retains much of its former power.",
 		"goldPrice": 4500,
-		"manaCost": 75,
-		"cooldown": 27,
 		"quality": "epic",
 		"notes": "The wave extends at a speed of 400 to a max size of 825.\nThe Arctic Blast follows its caster.\nMultiple instances of Freezing Aura do not stack.\nAoE bonuses from multiple Chasm Stones or its upgrades do not stack.",
+		"dispellable": "Yes",
+		"manaCost": 75,
+		"cooldown": 27,
 		"abilities": [
 			{
 				"type": "active",
@@ -5170,17 +5305,16 @@
 		"behavior": [
 			"Instant Cast",
 			"No Target"
-		],
-		"dispellable": "Yes"
+		]
 	},
 	"bloodstone": {
 		"id": 121,
 		"name": "Bloodstone",
 		"lore": "The Bloodstone's bright ruby color is unmistakable on the battlefield, as the owner seems to have infinite vitality and spirit.",
 		"goldPrice": 4700,
-		"cooldown": 30,
 		"quality": "epic",
 		"notes": "Spell Weakness Aura does not stack with Veil of Discord's Spell Weakness.",
+		"cooldown": 30,
 		"abilities": [
 			{
 				"type": "active",
@@ -5257,16 +5391,17 @@
 		"id": 122,
 		"name": "Linken's Sphere Recipe",
 		"lore": "",
-		"goldPrice": 600
+		"goldPrice": 600,
+		"notes": ""
 	},
 	"sphere": {
 		"id": 123,
 		"name": "Linken's Sphere",
 		"lore": "This magical sphere once protected one of the most famous heroes in history.",
 		"goldPrice": 4800,
-		"cooldown": 14,
 		"quality": "epic",
 		"notes": "Targeted abilities from neutral items do not trigger Spellblock.",
+		"cooldown": 14,
 		"abilities": [
 			{
 				"type": "passive",
@@ -5329,17 +5464,18 @@
 		"id": 221,
 		"name": "Lotus Orb Recipe",
 		"lore": "",
-		"goldPrice": 250
+		"goldPrice": 250,
+		"notes": ""
 	},
 	"lotus_orb": {
 		"id": 226,
 		"name": "Lotus Orb",
 		"lore": "The jewel at its center still reflects a pale image of its creator.",
 		"goldPrice": 3850,
-		"manaCost": 175,
-		"cooldown": 15,
 		"quality": "epic",
 		"notes": "Targeted abilities from neutral items do not trigger Echo Shell.",
+		"manaCost": 175,
+		"cooldown": 15,
 		"abilities": [
 			{
 				"type": "active",
@@ -5394,16 +5530,19 @@
 		"id": 222,
 		"name": "Meteor Hammer Recipe",
 		"lore": "",
-		"goldPrice": 300
+		"goldPrice": 300,
+		"notes": ""
 	},
 	"meteor_hammer": {
 		"id": 223,
 		"name": "Meteor Hammer",
 		"lore": "",
 		"goldPrice": 2850,
+		"quality": "epic",
+		"notes": "",
+		"dmgType": "Magical",
 		"manaCost": 75,
 		"cooldown": 24,
-		"quality": "epic",
 		"abilities": [
 			{
 				"type": "active",
@@ -5495,17 +5634,16 @@
 			"AOE",
 			"Channeled"
 		],
-		"piercesBkb": false,
-		"dmgType": "Magical"
+		"piercesBkb": false
 	},
 	"nullifier": {
 		"id": 225,
 		"name": "Nullifier",
 		"lore": "",
 		"goldPrice": 4350,
-		"cooldown": 10,
 		"quality": "epic",
 		"notes": "Can be cast on invulnerable units.",
+		"cooldown": 10,
 		"abilities": [
 			{
 				"type": "active",
@@ -5568,15 +5706,17 @@
 		"id": 255,
 		"name": "Aeon Disk Recipe",
 		"lore": "",
-		"goldPrice": 1200
+		"goldPrice": 1200,
+		"notes": ""
 	},
 	"aeon_disk": {
 		"id": 256,
 		"name": "Aeon Disk",
 		"lore": "",
 		"goldPrice": 3000,
-		"cooldown": 105,
 		"quality": "epic",
+		"notes": "",
+		"cooldown": 105,
 		"abilities": [
 			{
 				"type": "passive",
@@ -5630,7 +5770,8 @@
 		"id": 258,
 		"name": "Kaya Recipe",
 		"lore": "",
-		"goldPrice": 650
+		"goldPrice": 650,
+		"notes": ""
 	},
 	"kaya": {
 		"id": 259,
@@ -5638,6 +5779,7 @@
 		"lore": "",
 		"goldPrice": 2100,
 		"quality": "epic",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_intellect",
@@ -5665,6 +5807,7 @@
 		"name": "Trident",
 		"lore": "",
 		"goldPrice": 6301,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_strength",
@@ -5732,11 +5875,11 @@
 		"name": "Refresher Shard",
 		"lore": "",
 		"goldPrice": 1000,
+		"quality": "consumable",
+		"notes": "Refresher Shard is shareable.",
 		"charges": 1,
 		"manaCost": 200,
 		"cooldown": 180,
-		"quality": "consumable",
-		"notes": "Refresher Shard is shareable.",
 		"abilities": [
 			{
 				"type": "use",
@@ -5774,16 +5917,17 @@
 		"id": 266,
 		"name": "Spirit Vessel Recipe",
 		"lore": "",
-		"goldPrice": 900
+		"goldPrice": 900,
+		"notes": ""
 	},
 	"spirit_vessel": {
 		"id": 267,
 		"name": "Spirit Vessel",
 		"lore": "",
 		"goldPrice": 2725,
-		"cooldown": 10,
 		"quality": "rare",
 		"notes": "Empty vessels gain 2 charges.\nOnly the closest Spirit Vessel to the dying hero will gain a charge.\nIf the allied unit is attacked by an enemy hero or Roshan, the effect is lost.\nDoes not trigger spell block or spell reflect.",
+		"cooldown": 10,
 		"abilities": [
 			{
 				"type": "active",
@@ -5869,16 +6013,17 @@
 		"id": 1851,
 		"name": "Essence Distiller Recipe",
 		"lore": "",
-		"goldPrice": 200
+		"goldPrice": 200,
+		"notes": ""
 	},
 	"essence_distiller": {
 		"id": 1852,
 		"name": "Essence Distiller",
 		"lore": "",
 		"goldPrice": 1775,
-		"cooldown": 10,
 		"quality": "rare",
 		"notes": "Empty distillers gain 2 charges.\nOnly the closest Essence Distiller to the dying hero will gain a charge.\nIf the allied unit is attacked by an enemy hero or Roshan, the effect is lost.\nDoes not trigger spell block or spell reflect.\nWhile dormant, provides vision in 400 radius. Vision lingers for 0.5s after latching.",
+		"cooldown": 10,
 		"abilities": [
 			{
 				"type": "active",
@@ -6014,17 +6159,19 @@
 		"id": 243,
 		"name": "Crimson Guard Recipe",
 		"lore": "",
-		"goldPrice": 1050
+		"goldPrice": 1050,
+		"notes": ""
 	},
 	"crimson_guard": {
 		"id": 242,
 		"name": "Crimson Guard",
 		"lore": "A cuirass originally built to protect against the dreaded Year Beast.",
 		"goldPrice": 3725,
-		"manaCost": 75,
-		"cooldown": 40,
 		"quality": "epic",
 		"notes": "Multiple sources of damage block do not stack.\nWhen the Guard buff is applied to ranged heroes, Guard blocks 25 less damage.\nGuard does not affect units that have been affected by Guard within Crimson Guard's cooldown.",
+		"dispellable": "No",
+		"manaCost": 75,
+		"cooldown": 40,
 		"abilities": [
 			{
 				"type": "active",
@@ -6097,24 +6244,24 @@
 		"behavior": [
 			"Instant Cast",
 			"No Target"
-		],
-		"dispellable": "No"
+		]
 	},
 	"recipe_blade_mail": {
 		"id": 126,
 		"name": "Blade Mail Recipe",
 		"lore": "",
-		"goldPrice": 450
+		"goldPrice": 450,
+		"notes": ""
 	},
 	"blade_mail": {
 		"id": 127,
 		"name": "Blade Mail",
 		"lore": "A razor-sharp coat of mail, it is the choice of selfless martyrs in combat.",
 		"goldPrice": 2400,
-		"manaCost": 25,
-		"cooldown": 25,
 		"quality": "epic",
 		"notes": "Damage Return is calculated before any kind of reduction.\nReturned damage type is the same as it was received.\nDamage done by this item is considered reflected damage. Reflected damage does not provide any lifesteal and cannot be reflected.",
+		"manaCost": 25,
+		"cooldown": 25,
 		"abilities": [
 			{
 				"type": "active",
@@ -6174,6 +6321,7 @@
 		"lore": "Regain lost courage.",
 		"goldPrice": 3000,
 		"quality": "epic",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_health",
@@ -6196,10 +6344,11 @@
 		"id": 131,
 		"name": "Hood of Defiance",
 		"lore": "A furred, magic resistant headpiece that is feared by wizards.",
-		"manaCost": 50,
-		"cooldown": 60,
+		"goldPrice": 0,
 		"quality": "epic",
 		"notes": "Stacks multiplicatively with other sources of magic resistance.",
+		"manaCost": 50,
+		"cooldown": 60,
 		"abilities": [
 			{
 				"type": "active",
@@ -6240,7 +6389,8 @@
 		"id": 691,
 		"name": "Eternal Shroud Recipe",
 		"lore": "",
-		"goldPrice": 900
+		"goldPrice": 900,
+		"notes": ""
 	},
 	"eternal_shroud": {
 		"id": 692,
@@ -6248,6 +6398,7 @@
 		"lore": "A pristine hood that feeds upon strife to empower its owner.",
 		"goldPrice": 3900,
 		"quality": "epic",
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -6307,7 +6458,8 @@
 		"id": 1853,
 		"name": "Consecrated Wraps Recipe",
 		"lore": "",
-		"goldPrice": 700
+		"goldPrice": 700,
+		"notes": ""
 	},
 	"consecrated_wraps": {
 		"id": 1854,
@@ -6316,6 +6468,7 @@
 		"goldPrice": 2600,
 		"quality": "epic",
 		"notes": "Stacks cannot be gained for 3s after you take damage from a player-controlled unit or Roshan.\nSelf-damage and HP Loss damage cannot remove stacks.\nMovement speed buff does not stack.\nMovement speed buff is only provided if you have reached maximum stacks at least once while the item is equipped.",
+		"dispellable": "Yes",
 		"abilities": [
 			{
 				"type": "passive",
@@ -6376,23 +6529,24 @@
 			"vitality_booster",
 			"shawl",
 			"crown"
-		],
-		"dispellable": "Yes"
+		]
 	},
 	"recipe_crellas_crozier": {
 		"id": 1855,
 		"name": "Crella's Crozier Recipe",
 		"lore": "",
-		"goldPrice": 300
+		"goldPrice": 300,
+		"notes": ""
 	},
 	"crellas_crozier": {
 		"id": 1856,
 		"name": "Crella's Crozier",
 		"lore": "",
 		"goldPrice": 4800,
-		"cooldown": 20,
 		"quality": "epic",
 		"notes": "Ghost form ends if you become Debuff Immune and will have no effect if you are already Debuff Immune.\nShares cooldown with Ghost Scepter and its upgrades.\nPutrefaction Aura does not redirect Health Restoration from enemy heroes that are at full health.",
+		"dispellable": "Yes",
+		"cooldown": 20,
 		"abilities": [
 			{
 				"type": "active",
@@ -6465,17 +6619,16 @@
 		"behavior": [
 			"No Target",
 			"Instant Cast"
-		],
-		"dispellable": "Yes"
+		]
 	},
 	"rapier": {
 		"id": 133,
 		"name": "Divine Rapier",
 		"lore": "So powerful, it cannot have a single owner.",
 		"goldPrice": 5600,
-		"cooldown": 6,
 		"quality": "epic",
 		"notes": "If Divine Rapier is dropped and picked up by an enemy of its original owner, it cannot be dropped again except by death.",
+		"cooldown": 6,
 		"abilities": [
 			{
 				"type": "toggle",
@@ -6512,7 +6665,8 @@
 		"id": 134,
 		"name": "Monkey King Bar Recipe",
 		"lore": "",
-		"goldPrice": 900
+		"goldPrice": 900,
+		"notes": ""
 	},
 	"monkey_king_bar": {
 		"id": 135,
@@ -6520,6 +6674,7 @@
 		"lore": "A powerful staff used by a master warrior.",
 		"goldPrice": 5000,
 		"quality": "epic",
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -6564,6 +6719,7 @@
 		"lore": "A divine weapon that causes damage and a bright burning effect that lays waste to nearby enemies.",
 		"goldPrice": 4700,
 		"quality": "epic",
+		"notes": "",
 		"abilities": [
 			{
 				"type": "toggle",
@@ -6654,7 +6810,8 @@
 		"id": 140,
 		"name": "Daedalus Recipe",
 		"lore": "",
-		"goldPrice": 900
+		"goldPrice": 900,
+		"notes": ""
 	},
 	"greater_crit": {
 		"id": 141,
@@ -6694,16 +6851,19 @@
 		"id": 142,
 		"name": "Skull Basher Recipe",
 		"lore": "",
-		"goldPrice": 825
+		"goldPrice": 825,
+		"notes": ""
 	},
 	"basher": {
 		"id": 143,
 		"name": "Skull Basher",
 		"lore": "A feared weapon in the right hands, this maul's ability to shatter the defenses of its opponents should not be underestimated.",
 		"goldPrice": 2875,
-		"cooldown": 2,
 		"quality": "epic",
 		"notes": "Does not stack with other sources of Bash.\nThe following heroes cannot trigger Bash on this item: Spirit Breaker, Faceless Void, Slardar, and Kez while in Sai mode.\nDoes not grant Bash to Clones and Tempest Doubles.",
+		"dispellable": "Strong Dispels Only",
+		"dmgType": "Physical",
+		"cooldown": 2,
 		"abilities": [
 			{
 				"type": "passive",
@@ -6747,24 +6907,23 @@
 			"mithril_hammer",
 			"belt_of_strength"
 		],
-		"dispellable": "Strong Dispels Only",
-		"piercesBkb": true,
-		"dmgType": "Physical"
+		"piercesBkb": true
 	},
 	"recipe_bfury": {
 		"id": 144,
 		"name": "Battle Fury Recipe",
 		"lore": "",
-		"goldPrice": 400
+		"goldPrice": 400,
+		"notes": ""
 	},
 	"bfury": {
 		"id": 145,
 		"name": "Battle Fury",
 		"lore": "The bearer of this mighty axe gains the ability to cut down swaths of enemies at once.",
 		"goldPrice": 3900,
-		"cooldown": 4,
 		"quality": "epic",
 		"notes": "Cleave damage goes through spell immunity.\nIf multiple sources of Cleave are present, each Cleave's damage is applied separately.",
+		"cooldown": 4,
 		"abilities": [
 			{
 				"type": "active",
@@ -6854,17 +7013,18 @@
 		"id": 146,
 		"name": "Manta Style Recipe",
 		"lore": "",
-		"goldPrice": 1550
+		"goldPrice": 1550,
+		"notes": ""
 	},
 	"manta": {
 		"id": 147,
 		"name": "Manta Style",
 		"lore": "An axe made of reflective materials that causes confusion amongst enemy ranks.",
 		"goldPrice": 4650,
-		"manaCost": 125,
-		"cooldown": 34,
 		"quality": "epic",
 		"notes": "Has a 0.1 second cast time during which you are invulnerable.\nMany effects are removed upon using Manta.\nYasha based movement speed bonuses from multiple items do not stack.",
+		"manaCost": 125,
+		"cooldown": 34,
 		"abilities": [
 			{
 				"type": "active",
@@ -6951,7 +7111,8 @@
 		"id": 148,
 		"name": "Crystalys Recipe",
 		"lore": "",
-		"goldPrice": 200
+		"goldPrice": 200,
+		"notes": ""
 	},
 	"lesser_crit": {
 		"id": 149,
@@ -6995,7 +7156,8 @@
 		"id": 234,
 		"name": "Dragon Lance Recipe",
 		"lore": "",
-		"goldPrice": 450
+		"goldPrice": 450,
+		"notes": ""
 	},
 	"dragon_lance": {
 		"id": 236,
@@ -7034,7 +7196,8 @@
 		"id": 150,
 		"name": "Armlet of Mordiggian Recipe",
 		"lore": "",
-		"goldPrice": 625
+		"goldPrice": 625,
+		"notes": ""
 	},
 	"armlet": {
 		"id": 151,
@@ -7110,10 +7273,10 @@
 		"name": "Shadow Blade",
 		"lore": "The blade of a fallen king, it allows you to move unseen and strike from the shadows.",
 		"goldPrice": 3250,
-		"manaCost": 75,
-		"cooldown": 25,
 		"quality": "epic",
 		"notes": "Has a 0.3 second fade time.\nIf the invisibility ends without attacking, the bonus damage is lost.",
+		"manaCost": 75,
+		"cooldown": 25,
 		"abilities": [
 			{
 				"type": "active",
@@ -7163,16 +7326,18 @@
 		"id": 248,
 		"name": "Silver Edge Recipe",
 		"lore": "",
-		"goldPrice": 250
+		"goldPrice": 250,
+		"notes": ""
 	},
 	"silver_edge": {
 		"id": 249,
 		"name": "Silver Edge",
 		"lore": "Once used to slay an unjust king, only to have the kingdom erupt into civil war in the aftermath.",
 		"goldPrice": 5700,
+		"quality": "epic",
+		"notes": "",
 		"manaCost": 75,
 		"cooldown": 20,
-		"quality": "epic",
 		"abilities": [
 			{
 				"type": "active",
@@ -7300,6 +7465,7 @@
 		"lore": "Two of three known items of unimaginable power that many believe were crafted at the same enchanter's forge.",
 		"goldPrice": 4200,
 		"quality": "artifact",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_strength",
@@ -7348,6 +7514,7 @@
 		"lore": "Yasha and Kaya when paired together share a natural resonance.",
 		"goldPrice": 4200,
 		"quality": "artifact",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_agility",
@@ -7399,8 +7566,10 @@
 		"name": "Satanic",
 		"lore": "Immense power at the cost of your soul.",
 		"goldPrice": 5050,
-		"cooldown": 30,
 		"quality": "artifact",
+		"notes": "",
+		"dispellable": "No",
+		"cooldown": 30,
 		"abilities": [
 			{
 				"type": "active",
@@ -7450,24 +7619,25 @@
 		"behavior": [
 			"Instant Cast",
 			"No Target"
-		],
-		"dispellable": "No"
+		]
 	},
 	"recipe_mjollnir": {
 		"id": 157,
 		"name": "Mjollnir Recipe",
 		"lore": "",
-		"goldPrice": 550
+		"goldPrice": 550,
+		"notes": ""
 	},
 	"mjollnir": {
 		"id": 158,
 		"name": "Mjollnir",
 		"lore": "Thor's magical hammer, made for him by the dwarves Brok and Eitri.",
 		"goldPrice": 5500,
-		"manaCost": 50,
-		"cooldown": 35,
 		"quality": "artifact",
 		"notes": "Static Charge cannot trigger more than once per second.\nStatic Charge's shock deals magical damage centered on hero with the Static Charge. Static Charge's targets cannot be more than 900 range away.\nStatic Charge procs will not bounce to heroes that are invisible or hidden by Fog of War.",
+		"dispellable": "Yes",
+		"manaCost": 50,
+		"cooldown": 35,
 		"abilities": [
 			{
 				"type": "active",
@@ -7571,8 +7741,7 @@
 				"Hero",
 				"Basic"
 			]
-		},
-		"dispellable": "Yes"
+		}
 	},
 	"skadi": {
 		"id": 160,
@@ -7580,6 +7749,7 @@
 		"lore": "Extremely rare artifact, guarded by the azure dragons.",
 		"goldPrice": 5900,
 		"quality": "artifact",
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -7638,7 +7808,8 @@
 		"id": 161,
 		"name": "Sange Recipe",
 		"lore": "",
-		"goldPrice": 650
+		"goldPrice": 650,
+		"notes": ""
 	},
 	"sange": {
 		"id": 162,
@@ -7646,6 +7817,7 @@
 		"lore": "Sange is an unusually accurate weapon, seeking weak points automatically.",
 		"goldPrice": 2100,
 		"quality": "artifact",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_strength",
@@ -7672,17 +7844,18 @@
 		"id": 163,
 		"name": "Helm of the Dominator Recipe",
 		"lore": "",
-		"goldPrice": 1125
+		"goldPrice": 1125,
+		"notes": ""
 	},
 	"helm_of_the_dominator": {
 		"id": 164,
 		"name": "Helm of the Dominator",
 		"lore": "The powerful headpiece of a dead necromancer.",
 		"goldPrice": 2550,
-		"manaCost": 50,
-		"cooldown": 45,
 		"quality": "artifact",
 		"notes": "Cannot dominate more than one unit at a time. If a new unit is dominated, the old one will die.\nCan also Dominate enemy lane creeps and summoned units.\nSelling Helm of the Dominator will cause dominated units to die.",
+		"manaCost": 50,
+		"cooldown": 45,
 		"abilities": [
 			{
 				"type": "active",
@@ -7772,17 +7945,18 @@
 		"id": 633,
 		"name": "Helm of the Overlord Recipe",
 		"lore": "",
-		"goldPrice": 300
+		"goldPrice": 300,
+		"notes": ""
 	},
 	"helm_of_the_overlord": {
 		"id": 635,
 		"name": "Helm of the Overlord",
 		"lore": "The powerful headpiece of an undead necromancer.",
 		"goldPrice": 5650,
-		"manaCost": 50,
-		"cooldown": 45,
 		"quality": "artifact",
 		"notes": "Can also Dominate enemy lane creeps and summoned units.\nSelling will cause dominated units to die.",
+		"manaCost": 50,
+		"cooldown": 45,
 		"abilities": [
 			{
 				"type": "active",
@@ -7878,6 +8052,7 @@
 		"lore": "A hammer forged for the gods themselves, Maelstrom allows its user to harness the power of lightning.",
 		"goldPrice": 2950,
 		"quality": "artifact",
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -7935,17 +8110,19 @@
 		"id": 1565,
 		"name": "Gleipnir Recipe",
 		"lore": "",
-		"goldPrice": 400
+		"goldPrice": 400,
+		"notes": ""
 	},
 	"gungir": {
 		"id": 1466,
 		"name": "Gleipnir",
 		"lore": "Bindings forged by impossible means to leash an ancient evil.",
 		"goldPrice": 4650,
-		"manaCost": 150,
-		"cooldown": 18,
 		"quality": "artifact",
 		"notes": "AoE bonuses from multiple Chasm Stones or its upgrades do not stack.",
+		"dispellable": "Yes",
+		"manaCost": 150,
+		"cooldown": 18,
 		"abilities": [
 			{
 				"type": "active",
@@ -8004,8 +8181,7 @@
 				"Hero",
 				"Basic"
 			]
-		},
-		"dispellable": "Yes"
+		}
 	},
 	"desolator": {
 		"id": 168,
@@ -8014,6 +8190,7 @@
 		"goldPrice": 3500,
 		"quality": "artifact",
 		"notes": "Armor reduction works on buildings.",
+		"dispellable": "Yes",
 		"abilities": [
 			{
 				"type": "passive",
@@ -8058,14 +8235,14 @@
 			"mithril_hammer",
 			"blight_stone"
 		],
-		"dispellable": "Yes",
 		"piercesBkb": true
 	},
 	"recipe_yasha": {
 		"id": 169,
 		"name": "Yasha Recipe",
 		"lore": "",
-		"goldPrice": 650
+		"goldPrice": 650,
+		"notes": ""
 	},
 	"yasha": {
 		"id": 170,
@@ -8101,9 +8278,11 @@
 		"name": "Mask of Madness",
 		"lore": "Once this mask is worn, its bearer becomes an uncontrollable aggressive force.",
 		"goldPrice": 1900,
+		"quality": "artifact",
+		"notes": "",
+		"dispellable": "Yes",
 		"manaCost": 25,
 		"cooldown": 16,
-		"quality": "artifact",
 		"abilities": [
 			{
 				"type": "active",
@@ -8159,24 +8338,25 @@
 		"behavior": [
 			"Instant Cast",
 			"No Target"
-		],
-		"dispellable": "Yes"
+		]
 	},
 	"recipe_diffusal_blade": {
 		"id": 173,
 		"name": "Diffusal Blade Recipe",
 		"lore": "",
-		"goldPrice": 1050
+		"goldPrice": 1050,
+		"notes": ""
 	},
 	"diffusal_blade": {
 		"id": 174,
 		"name": "Diffusal Blade",
 		"lore": "An enchanted blade that allows the user to cut straight into the enemy's soul.",
 		"goldPrice": 2500,
-		"manaCost": 25,
-		"cooldown": 15,
 		"quality": "artifact",
 		"notes": "Does not stack with other diffusal blades.",
+		"dispellable": "Yes",
+		"manaCost": 25,
+		"cooldown": 15,
 		"abilities": [
 			{
 				"type": "active",
@@ -8244,23 +8424,25 @@
 				"Hero",
 				"Basic"
 			]
-		},
-		"dispellable": "Yes"
+		}
 	},
 	"recipe_disperser": {
 		"id": 1096,
 		"name": "Disperser Recipe",
 		"lore": "",
-		"goldPrice": 800
+		"goldPrice": 800,
+		"notes": ""
 	},
 	"disperser": {
 		"id": 1097,
 		"name": "Disperser",
 		"lore": "Once entrusted to an Apostle General of the Rumusque Faithful's expeditionary force.",
 		"goldPrice": 6100,
+		"quality": "artifact",
+		"notes": "",
+		"dispellable": "Yes",
 		"manaCost": 75,
 		"cooldown": 15,
-		"quality": "artifact",
 		"abilities": [
 			{
 				"type": "active",
@@ -8345,24 +8527,25 @@
 				"Hero",
 				"Basic"
 			]
-		},
-		"dispellable": "Yes"
+		}
 	},
 	"recipe_ethereal_blade": {
 		"id": 175,
 		"name": "Ethereal Blade Recipe",
 		"lore": "",
-		"goldPrice": 900
+		"goldPrice": 900,
+		"notes": ""
 	},
 	"ethereal_blade": {
 		"id": 176,
 		"name": "Ethereal Blade",
 		"lore": "A flickering blade of a ghastly nature, it is capable of dealing damage in both magical and physical planes.",
 		"goldPrice": 5200,
-		"manaCost": 100,
-		"cooldown": 22,
 		"quality": "epic",
 		"notes": "Shares cooldown with Ghost Scepter and its upgrades.\nEthereal units take -30% bonus magic damage.",
+		"dispellable": "Yes",
+		"manaCost": 100,
+		"cooldown": 22,
 		"abilities": [
 			{
 				"type": "active",
@@ -8428,23 +8611,23 @@
 			"type": [
 				"Hero"
 			]
-		},
-		"dispellable": "Yes"
+		}
 	},
 	"recipe_soul_ring": {
 		"id": 177,
 		"name": "Soul Ring Recipe",
 		"lore": "",
-		"goldPrice": 350
+		"goldPrice": 350,
+		"notes": ""
 	},
 	"soul_ring": {
 		"id": 178,
 		"name": "Soul Ring",
 		"lore": "A ring that feeds on the souls of those who wear it.",
 		"goldPrice": 805,
-		"cooldown": 25,
 		"quality": "common",
 		"notes": "If this mana is not used before the duration ends, the extra mana is lost.",
+		"cooldown": 25,
 		"abilities": [
 			{
 				"type": "active",
@@ -8486,16 +8669,17 @@
 		"id": 179,
 		"name": "Arcane Boots Recipe",
 		"lore": "",
-		"goldPrice": 325
+		"goldPrice": 325,
+		"notes": ""
 	},
 	"arcane_boots": {
 		"id": 180,
 		"name": "Arcane Boots",
 		"lore": "Magi equipped with these boots are valued in battle.",
 		"goldPrice": 1500,
-		"cooldown": 55,
 		"quality": "rare",
 		"notes": "Does not work on Meepo clones.",
+		"cooldown": 55,
 		"abilities": [
 			{
 				"type": "active",
@@ -8558,7 +8742,8 @@
 		"id": 228,
 		"name": "Octarine Core Recipe",
 		"lore": "",
-		"goldPrice": 200
+		"goldPrice": 200,
+		"notes": ""
 	},
 	"octarine_core": {
 		"id": 235,
@@ -8566,6 +8751,7 @@
 		"lore": "At the core of spellcraft are spectrums only the very gifted can sense.",
 		"goldPrice": 4900,
 		"quality": "rare",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_cooldown",
@@ -8603,9 +8789,10 @@
 		"name": "Orb of Venom",
 		"lore": "Envenoms your veapon with the venom of a venomous viper.",
 		"goldPrice": 350,
-		"cooldown": 9,
 		"quality": "component",
 		"notes": "Does not stack with its upgrades.",
+		"dispellable": "Yes",
+		"cooldown": 9,
 		"abilities": [
 			{
 				"type": "passive",
@@ -8626,8 +8813,7 @@
 				"key": "poison_duration",
 				"value": "3.0"
 			}
-		],
-		"dispellable": "Yes"
+		]
 	},
 	"blight_stone": {
 		"id": 240,
@@ -8636,6 +8822,7 @@
 		"goldPrice": 300,
 		"quality": "component",
 		"notes": "Does not stack with its upgrades, Desolator, or Stygian Desolator.",
+		"dispellable": "Yes",
 		"abilities": [
 			{
 				"type": "passive",
@@ -8653,7 +8840,6 @@
 				"value": "3.0"
 			}
 		],
-		"dispellable": "Yes",
 		"piercesBkb": true
 	},
 	"orb_of_corrosion": {
@@ -8663,6 +8849,7 @@
 		"goldPrice": 1050,
 		"quality": "rare",
 		"notes": "Armor reduction does not stack with its components, Desolator, or Stygian Desolator.",
+		"dispellable": "Yes",
 		"abilities": [
 			{
 				"type": "passive",
@@ -8701,8 +8888,7 @@
 			"boots_of_elves",
 			"orb_of_frost",
 			"blight_stone"
-		],
-		"dispellable": "Yes"
+		]
 	},
 	"orb_of_frost": {
 		"id": 1575,
@@ -8710,6 +8896,7 @@
 		"lore": "Slowly growing since the universe began, it will envelop everything when it ends.",
 		"goldPrice": 300,
 		"quality": "rare",
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -8740,7 +8927,8 @@
 		"id": 599,
 		"name": "Falcon Blade Recipe",
 		"lore": "",
-		"goldPrice": 250
+		"goldPrice": 250,
+		"notes": ""
 	},
 	"falcon_blade": {
 		"id": 596,
@@ -8748,6 +8936,7 @@
 		"lore": "An enchanted blade that long ago raised a hopeless urchin from pauper to king.",
 		"goldPrice": 1125,
 		"quality": "rare",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_health",
@@ -8777,6 +8966,9 @@
 		"lore": "Forged by a secret order in The Third Age of Praxa'cia to fell the False King.",
 		"goldPrice": 3100,
 		"quality": "rare",
+		"notes": "",
+		"dispellable": "Yes",
+		"dmgType": "Physical",
 		"abilities": [
 			{
 				"type": "passive",
@@ -8832,23 +9024,23 @@
 				"Hero",
 				"Basic"
 			]
-		},
-		"dispellable": "Yes",
-		"dmgType": "Physical"
+		}
 	},
 	"recipe_ancient_janggo": {
 		"id": 184,
 		"name": "Drum of Endurance Recipe",
 		"lore": "",
-		"goldPrice": 525
+		"goldPrice": 525,
+		"notes": ""
 	},
 	"ancient_janggo": {
 		"id": 185,
 		"name": "Drum of Endurance",
 		"lore": "A relic that enchants the bodies of those around it for swifter movement in times of crisis.",
 		"goldPrice": 1625,
-		"cooldown": 45,
 		"quality": "rare",
+		"notes": "",
+		"cooldown": 45,
 		"abilities": [
 			{
 				"type": "active",
@@ -8916,8 +9108,9 @@
 		"name": "Boots of Bearing",
 		"lore": "Resplendent footwear fashioned for the ancient herald that first dared spread the glory of Stonehall beyond the original borders of its nascent claim.",
 		"goldPrice": 4225,
-		"cooldown": 30,
 		"quality": "rare",
+		"notes": "",
+		"cooldown": 30,
 		"abilities": [
 			{
 				"type": "active",
@@ -8997,6 +9190,10 @@
 		"id": 187,
 		"name": "Medallion of Courage",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
+		"dispellable": "Yes",
+		"tier": 2,
 		"manaCost": 30,
 		"cooldown": 18,
 		"abilities": [
@@ -9037,25 +9234,25 @@
 				"Basic"
 			]
 		},
-		"dispellable": "Yes",
-		"piercesBkb": false,
-		"tier": 2
+		"piercesBkb": false
 	},
 	"recipe_solar_crest": {
 		"id": 227,
 		"name": "Solar Crest Recipe",
 		"lore": "",
-		"goldPrice": 500
+		"goldPrice": 500,
+		"notes": ""
 	},
 	"solar_crest": {
 		"id": 229,
 		"name": "Solar Crest",
 		"lore": "A talisman forged to honor the daytime sky.",
 		"goldPrice": 2575,
-		"manaCost": 100,
-		"cooldown": 16,
 		"quality": "rare",
 		"notes": "Shares cooldown with Pavise.",
+		"dispellable": "Yes",
+		"manaCost": 100,
+		"cooldown": 16,
 		"abilities": [
 			{
 				"type": "active",
@@ -9128,23 +9325,25 @@
 				"Basic"
 			]
 		},
-		"dispellable": "Yes",
 		"piercesBkb": false
 	},
 	"recipe_pavise": {
 		"id": 1127,
 		"name": "Pavise Recipe",
 		"lore": "",
-		"goldPrice": 675
+		"goldPrice": 675,
+		"notes": ""
 	},
 	"pavise": {
 		"id": 1128,
 		"name": "Pavise",
 		"lore": "Devised by a wizard who made one too many enemies.",
 		"goldPrice": 1350,
+		"quality": "rare",
+		"notes": "",
+		"dispellable": "Yes",
 		"manaCost": 60,
 		"cooldown": 16,
-		"quality": "rare",
 		"abilities": [
 			{
 				"type": "active",
@@ -9195,7 +9394,6 @@
 				"Basic"
 			]
 		},
-		"dispellable": "Yes",
 		"piercesBkb": false
 	},
 	"smoke_of_deceit": {
@@ -9203,9 +9401,10 @@
 		"name": "Smoke of Deceit",
 		"lore": "The charlatan wizard Myrddin's only true contribution to the arcane arts.",
 		"goldPrice": 50,
+		"quality": "consumable",
+		"notes": "",
 		"charges": 1,
 		"cooldown": 1,
-		"quality": "consumable",
 		"abilities": [
 			{
 				"type": "use",
@@ -9248,8 +9447,9 @@
 		"name": "Tome of Knowledge",
 		"lore": "That which raises beast to man and man to god.",
 		"goldPrice": 75,
-		"charges": 1,
 		"quality": "consumable",
+		"notes": "",
+		"charges": 1,
 		"abilities": [
 			{
 				"type": "use",
@@ -9276,17 +9476,19 @@
 		"id": 189,
 		"name": "Veil of Discord Recipe",
 		"lore": "",
-		"goldPrice": 350
+		"goldPrice": 350,
+		"notes": ""
 	},
 	"veil_of_discord": {
 		"id": 190,
 		"name": "Veil of Discord",
 		"lore": "The headwear of corrupt magi.",
 		"goldPrice": 1700,
-		"manaCost": 50,
-		"cooldown": 16,
 		"quality": "rare",
 		"notes": "Spell Weakness does not stack with Bloodstone's Spell Weakness Aura.",
+		"dispellable": "Yes",
+		"manaCost": 50,
+		"cooldown": 16,
 		"abilities": [
 			{
 				"type": "active",
@@ -9332,14 +9534,14 @@
 			"AOE",
 			"No Target",
 			"Instant Cast"
-		],
-		"dispellable": "Yes"
+		]
 	},
 	"recipe_revenants_brooch": {
 		"id": 910,
 		"name": "Revenant's Brooch Recipe",
 		"lore": "",
-		"goldPrice": 650
+		"goldPrice": 650,
+		"notes": ""
 	},
 	"revenants_brooch": {
 		"id": 911,
@@ -9385,15 +9587,17 @@
 		"id": 1805,
 		"name": "Parasma Recipe",
 		"lore": "",
-		"goldPrice": 400
+		"goldPrice": 400,
+		"notes": ""
 	},
 	"devastator": {
 		"id": 1806,
 		"name": "Parasma",
 		"lore": "Warning: There is no antidote if picked up by the wrong end.",
 		"goldPrice": 5975,
-		"cooldown": 7,
 		"quality": "rare",
+		"notes": "",
+		"cooldown": 7,
 		"abilities": [
 			{
 				"type": "passive",
@@ -9463,16 +9667,17 @@
 		"id": 230,
 		"name": "Guardian Greaves Recipe",
 		"lore": "",
-		"goldPrice": 1175
+		"goldPrice": 1175,
+		"notes": ""
 	},
 	"guardian_greaves": {
 		"id": 231,
 		"name": "Guardian Greaves",
 		"lore": "One of many holy instruments constructed to honor the Omniscience.",
 		"goldPrice": 4450,
-		"cooldown": 45,
 		"quality": "rare",
 		"notes": "Mend does not affect units that have been affected by Mend or Mekansm Restore within Guardian Greaves' cooldown.",
+		"cooldown": 45,
 		"abilities": [
 			{
 				"type": "active",
@@ -9559,16 +9764,19 @@
 		"id": 205,
 		"name": "Rod of Atos Recipe",
 		"lore": "",
-		"goldPrice": 250
+		"goldPrice": 250,
+		"notes": ""
 	},
 	"rod_of_atos": {
 		"id": 206,
 		"name": "Rod of Atos",
 		"lore": "Atos, the Lord of Blight, has his essence stored in this deceptively simple wand.",
 		"goldPrice": 2250,
+		"quality": "rare",
+		"notes": "",
+		"dispellable": "Yes",
 		"manaCost": 100,
 		"cooldown": 18,
-		"quality": "rare",
 		"abilities": [
 			{
 				"type": "active",
@@ -9607,22 +9815,23 @@
 				"Hero",
 				"Basic"
 			]
-		},
-		"dispellable": "Yes"
+		}
 	},
 	"recipe_iron_talon": {
 		"id": 238,
 		"name": "Iron Talon Recipe",
 		"lore": "",
-		"goldPrice": 125
+		"goldPrice": 125,
+		"notes": ""
 	},
 	"iron_talon": {
 		"id": 239,
 		"name": "Iron Talon",
 		"lore": "A simple but effective weapon devised to quell a great Hellbear uprising.",
-		"cooldown": 15,
+		"goldPrice": 0,
 		"quality": "common",
 		"notes": "Has a 4 second cooldown on Trees.",
+		"cooldown": 15,
 		"abilities": [
 			{
 				"type": "active",
@@ -9673,17 +9882,19 @@
 		"id": 207,
 		"name": "Abyssal Blade Recipe",
 		"lore": "",
-		"goldPrice": 1275
+		"goldPrice": 1275,
+		"notes": ""
 	},
 	"abyssal_blade": {
 		"id": 208,
 		"name": "Abyssal Blade",
 		"lore": "The lost blade of the Commander of the Abyss, this edge cuts into an enemy's soul.",
 		"goldPrice": 6250,
-		"manaCost": 75,
-		"cooldown": 35,
 		"quality": "epic",
 		"notes": "The stun is melee range.\nDoes not stack with other bashes, and does not grant bash to Clones and Tempest Doubles.\nMultiple sources of damage block do not stack.\nThe following heroes cannot trigger Bash on this item: Spirit Breaker, Faceless Void, Slardar, and Kez while in Sai mode.",
+		"dispellable": "Strong Dispels Only",
+		"manaCost": 75,
+		"cooldown": 35,
 		"abilities": [
 			{
 				"type": "active",
@@ -9757,23 +9968,25 @@
 				"Hero",
 				"Basic"
 			]
-		},
-		"dispellable": "Strong Dispels Only"
+		}
 	},
 	"recipe_heavens_halberd": {
 		"id": 209,
 		"name": "Heaven's Halberd Recipe",
 		"lore": "",
-		"goldPrice": 450
+		"goldPrice": 450,
+		"notes": ""
 	},
 	"heavens_halberd": {
 		"id": 210,
 		"name": "Heaven's Halberd",
 		"lore": "This halberd moves with the speed of a smaller weapon, allowing the bearer to win duels that a heavy edge would not.",
 		"goldPrice": 3400,
+		"quality": "artifact",
+		"notes": "",
+		"dispellable": "Strong Dispels Only",
 		"manaCost": 25,
 		"cooldown": 16,
-		"quality": "artifact",
 		"abilities": [
 			{
 				"type": "active",
@@ -9822,8 +10035,7 @@
 				"Hero",
 				"Basic"
 			]
-		},
-		"dispellable": "Strong Dispels Only"
+		}
 	},
 	"ring_of_aquila": {
 		"id": 212,
@@ -9886,8 +10098,9 @@
 		"name": "Tranquil Boots",
 		"lore": "While they increase the longevity of the wearer, this boot is not particularly reliable.",
 		"goldPrice": 900,
-		"cooldown": 13,
 		"quality": "rare",
+		"notes": "",
+		"cooldown": 13,
 		"abilities": [
 			{
 				"type": "passive",
@@ -9953,8 +10166,9 @@
 		"name": "Shadow Amulet",
 		"lore": "A small talisman that clouds the senses of one's enemies when held perfectly still.",
 		"goldPrice": 900,
-		"cooldown": 18,
 		"notes": "Takes 1.25s of the 3.5s for the hero to fully fade into invisibility.",
+		"dispellable": "Yes",
+		"cooldown": 18,
 		"abilities": [
 			{
 				"type": "active",
@@ -9988,23 +10202,25 @@
 			"type": [
 				"Hero"
 			]
-		},
-		"dispellable": "Yes"
+		}
 	},
 	"recipe_glimmer_cape": {
 		"id": 253,
 		"name": "Glimmer Cape Recipe",
 		"lore": "",
-		"goldPrice": 800
+		"goldPrice": 800,
+		"notes": ""
 	},
 	"glimmer_cape": {
 		"id": 254,
 		"name": "Glimmer Cape",
 		"lore": "The stolen cape of a master illusionist.",
 		"goldPrice": 2150,
+		"quality": "rare",
+		"notes": "",
+		"dispellable": "Yes",
 		"manaCost": 125,
 		"cooldown": 15,
-		"quality": "rare",
 		"abilities": [
 			{
 				"type": "active",
@@ -10055,14 +10271,15 @@
 				"Hero",
 				"Basic"
 			]
-		},
-		"dispellable": "Yes"
+		}
 	},
 	"river_painter": {
 		"id": 1021,
 		"name": "River Vial: Chrome",
 		"lore": "",
+		"goldPrice": 0,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "paint_duration",
@@ -10077,7 +10294,9 @@
 		"id": 1022,
 		"name": "River Vial: Dry",
 		"lore": "",
+		"goldPrice": 0,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "paint_duration",
@@ -10092,7 +10311,9 @@
 		"id": 1023,
 		"name": "River Vial: Slime",
 		"lore": "",
+		"goldPrice": 0,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "paint_duration",
@@ -10107,7 +10328,9 @@
 		"id": 1024,
 		"name": "River Vial: Oil",
 		"lore": "",
+		"goldPrice": 0,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "paint_duration",
@@ -10122,7 +10345,9 @@
 		"id": 1025,
 		"name": "River Vial: Electrified",
 		"lore": "",
+		"goldPrice": 0,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "paint_duration",
@@ -10137,7 +10362,9 @@
 		"id": 1026,
 		"name": "River Vial: Potion",
 		"lore": "",
+		"goldPrice": 0,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "paint_duration",
@@ -10152,7 +10379,9 @@
 		"id": 1027,
 		"name": "River Vial: Blood",
 		"lore": "",
+		"goldPrice": 0,
 		"quality": "component",
+		"notes": "",
 		"attributes": [
 			{
 				"key": "paint_duration",
@@ -10167,8 +10396,10 @@
 		"id": 1028,
 		"name": "Tombstone",
 		"lore": "",
-		"charges": 1,
+		"goldPrice": 0,
 		"quality": "consumable",
+		"notes": "",
+		"charges": 1,
 		"behavior": [
 			"No Target",
 			"Channeled"
@@ -10176,7 +10407,9 @@
 	},
 	"super_blink": {
 		"id": 1029,
+		"name": "Super Blink",
 		"lore": "",
+		"notes": "",
 		"cooldown": 15,
 		"attributes": [
 			{
@@ -10196,6 +10429,7 @@
 		"id": 1030,
 		"name": "Pocket Tower",
 		"lore": "",
+		"notes": "",
 		"cooldown": 15,
 		"behavior": [
 			"Point Target"
@@ -10206,8 +10440,9 @@
 		"name": "Pocket Roshan",
 		"lore": "",
 		"goldPrice": 1000,
-		"cooldown": 60,
 		"quality": "rare",
+		"notes": "",
+		"cooldown": 60,
 		"attributes": [
 			{
 				"key": "summon_duration",
@@ -10223,6 +10458,8 @@
 		"id": 287,
 		"name": "Keen Optic",
 		"lore": "Stolen from a tinker's shop ages ago, this handy lens has seen service to many owners.",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "cast_range_bonus",
@@ -10240,6 +10477,8 @@
 		"id": 288,
 		"name": "Grove Bow",
 		"lore": "A gift from the moon goddess to one of her prized disciples many memories ago.",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -10270,6 +10509,8 @@
 		"id": 289,
 		"name": "Quickening Charm",
 		"lore": "An evergreen amulet of druidic origins.",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -10294,6 +10535,8 @@
 		"id": 290,
 		"name": "Philosopher's Stone",
 		"lore": "A weightless charm created by an enchanter with a powerful scorn for brute force.",
+		"goldPrice": 0,
+		"notes": "",
 		"charges": 750,
 		"attributes": [
 			{
@@ -10317,9 +10560,10 @@
 		"id": 291,
 		"name": "Force Boots",
 		"lore": "Elusive marvels never successfully studied for proper classification in the archives.",
+		"goldPrice": 0,
+		"notes": "Does not trigger spell block or spell reflect.",
 		"manaCost": 75,
 		"cooldown": 8,
-		"notes": "Does not trigger spell block or spell reflect.",
 		"abilities": [
 			{
 				"type": "active",
@@ -10372,7 +10616,9 @@
 		"id": 292,
 		"name": "Stygian Desolator",
 		"lore": "The original demonic favorite that served as basis for the beloved mortal design.",
+		"goldPrice": 0,
 		"notes": "Armor reduction works on buildings.",
+		"tier": 5,
 		"abilities": [
 			{
 				"type": "passive",
@@ -10394,13 +10640,14 @@
 				"value": "7.0"
 			}
 		],
-		"piercesBkb": true,
-		"tier": 5
+		"piercesBkb": true
 	},
 	"phoenix_ash": {
 		"id": 293,
 		"name": "Phoenix Ash",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"charges": 1,
 		"abilities": [
 			{
@@ -10420,6 +10667,8 @@
 		"id": 294,
 		"name": "Seer Stone",
 		"lore": "The curious creation of a wizard who professed to hail from another time.",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 60,
 		"abilities": [
 			{
@@ -10461,7 +10710,10 @@
 	},
 	"greater_mango": {
 		"id": 295,
+		"name": "Greater Mango",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"behavior": [
 			"Instant Cast",
 			"No Target"
@@ -10471,6 +10723,9 @@
 		"id": 302,
 		"name": "Elixir",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
+		"dispellable": "Yes",
 		"charges": 3,
 		"abilities": [
 			{
@@ -10504,13 +10759,14 @@
 			"type": [
 				"Hero"
 			]
-		},
-		"dispellable": "Yes"
+		}
 	},
 	"vampire_fangs": {
 		"id": 297,
 		"name": "Vampire Fangs",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "attack_lifesteal",
@@ -10536,8 +10792,9 @@
 		"id": 829,
 		"name": "Arcanist's Armor",
 		"lore": "An exquisite piece commissioned by a paranoid monarch who choked on a piece of fruit long before the item saw its intended use.",
-		"cooldown": 35,
+		"goldPrice": 0,
 		"notes": "Damage done by this item is considered reflected damage. Reflected damage does not provide any lifesteal and cannot be reflected.",
+		"cooldown": 35,
 		"abilities": [
 			{
 				"type": "active",
@@ -10585,6 +10842,8 @@
 		"id": 834,
 		"name": "Blast Rig",
 		"lore": "One of a set of custom rigs once worn by infamous road agents in the Outlands, its siblings have been lost to misfires and the various tides of time.",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 20,
 		"abilities": [
 			{
@@ -10619,7 +10878,10 @@
 	},
 	"mechanical_arm": {
 		"id": 849,
+		"name": "Mechanical Arm",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bat",
@@ -10639,6 +10901,8 @@
 		"id": 298,
 		"name": "Craggy Coat",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 12,
 		"abilities": [
 			{
@@ -10678,9 +10942,11 @@
 		"id": 299,
 		"name": "Greater Faerie Fire",
 		"lore": "",
+		"goldPrice": 0,
+		"quality": "consumable",
+		"notes": "",
 		"charges": 3,
 		"cooldown": 10,
-		"quality": "consumable",
 		"abilities": [
 			{
 				"type": "use",
@@ -10716,6 +10982,8 @@
 		"id": 300,
 		"name": "Timeless Relic",
 		"lore": "An unmarred discovery from the excavated ruins of an ancient wizard's academy.",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "debuff_amp",
@@ -10736,6 +11004,8 @@
 		"id": 301,
 		"name": "Mirror Shield",
 		"lore": "The shield that long ago robbed the old one of his first memories.",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -10763,6 +11033,8 @@
 		"id": 304,
 		"name": "Ironwood Tree",
 		"lore": "Precious. And hearty as a weed.",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 15,
 		"abilities": [
 			{
@@ -10790,8 +11062,9 @@
 		"id": 328,
 		"name": "Mango Tree",
 		"lore": "",
-		"charges": 1,
 		"quality": "consumable",
+		"notes": "",
+		"charges": 1,
 		"abilities": [
 			{
 				"type": "use",
@@ -10813,8 +11086,10 @@
 		"id": 305,
 		"name": "Royal Jelly",
 		"lore": "To those who harvest olgru jelly, success serves more than mere profit--it's often the means to survival--for only the jelly itself can cure the ravages that follow a sting from the vigilant denizens of the giant hives.",
-		"charges": 5,
+		"goldPrice": 0,
 		"quality": "consumable",
+		"notes": "",
+		"charges": 5,
 		"abilities": [
 			{
 				"type": "active",
@@ -10871,6 +11146,7 @@
 		"id": 306,
 		"name": "Pupil's Gift",
 		"lore": "An astounding plate of ever-replenishing, fortifying fruit.",
+		"goldPrice": 0,
 		"notes": "Grants two-thirds value to each attribute for Universal Heroes",
 		"attributes": [
 			{
@@ -10887,6 +11163,8 @@
 		"id": 307,
 		"name": "Tome of Aghanim",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"charges": 1,
 		"abilities": [
 			{
@@ -10918,9 +11196,11 @@
 		"id": 308,
 		"name": "Repair Kit",
 		"lore": "",
+		"goldPrice": 0,
+		"quality": "consumable",
+		"notes": "",
 		"charges": 3,
 		"cooldown": 60,
-		"quality": "consumable",
 		"abilities": [
 			{
 				"type": "use",
@@ -10964,6 +11244,8 @@
 		"id": 309,
 		"name": "Mind Breaker",
 		"lore": "A bewitching blade of indeterminate form capable of piercing the psyche of even the most willful foe.",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 16,
 		"abilities": [
 			{
@@ -10991,6 +11273,8 @@
 		"id": 310,
 		"name": "Third Eye",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"charges": 3,
 		"abilities": [
 			{
@@ -11025,6 +11309,8 @@
 		"id": 311,
 		"name": "Spell Prism",
 		"lore": "Even the slightest flaw in the components of a spell prism can result in the death of its user.",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -11054,6 +11340,8 @@
 		"id": 325,
 		"name": "Prince's Knife",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 10,
 		"abilities": [
 			{
@@ -11082,6 +11370,8 @@
 		"id": 330,
 		"name": "Witless Shako",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "max_health",
@@ -11102,6 +11392,8 @@
 		"id": 334,
 		"name": "Imp Claw",
 		"lore": "Though their tasks are largely thankless, demon hunters can often turn a profit bartering parts in Weeping Rose.",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 5,
 		"abilities": [
 			{
@@ -11125,6 +11417,8 @@
 		"id": 335,
 		"name": "Flicker",
 		"lore": "The technically-true-to-his-word 'teleportation device' crafted by a notorious fae trickster.",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 5,
 		"abilities": [
 			{
@@ -11157,6 +11451,8 @@
 		"id": 336,
 		"name": "Telescope",
 		"lore": "A handy tool that manages to make close what once was far.",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -11190,6 +11486,9 @@
 		"id": 326,
 		"name": "Spider Legs",
 		"lore": "A horrifying yet useful mixture of necromancy and artificing.",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 5,
 		"cooldown": 20,
 		"abilities": [
 			{
@@ -11215,13 +11514,14 @@
 		"behavior": [
 			"Instant Cast",
 			"No Target"
-		],
-		"tier": 5
+		]
 	},
 	"helm_of_the_undying": {
 		"id": 327,
 		"name": "Helm of the Undying",
 		"lore": "The price for wearing it is paid in the afterlife.",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 100,
 		"abilities": [
 			{
@@ -11249,7 +11549,9 @@
 		"id": 331,
 		"name": "Vambrace",
 		"lore": "The coveted treasure that divided the heirs of Queen Raiya upon her death, resulting in the eventual downfall of her kingdom.",
+		"goldPrice": 0,
 		"quality": "common",
+		"notes": "",
 		"abilities": [
 			{
 				"type": "active",
@@ -11286,7 +11588,10 @@
 	},
 	"horizon": {
 		"id": 312,
+		"name": "Horizon",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 10,
 		"attributes": [
 			{
@@ -11308,6 +11613,8 @@
 		"id": 313,
 		"name": "Fusion Rune",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"charges": 3,
 		"cooldown": 120,
 		"abilities": [
@@ -11340,6 +11647,8 @@
 		"id": 354,
 		"name": "Ocean Heart",
 		"lore": "A charm blessed by the Council of the Brine.",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -11367,6 +11676,8 @@
 		"id": 1124,
 		"name": "Spark of Courage",
 		"lore": "A common battle charm in the armies that served the Children of Light.",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -11393,6 +11704,8 @@
 		"id": 355,
 		"name": "Broom Handle",
 		"lore": "The surprisingly dangerous creation of an apprentice sorcerer with a strange fondness for brooms.",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "melee_attack_range",
@@ -11415,8 +11728,9 @@
 		"id": 356,
 		"name": "Trusty Shovel",
 		"lore": "Former plaything of a young deity, received as a gift from his uncle.",
-		"cooldown": 70,
+		"goldPrice": 0,
 		"notes": "16% chance for a Bounty Rune.\n28% chance each for a Flask, an Enchanted Mango, or a kobold.\nThe same Trusty Shovel cannot find the same reward twice in a row.",
+		"cooldown": 70,
 		"abilities": [
 			{
 				"type": "active",
@@ -11451,6 +11765,8 @@
 		"id": 357,
 		"name": "Nether Shawl",
 		"lore": "An otherworldly garment tethered to our plane by unknown means.",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_magic_resistance",
@@ -11473,6 +11789,8 @@
 		"id": 358,
 		"name": "Dragon Scale",
 		"lore": "The remains of a dragon always outvalue the wealth of even the most prodigious hoard.",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -11495,6 +11813,9 @@
 		"id": 359,
 		"name": "Essence Ring",
 		"lore": "An ancient bauble blessed by the breath of Verodicia.",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 2,
 		"manaCost": 160,
 		"cooldown": 25,
 		"abilities": [
@@ -11525,13 +11846,14 @@
 		"behavior": [
 			"Instant Cast",
 			"No Target"
-		],
-		"tier": 2
+		]
 	},
 	"clumsy_net": {
 		"id": 360,
 		"name": "Clumsy Net",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 25,
 		"abilities": [
 			{
@@ -11572,6 +11894,8 @@
 		"id": 361,
 		"name": "Enchanted Quiver",
 		"lore": "A graceful gift blessed by the goddess of the hunt.",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 4,
 		"abilities": [
 			{
@@ -11599,6 +11923,8 @@
 		"id": 362,
 		"name": "Ninja Gear",
 		"lore": "Valuable equipment recovered by a young explorer sifting through the flotsam and detritus drifting in the void.",
+		"goldPrice": 0,
+		"notes": "",
 		"manaCost": 100,
 		"cooldown": 60,
 		"abilities": [
@@ -11643,6 +11969,8 @@
 		"id": 363,
 		"name": "Illusionist's Cape",
 		"lore": "A dashing cape whose creator insists on calling 'Cloak of Apparition' as opposed to his assistant's 'Illusion' drivel.",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 30,
 		"abilities": [
 			{
@@ -11704,6 +12032,8 @@
 		"id": 364,
 		"name": "Havoc Hammer",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 10,
 		"abilities": [
 			{
@@ -11765,6 +12095,8 @@
 		"id": 365,
 		"name": "Magic Lamp",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 75,
 		"abilities": [
 			{
@@ -11792,6 +12124,7 @@
 		"id": 366,
 		"name": "Apex",
 		"lore": "Three orbs of remarkable power bound within a single scepter.",
+		"goldPrice": 0,
 		"notes": "Grants +24 to each attribute for Universal Heroes.",
 		"attributes": [
 			{
@@ -11809,6 +12142,8 @@
 		"id": 367,
 		"name": "Ballista",
 		"lore": "A simple design much improved by a master smith's loving hand.",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -11840,6 +12175,8 @@
 		"id": 368,
 		"name": "Woodland Striders",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 20,
 		"abilities": [
 			{
@@ -11885,14 +12222,17 @@
 		"id": 275,
 		"name": "Trident Recipe",
 		"lore": "",
-		"goldPrice": 1
+		"goldPrice": 1,
+		"notes": ""
 	},
 	"demonicon": {
 		"id": 370,
 		"name": "Book of the Dead",
 		"lore": "A record of the final reckoning. With one page torn out.",
-		"cooldown": 80,
+		"goldPrice": 0,
 		"notes": "The Demonic Warrior has 1600 Health, 4 Armor, 40% Magic Resistance, 380 Movement Speed, 134 Attack Damage, 50 Mana Burn on Hit, 800 Damage on Death, and 1000 True Sight Radius.\nThe Demonic Archer has 1300 Health, 4 Armor, 40% Magic Resistance, 425 Movement Speed, 131 Attack Damage, a basic dispel ability with a slow on a 15s Cooldown, and a 9% Bonus Movement Speed Aura.",
+		"tier": 5,
+		"cooldown": 80,
 		"abilities": [
 			{
 				"type": "active",
@@ -11917,13 +12257,15 @@
 		"behavior": [
 			"Instant Cast",
 			"No Target"
-		],
-		"tier": 5
+		]
 	},
 	"fallen_sky": {
 		"id": 371,
 		"name": "Fallen Sky",
 		"lore": "One of the few surviving creations of the acolytes of the Wyrmforge.",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 5,
 		"cooldown": 25,
 		"abilities": [
 			{
@@ -11996,13 +12338,14 @@
 		],
 		"behavior": [
 			"Point Target"
-		],
-		"tier": 5
+		]
 	},
 	"pirate_hat": {
 		"id": 372,
 		"name": "Pirate Hat",
 		"lore": "A salty skulltopper cursed with endless good fortune.",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -12038,6 +12381,8 @@
 		"id": 374,
 		"name": "Ex Machina",
 		"lore": "The remains of an ancient universe, preserved within a single sphere.",
+		"goldPrice": 0,
+		"notes": "",
 		"manaCost": 350,
 		"cooldown": 60,
 		"abilities": [
@@ -12062,6 +12407,8 @@
 		"id": 375,
 		"name": "Faded Broach",
 		"lore": "A life-saving jewel bestowed upon a young queen by a kindly vizier. ",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_mana",
@@ -12079,6 +12426,8 @@
 		"id": 376,
 		"name": "Paladin Sword",
 		"lore": "The sigil blade of the legendary Brother Yhols of Gausra, stripped from its scabbard on the day of his controversial excommunication.",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_damage",
@@ -12109,6 +12458,9 @@
 		"id": 377,
 		"name": "Minotaur Horn",
 		"lore": "The trophy from a mighty beast ambushed and slain in the recesses of its own home.",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 5,
 		"cooldown": 40,
 		"abilities": [
 			{
@@ -12134,13 +12486,14 @@
 		"behavior": [
 			"Instant Cast",
 			"No Target"
-		],
-		"tier": 5
+		]
 	},
 	"orb_of_destruction": {
 		"id": 378,
 		"name": "Orb of Destruction",
 		"lore": "An ingot of chaos suspended in wizard's ether, housed within an arcanist's orb.",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -12175,6 +12528,8 @@
 		"id": 379,
 		"name": "The Leveller",
 		"lore": "A demonic blade that struck the final blow to crack the gates of the Sanctum of Solanas.",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -12201,6 +12556,8 @@
 		"id": 349,
 		"name": "Arcane Ring",
 		"lore": "Once a prized heirloom of a minor lord's house.",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 60,
 		"abilities": [
 			{
@@ -12240,6 +12597,8 @@
 		"id": 381,
 		"name": "Titan Sliver",
 		"lore": "Though many desire this brilliant shard for its obvious qualities, a school of study exists to determine the true size and purpose of its incomprehensible whole.",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "base_attack_damage",
@@ -12257,7 +12616,9 @@
 		"id": 565,
 		"name": "Chipped Vest",
 		"lore": "It doesn't look like much, but it's oddly comfy.",
+		"goldPrice": 0,
 		"notes": "Damage done by this item is considered reflected damage. Reflected damage does not provide any lifesteal and cannot be reflected.",
+		"tier": 1,
 		"abilities": [
 			{
 				"type": "passive",
@@ -12278,13 +12639,14 @@
 				"key": "damage_return_creep",
 				"value": "15"
 			}
-		],
-		"tier": 1
+		]
 	},
 	"elven_tunic": {
 		"id": 573,
 		"name": "Elven Tunic",
 		"lore": "Even simple items of elven make seem imbued with inexplicable efficacy.",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "attack_speed",
@@ -12307,6 +12669,9 @@
 		"id": 574,
 		"name": "Cloak of Flames",
 		"lore": "A very fine cloak that plays host to an overly-protective living flame.",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 3,
 		"abilities": [
 			{
 				"type": "passive",
@@ -12335,13 +12700,14 @@
 				"key": "damage_illusions",
 				"value": "25"
 			}
-		],
-		"tier": 3
+		]
 	},
 	"trickster_cloak": {
 		"id": 571,
 		"name": "Trickster Cloak",
 		"lore": "A fantastic garment immediately misplaced by its creator upon completion.",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 25,
 		"abilities": [
 			{
@@ -12373,7 +12739,9 @@
 		"id": 577,
 		"name": "Possessed Mask",
 		"lore": "Even when discarded with specific purpose and great care, this frightening mask always finds its way onto the face of a new owner.",
+		"goldPrice": 0,
 		"notes": "Grants 1/3rd of the value to each attribute for Universal Heroes.",
+		"tier": 1,
 		"abilities": [
 			{
 				"type": "passive",
@@ -12391,13 +12759,14 @@
 				"key": "lifesteal",
 				"value": "5"
 			}
-		],
-		"tier": 1
+		]
 	},
 	"penta_edged_sword": {
 		"id": 638,
 		"name": "Penta-Edged Sword",
 		"lore": "The final, twisted work of a severely pious blacksmith, completed immediately before the taking of his own life. ",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -12438,8 +12807,9 @@
 		"id": 680,
 		"name": "Bullwhip",
 		"lore": "Once the favored lash of an infamous broker of pit fighters and other live trade.",
-		"cooldown": 11,
+		"goldPrice": 0,
 		"notes": "Does not trigger spell block or spell reflect.",
+		"cooldown": 11,
 		"abilities": [
 			{
 				"type": "active",
@@ -12487,8 +12857,10 @@
 		"id": 675,
 		"name": "Psychic Headband",
 		"lore": "A failed experiment in finer telekinetic control, still fit for other ends.",
-		"cooldown": 15,
+		"goldPrice": 0,
 		"notes": "Does not trigger spell block or spell reflect.",
+		"tier": 3,
+		"cooldown": 15,
 		"abilities": [
 			{
 				"type": "active",
@@ -12525,13 +12897,14 @@
 				"Hero",
 				"Basic"
 			]
-		},
-		"tier": 3
+		}
 	},
 	"ceremonial_robe": {
 		"id": 676,
 		"name": "Ceremonial Robe",
 		"lore": "One of many items lost in the looting of Zelenwyr's sacred reliquary.",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -12562,6 +12935,8 @@
 		"id": 686,
 		"name": "Quicksilver Amulet",
 		"lore": "An enchanted talisman brimming with a mysterious substance.",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -12604,8 +12979,9 @@
 		"id": 677,
 		"name": "Book of Shadows",
 		"lore": "An impossible tome filled with unreadable prose of unknowable thoughts.",
-		"cooldown": 8,
+		"goldPrice": 0,
 		"notes": "Does not trigger spell block or spell reflect.",
+		"cooldown": 8,
 		"abilities": [
 			{
 				"type": "active",
@@ -12647,6 +13023,8 @@
 		"id": 678,
 		"name": "Giant's Ring",
 		"lore": "Prized procurement of an otherwise unremarkable ruler of Elze who abdicated his position and vanished.",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -12691,6 +13069,9 @@
 		"id": 585,
 		"name": "Stormcrafter",
 		"lore": "The accidental byproduct of a spell conjured to entrap a lesser god.",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 3,
 		"cooldown": 6,
 		"abilities": [
 			{
@@ -12728,13 +13109,14 @@
 				"key": "passive_movement_bonus",
 				"value": "0"
 			}
-		],
-		"tier": 3
+		]
 	},
 	"mysterious_hat": {
 		"id": 589,
 		"name": "Fairy's Trinket",
 		"lore": "A small token imbued with the fortune of the fae in recognition of an intriguing display of mortal kindness.",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 8,
 		"attributes": [
 			{
@@ -12758,6 +13140,8 @@
 		"id": 825,
 		"name": "Ascetic's Cap",
 		"lore": "An austere hat thought to be of Turstarkuri origin.",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 25,
 		"abilities": [
 			{
@@ -12781,6 +13165,8 @@
 		"id": 828,
 		"name": "Brigand's Blade",
 		"lore": "An infamous assassin's blade stolen and smuggled out of White Spire after its owner's mysterious demise.",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -12811,6 +13197,9 @@
 		"id": 837,
 		"name": "Witchbane",
 		"lore": "With ready access to test subjects, untold cruelties have been dreamed up and loosed upon the world from within the walls of the Tyler Estate.",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 5,
 		"manaCost": 150,
 		"cooldown": 40,
 		"abilities": [
@@ -12852,13 +13241,14 @@
 				"Basic"
 			]
 		},
-		"piercesBkb": false,
-		"tier": 5
+		"piercesBkb": false
 	},
 	"unstable_wand": {
 		"id": 838,
 		"name": "Pig Pole",
 		"lore": "A makeshift charm misplaced by a peace-loving, addlebrained enchanter.",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 20,
 		"abilities": [
 			{
@@ -12889,6 +13279,9 @@
 		"id": 840,
 		"name": "Tumbler's Toy",
 		"lore": "An antique plaything found in the ruins of an Ozenja circus bazaar.",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 2,
 		"cooldown": 15,
 		"abilities": [
 			{
@@ -12917,16 +13310,17 @@
 		],
 		"behavior": [
 			"No Target"
-		],
-		"tier": 2
+		]
 	},
 	"paintball": {
 		"id": 835,
 		"name": "Fae Grenade",
 		"lore": "Those marked for death by the fae shine brightly to all manner of creatures in the shadow realm.",
+		"goldPrice": 0,
+		"notes": "Does not trigger spell block or spell reflect.",
+		"dispellable": "Yes",
 		"manaCost": 25,
 		"cooldown": 20,
-		"notes": "Does not trigger spell block or spell reflect.",
 		"abilities": [
 			{
 				"type": "active",
@@ -12960,13 +13354,15 @@
 				"Hero",
 				"Basic"
 			]
-		},
-		"dispellable": "Yes"
+		}
 	},
 	"seeds_of_serenity": {
 		"id": 945,
 		"name": "Seeds of Serenity",
 		"lore": "An evergreen sprout treasured by the woodkin and highly coveted by interlopers and their like.",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 2,
 		"cooldown": 35,
 		"abilities": [
 			{
@@ -13004,13 +13400,14 @@
 		"behavior": [
 			"Point Target",
 			"AOE"
-		],
-		"tier": 2
+		]
 	},
 	"lance_of_pursuit": {
 		"id": 946,
 		"name": "Lance of Pursuit",
 		"lore": "The gleaming weapon of a tarnished knight haunted by his duties to an unworthy king.",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -13054,6 +13451,9 @@
 		"id": 947,
 		"name": "Occult Bracelet",
 		"lore": "A band that bears effigy of the dark goddess Eloshar's unsleeping eye.",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 1,
 		"abilities": [
 			{
 				"type": "passive",
@@ -13082,13 +13482,14 @@
 				"key": "magic_resistance",
 				"value": "0"
 			}
-		],
-		"tier": 1
+		]
 	},
 	"ogre_seal_totem": {
 		"id": 949,
 		"name": "Ogre Seal Totem",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"manaCost": 25,
 		"cooldown": 40,
 		"abilities": [
@@ -13148,13 +13549,15 @@
 		"id": 1101,
 		"name": "Harpoon Recipe",
 		"lore": "",
-		"goldPrice": 1000
+		"goldPrice": 1000,
+		"notes": ""
 	},
 	"harpoon": {
 		"id": 939,
 		"name": "Harpoon",
 		"lore": "A perfect solution for the flight of foes.",
 		"goldPrice": 4700,
+		"notes": "",
 		"manaCost": 50,
 		"cooldown": 19,
 		"abilities": [
@@ -13258,6 +13661,9 @@
 		"id": 950,
 		"name": "Defiant Shell",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 2,
 		"cooldown": 5,
 		"abilities": [
 			{
@@ -13271,13 +13677,14 @@
 				"key": "counter_damage",
 				"value": "80"
 			}
-		],
-		"tier": 2
+		]
 	},
 	"eye_of_the_vizier": {
 		"id": 990,
 		"name": "Eye of the Vizier",
 		"lore": "The ring of a cunning court mage who imprisoned a cadre of enemies to serve as his personal mana reserve.",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "cast_range_bonus",
@@ -13298,7 +13705,10 @@
 	},
 	"bottomless_chalice": {
 		"id": 1000,
+		"name": "Bottomless Chalice",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"charges": 6,
 		"attributes": [
 			{
@@ -13351,6 +13761,9 @@
 		"id": 1077,
 		"name": "Dagger of Ristul",
 		"lore": "A sinister shiv that grants favor to those willing to stain its blade with a sacrifice of their own blood.",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 1,
 		"cooldown": 30,
 		"abilities": [
 			{
@@ -13381,13 +13794,15 @@
 		"behavior": [
 			"Instant Cast",
 			"No Target"
-		],
-		"tier": 1
+		]
 	},
 	"ofrenda": {
 		"id": 4300,
 		"name": "Beloved Memory",
 		"lore": "Take joy in remembering those beloved who've passed now beyond the veil.",
+		"goldPrice": 0,
+		"notes": "",
+		"dmgType": "Magical",
 		"cooldown": 3,
 		"abilities": [
 			{
@@ -13412,13 +13827,14 @@
 			"type": [
 				"Building"
 			]
-		},
-		"dmgType": "Magical"
+		}
 	},
 	"ofrenda_shovel": {
 		"id": 4301,
 		"name": "Scrying Shovel",
 		"lore": "You don't know where it came from, but it knows where you need to go. All you need to do is dig.",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 8,
 		"abilities": [
 			{
@@ -13436,6 +13852,8 @@
 		"id": 4302,
 		"name": "Forebearer's Fortune",
 		"lore": "This item seems unstable. Like it might just disappear.",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "active",
@@ -13465,9 +13883,12 @@
 		"id": 1090,
 		"name": "Mercy & Grace",
 		"lore": "One to deliver the body, the other to claim the soul.",
+		"goldPrice": 0,
+		"notes": "Feared enemies are phased and unslowable.\nThe ricochet will travel 1x Dead Shot's cast range.",
+		"dispellable": "Yes",
+		"dmgType": "Magical",
 		"manaCost": 160,
 		"cooldown": 10,
-		"notes": "Feared enemies are phased and unslowable.\nThe ricochet will travel 1x Dead Shot's cast range.",
 		"abilities": [
 			{
 				"type": "active",
@@ -13549,14 +13970,13 @@
 				"Tree"
 			]
 		},
-		"dispellable": "Yes",
-		"piercesBkb": false,
-		"dmgType": "Magical"
+		"piercesBkb": false
 	},
 	"tier1_token": {
 		"id": 2091,
 		"name": "Tier 1 Token",
 		"lore": "",
+		"notes": "",
 		"behavior": [
 			"No Target"
 		],
@@ -13568,6 +13988,7 @@
 		"id": 2092,
 		"name": "Tier 2 Token",
 		"lore": "",
+		"notes": "",
 		"behavior": [
 			"No Target"
 		],
@@ -13579,6 +14000,7 @@
 		"id": 2093,
 		"name": "Tier 3 Token",
 		"lore": "",
+		"notes": "",
 		"behavior": [
 			"No Target"
 		],
@@ -13590,6 +14012,7 @@
 		"id": 2094,
 		"name": "Tier 4 Token",
 		"lore": "",
+		"notes": "",
 		"behavior": [
 			"No Target"
 		],
@@ -13601,6 +14024,7 @@
 		"id": 2095,
 		"name": "Tier 5 Token",
 		"lore": "",
+		"notes": "",
 		"behavior": [
 			"No Target"
 		],
@@ -13612,6 +14036,8 @@
 		"id": 2096,
 		"name": "Vindicator's Axe",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -13644,6 +14070,9 @@
 		"id": 2097,
 		"name": "Duelist Gloves",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 1,
 		"abilities": [
 			{
 				"type": "passive",
@@ -13664,13 +14093,14 @@
 				"key": "radius",
 				"value": "1200"
 			}
-		],
-		"tier": 1
+		]
 	},
 	"ancient_guardian": {
 		"id": 1156,
 		"name": "Ancient Guardian",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -13698,6 +14128,8 @@
 		"id": 1157,
 		"name": "Safety Bubble",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -13724,6 +14156,8 @@
 		"id": 1158,
 		"name": "Whisper of the Dread",
 		"lore": "The air that passes through this amulet makes a dreadful sound.",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -13750,6 +14184,8 @@
 		"id": 1159,
 		"name": "Nemesis Curse",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -13785,6 +14221,8 @@
 		"id": 1160,
 		"name": "Aviana's Feather",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -13813,6 +14251,8 @@
 		"id": 1161,
 		"name": "Unwavering Condition",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -13836,6 +14276,9 @@
 		"id": 2190,
 		"name": "Dandelion Amulet",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 4,
 		"cooldown": 12,
 		"abilities": [
 			{
@@ -13861,15 +14304,15 @@
 				"key": "min_damage",
 				"value": "75"
 			}
-		],
-		"tier": 4
+		]
 	},
 	"martyrs_plate": {
 		"id": 2192,
 		"name": "Martyr's Plate",
 		"lore": "",
-		"cooldown": 40,
+		"goldPrice": 0,
 		"notes": "Damage done by this item is considered reflected damage. Reflected damage does not provide any lifesteal and cannot be reflected.",
+		"cooldown": 40,
 		"abilities": [
 			{
 				"type": "active",
@@ -13910,6 +14353,8 @@
 		"id": 2193,
 		"name": "Gossamer Cape",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 6,
 		"abilities": [
 			{
@@ -13929,6 +14374,8 @@
 		"id": 1167,
 		"name": "Light Collector",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 30,
 		"attributes": [
 			{
@@ -13973,7 +14420,9 @@
 		"id": 1168,
 		"name": "Rattlecage",
 		"lore": "",
+		"goldPrice": 0,
 		"notes": "Damage done by this item is considered reflected damage. Reflected damage does not provide any lifesteal and cannot be reflected.",
+		"tier": 4,
 		"abilities": [
 			{
 				"type": "passive",
@@ -14018,13 +14467,14 @@
 				"key": "bonus_armor",
 				"value": "0"
 			}
-		],
-		"tier": 4
+		]
 	},
 	"doubloon": {
 		"id": 1803,
 		"name": "Doubloon",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 5,
 		"abilities": [
 			{
@@ -14059,8 +14509,10 @@
 		"id": 1804,
 		"name": "Roshan's Banner",
 		"lore": "",
-		"cooldown": 1,
+		"goldPrice": 0,
 		"quality": "consumable",
+		"notes": "",
+		"cooldown": 1,
 		"abilities": [
 			{
 				"type": "use",
@@ -14117,6 +14569,8 @@
 		"id": 1440,
 		"name": "Black Grimoire\\n(Warlock)",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 420,
 		"abilities": [
 			{
@@ -14136,6 +14590,8 @@
 		"id": 1441,
 		"name": "Gris-Gris",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "death_gold_lost_reduction_pct",
@@ -14154,6 +14610,8 @@
 		"id": 1576,
 		"name": "Vast",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "attack_range",
@@ -14176,6 +14634,8 @@
 		"id": 1577,
 		"name": "Quickened",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "movement_speed",
@@ -14198,6 +14658,8 @@
 		"id": 1581,
 		"name": "Audacious",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "attack_speed",
@@ -14220,6 +14682,8 @@
 		"id": 1583,
 		"name": "Mystical",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "mana_regen",
@@ -14242,6 +14706,8 @@
 		"id": 1584,
 		"name": "Alert",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_attack_speed",
@@ -14264,6 +14730,8 @@
 		"id": 1585,
 		"name": "Brawny",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "health_bonus",
@@ -14286,6 +14754,8 @@
 		"id": 1586,
 		"name": "Tough",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_damage",
@@ -14308,6 +14778,8 @@
 		"id": 1587,
 		"name": "Feverish",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "cooldown_reduction",
@@ -14325,6 +14797,7 @@
 		"id": 1588,
 		"name": "Fleetfooted",
 		"lore": "",
+		"goldPrice": 0,
 		"notes": "Does not stack with Movement Speed bonuses from boots",
 		"attributes": [
 			{
@@ -14338,6 +14811,8 @@
 		"id": 1589,
 		"name": "Crude",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "health_restoration",
@@ -14360,6 +14835,8 @@
 		"id": 1590,
 		"name": "Boundless",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_attack_range",
@@ -14377,6 +14854,8 @@
 		"id": 1591,
 		"name": "Wise",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_xpm",
@@ -14393,6 +14872,8 @@
 		"id": 1592,
 		"name": "Timeless",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "debuff_amp",
@@ -14410,6 +14891,8 @@
 		"id": 1593,
 		"name": "Greedy",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"charges": 750,
 		"attributes": [
 			{
@@ -14433,6 +14916,8 @@
 		"id": 1594,
 		"name": "Vampiric",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "attack_lifesteal",
@@ -14455,6 +14940,8 @@
 		"id": 1595,
 		"name": "Keen-eyed",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "cast_range_bonus",
@@ -14477,6 +14964,7 @@
 		"id": 1596,
 		"name": "Evolved",
 		"lore": "",
+		"goldPrice": 0,
 		"notes": "Grants +24 to each attribute for Universal Heroes.",
 		"attributes": [
 			{
@@ -14494,6 +14982,8 @@
 		"id": 1597,
 		"name": "Titanic",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "base_attack_damage",
@@ -14516,6 +15006,9 @@
 		"id": 1598,
 		"name": "Unrelenting Eye",
 		"lore": "A serpent's eye the size of a melon (and just as moist).",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 3,
 		"abilities": [
 			{
 				"type": "passive",
@@ -14536,13 +15029,15 @@
 				"key": "status_res_pct_increase_per_hero",
 				"value": "0"
 			}
-		],
-		"tier": 3
+		]
 	},
 	"mana_draught": {
 		"id": 1599,
 		"name": "Mana Draught",
 		"lore": "A refreshing drink best shared with friends.",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 2,
 		"cooldown": 60,
 		"abilities": [
 			{
@@ -14585,13 +15080,15 @@
 			"type": [
 				"Hero"
 			]
-		},
-		"tier": 2
+		}
 	},
 	"rippers_lash": {
 		"id": 1600,
 		"name": "Ripper's Lash",
 		"lore": "The Fae horticulturists of Revtel are known to push the boundaries of both cross pollination and safety.",
+		"goldPrice": 0,
+		"notes": "",
+		"dmgType": "Physical",
 		"cooldown": 25,
 		"abilities": [
 			{
@@ -14623,13 +15120,16 @@
 		"behavior": [
 			"Point Target",
 			"AOE"
-		],
-		"dmgType": "Physical"
+		]
 	},
 	"crippling_crossbow": {
 		"id": 1601,
 		"name": "Crippling Crossbow",
 		"lore": "The ever-weeping woodgrain of this crossbow coats every bolt in a potent but short-lived narcotic sap.",
+		"goldPrice": 0,
+		"notes": "",
+		"dmgType": "Magical",
+		"tier": 2,
 		"manaCost": 50,
 		"cooldown": 30,
 		"abilities": [
@@ -14672,14 +15172,14 @@
 				"Hero",
 				"Basic"
 			]
-		},
-		"dmgType": "Magical",
-		"tier": 2
+		}
 	},
 	"gale_guard": {
 		"id": 1602,
 		"name": "Gale Guard",
 		"lore": "If one truly listens, they can always rely upon the wind to make its will known.",
+		"goldPrice": 0,
+		"notes": "",
 		"cooldown": 30,
 		"abilities": [
 			{
@@ -14715,6 +15215,9 @@
 		"id": 1603,
 		"name": "Gunpowder Gauntlet",
 		"lore": "A 'harmless' prank that went entirely too far.",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 3,
 		"cooldown": 10,
 		"abilities": [
 			{
@@ -14736,14 +15239,15 @@
 				"key": "splash_pct",
 				"value": "50"
 			}
-		],
-		"tier": 3
+		]
 	},
 	"searing_signet": {
 		"id": 1604,
 		"name": "Searing Signet",
 		"lore": "To torture a magic user, one must devise means far beyond the mundane.",
+		"goldPrice": 0,
 		"notes": "Will not ignite enemies that are more than 2000 range away.",
+		"tier": 2,
 		"abilities": [
 			{
 				"type": "passive",
@@ -14776,13 +15280,15 @@
 				"key": "max_range",
 				"value": "2000"
 			}
-		],
-		"tier": 2
+		]
 	},
 	"serrated_shiv": {
 		"id": 1605,
 		"name": "Serrated Shiv",
 		"lore": "Too dangerous for taskwork, this blade's only purpose is vile murder.",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 3,
 		"cooldown": 1,
 		"abilities": [
 			{
@@ -14804,13 +15310,15 @@
 				"key": "hp_dmg_rosh",
 				"value": "200"
 			}
-		],
-		"tier": 3
+		]
 	},
 	"polliwog_charm": {
 		"id": 1606,
 		"name": "Pollywog Charm",
 		"lore": "A tiny trinket that wriggles when wet.",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 1,
 		"cooldown": 45,
 		"abilities": [
 			{
@@ -14845,13 +15353,14 @@
 				"Hero",
 				"Basic"
 			]
-		},
-		"tier": 1
+		}
 	},
 	"magnifying_monocle": {
 		"id": 1607,
 		"name": "Magnifying Monocle",
 		"lore": "Deadly refinement.",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -14882,8 +15391,10 @@
 		"id": 1608,
 		"name": "Pyrrhic Cloak",
 		"lore": "There are generals that care far less about the survival of their troops than the destruction of their enemies.",
-		"cooldown": 40,
+		"goldPrice": 0,
 		"notes": "Damage done by this item is considered reflected damage. Reflected damage does not provide any lifesteal and cannot be reflected.",
+		"dmgType": "Physical",
+		"cooldown": 40,
 		"abilities": [
 			{
 				"type": "active",
@@ -14916,15 +15427,16 @@
 				"Hero",
 				"Basic"
 			]
-		},
-		"dmgType": "Physical"
+		}
 	},
 	"madstone_bundle": {
 		"id": 1609,
 		"name": "Madstone Bundle",
 		"lore": "",
-		"charges": 1,
+		"goldPrice": 0,
 		"quality": "consumable",
+		"notes": "",
+		"charges": 1,
 		"attributes": [
 			{
 				"key": "madstone_primary",
@@ -14957,10 +15469,12 @@
 	},
 	"miniboss_minion_summoner": {
 		"id": 1610,
+		"name": "Miniboss Minion Summoner",
 		"lore": "",
+		"quality": "artifact",
+		"notes": "",
 		"charges": 4,
 		"cooldown": 40,
-		"quality": "artifact",
 		"attributes": [
 			{
 				"key": "disappear_time",
@@ -15021,6 +15535,9 @@
 		"id": 1637,
 		"name": "Kobold Cup",
 		"lore": "The Kobold King will sip when he damn well pleases.",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 1,
 		"manaCost": 40,
 		"cooldown": 40,
 		"abilities": [
@@ -15047,14 +15564,15 @@
 		"behavior": [
 			"Instant Cast",
 			"No Target"
-		],
-		"tier": 1
+		]
 	},
 	"dormant_curio": {
 		"id": 1638,
 		"name": "Dormant Curio",
 		"lore": "Everyone has an idea, but no one has a clue.",
+		"goldPrice": 0,
 		"notes": "Certain stats on the next artifact will be amplified. Will not amplify cooldown, mana cost, or cast range.",
+		"tier": 1,
 		"abilities": [
 			{
 				"type": "passive",
@@ -15067,13 +15585,13 @@
 				"key": "item_potency",
 				"value": "30"
 			}
-		],
-		"tier": 1
+		]
 	},
 	"sisters_shroud": {
 		"id": 1639,
 		"name": "Sister's Shroud",
 		"lore": "A pall that draped the sarcophagus of the First Sister.",
+		"goldPrice": 0,
 		"notes": "Does not trigger from damage by non-player controlled creeps",
 		"abilities": [
 			{
@@ -15110,8 +15628,10 @@
 		"id": 1640,
 		"name": "Jidi Pollen Bag",
 		"lore": "Very dangerous. Very difficult to obtain more.",
-		"cooldown": 25,
+		"goldPrice": 0,
 		"notes": "Damage is non-lethal and classified as HP Loss.",
+		"tier": 3,
+		"cooldown": 25,
 		"abilities": [
 			{
 				"type": "active",
@@ -15144,16 +15664,16 @@
 		"behavior": [
 			"Instant Cast",
 			"No Target"
-		],
-		"tier": 3
+		]
 	},
 	"outworld_staff": {
 		"id": 1641,
 		"name": "Outworld Staff",
 		"lore": "Proof that the lone sentinel was not always so.",
+		"goldPrice": 0,
+		"notes": "Damage taken when returning is non-lethal and disables Blink Dagger and other items that are muted upon taking damage.",
 		"manaCost": 65,
 		"cooldown": 30,
-		"notes": "Damage taken when returning is non-lethal and disables Blink Dagger and other items that are muted upon taking damage.",
 		"abilities": [
 			{
 				"type": "active",
@@ -15180,6 +15700,9 @@
 		"id": 1642,
 		"name": "Dezun Bloodrite",
 		"lore": "The gateway to a lost lineage of power, unlocked only with blood.",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 5,
 		"abilities": [
 			{
 				"type": "passive",
@@ -15196,13 +15719,15 @@
 				"key": "aoe_pct",
 				"value": "16"
 			}
-		],
-		"tier": 5
+		]
 	},
 	"giant_maul": {
 		"id": 1643,
 		"name": "Giant's Maul",
 		"lore": "Crude but smashingly effective.",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 4,
 		"cooldown": 15,
 		"abilities": [
 			{
@@ -15232,13 +15757,15 @@
 				"key": "debuff_duration",
 				"value": "3"
 			}
-		],
-		"tier": 4
+		]
 	},
 	"divine_regalia": {
 		"id": 1644,
 		"name": "Divine Regalia",
 		"lore": "So magnificent, it cannot abide failure.",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 5,
 		"abilities": [
 			{
 				"type": "passive",
@@ -15251,13 +15778,14 @@
 				"key": "outgoing_damage",
 				"value": "20"
 			}
-		],
-		"tier": 5
+		]
 	},
 	"divine_regalia_broken": {
 		"id": 1645,
 		"name": "Disgraced Regalia",
 		"lore": "It cannot abide failure.",
+		"goldPrice": 0,
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -15270,6 +15798,8 @@
 		"id": 1647,
 		"name": "Fierce",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "movement_speed",
@@ -15292,6 +15822,8 @@
 		"id": 1648,
 		"name": "Dominant",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "attack_speed",
@@ -15314,6 +15846,8 @@
 		"id": 1649,
 		"name": "Restorative",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_mana",
@@ -15336,6 +15870,8 @@
 		"id": 1650,
 		"name": "Thick",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bonus_health",
@@ -15358,6 +15894,8 @@
 		"id": 1651,
 		"name": "Unleashed",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "item_potency",
@@ -15370,6 +15908,8 @@
 		"id": 1652,
 		"name": "Bag of Gold",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "gold_bag_duration",
@@ -15386,8 +15926,10 @@
 	},
 	"recipe_specialists_array": {
 		"id": 1715,
+		"name": "Specialists Array Recipe",
 		"lore": "",
-		"goldPrice": 550
+		"goldPrice": 550,
+		"notes": ""
 	},
 	"specialists_array": {
 		"id": 1076,
@@ -15395,6 +15937,7 @@
 		"lore": "An impressive kit of trigger enhancements born in an aging assassin's idle mind.",
 		"goldPrice": 2550,
 		"quality": "rare",
+		"notes": "",
 		"abilities": [
 			{
 				"type": "passive",
@@ -15454,8 +15997,10 @@
 	},
 	"recipe_hydras_breath": {
 		"id": 1857,
+		"name": "Hydras Breath Recipe",
 		"lore": "",
-		"goldPrice": 1100
+		"goldPrice": 1100,
+		"notes": ""
 	},
 	"hydras_breath": {
 		"id": 1858,
@@ -15553,6 +16098,9 @@
 		"id": 1716,
 		"name": "Weighted Dice",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 1,
 		"abilities": [
 			{
 				"type": "passive",
@@ -15569,13 +16117,15 @@
 				"key": "bonus_max_damage",
 				"value": "6"
 			}
-		],
-		"tier": 1
+		]
 	},
 	"ash_legion_shield": {
 		"id": 1717,
 		"name": "Ash Legion Shield",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 1,
 		"cooldown": 40,
 		"abilities": [
 			{
@@ -15605,13 +16155,15 @@
 		"behavior": [
 			"Instant Cast",
 			"No Target"
-		],
-		"tier": 1
+		]
 	},
 	"riftshadow_prism": {
 		"id": 1718,
 		"name": "Riftshadow Prism",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 5,
 		"cooldown": 30,
 		"abilities": [
 			{
@@ -15641,13 +16193,16 @@
 		"behavior": [
 			"Instant Cast",
 			"No Target"
-		],
-		"tier": 5
+		]
 	},
 	"metamorphic_mandible": {
 		"id": 1719,
 		"name": "Metamorphic Mandible",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
+		"dispellable": "Yes",
+		"tier": 4,
 		"cooldown": 30,
 		"abilities": [
 			{
@@ -15680,14 +16235,16 @@
 		],
 		"behavior": [
 			"No Target"
-		],
-		"dispellable": "Yes",
-		"tier": 4
+		]
 	},
 	"idol_of_screeauk": {
 		"id": 1720,
 		"name": "Idol of Scree'auk",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
+		"dispellable": "Yes",
+		"tier": 4,
 		"cooldown": 30,
 		"abilities": [
 			{
@@ -15712,14 +16269,16 @@
 		],
 		"behavior": [
 			"No Target"
-		],
-		"dispellable": "Yes",
-		"tier": 4
+		]
 	},
 	"flayers_bota": {
 		"id": 1721,
 		"name": "Flayer's Bota",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
+		"dispellable": "Yes",
+		"tier": 4,
 		"cooldown": 65,
 		"abilities": [
 			{
@@ -15753,14 +16312,15 @@
 		],
 		"behavior": [
 			"No Target"
-		],
-		"dispellable": "Yes",
-		"tier": 4
+		]
 	},
 	"spellslinger": {
 		"id": 1859,
 		"name": "Spellslinger",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 3,
 		"abilities": [
 			{
 				"type": "passive",
@@ -15781,13 +16341,15 @@
 				"key": "restore_tickrate",
 				"value": "2"
 			}
-		],
-		"tier": 3
+		]
 	},
 	"prophets_pendulum": {
 		"id": 1860,
 		"name": "Prophet's Pendulum",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 4,
 		"abilities": [
 			{
 				"type": "passive",
@@ -15808,13 +16370,15 @@
 				"key": "damage_interval",
 				"value": "1"
 			}
-		],
-		"tier": 4
+		]
 	},
 	"stonefeather_satchel": {
 		"id": 1861,
 		"name": "Stonefeather Satchel",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 1,
 		"cooldown": 6,
 		"abilities": [
 			{
@@ -15840,13 +16404,15 @@
 		"behavior": [
 			"Instant Cast",
 			"No Target"
-		],
-		"tier": 1
+		]
 	},
 	"enchanters_bauble": {
 		"id": 1862,
 		"name": "Enchanter's Bauble",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 4,
 		"abilities": [
 			{
 				"type": "passive",
@@ -15868,14 +16434,15 @@
 				"display": "CURRENT BONUS: {value}%",
 				"value": "0"
 			}
-		],
-		"tier": 4
+		]
 	},
 	"harmonizer": {
 		"id": 1863,
 		"name": "Harmonizer",
 		"lore": "",
+		"goldPrice": 0,
 		"notes": "Only considers abilities that are visible and have a cooldown",
+		"tier": 5,
 		"abilities": [
 			{
 				"type": "passive",
@@ -15892,13 +16459,15 @@
 				"key": "spell_amp",
 				"value": "6"
 			}
-		],
-		"tier": 5
+		]
 	},
 	"conjurers_catalyst": {
 		"id": 1864,
 		"name": "Conjurer's Catalyst",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 4,
 		"abilities": [
 			{
 				"type": "passive",
@@ -15927,13 +16496,14 @@
 				"key": "damage_creep",
 				"value": "15"
 			}
-		],
-		"tier": 4
+		]
 	},
 	"enhancement_vital": {
 		"id": 1865,
 		"name": "Vital",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "health_regen",
@@ -15946,6 +16516,8 @@
 		"id": 1866,
 		"name": "Hulking",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "max_health",
@@ -15968,6 +16540,8 @@
 		"id": 1867,
 		"name": "Manic",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "bat_reduce",
@@ -15990,6 +16564,9 @@
 		"id": 1868,
 		"name": "Forager's Kit",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
+		"tier": 1,
 		"cooldown": 60,
 		"abilities": [
 			{
@@ -16023,15 +16600,16 @@
 				"key": "old_destroy_radius",
 				"value": "2500"
 			}
-		],
-		"tier": 1
+		]
 	},
 	"foragers_health": {
 		"id": 1869,
 		"name": "Vital Toadstool",
 		"lore": "",
-		"charges": 1,
+		"goldPrice": 0,
 		"notes": "Hold Control to use on a nearby allied hero.",
+		"dispellable": "Yes",
+		"charges": 1,
 		"abilities": [
 			{
 				"type": "use",
@@ -16069,15 +16647,15 @@
 			"type": [
 				"Hero"
 			]
-		},
-		"dispellable": "Yes"
+		}
 	},
 	"foragers_stats": {
 		"id": 1870,
 		"name": "Ironwood Nut",
 		"lore": "",
-		"charges": 1,
+		"goldPrice": 0,
 		"notes": "Universal heroes get 0.4 bonus to all attributes.",
+		"charges": 1,
 		"abilities": [
 			{
 				"type": "use",
@@ -16117,8 +16695,9 @@
 		"id": 1871,
 		"name": "Tomo'kan Ringcap",
 		"lore": "",
-		"charges": 1,
+		"goldPrice": 0,
 		"notes": "Hold Control to use on a nearby allied hero.",
+		"charges": 1,
 		"abilities": [
 			{
 				"type": "use",
@@ -16178,7 +16757,9 @@
 		"id": 1873,
 		"name": "Partisan's Brand",
 		"lore": "",
+		"goldPrice": 0,
 		"notes": "Player controlled units includes heroes and any creep summoned or converted by them.",
+		"tier": 3,
 		"abilities": [
 			{
 				"type": "passive",
@@ -16191,13 +16772,14 @@
 				"key": "bonus_damage_pct",
 				"value": "9"
 			}
-		],
-		"tier": 3
+		]
 	},
 	"enhancement_nimble": {
 		"id": 1874,
 		"name": "Nimble",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "movespeed_pct",
@@ -16220,6 +16802,8 @@
 		"id": 1875,
 		"name": "Leviathan's Fish",
 		"lore": "",
+		"goldPrice": 0,
+		"notes": "",
 		"attributes": [
 			{
 				"key": "fish_duration",
@@ -16239,9 +16823,9 @@
 		"name": "Diffusal Blade",
 		"lore": "An enchanted blade that allows the user to cut straight into the enemy's soul.",
 		"goldPrice": 3850,
-		"cooldown": 4,
 		"quality": "artifact",
 		"notes": "Does not stack with other manabreak abilities.",
+		"cooldown": 4,
 		"attributes": [
 			{
 				"key": "bonus_agility",
