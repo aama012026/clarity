@@ -1,35 +1,243 @@
 :root {
-	--c-common: #2BAB01;
-	--c-common-transparent: #2BAB0188;
-	--c-common-transparent-border: #2BAB0144;
-	--c-rare: #1A87F9;
-	--c-rare-transparent: #1a87f988;
-	--c-rare-transparent-border: #1a87f944;
-	--c-epic: #B812F9;
-	--c-epic-transparent: #B812F988;
-	--c-epic-transparent-border: #B812F944;
-	--c-artifact: #E29B01;
-	--c-artifact-transparent: #E29B0188;
-	--c-artifact-transparent-border: #E29B0144;
+	--c-sl0: oklab(59.894% -0.02732 -0.21605);
+	--c-sl1: oklab(90.155% -0.15166 0.04764);
+	--c-party1-fg-hi: oklab(96.934% -0.02991 0.00888);
+	--c-party1-fg-lo: oklab(90.431% -0.09195 0.03101);
+	--c-party1-bg-hi: oklab(66.565% -0.08402 0.02904);
+	--c-party1-bg-lo: oklab(28.639% -0.04739 0.0183);
+	--c-sl2: oklab(56.018% 0.21925 -0.13514);
+	--c-party3-fg-hi: oklab(81.702% 0.03951 -0.02674);
+	--c-party3-fg-lo: oklab(59.101% 0.12617 -0.08117);
+	--c-party3-bg-hi: oklab(44.023% 0.14369 -0.09295);
+	--c-party3-bg-lo: oklab(24.626% 0.07914 -0.0549);
+	--c-sl3: oklab(92.796% -0.06332 0.18912);
+	--c-party2-fg-hi: oklab(95.503% -0.00228 0.05088);
+	--c-party2-fg-lo: oklab(87.028% -0.00923 0.14399);
+	--c-party2-bg-hi: oklab(66.942% 0.00131 0.13128);
+	--c-party2-bg-lo: oklab(30.279% 0.00009 0.05364);
+	--c-pl-sl-4: oklab(70.09% 0.14285 0.14164);
+	--c-pl-s128: oklab(76.978% 0.15737 -0.02726);
+	--c-pl-s129: oklab(73.104% -0.06284 0.11891);
+	--c-pl-s130: oklab(82.923% -0.0898 -0.06841);
+	--c-pl-s131: oklab(53.595% -0.13828 0.09703);
+	--c-pl-s132: oklab(56.565% 0.04177 0.1151);
 
-	--strength-red: #ec3d06;
-	--strength-red-transparent: #ec3d0688;
-	--strength-red-transparent-border: #ec3d0622;
-	--agility-green: #26e030;
-	--agility-green-transparent: #26e03088;
-	--agility-green-transparent-border: #26e03022;
-	--intelligence-blue: #01d8eb;
-	--universe-purple: #a82be6;
+	--c-radiant-on: oklab(91.942% -0.09326 0.06452);
+	--c-radiant-hi: oklab(65.429% -0.10492 0.09841);
+	--c-radiant-mid: oklab(48.333% -0.09389 0.0932);
+	--c-radiant-lo: oklab(29.67% -0.0695 0.06039);
 
-	--white: white;
-	--grey-lit: #b2b2b2;
-	--grey-dim: #4c4c4c;
-	--slate: #242627;
-	--slate-transparent: #242627cc;
-	--black: #101415;
+	--c-dire-on: oklab(59.804% 0.15707 0.08972);
+	--c-dire-hi: oklab(43.419% 0.15428 0.08551);
+	--c-dire-lo: oklab(20.162% 0.07221 0.0404);
 
-	--border: 0.1em solid var(--grey-dim);
+	--c-health-lit: oklab(59.663% -0.08203 0.05481);
+	--c-health-dim: oklab(45.39% -0.05196 0.01681);
+	--c-mana-lit: oklab(57.426% -0.05682 -0.0699);
+	--c-mana-dim: oklab(44.402% -0.03972 -0.06701);
+	--c-shards-gradient-hi: oklab(73.515% 0.03226 0.08576);
+	--c-shards-gradient-lo: oklab(48.429% 0.08115 0.06918);
+	--c-shards-lit: oklab(84.987% -0.01346 0.09091);
+	--c-shards-mid: oklab(66.63% 0.02501 0.09842);
+	--c-shards-lit: oklab(55.01% 0.04636 0.07534);
+	--c-gold: oklab(86.657% 0.00377 0.16454);
+	--c-innate-steel-hi: oklab(66% -0.00978 -0.02457);
+	--c-innate-steel-lo: oklab(40.201% -0.00545 -0.01913);
+	--c-innate-brass-hi: oklab(90.66% -0.00392 0.06668);
+	--c-innate-brass-lo: oklab(58.91% -0.00283 0.07118);
+
+	--c-consumable: oklab(59.917% -0.04798 -0.17268);
+	--c-common: oklab(65.298% -0.16507 0.13491);
+	--c-rare: oklab(62.6% -0.05039 -0.1877);
+	--c-epic: oklab(59.689% 0.19556 -0.21877);
+	--c-artifact: hsl(41, 99%, 45%);
+
+	--str-red: oklab(61.569% 0.17925 0.12235);
+	--agi-green: oklab(78.942% -0.20233 0.15163);
+	--int-blue: oklab(80.018% -0.12283 -0.06044);
+	--uni-purple: oklab(57.717% 0.16966 -0.19584);
+
+	--fg-white: oklab(96.115% 0 -0.00011);
+	--fg-off-white: oklab(92.191% 0 -0.0001);
+	--fg-mid-grey: oklab(76.632% -0.00939 -0.0118);
+	--fg-dim-green: oklab(61.872% -0.02526 -0.00755);
+	--gradient-fg-grey-hi: oklab(59.375% -0.00393 -0.0123);
+	--gradient-fg-grey-lo: oklab(50.761% -0.00376 -0.00939);
+	--c-fg-hover-hi: oklab(91.019% -0.02043 -0.01332);
+	--c-fg-hover-lo: oklab(77.512% -0.01934 -0.0162);
+	--c-text-shadow-blue: oklab(51.257% -0.0198 -0.06658);
+
+	--c-stone-hi: oklab(46.661% -0.01164 -0.01359);
+	--c-stone-lo: oklab(32.351% -0.0077 -0.00785);
+	--c-slate-hi: oklab(28.171% -0.0048 -0.00909);
+	--c-slate-lo: oklab(21.782% -0.00611 -0.0059);
+	--c-bg-medalframe: oklab(28.933% -0.0056 -0.01117);
+	--c-grey-lit: oklab(76.358% 0 -0.00009);
+	--c-grey-dim: oklab(41.654% 0 -0.00005);
+	--slate: oklab(26.695% -0.00228 -0.00265);
+	--c-black-ban-bg: oklab(18.126% 0.00237 -0.02276);
+	--c-fg-grey-hi: oklab(52.709% -0.01092 -0.01472);
+	--c-fg-grey-lo: oklab(36.732% -0.00611 -0.01257);
+	--black: oklab(18.738% -0.00542 -0.00374);
+
+	/* Gradients */
+	--gr-text-party1: linear-gradient(to bottom, var(--c-party1-fg-hi), var(--c-party1-fg-lo));
+	--gr-text-party2: linear-gradient(to bottom, var(--c-party2-fg-hi), var(--c-party2-fg-lo));
+	--gr-text-party3: linear-gradient(to bottom, var(--c-party3-fg-hi), var(--c-party3-fg-lo));
+	--gr-text-hover: linear-gradient(to top, var(--c-fg-hover-hi), var(--c-fg-hover-lo));
+
+	--border: 0.1em solid var(--c-grey-dim);
 	--corner-radius: 0.2em;
+
+	/* Defaults */
+	--fg-solid: var(--fg-white);
+	--fg-dim: var(--fg)
+	--fg-gr-hi: var(--c-fg-hover-hi);
+	--fg-gr-lo: var(--c-fg-hover-lo);
+	--text-gradient-lit: linear-gradient(to top, var(--fg-off-white), var(--fg-mid-grey));
+	--text-gradient: linear-gradient(to top, var(--gradient-fg-grey-hi), var(--gradient-fg-grey-lo));
+	--text-gradient-hover: var(--gr-text-hover);
+	--text-gradient-dim: var(--gr-text-hover);
+	--bg-solid: var(--c-slate-lo);
+	--bg-gr-hi: var(--c-slate-hi);
+	--bg-gr-lo: var(--c-slate-lo);
+	--border-color: var(--c-slate-hi);
+	--border-gr-hi: var(--c-fg-grey-hi);
+	--border-gr-lo: var(--c-fg-grey-lo);
+	--border-thickness: 0.1em;
+	--border-line: solid;
+	--text-shadow: none;
+	--box-shadow: none;
+	--border-gradient: linear-gradient(var(--c-fg-grey-hi), var(--c-fg-grey-lo));
+}
+
+.text-gradient {
+	font-weight: 700;
+	background: text var(--text-gradient) content-box var(--bg-solid);
+	color: transparent;
+	text-shadow: none;
+
+	&:hover, &:focus-visible {
+		background: text var(--text-gradient-hover) content-box var(--bg-solid);
+	}
+
+	a&:visited {
+		background: text var(--text-gradient-dim) content-box var(--bg-solid);
+	}
+	&:active {
+		background: text var(--text-gradient-lit) content-box var(--bg-solid);
+	}
+}
+
+.border-gradient {
+	background: border-box var(--border-gradient) content-box var(--bg);
+	--border-color: transparent;
+}
+
+.health {
+	--bg-gr-hi:  var(--c-health-lit);
+	--bg-gr-lo: var(--c-health-dim);
+}
+.mana{
+	--bg-gr-hi: var(--c-mana-lit);
+	--bg-gr-lo: var(--c-mana-dim);
+}
+
+.consumable {
+	img& {
+		border: 1px solid oklab(from var(--str-red)l a b/0.5);
+	}
+}
+
+.component {
+	img& {
+		border: 1px solid #fff4;
+	}
+}
+
+.common {
+	img& {
+	border: 1px solid oklab(from var(--c-common)l a b/0.5);
+	}
+}
+
+.rare {
+	--color: var(--c-rare);
+	--bg-color: var(--slate);
+	img& {
+		border: 1px solid oklab(from var(--c-rare)l a b/0.5);
+	}
+}
+
+.epic {
+	--color: var(--c-epic);
+	--bg-color: var(--slate);
+	img& {
+		border: 1px solid oklab(from var(--c-epic)l a b/0.5);
+	}
+}
+.artifact {
+	--color: var(--c-artifact);
+	--bg-color: var(--c-artifact);
+	img& {
+		border: 1px solid oklab(from var(--c-artifact)l a b/0.5);
+	}
+}
+
+.radiant {
+	--color: var(--agi-green);
+	color: var(--color);
+	text-shadow: 0 0 0.4em var(--color);
+	&.gradient {
+		background: linear-gradient(to right, oklab(from var(--agi-green)l a b/0.5), transparent);
+	}
+}
+
+.dire {
+	--color: var(--str-red);
+	color: var(--color);
+	text-shadow: 0 0 0.4em var(--color);
+	&.gradient {
+		background: linear-gradient(to left, oklab(from var(--str-red)l a b/0.5), transparent);
+	}
+}
+
+.neutral {
+	--color: var(--c-white);
+	color: var(--color);
+	text-shadow: none;
+}
+
+.gradient-box {
+	border: none;
+	border-radius: var(--corner-radius);
+	outline: var(--border-thickness) var(--border-line) #fff2;
+	outline-offset: calc(0 - var(--border-thickness));
+	color: var(--fg);
+	text-shadow: 0 0 4px #0001;
+	background: linear-gradient(to bottom, var(--bg-gr-hi) var(--bg-gr-lo));
+}
+
+.frame {
+	color: var(--fg);
+	background: var(--bg);
+	border: var(--border-thickness) var(--border-line) var(--border-color);
+}
+
+.box {
+	padding: 0.2lh 1ch;
+	border: 0.1em solid var(--color);
+	border-radius: var(--corner-radius);
+	outline: 0.05em solid #fff3;
+	outline-offset: -0.1em;
+	background-color: var(--bg-color);
+	transition: all 360ms;
+	&:hover {
+		text-shadow: 0 0 0.2em var(--color);
+		box-shadow: 0 0 0.4em var(--color);
+		outline-width: 0.1em;
+		transition: all 120ms;
+	}
 }
 
 body {
@@ -41,10 +249,10 @@ body {
 
 h1, h2 {
 	margin: 0;
-	text-shadow: 0 0 0.3rem var(--c-rare);
+	text-shadow: 0 0 0.3rem var(--c-text-shadow-blue);
 	transition: all 360ms;
 	&:hover {
-		text-shadow: 0 0 0.6rem var(--c-rare);
+		text-shadow: 0 0 0.6rem var(--c-text-shadow-blue);
 	}
 }
 
@@ -54,7 +262,7 @@ header {
 	grid-template-columns: repeat(3, 1fr);
 	place-items: center;
 	background: linear-gradient(150deg, #333, #111);
-	border-bottom: 0.1rem solid var(--grey-dim);
+	border-bottom: 0.1rem solid var(--c-grey-dim);
 	& h1 {
 		justify-self: start;
 		margin: 0;
@@ -103,7 +311,7 @@ input {
 	outline: 0.05em solid #fff3;
 	outline-offset: -0.1em;
 	border-radius: 0.2em;
-	color: var(--white);
+	color: var(--c-white);
 	background-color: var(--bg-color);
 }
 
@@ -123,18 +331,16 @@ table > caption {
 }
 
 tr:has([data-result='Victory']) {
-	background: linear-gradient(to left, var(--agility-green-transparent), transparent 90%);
-	border: 2px solid var(--agility-green-transparent-border);
-	border-right-color: var(--agility-green);
+	border-right-color: var(--agi-green);
+	background: linear-gradient(to left, oklab(from var(--agi-green)l a b/0.5), transparent);
 	border-left: none;
-	background: linear-gradient(to left, var(--agility-green-transparent), transparent);
+	border: 2px solid oklab(from var(--agi-green)l a b/0.25);
 }
 tr:has([data-result='Defeat']) {
-	background: linear-gradient(to left, var(--strength-red-transparent), transparent 90%);
-	border: 2px solid var(--strength-red-transparent-border);
-	border-right-color: var(--strength-red);
+	border-right-color: var(--str-red);
+	background: linear-gradient(to left, oklab(from var(--str-red)l a b/0.5), transparent);
+	border: 2px solid oklab(from var(--str-red)l a b/0.25);
 	border-left: none;
-	background: linear-gradient(to left, var(--strength-red-transparent), transparent);
 }
 
 img {
@@ -143,86 +349,7 @@ img {
 	}
 }
 
-.consumable {
-	img& {
-		border: 1px solid var(--strength-red-transparent);
-	}
-}
 
-.component {
-	img& {
-		border: 1px solid #fff4;
-	}
-}
-
-.common {
-	img& {
-	border: 1px solid var(--c-common-transparent);
-	}
-}
-
-.rare {
-	--color: var(--c-rare);
-	--bg-color: var(--slate);
-	img& {
-		border: 1px solid var(--c-rare-transparent);
-	}
-}
-
-.epic {
-	--color: var(--c-epic);
-	--bg-color: var(--slate);
-	img& {
-		border: 1px solid var(--c-epic-transparent);
-	}
-}
-.artifact {
-	--color: var(--c-artifact);
-	--bg-color: var(--c-artifact);
-	img& {
-		border: 1px solid var(--c-artifact-transparent);
-	}
-}
-
-.radiant {
-	--color: var(--agility-green);
-	color: var(--color);
-	text-shadow: 0 0 0.4em var(--color);
-	&.gradient {
-		background: linear-gradient(to right, var(--agility-green-transparent), transparent);
-	}
-}
-
-.dire {
-	--color: var(--strength-red);
-	color: var(--color);
-	text-shadow: 0 0 0.4em var(--color);
-	&.gradient {
-		background: linear-gradient(to left, var(--strength-red-transparent), transparent);
-	}
-}
-
-.neutral {
-	--color: var(--white);
-	color: var(--color);
-	text-shadow: none;
-}
-
-.box {
-	padding: 0.2lh 1ch;
-	border: 0.1em solid var(--color);
-	border-radius: var(--corner-radius);
-	outline: 0.05em solid #fff3;
-	outline-offset: -0.1em;
-	background-color: var(--bg-color);
-	transition: all 360ms;
-	&:hover {
-		text-shadow: 0 0 0.2em var(--color);
-		box-shadow: 0 0 0.4em var(--color);
-		outline-width: 0.1em;
-		transition: all 120ms;
-	}
-}
 
 .flex-row {
 	display: flex;
@@ -257,7 +384,7 @@ img {
 	display: none;
 	z-index: 1;
 	width: 12ch;
-	background-color: var(--slate-transparent);
+	background-color: oklab(from var(--slate)l a b/0.5);
 	& h2 {
 		font-size: 1rem;
 		margin: 0;
@@ -339,15 +466,15 @@ td:has(img.hero) {
 
 }
 [data-result='Defeat'] {
-	color: var(--grey-lit);
+	color: var(--c-grey-lit);
 }
 [data-side='Radiant'] {
-	color: var(--agility-green);
-	text-shadow: 0 0 4px var(--agility-green);
+	color: var(--agi-green);
+	text-shadow: 0 0 4px var(--agi-green);
 }
 [data-side='Dire'] {
-	color: var(--strength-red);
-	text-shadow: 0 0 4px var(--strength-red);
+	color: var(--str-red);
+	text-shadow: 0 0 4px var(--str-red);
 }
 .match-clock {
 	font-size: 2.5rem;
@@ -390,18 +517,18 @@ td:has(img.hero) {
 			border-top-left-radius: 0.1rem;
 			border-top-right-radius: 0.1rem;
 			&[data-role="count"] {
-				background-color: var(--c-artifact-transparent);
+				background-color: oklab(from var(--c-artifact)l a b/0.5);
 				border-color: var(--c-artifact);
 				&.player-rank {
-					background-color: var(--c-common-transparent);
+					background-color: oklab(from var(--c-common)l a b/0.5);
 					border-color: var(--c-common);
 				}
 			}
 			&[data-role="percentile"] {
-				background-color: var(--c-rare-transparent);
+				background-color: oklab(from var(--c-rare)l a b/0.5);
 				border-color: var(--c-rare);
 				&.player-rank {
-					background-color: var(--c-epic-transparent);
+					background-color: oklab(from var(--c-epic)l a b/0.5);
 					border-color: var(--c-epic);
 				}
 			}
@@ -434,6 +561,7 @@ td:has(img.hero) {
 		}
 	}
 }
+
 #items {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
