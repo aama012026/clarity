@@ -65,8 +65,8 @@ functions by the builtTemplates.ts script. -->
 	<header>
 		<h1>%{title: string}</h1>
 		<nav>
-			<a href="%{a1Link: string}">%{a1Text: string}</a>
-			<a href="%{a2Link: string}">%{a2Text: string}</a>
+			<a class="text-gradient" href="%{a1Link: string}">%{a1Text: string}</a>
+			<a class="text-gradient" href="%{a2Link: string}">%{a2Text: string}</a>
 		</nav>
 	</header>
 </template>
@@ -103,7 +103,9 @@ functions by the builtTemplates.ts script. -->
 </template>
 
 <template id="item">
-	<img class="item %{quality: string}" src="%{imgSrc: string}" alt="%{imgAlt: string}"
-		data-attr="{inactive: !(/$itemSearch/gmi.test(%{name: string}))}"
-	>
+	<button class="glow-frame %{quality: string}" type="button">
+		<img src="%{imgSrc: string}" alt="%{imgAlt: string}"
+			data-attr="{inactive: !(/$itemSearch/gmi.test(%{name: string}))}"
+		>
+	</button>
 </template>

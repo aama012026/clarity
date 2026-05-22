@@ -35,10 +35,10 @@
 				<label for="search-input">Enter a 8 or 9-digit steam account-id or a persona-name</label>
 				<input type="text" data-bind:search-term data-init="$searchTerm = ''" 
 					data-computed:is-number="!!$searchTerm.match(/^\d*$/)" data-class="{rare: !!$isNumber, epic: !$isNumber}">
-				<button type="button" class="epic" disabled data-show="!$isNumber" data-attr:disabled="!$searchTerm" 
+				<button type="button" class="epic box" disabled data-show="!$isNumber" data-attr:disabled="!$searchTerm" 
 					data-on:click="searchTypedAccount($searchTerm)">search persona
 				</button>
-				<button type="button" class="rare" disabled data-show="$isNumber" data-attr:disabled="!$searchTerm.match(/^\d{8,9}$/)"
+				<button type="button" class="rare box" disabled data-show="$isNumber" data-attr:disabled="!$searchTerm.match(/^\d{8,9}$/)"
 					data-on:click="@get(`/account/${$searchTerm}`)">search account
 				</button>
 			</div>

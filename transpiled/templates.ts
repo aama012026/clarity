@@ -1,3 +1,4 @@
+// This file is generated from templates.html.	Don't edit manually!
 // We tag the literals for syntax highlighting
 const html = String.raw
 
@@ -88,8 +89,8 @@ export function makeHeader(
 	return html`<header>
 		<h1>${title}</h1>
 		<nav>
-			<a href="${a1Link}">${a1Text}</a>
-			<a href="${a2Link}">${a2Text}</a>
+			<a class="text-gradient" href="${a1Link}">${a1Text}</a>
+			<a class="text-gradient" href="${a2Link}">${a2Text}</a>
 		</nav>
 	</header>`
 }
@@ -137,7 +138,9 @@ export function makeItem(
 	imgAlt: string,
 	name: string
 	): string {
-	return html`<img class="item ${quality}" src="${imgSrc}" alt="${imgAlt}"
-		data-attr="{inactive: !(/$itemSearch/gmi.test(${name}))}"
-	>`
+	return html`<button class="glow-frame ${quality}" type="button">
+		<img src="${imgSrc}" alt="${imgAlt}"
+			data-attr="{inactive: !(/$itemSearch/gmi.test(${name}))}"
+		>
+	</button>`
 }
