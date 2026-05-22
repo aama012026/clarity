@@ -1,4 +1,4 @@
-import type { Id } from "../types/BoundTypes"
+import { ATTRIBUTES, type AttributeLabel, type Id } from "../types/BoundTypes"
 import type { ItemLabel } from "./bindings"
 
 export const GROUP = {
@@ -294,3 +294,30 @@ export const GROUP_BY_ITEM = {
 	enhancement_fleetfooted: 12,
 	enhancement_vampiric: 12,
 } as const satisfies Record<ItemLabel, GroupKey>
+
+type NeutralItemTier = 1 | 2 | 3 | 4 | 5
+type EnhancementAvailability = {
+	tiers: [NeutralItemTier, NeutralItemTier],
+	heroTypes: AttributeLabel[]
+}
+export const ENCHANTMENT_AVAILABILITY = {
+	enhancement_brawny: {tiers: [1, 4], heroTypes: ['str', 'agi']},
+	enhancement_tough: {tiers: [1, 4], heroTypes: ['str', 'int']},
+	enhancement_alert: {tiers: [1, 4], heroTypes: ['agi', 'all']},
+	enhancement_mystical: {tiers: [1, 4], heroTypes: [ATTRIBUTES., '']},
+	enhancement_quickened: {},
+	enhancement_vital: 12,
+	enhancement_crude: 12,
+	enhancement_nimble: 12,
+	enhancement_keen_eyed: 12,
+	enhancement_titanic: 12,
+	enhancement_greedy: 12,
+	enhancement_timeless: 12,
+	enhancement_hulking: 12,
+	enhancement_audacious: 12,
+	enhancement_feverish: 12,
+	enhancement_manic: 12,
+	enhancement_evolved: 12,
+	enhancement_fleetfooted: 12,
+	enhancement_vampiric: 12
+} as const satisfies Record<ItemLabel, EnhancementAvailability>

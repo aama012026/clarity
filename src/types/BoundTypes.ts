@@ -16,7 +16,7 @@ export interface Hero {
 	baseMagicResist: number,
 	baseAttack: Attack,
 	attributes: {
-		primary: Attribute,
+		primary: AttributeLabel,
 		base: AttributeSet,
 		gain: AttributeSet
 	},
@@ -31,13 +31,20 @@ interface Resource {
 	regen: number
 }
 
-type Attribute = typeof ATTRIBUTES[keyof typeof ATTRIBUTES]
-const ATTRIBUTES = {
-	STRENGTH: 'str',
-	AGILITY: 'agi',
-	INTELLIGENCE: 'int',
-	UNIVERSAL: 'all'
+const ATTRIBUTE = {
+	STR: 0,
+	AGI: 1,
+	INT: 2,
+	UNI: 3
 } as const
+const ATTRIBUTES = [
+	{key:ATTRIBUTE.STR, label:'strength', extId:'str'},
+	{key:ATTRIBUTE.AGI, label:'agility', extId:'agi'},
+	{key:ATTRIBUTE.INT, label:'intelligence', extId: 'int'},
+	{key:ATTRIBUTE.UNI, label:'universal', extId:'all'}
+] as const satisfies IdBinding<string>[]
+export type AttributeLabel = typeof ATTRIBUTES[number]['label']
+export type AttributeExtId = typeof ATTRIBUTES[number]['extId']
 
 interface AttributeSet {
 	strength: number,
