@@ -24,7 +24,7 @@ functions by the builtTemplates.ts script. -->
 	<tr class="match-summary" data-on:click="@get('/match/%{matchId: number}')">
 		<td>
 			<div>Match: %{matchId: number}</div>
-			<div>Time: %{startTime: string}<div>
+			<div>Time: %{startTime: string}</div>
 		</td>
 		<td><img class="hero %{attribute: string}" data-hero="%{heroKey: number}"
 				src="%{imgSrc: string}" alt="%{imgAlt: string}"
@@ -98,6 +98,16 @@ functions by the builtTemplates.ts script. -->
 <template id="item-grid">
 	<section id="items-%{category: string}">
 		<h3>%{category: string}</h3>
+		<div class="grid">%{items: string}</div>
+	</section>
+</template>
+
+<template id="neutral-item-grid">
+	<section id="neutral-items-t%{tier: number}">
+		<hgroup class="space-between-row">
+			<h3>TIER %{tier: number}</h3>
+			<p>%{availableMin: number}:00+</p>
+		</hgroup>
 		<div class="grid">%{items: string}</div>
 	</section>
 </template>
