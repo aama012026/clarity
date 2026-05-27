@@ -303,29 +303,29 @@ export const GROUP_BY_ITEM = {
 
 type NeutralItemTier = 1 | 2 | 3 | 4 | 5
 type EnhancementAvailability = {
-	tiers: [NeutralItemTier, NeutralItemTier],
+	tiers: [NeutralItemTier, NeutralItemTier?],
 	heroTypes: AttributeIdx[]
 }
 
 const {STR, AGI, INT, UNI} = ATTRIBUTE
 export const ENCHANTMENT_AVAILABILITY = {
-	enhancement_brawny: {tiers: [1, 4], heroTypes: [STR, AGI]},
-	enhancement_tough: {tiers: [1, 4], heroTypes: [STR, INT]},
-	enhancement_alert: {tiers: [1, 4], heroTypes: [AGI, UNI]},
-	enhancement_mystical: {tiers: [1, 4], heroTypes: [, ]},
-	enhancement_quickened: {},
-	enhancement_vital: 12,
-	enhancement_crude: 12,
-	enhancement_nimble: 12,
-	enhancement_keen_eyed: 12,
-	enhancement_titanic: 12,
-	enhancement_greedy: 12,
-	enhancement_timeless: 12,
-	enhancement_hulking: 12,
-	enhancement_audacious: 12,
-	enhancement_feverish: 12,
-	enhancement_manic: 12,
-	enhancement_evolved: 12,
-	enhancement_fleetfooted: 12,
-	enhancement_vampiric: 12
+	enhancement_brawny: {tiers:[1, 4], heroTypes:[STR, AGI]},
+	enhancement_tough: {tiers:[1, 4], heroTypes:[STR, INT]},
+	enhancement_alert: {tiers:[1, 4], heroTypes:[AGI, UNI]},
+	enhancement_mystical: {tiers:[1, 4], heroTypes:[INT, UNI]},
+	enhancement_quickened: {tiers:[1, 4], heroTypes:[STR, AGI, INT, UNI]},
+	enhancement_vital: {tiers:[1], heroTypes:[STR, AGI, INT, UNI]},
+	enhancement_crude: {tiers:[2, 4], heroTypes:[STR]},
+	enhancement_nimble: {tiers:[2, 4], heroTypes:[AGI]},
+	enhancement_keen_eyed: {tiers:[2, 4], heroTypes:[INT]},
+	enhancement_titanic: {tiers:[2, 4], heroTypes:[UNI]},
+	enhancement_greedy: {tiers:[2, 3], heroTypes:[STR, AGI, INT, UNI]},
+	enhancement_timeless: {tiers:[4, 5], heroTypes:[STR, AGI, INT, UNI]},
+	enhancement_hulking: {tiers:[5], heroTypes:[STR]},
+	enhancement_audacious: {tiers:[5], heroTypes: [AGI]},
+	enhancement_feverish: {tiers:[5], heroTypes: [INT]},
+	enhancement_manic: {tiers:[5], heroTypes: [UNI]},
+	enhancement_evolved: {tiers:[5], heroTypes: [STR, AGI, INT, UNI]},
+	enhancement_fleetfooted: {tiers:[5], heroTypes: [STR, AGI, INT, UNI]},
+	enhancement_vampiric: {tiers:[5], heroTypes: [STR, AGI, INT, UNI]}
 } as const satisfies Record<ItemKey, EnhancementAvailability>
