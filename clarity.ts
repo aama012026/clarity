@@ -8,7 +8,7 @@ import * as ITEMS from './src/modules/itemConstants'
 
 import heroes from './public/generated/data/heroes.json'
 import itemJson from './public/generated/data/items.json'
-const items = itemJson as Record<ItemLabel, Item>
+const items = itemJson as Record<ItemKey, Item>
 
 
 
@@ -40,7 +40,7 @@ const itemsPage = makeItemsPage(
 
 import { makeHead, makeHeader, makeItem, makeItemGrid, makeItemsPage, makeItemsPanel, makeMatchHistorySection, makeMatchSummary } from './transpiled/templates';
 import { PATHS } from './src/modules/paths';
-import { bindPlayer, bindMatchSummary, heroLabels, RANK_NAMES, type Player, type PlayerMatchSummary, type ItemLabel } from './src/modules/bindings';
+import { bindPlayer, bindMatchSummary, heroNames, RANK_NAMES, type Player, type PlayerMatchSummary, type ItemKey } from './src/modules/bindings';
 import { LEAVER_STATUS, leaverStatusByKey, type AccountId, type MatchForPlayer, type OdotaPlayer, type RankBitmask } from './src/types/OpenDotaTypes';
 
 import axios from 'axios';
@@ -166,8 +166,8 @@ function patchMatchSummary(summary: PlayerMatchSummary): string {
 	const {match, player, hero} = summary
 	const startTime = match.startTime ? new Date(match.startTime).toLocaleString() : 'unknown'
 	const heroAttribute = heroes[hero.id]?.attributes.primary ?? 'missingAttr'
-	const imgSrc = `${PATHS.IMG.HEROES}/${heroLabels[hero.id]}.png`
-	const imgAlt = heroLabels[hero.id] ?? 'not found'
+	const imgSrc = `${PATHS.IMG.HEROES}/${heroNames[hero.id]}.png`
+	const imgAlt = heroNames[hero.id] ?? 'not found'
 	const duration = timerStringFromSeconds(match.lengthSeconds)
 	const leaverStatus = leaverStatusByKey[player.leaverStatus]
 	let result = 'Result unavailable'
@@ -255,10 +255,10 @@ function log(lvlToBeat: number, level: number, msg: string) {
 
 function generateItemGrid(group: ITEMS.GroupName) {
 	return makeItemGrid(
-		ITEMS.GROUP[group].label.toUpperCase(),
+		ITEMS.GROUPS[group].label.toUpperCase(),
 		Object.entries(ITEMS.GROUP_BY_ITEM).reduce(
 			(itemElements, [itemLabel, groupKey]) => { 
-				if(groupKey === ITEMS.GROUP[group].key) {
+				if(groupKey === ITEMS.GROUPS[group].key) {
 					itemElements += makeItem(
 						(items[itemLabel]?.quality) ?? '',
 						`${PATHS.IMG.ITEMS}/${itemLabel}.png`,

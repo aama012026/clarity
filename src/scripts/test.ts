@@ -1,8 +1,8 @@
 import * as ITEMS from '../modules/itemConstants'
 import itemJson from '../../public/generated/data/items.json'
 import type { Item } from '../types/BoundTypes'
-import type { ItemLabel } from '../modules/bindings'
-const items = itemJson as Record<ItemLabel, Item>
+import type { ItemKey } from '../modules/bindings'
+const items = itemJson as Record<ItemKey, Item>
 
 function checkItemConstants() {
 	Object.entries(ITEMS.GROUP_BY_ITEM).forEach(([label, _]) => {

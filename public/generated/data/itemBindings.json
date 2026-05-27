@@ -1,2982 +1,3008 @@
 [
 	{
-		"key": 0,
-		"label": "ability_base",
-		"extId": 0
+		"idx": 1,
+		"key": "blink",
+		"name": "Blink Dagger",
+		"extKey": 1
 	},
 	{
-		"key": 1,
-		"label": "blink",
-		"extId": 1
+		"idx": 600,
+		"key": "overwhelming_blink",
+		"name": "Overwhelming Blink",
+		"extKey": 600
 	},
 	{
-		"key": 2,
-		"label": "blades_of_attack",
-		"extId": 2
+		"idx": 603,
+		"key": "swift_blink",
+		"name": "Swift Blink",
+		"extKey": 603
 	},
 	{
-		"key": 3,
-		"label": "broadsword",
-		"extId": 3
+		"idx": 604,
+		"key": "arcane_blink",
+		"name": "Arcane Blink",
+		"extKey": 604
 	},
 	{
-		"key": 4,
-		"label": "chainmail",
-		"extId": 4
+		"idx": 606,
+		"key": "recipe_arcane_blink",
+		"name": "Arcane Blink Recipe",
+		"extKey": 606
 	},
 	{
-		"key": 5,
-		"label": "claymore",
-		"extId": 5
+		"idx": 607,
+		"key": "recipe_swift_blink",
+		"name": "Swift Blink Recipe",
+		"extKey": 607
 	},
 	{
-		"key": 6,
-		"label": "helm_of_iron_will",
-		"extId": 6
+		"idx": 608,
+		"key": "recipe_overwhelming_blink",
+		"name": "Overwhelming Blink Recipe",
+		"extKey": 608
 	},
 	{
-		"key": 7,
-		"label": "javelin",
-		"extId": 7
+		"idx": 2,
+		"key": "blades_of_attack",
+		"name": "Blades of Attack",
+		"extKey": 2
 	},
 	{
-		"key": 8,
-		"label": "mithril_hammer",
-		"extId": 8
+		"idx": 3,
+		"key": "broadsword",
+		"name": "Broadsword",
+		"extKey": 3
 	},
 	{
-		"key": 9,
-		"label": "platemail",
-		"extId": 9
+		"idx": 4,
+		"key": "chainmail",
+		"name": "Chainmail",
+		"extKey": 4
 	},
 	{
-		"key": 10,
-		"label": "quarterstaff",
-		"extId": 10
+		"idx": 1847,
+		"key": "splintmail",
+		"name": "Splintmail",
+		"extKey": 1847
 	},
 	{
-		"key": 11,
-		"label": "quelling_blade",
-		"extId": 11
+		"idx": 5,
+		"key": "claymore",
+		"name": "Claymore",
+		"extKey": 5
 	},
 	{
-		"key": 12,
-		"label": "ring_of_protection",
-		"extId": 12
+		"idx": 6,
+		"key": "helm_of_iron_will",
+		"name": "Helm of Iron Will",
+		"extKey": 6
 	},
 	{
-		"key": 13,
-		"label": "gauntlets",
-		"extId": 13
+		"idx": 7,
+		"key": "javelin",
+		"name": "Javelin",
+		"extKey": 7
 	},
 	{
-		"key": 14,
-		"label": "slippers",
-		"extId": 14
+		"idx": 8,
+		"key": "mithril_hammer",
+		"name": "Mithril Hammer",
+		"extKey": 8
 	},
 	{
-		"key": 15,
-		"label": "mantle",
-		"extId": 15
+		"idx": 9,
+		"key": "platemail",
+		"name": "Platemail",
+		"extKey": 9
 	},
 	{
-		"key": 16,
-		"label": "branches",
-		"extId": 16
+		"idx": 10,
+		"key": "quarterstaff",
+		"name": "Quarterstaff",
+		"extKey": 10
 	},
 	{
-		"key": 17,
-		"label": "belt_of_strength",
-		"extId": 17
+		"idx": 11,
+		"key": "quelling_blade",
+		"name": "Quelling Blade",
+		"extKey": 11
 	},
 	{
-		"key": 18,
-		"label": "boots_of_elves",
-		"extId": 18
+		"idx": 237,
+		"key": "faerie_fire",
+		"name": "Faerie Fire",
+		"extKey": 237
 	},
 	{
-		"key": 19,
-		"label": "robe",
-		"extId": 19
+		"idx": 265,
+		"key": "infused_raindrop",
+		"name": "Infused Raindrops",
+		"extKey": 265
 	},
 	{
-		"key": 20,
-		"label": "circlet",
-		"extId": 20
+		"idx": 244,
+		"key": "wind_lace",
+		"name": "Wind Lace",
+		"extKey": 244
 	},
 	{
-		"key": 21,
-		"label": "ogre_axe",
-		"extId": 21
+		"idx": 12,
+		"key": "ring_of_protection",
+		"name": "Ring of Protection",
+		"extKey": 12
 	},
 	{
-		"key": 22,
-		"label": "blade_of_alacrity",
-		"extId": 22
+		"idx": 182,
+		"key": "stout_shield",
+		"name": "Stout Shield",
+		"extKey": 182
 	},
 	{
-		"key": 23,
-		"label": "staff_of_wizardry",
-		"extId": 23
+		"idx": 247,
+		"key": "moon_shard",
+		"name": "Moon Shard",
+		"extKey": 247
 	},
 	{
-		"key": 24,
-		"label": "ultimate_orb",
-		"extId": 24
+		"idx": 13,
+		"key": "gauntlets",
+		"name": "Gauntlets of Strength",
+		"extKey": 13
 	},
 	{
-		"key": 25,
-		"label": "gloves",
-		"extId": 25
+		"idx": 14,
+		"key": "slippers",
+		"name": "Slippers of Agility",
+		"extKey": 14
 	},
 	{
-		"key": 26,
-		"label": "lifesteal",
-		"extId": 26
+		"idx": 15,
+		"key": "mantle",
+		"name": "Mantle of Intelligence",
+		"extKey": 15
 	},
 	{
-		"key": 27,
-		"label": "ring_of_regen",
-		"extId": 27
+		"idx": 16,
+		"key": "branches",
+		"name": "Iron Branch",
+		"extKey": 16
 	},
 	{
-		"key": 28,
-		"label": "sobi_mask",
-		"extId": 28
+		"idx": 17,
+		"key": "belt_of_strength",
+		"name": "Belt of Strength",
+		"extKey": 17
 	},
 	{
-		"key": 29,
-		"label": "boots",
-		"extId": 29
+		"idx": 18,
+		"key": "boots_of_elves",
+		"name": "Band of Elvenskin",
+		"extKey": 18
 	},
 	{
-		"key": 30,
-		"label": "gem",
-		"extId": 30
+		"idx": 19,
+		"key": "robe",
+		"name": "Robe of the Magi",
+		"extKey": 19
 	},
 	{
-		"key": 31,
-		"label": "cloak",
-		"extId": 31
+		"idx": 20,
+		"key": "circlet",
+		"name": "Circlet",
+		"extKey": 20
 	},
 	{
-		"key": 32,
-		"label": "talisman_of_evasion",
-		"extId": 32
+		"idx": 261,
+		"key": "crown",
+		"name": "Crown",
+		"extKey": 261
 	},
 	{
-		"key": 33,
-		"label": "cheese",
-		"extId": 33
+		"idx": 1122,
+		"key": "diadem",
+		"name": "Diadem",
+		"extKey": 1122
 	},
 	{
-		"key": 34,
-		"label": "magic_stick",
-		"extId": 34
+		"idx": 21,
+		"key": "ogre_axe",
+		"name": "Ogre Axe",
+		"extKey": 21
 	},
 	{
-		"key": 35,
-		"label": "recipe_magic_wand",
-		"extId": 35
+		"idx": 22,
+		"key": "blade_of_alacrity",
+		"name": "Blade of Alacrity",
+		"extKey": 22
 	},
 	{
-		"key": 36,
-		"label": "magic_wand",
-		"extId": 36
+		"idx": 23,
+		"key": "staff_of_wizardry",
+		"name": "Staff of Wizardry",
+		"extKey": 23
 	},
 	{
-		"key": 37,
-		"label": "ghost",
-		"extId": 37
+		"idx": 24,
+		"key": "ultimate_orb",
+		"name": "Ultimate Orb",
+		"extKey": 24
 	},
 	{
-		"key": 38,
-		"label": "clarity",
-		"extId": 38
+		"idx": 25,
+		"key": "gloves",
+		"name": "Gloves of Haste",
+		"extKey": 25
 	},
 	{
-		"key": 39,
-		"label": "flask",
-		"extId": 39
+		"idx": 485,
+		"key": "blitz_knuckles",
+		"name": "Blitz Knuckles",
+		"extKey": 485
 	},
 	{
-		"key": 40,
-		"label": "dust",
-		"extId": 40
+		"idx": 26,
+		"key": "lifesteal",
+		"name": "Morbid Mask",
+		"extKey": 26
 	},
 	{
-		"key": 41,
-		"label": "bottle",
-		"extId": 41
+		"idx": 473,
+		"key": "voodoo_mask",
+		"name": "Voodoo Mask",
+		"extKey": 473
 	},
 	{
-		"key": 42,
-		"label": "ward_observer",
-		"extId": 42
+		"idx": 27,
+		"key": "ring_of_regen",
+		"name": "Ring of Regen",
+		"extKey": 27
 	},
 	{
-		"key": 43,
-		"label": "ward_sentry",
-		"extId": 43
+		"idx": 28,
+		"key": "sobi_mask",
+		"name": "Sage's Mask",
+		"extKey": 28
 	},
 	{
-		"key": 44,
-		"label": "tango",
-		"extId": 44
+		"idx": 29,
+		"key": "boots",
+		"name": "Boots of Speed",
+		"extKey": 29
 	},
 	{
-		"key": 45,
-		"label": "courier",
-		"extId": 45
+		"idx": 30,
+		"key": "gem",
+		"name": "Gem of True Sight",
+		"extKey": 30
 	},
 	{
-		"key": 46,
-		"label": "tpscroll",
-		"extId": 46
+		"idx": 1848,
+		"key": "shawl",
+		"name": "Shawl",
+		"extKey": 1848
 	},
 	{
-		"key": 47,
-		"label": "recipe_travel_boots",
-		"extId": 47
+		"idx": 31,
+		"key": "cloak",
+		"name": "Cloak",
+		"extKey": 31
 	},
 	{
-		"key": 48,
-		"label": "travel_boots",
-		"extId": 48
+		"idx": 32,
+		"key": "talisman_of_evasion",
+		"name": "Talisman of Evasion",
+		"extKey": 32
 	},
 	{
-		"key": 49,
-		"label": "recipe_phase_boots",
-		"extId": 49
+		"idx": 33,
+		"key": "cheese",
+		"name": "Cheese",
+		"extKey": 33
 	},
 	{
-		"key": 50,
-		"label": "phase_boots",
-		"extId": 50
+		"idx": 34,
+		"key": "magic_stick",
+		"name": "Magic Stick",
+		"extKey": 34
 	},
 	{
-		"key": 51,
-		"label": "demon_edge",
-		"extId": 51
+		"idx": 35,
+		"key": "recipe_magic_wand",
+		"name": "Magic Wand Recipe",
+		"extKey": 35
 	},
 	{
-		"key": 52,
-		"label": "eagle",
-		"extId": 52
+		"idx": 36,
+		"key": "magic_wand",
+		"name": "Magic Wand",
+		"extKey": 36
 	},
 	{
-		"key": 53,
-		"label": "reaver",
-		"extId": 53
+		"idx": 37,
+		"key": "ghost",
+		"name": "Ghost Scepter",
+		"extKey": 37
 	},
 	{
-		"key": 54,
-		"label": "relic",
-		"extId": 54
+		"idx": 38,
+		"key": "clarity",
+		"name": "Clarity",
+		"extKey": 38
 	},
 	{
-		"key": 55,
-		"label": "hyperstone",
-		"extId": 55
+		"idx": 216,
+		"key": "enchanted_mango",
+		"name": "Enchanted Mango",
+		"extKey": 216
 	},
 	{
-		"key": 56,
-		"label": "ring_of_health",
-		"extId": 56
+		"idx": 4204,
+		"key": "famango",
+		"name": "Healing Lotus",
+		"extKey": 4204
 	},
 	{
-		"key": 57,
-		"label": "void_stone",
-		"extId": 57
+		"idx": 4205,
+		"key": "great_famango",
+		"name": "Great Healing Lotus",
+		"extKey": 4205
 	},
 	{
-		"key": 58,
-		"label": "mystic_staff",
-		"extId": 58
+		"idx": 4206,
+		"key": "greater_famango",
+		"name": "Greater Healing Lotus",
+		"extKey": 4206
 	},
 	{
-		"key": 59,
-		"label": "energy_booster",
-		"extId": 59
+		"idx": 1123,
+		"key": "blood_grenade",
+		"name": "Blood Grenade",
+		"extKey": 1123
 	},
 	{
-		"key": 60,
-		"label": "point_booster",
-		"extId": 60
+		"idx": 1154,
+		"key": "royale_with_cheese",
+		"name": "Block of Cheese",
+		"extKey": 1154
 	},
 	{
-		"key": 61,
-		"label": "vitality_booster",
-		"extId": 61
+		"idx": 39,
+		"key": "flask",
+		"name": "Healing Salve",
+		"extKey": 39
 	},
 	{
-		"key": 62,
-		"label": "recipe_power_treads",
-		"extId": 62
+		"idx": 40,
+		"key": "dust",
+		"name": "Dust of Appearance",
+		"extKey": 40
 	},
 	{
-		"key": 63,
-		"label": "power_treads",
-		"extId": 63
+		"idx": 41,
+		"key": "bottle",
+		"name": "Bottle",
+		"extKey": 41
 	},
 	{
-		"key": 64,
-		"label": "recipe_hand_of_midas",
-		"extId": 64
+		"idx": 42,
+		"key": "ward_observer",
+		"name": "Observer Ward",
+		"extKey": 42
 	},
 	{
-		"key": 65,
-		"label": "hand_of_midas",
-		"extId": 65
+		"idx": 43,
+		"key": "ward_sentry",
+		"name": "Sentry Ward",
+		"extKey": 43
 	},
 	{
-		"key": 66,
-		"label": "recipe_oblivion_staff",
-		"extId": 66
+		"idx": 218,
+		"key": "ward_dispenser",
+		"name": "Observer and Sentry Wards",
+		"extKey": 218
 	},
 	{
-		"key": 67,
-		"label": "oblivion_staff",
-		"extId": 67
+		"idx": 44,
+		"key": "tango",
+		"name": "Tango",
+		"extKey": 44
 	},
 	{
-		"key": 68,
-		"label": "recipe_pers",
-		"extId": 68
+		"idx": 241,
+		"key": "tango_single",
+		"name": "Tango (Shared)",
+		"extKey": 241
 	},
 	{
-		"key": 69,
-		"label": "pers",
-		"extId": 69
+		"idx": 45,
+		"key": "courier",
+		"name": "Animal Courier",
+		"extKey": 45
 	},
 	{
-		"key": 70,
-		"label": "recipe_poor_mans_shield",
-		"extId": 70
+		"idx": 286,
+		"key": "flying_courier",
+		"name": "Flying Courier",
+		"extKey": 286
 	},
 	{
-		"key": 71,
-		"label": "poor_mans_shield",
-		"extId": 71
+		"idx": 46,
+		"key": "tpscroll",
+		"name": "Town Portal Scroll",
+		"extKey": 46
 	},
 	{
-		"key": 72,
-		"label": "recipe_bracer",
-		"extId": 72
+		"idx": 47,
+		"key": "recipe_travel_boots",
+		"name": "Boots of Travel Recipe",
+		"extKey": 47
 	},
 	{
-		"key": 73,
-		"label": "bracer",
-		"extId": 73
+		"idx": 48,
+		"key": "travel_boots",
+		"name": "Boots of Travel",
+		"extKey": 48
 	},
 	{
-		"key": 74,
-		"label": "recipe_wraith_band",
-		"extId": 74
+		"idx": 220,
+		"key": "travel_boots_2",
+		"name": "Boots of Travel 2",
+		"extKey": 220
 	},
 	{
-		"key": 75,
-		"label": "wraith_band",
-		"extId": 75
+		"idx": 50,
+		"key": "phase_boots",
+		"name": "Phase Boots",
+		"extKey": 50
 	},
 	{
-		"key": 76,
-		"label": "recipe_null_talisman",
-		"extId": 76
+		"idx": 51,
+		"key": "demon_edge",
+		"name": "Demon Edge",
+		"extKey": 51
 	},
 	{
-		"key": 77,
-		"label": "null_talisman",
-		"extId": 77
+		"idx": 52,
+		"key": "eagle",
+		"name": "Eaglesong",
+		"extKey": 52
 	},
 	{
-		"key": 78,
-		"label": "recipe_mekansm",
-		"extId": 78
+		"idx": 53,
+		"key": "reaver",
+		"name": "Reaver",
+		"extKey": 53
 	},
 	{
-		"key": 79,
-		"label": "mekansm",
-		"extId": 79
+		"idx": 54,
+		"key": "relic",
+		"name": "Sacred Relic",
+		"extKey": 54
 	},
 	{
-		"key": 80,
-		"label": "recipe_vladmir",
-		"extId": 80
+		"idx": 55,
+		"key": "hyperstone",
+		"name": "Hyperstone",
+		"extKey": 55
 	},
 	{
-		"key": 81,
-		"label": "vladmir",
-		"extId": 81
+		"idx": 56,
+		"key": "ring_of_health",
+		"name": "Ring of Health",
+		"extKey": 56
 	},
 	{
-		"key": 85,
-		"label": "recipe_buckler",
-		"extId": 85
+		"idx": 279,
+		"key": "ring_of_tarrasque",
+		"name": "Ring of Tarrasque",
+		"extKey": 279
 	},
 	{
-		"key": 86,
-		"label": "buckler",
-		"extId": 86
+		"idx": 57,
+		"key": "void_stone",
+		"name": "Void Stone",
+		"extKey": 57
 	},
 	{
-		"key": 87,
-		"label": "recipe_ring_of_basilius",
-		"extId": 87
+		"idx": 1802,
+		"key": "tiara_of_selemene",
+		"name": "Tiara of Selemene",
+		"extKey": 1802
 	},
 	{
-		"key": 88,
-		"label": "ring_of_basilius",
-		"extId": 88
+		"idx": 58,
+		"key": "mystic_staff",
+		"name": "Mystic Staff",
+		"extKey": 58
 	},
 	{
-		"key": 89,
-		"label": "recipe_pipe",
-		"extId": 89
+		"idx": 59,
+		"key": "energy_booster",
+		"name": "Energy Booster",
+		"extKey": 59
 	},
 	{
-		"key": 90,
-		"label": "pipe",
-		"extId": 90
+		"idx": 60,
+		"key": "point_booster",
+		"name": "Point Booster",
+		"extKey": 60
 	},
 	{
-		"key": 91,
-		"label": "recipe_urn_of_shadows",
-		"extId": 91
+		"idx": 61,
+		"key": "vitality_booster",
+		"name": "Vitality Booster",
+		"extKey": 61
 	},
 	{
-		"key": 92,
-		"label": "urn_of_shadows",
-		"extId": 92
+		"idx": 593,
+		"key": "fluffy_hat",
+		"name": "Fluffy Hat",
+		"extKey": 593
 	},
 	{
-		"key": 93,
-		"label": "recipe_headdress",
-		"extId": 93
+		"idx": 1849,
+		"key": "wizard_hat",
+		"name": "Wizard Hat",
+		"extKey": 1849
 	},
 	{
-		"key": 94,
-		"label": "headdress",
-		"extId": 94
+		"idx": 63,
+		"key": "power_treads",
+		"name": "Power Treads",
+		"extKey": 63
 	},
 	{
-		"key": 95,
-		"label": "recipe_sheepstick",
-		"extId": 95
+		"idx": 1106,
+		"key": "recipe_phylactery",
+		"name": "Phylactery Recipe",
+		"extKey": 1106
 	},
 	{
-		"key": 96,
-		"label": "sheepstick",
-		"extId": 96
+		"idx": 1107,
+		"key": "phylactery",
+		"name": "Phylactery",
+		"extKey": 1107
 	},
 	{
-		"key": 97,
-		"label": "recipe_orchid",
-		"extId": 97
+		"idx": 1808,
+		"key": "angels_demise",
+		"name": "Khanda",
+		"extKey": 1808
 	},
 	{
-		"key": 98,
-		"label": "orchid",
-		"extId": 98
+		"idx": 64,
+		"key": "recipe_hand_of_midas",
+		"name": "Hand of Midas Recipe",
+		"extKey": 64
 	},
 	{
-		"key": 99,
-		"label": "recipe_cyclone",
-		"extId": 99
+		"idx": 65,
+		"key": "hand_of_midas",
+		"name": "Hand of Midas",
+		"extKey": 65
 	},
 	{
-		"key": 100,
-		"label": "cyclone",
-		"extId": 100
+		"idx": 67,
+		"key": "oblivion_staff",
+		"name": "Oblivion Staff",
+		"extKey": 67
 	},
 	{
-		"key": 101,
-		"label": "recipe_force_staff",
-		"extId": 101
+		"idx": 533,
+		"key": "recipe_witch_blade",
+		"name": "Witch Blade Recipe",
+		"extKey": 533
 	},
 	{
-		"key": 102,
-		"label": "force_staff",
-		"extId": 102
+		"idx": 534,
+		"key": "witch_blade",
+		"name": "Witch Blade",
+		"extKey": 534
 	},
 	{
-		"key": 103,
-		"label": "recipe_dagon",
-		"extId": 103
+		"idx": 69,
+		"key": "pers",
+		"name": "Perseverance",
+		"extKey": 69
 	},
 	{
-		"key": 104,
-		"label": "dagon",
-		"extId": 104
+		"idx": 1125,
+		"key": "cornucopia",
+		"name": "Cornucopia",
+		"extKey": 1125
 	},
 	{
-		"key": 105,
-		"label": "recipe_necronomicon",
-		"extId": 105
+		"idx": 71,
+		"key": "poor_mans_shield",
+		"name": "Poor Man's Shield",
+		"extKey": 71
 	},
 	{
-		"key": 106,
-		"label": "necronomicon",
-		"extId": 106
+		"idx": 72,
+		"key": "recipe_bracer",
+		"name": "Bracer Recipe",
+		"extKey": 72
 	},
 	{
-		"key": 107,
-		"label": "recipe_ultimate_scepter",
-		"extId": 107
+		"idx": 73,
+		"key": "bracer",
+		"name": "Bracer",
+		"extKey": 73
 	},
 	{
-		"key": 108,
-		"label": "ultimate_scepter",
-		"extId": 108
+		"idx": 74,
+		"key": "recipe_wraith_band",
+		"name": "Wraith Band Recipe",
+		"extKey": 74
 	},
 	{
-		"key": 109,
-		"label": "recipe_refresher",
-		"extId": 109
+		"idx": 75,
+		"key": "wraith_band",
+		"name": "Wraith Band",
+		"extKey": 75
 	},
 	{
-		"key": 110,
-		"label": "refresher",
-		"extId": 110
+		"idx": 76,
+		"key": "recipe_null_talisman",
+		"name": "Null Talisman Recipe",
+		"extKey": 76
 	},
 	{
-		"key": 111,
-		"label": "recipe_assault",
-		"extId": 111
+		"idx": 77,
+		"key": "null_talisman",
+		"name": "Null Talisman",
+		"extKey": 77
 	},
 	{
-		"key": 112,
-		"label": "assault",
-		"extId": 112
+		"idx": 78,
+		"key": "recipe_mekansm",
+		"name": "Mekansm Recipe",
+		"extKey": 78
 	},
 	{
-		"key": 113,
-		"label": "recipe_heart",
-		"extId": 113
+		"idx": 79,
+		"key": "mekansm",
+		"name": "Mekansm",
+		"extKey": 79
 	},
 	{
-		"key": 114,
-		"label": "heart",
-		"extId": 114
+		"idx": 81,
+		"key": "vladmir",
+		"name": "Vladmir's Offering",
+		"extKey": 81
 	},
 	{
-		"key": 115,
-		"label": "recipe_black_king_bar",
-		"extId": 115
+		"idx": 907,
+		"key": "recipe_wraith_pact",
+		"name": "Wraith Pact Recipe",
+		"extKey": 907
 	},
 	{
-		"key": 116,
-		"label": "black_king_bar",
-		"extId": 116
+		"idx": 908,
+		"key": "wraith_pact",
+		"name": "Wraith Pact",
+		"extKey": 908
 	},
 	{
-		"key": 117,
-		"label": "aegis",
-		"extId": 117
+		"idx": 85,
+		"key": "recipe_buckler",
+		"name": "Buckler Recipe",
+		"extKey": 85
 	},
 	{
-		"key": 118,
-		"label": "recipe_shivas_guard",
-		"extId": 118
+		"idx": 86,
+		"key": "buckler",
+		"name": "Buckler",
+		"extKey": 86
 	},
 	{
-		"key": 119,
-		"label": "shivas_guard",
-		"extId": 119
+		"idx": 87,
+		"key": "recipe_ring_of_basilius",
+		"name": "Ring of Basilius Recipe",
+		"extKey": 87
 	},
 	{
-		"key": 120,
-		"label": "recipe_bloodstone",
-		"extId": 120
+		"idx": 88,
+		"key": "ring_of_basilius",
+		"name": "Ring of Basilius",
+		"extKey": 88
 	},
 	{
-		"key": 121,
-		"label": "bloodstone",
-		"extId": 121
+		"idx": 268,
+		"key": "recipe_holy_locket",
+		"name": "Holy Locket Recipe",
+		"extKey": 268
 	},
 	{
-		"key": 122,
-		"label": "recipe_sphere",
-		"extId": 122
+		"idx": 269,
+		"key": "holy_locket",
+		"name": "Holy Locket",
+		"extKey": 269
 	},
 	{
-		"key": 123,
-		"label": "sphere",
-		"extId": 123
+		"idx": 89,
+		"key": "recipe_pipe",
+		"name": "Pipe of Insight Recipe",
+		"extKey": 89
 	},
 	{
-		"key": 124,
-		"label": "recipe_vanguard",
-		"extId": 124
+		"idx": 90,
+		"key": "pipe",
+		"name": "Pipe of Insight",
+		"extKey": 90
 	},
 	{
-		"key": 125,
-		"label": "vanguard",
-		"extId": 125
+		"idx": 91,
+		"key": "recipe_urn_of_shadows",
+		"name": "Urn of Shadows Recipe",
+		"extKey": 91
 	},
 	{
-		"key": 126,
-		"label": "recipe_blade_mail",
-		"extId": 126
+		"idx": 92,
+		"key": "urn_of_shadows",
+		"name": "Urn of Shadows",
+		"extKey": 92
 	},
 	{
-		"key": 127,
-		"label": "blade_mail",
-		"extId": 127
+		"idx": 93,
+		"key": "recipe_headdress",
+		"name": "Headdress Recipe",
+		"extKey": 93
 	},
 	{
-		"key": 128,
-		"label": "recipe_soul_booster",
-		"extId": 128
+		"idx": 94,
+		"key": "headdress",
+		"name": "Headdress",
+		"extKey": 94
 	},
 	{
-		"key": 129,
-		"label": "soul_booster",
-		"extId": 129
+		"idx": 95,
+		"key": "recipe_sheepstick",
+		"name": "Scythe of Vyse Recipe",
+		"extKey": 95
 	},
 	{
-		"key": 130,
-		"label": "recipe_hood_of_defiance",
-		"extId": 130
+		"idx": 96,
+		"key": "sheepstick",
+		"name": "Scythe of Vyse",
+		"extKey": 96
 	},
 	{
-		"key": 131,
-		"label": "hood_of_defiance",
-		"extId": 131
+		"idx": 1801,
+		"key": "caster_rapier",
+		"name": "Caster Rapier",
+		"extKey": 1801
 	},
 	{
-		"key": 132,
-		"label": "recipe_rapier",
-		"extId": 132
+		"idx": 97,
+		"key": "recipe_orchid",
+		"name": "Orchid Malevolence Recipe",
+		"extKey": 97
 	},
 	{
-		"key": 133,
-		"label": "rapier",
-		"extId": 133
+		"idx": 98,
+		"key": "orchid",
+		"name": "Orchid Malevolence",
+		"extKey": 98
 	},
 	{
-		"key": 134,
-		"label": "recipe_monkey_king_bar",
-		"extId": 134
+		"idx": 245,
+		"key": "recipe_bloodthorn",
+		"name": "Bloodthorn Recipe",
+		"extKey": 245
 	},
 	{
-		"key": 135,
-		"label": "monkey_king_bar",
-		"extId": 135
+		"idx": 250,
+		"key": "bloodthorn",
+		"name": "Bloodthorn",
+		"extKey": 250
 	},
 	{
-		"key": 136,
-		"label": "recipe_radiance",
-		"extId": 136
+		"idx": 252,
+		"key": "echo_sabre",
+		"name": "Echo Sabre",
+		"extKey": 252
 	},
 	{
-		"key": 137,
-		"label": "radiance",
-		"extId": 137
+		"idx": 99,
+		"key": "recipe_cyclone",
+		"name": "Eul's Scepter Recipe",
+		"extKey": 99
 	},
 	{
-		"key": 138,
-		"label": "recipe_butterfly",
-		"extId": 138
+		"idx": 100,
+		"key": "cyclone",
+		"name": "Eul's Scepter of Divinity",
+		"extKey": 100
 	},
 	{
-		"key": 139,
-		"label": "butterfly",
-		"extId": 139
+		"idx": 612,
+		"key": "recipe_wind_waker",
+		"name": "Wind Waker Recipe",
+		"extKey": 612
 	},
 	{
-		"key": 140,
-		"label": "recipe_greater_crit",
-		"extId": 140
+		"idx": 610,
+		"key": "wind_waker",
+		"name": "Wind Waker",
+		"extKey": 610
 	},
 	{
-		"key": 141,
-		"label": "greater_crit",
-		"extId": 141
+		"idx": 233,
+		"key": "recipe_aether_lens",
+		"name": "Aether Lens Recipe",
+		"extKey": 233
 	},
 	{
-		"key": 142,
-		"label": "recipe_basher",
-		"extId": 142
+		"idx": 232,
+		"key": "aether_lens",
+		"name": "Aether Lens",
+		"extKey": 232
 	},
 	{
-		"key": 143,
-		"label": "basher",
-		"extId": 143
+		"idx": 101,
+		"key": "recipe_force_staff",
+		"name": "Force Staff Recipe",
+		"extKey": 101
 	},
 	{
-		"key": 144,
-		"label": "recipe_bfury",
-		"extId": 144
+		"idx": 102,
+		"key": "force_staff",
+		"name": "Force Staff",
+		"extKey": 102
 	},
 	{
-		"key": 145,
-		"label": "bfury",
-		"extId": 145
+		"idx": 262,
+		"key": "recipe_hurricane_pike",
+		"name": "Hurricane Pike Recipe",
+		"extKey": 262
 	},
 	{
-		"key": 146,
-		"label": "recipe_manta",
-		"extId": 146
+		"idx": 263,
+		"key": "hurricane_pike",
+		"name": "Hurricane Pike",
+		"extKey": 263
 	},
 	{
-		"key": 147,
-		"label": "manta",
-		"extId": 147
+		"idx": 103,
+		"key": "recipe_dagon",
+		"name": "Dagon Recipe",
+		"extKey": 103
 	},
 	{
-		"key": 148,
-		"label": "recipe_lesser_crit",
-		"extId": 148
+		"idx": 104,
+		"key": "dagon",
+		"name": "Dagon",
+		"extKey": 104
 	},
 	{
-		"key": 149,
-		"label": "lesser_crit",
-		"extId": 149
+		"idx": 201,
+		"key": "dagon_2",
+		"name": "Dagon",
+		"extKey": 201
 	},
 	{
-		"key": 150,
-		"label": "recipe_armlet",
-		"extId": 150
+		"idx": 202,
+		"key": "dagon_3",
+		"name": "Dagon",
+		"extKey": 202
 	},
 	{
-		"key": 151,
-		"label": "armlet",
-		"extId": 151
+		"idx": 203,
+		"key": "dagon_4",
+		"name": "Dagon",
+		"extKey": 203
 	},
 	{
-		"key": 152,
-		"label": "invis_sword",
-		"extId": 152
+		"idx": 204,
+		"key": "dagon_5",
+		"name": "Dagon",
+		"extKey": 204
 	},
 	{
-		"key": 153,
-		"label": "recipe_sange_and_yasha",
-		"extId": 153
+		"idx": 105,
+		"key": "recipe_necronomicon",
+		"name": "Necronomicon Recipe",
+		"extKey": 105
 	},
 	{
-		"key": 154,
-		"label": "sange_and_yasha",
-		"extId": 154
+		"idx": 106,
+		"key": "necronomicon",
+		"name": "Necronomicon",
+		"extKey": 106
 	},
 	{
-		"key": 155,
-		"label": "recipe_satanic",
-		"extId": 155
+		"idx": 193,
+		"key": "necronomicon_2",
+		"name": "Necronomicon",
+		"extKey": 193
 	},
 	{
-		"key": 156,
-		"label": "satanic",
-		"extId": 156
+		"idx": 194,
+		"key": "necronomicon_3",
+		"name": "Necronomicon",
+		"extKey": 194
 	},
 	{
-		"key": 157,
-		"label": "recipe_mjollnir",
-		"extId": 157
+		"idx": 108,
+		"key": "ultimate_scepter",
+		"name": "Aghanim's Scepter",
+		"extKey": 108
 	},
 	{
-		"key": 158,
-		"label": "mjollnir",
-		"extId": 158
+		"idx": 270,
+		"key": "recipe_ultimate_scepter_2",
+		"name": "Aghanim's Blessing Recipe",
+		"extKey": 270
 	},
 	{
-		"key": 159,
-		"label": "recipe_skadi",
-		"extId": 159
+		"idx": 271,
+		"key": "ultimate_scepter_2",
+		"name": "Aghanim's Blessing",
+		"extKey": 271
 	},
 	{
-		"key": 160,
-		"label": "skadi",
-		"extId": 160
+		"idx": 727,
+		"key": "ultimate_scepter_roshan",
+		"name": "Aghanim's Blessing - Roshan",
+		"extKey": 727
 	},
 	{
-		"key": 161,
-		"label": "recipe_sange",
-		"extId": 161
+		"idx": 609,
+		"key": "aghanims_shard",
+		"name": "Aghanim's Shard",
+		"extKey": 609
 	},
 	{
-		"key": 162,
-		"label": "sange",
-		"extId": 162
+		"idx": 725,
+		"key": "aghanims_shard_roshan",
+		"name": "Aghanim's Shard - Consumable",
+		"extKey": 725
 	},
 	{
-		"key": 163,
-		"label": "recipe_helm_of_the_dominator",
-		"extId": 163
+		"idx": 1850,
+		"key": "eldwurms_edda",
+		"name": "Eldwurm's Edda",
+		"extKey": 1850
 	},
 	{
-		"key": 164,
-		"label": "helm_of_the_dominator",
-		"extId": 164
+		"idx": 109,
+		"key": "recipe_refresher",
+		"name": "Refresher Orb Recipe",
+		"extKey": 109
 	},
 	{
-		"key": 165,
-		"label": "recipe_maelstrom",
-		"extId": 165
+		"idx": 110,
+		"key": "refresher",
+		"name": "Refresher Orb",
+		"extKey": 110
 	},
 	{
-		"key": 166,
-		"label": "maelstrom",
-		"extId": 166
+		"idx": 111,
+		"key": "recipe_assault",
+		"name": "Assault Cuirass Recipe",
+		"extKey": 111
 	},
 	{
-		"key": 167,
-		"label": "recipe_desolator",
-		"extId": 167
+		"idx": 112,
+		"key": "assault",
+		"name": "Assault Cuirass",
+		"extKey": 112
 	},
 	{
-		"key": 168,
-		"label": "desolator",
-		"extId": 168
+		"idx": 113,
+		"key": "recipe_heart",
+		"name": "Heart of Tarrasque Recipe",
+		"extKey": 113
 	},
 	{
-		"key": 169,
-		"label": "recipe_yasha",
-		"extId": 169
+		"idx": 114,
+		"key": "heart",
+		"name": "Heart of Tarrasque",
+		"extKey": 114
 	},
 	{
-		"key": 170,
-		"label": "yasha",
-		"extId": 170
+		"idx": 115,
+		"key": "recipe_black_king_bar",
+		"name": "Black King Bar Recipe",
+		"extKey": 115
 	},
 	{
-		"key": 171,
-		"label": "recipe_mask_of_madness",
-		"extId": 171
+		"idx": 116,
+		"key": "black_king_bar",
+		"name": "Black King Bar",
+		"extKey": 116
 	},
 	{
-		"key": 172,
-		"label": "mask_of_madness",
-		"extId": 172
+		"idx": 117,
+		"key": "aegis",
+		"name": "Aegis of the Immortal",
+		"extKey": 117
 	},
 	{
-		"key": 173,
-		"label": "recipe_diffusal_blade",
-		"extId": 173
+		"idx": 118,
+		"key": "recipe_shivas_guard",
+		"name": "Shiva's Guard Recipe",
+		"extKey": 118
 	},
 	{
-		"key": 174,
-		"label": "diffusal_blade",
-		"extId": 174
+		"idx": 119,
+		"key": "shivas_guard",
+		"name": "Shiva's Guard",
+		"extKey": 119
 	},
 	{
-		"key": 175,
-		"label": "recipe_ethereal_blade",
-		"extId": 175
+		"idx": 121,
+		"key": "bloodstone",
+		"name": "Bloodstone",
+		"extKey": 121
 	},
 	{
-		"key": 176,
-		"label": "ethereal_blade",
-		"extId": 176
+		"idx": 122,
+		"key": "recipe_sphere",
+		"name": "Linken's Sphere Recipe",
+		"extKey": 122
 	},
 	{
-		"key": 177,
-		"label": "recipe_soul_ring",
-		"extId": 177
+		"idx": 123,
+		"key": "sphere",
+		"name": "Linken's Sphere",
+		"extKey": 123
 	},
 	{
-		"key": 178,
-		"label": "soul_ring",
-		"extId": 178
+		"idx": 221,
+		"key": "recipe_lotus_orb",
+		"name": "Lotus Orb Recipe",
+		"extKey": 221
 	},
 	{
-		"key": 179,
-		"label": "recipe_arcane_boots",
-		"extId": 179
+		"idx": 226,
+		"key": "lotus_orb",
+		"name": "Lotus Orb",
+		"extKey": 226
 	},
 	{
-		"key": 180,
-		"label": "arcane_boots",
-		"extId": 180
+		"idx": 222,
+		"key": "recipe_meteor_hammer",
+		"name": "Meteor Hammer Recipe",
+		"extKey": 222
 	},
 	{
-		"key": 181,
-		"label": "orb_of_venom",
-		"extId": 181
+		"idx": 223,
+		"key": "meteor_hammer",
+		"name": "Meteor Hammer",
+		"extKey": 223
 	},
 	{
-		"key": 182,
-		"label": "stout_shield",
-		"extId": 182
+		"idx": 225,
+		"key": "nullifier",
+		"name": "Nullifier",
+		"extKey": 225
 	},
 	{
-		"key": 183,
-		"label": "recipe_invis_sword",
-		"extId": 183
+		"idx": 255,
+		"key": "recipe_aeon_disk",
+		"name": "Aeon Disk Recipe",
+		"extKey": 255
 	},
 	{
-		"key": 184,
-		"label": "recipe_ancient_janggo",
-		"extId": 184
+		"idx": 256,
+		"key": "aeon_disk",
+		"name": "Aeon Disk",
+		"extKey": 256
 	},
 	{
-		"key": 185,
-		"label": "ancient_janggo",
-		"extId": 185
+		"idx": 258,
+		"key": "recipe_kaya",
+		"name": "Kaya Recipe",
+		"extKey": 258
 	},
 	{
-		"key": 186,
-		"label": "recipe_medallion_of_courage",
-		"extId": 186
+		"idx": 259,
+		"key": "kaya",
+		"name": "Kaya",
+		"extKey": 259
 	},
 	{
-		"key": 187,
-		"label": "medallion_of_courage",
-		"extId": 187
+		"idx": 369,
+		"key": "trident",
+		"name": "Trident",
+		"extKey": 369
 	},
 	{
-		"key": 188,
-		"label": "smoke_of_deceit",
-		"extId": 188
+		"idx": 260,
+		"key": "refresher_shard",
+		"name": "Refresher Shard",
+		"extKey": 260
 	},
 	{
-		"key": 189,
-		"label": "recipe_veil_of_discord",
-		"extId": 189
+		"idx": 266,
+		"key": "recipe_spirit_vessel",
+		"name": "Spirit Vessel Recipe",
+		"extKey": 266
 	},
 	{
-		"key": 190,
-		"label": "veil_of_discord",
-		"extId": 190
+		"idx": 267,
+		"key": "spirit_vessel",
+		"name": "Spirit Vessel",
+		"extKey": 267
 	},
 	{
-		"key": 191,
-		"label": "recipe_necronomicon_2",
-		"extId": 191
+		"idx": 1851,
+		"key": "recipe_essence_distiller",
+		"name": "Essence Distiller Recipe",
+		"extKey": 1851
 	},
 	{
-		"key": 192,
-		"label": "recipe_necronomicon_3",
-		"extId": 192
+		"idx": 1852,
+		"key": "essence_distiller",
+		"name": "Essence Distiller",
+		"extKey": 1852
 	},
 	{
-		"key": 193,
-		"label": "necronomicon_2",
-		"extId": 193
+		"idx": 125,
+		"key": "vanguard",
+		"name": "Vanguard",
+		"extKey": 125
 	},
 	{
-		"key": 194,
-		"label": "necronomicon_3",
-		"extId": 194
+		"idx": 243,
+		"key": "recipe_crimson_guard",
+		"name": "Crimson Guard Recipe",
+		"extKey": 243
 	},
 	{
-		"key": 196,
-		"label": "diffusal_blade_2",
-		"extId": 196
+		"idx": 242,
+		"key": "crimson_guard",
+		"name": "Crimson Guard",
+		"extKey": 242
 	},
 	{
-		"key": 197,
-		"label": "recipe_dagon_2",
-		"extId": 197
+		"idx": 126,
+		"key": "recipe_blade_mail",
+		"name": "Blade Mail Recipe",
+		"extKey": 126
 	},
 	{
-		"key": 198,
-		"label": "recipe_dagon_3",
-		"extId": 198
+		"idx": 127,
+		"key": "blade_mail",
+		"name": "Blade Mail",
+		"extKey": 127
 	},
 	{
-		"key": 199,
-		"label": "recipe_dagon_4",
-		"extId": 199
+		"idx": 129,
+		"key": "soul_booster",
+		"name": "Soul Booster",
+		"extKey": 129
 	},
 	{
-		"key": 200,
-		"label": "recipe_dagon_5",
-		"extId": 200
+		"idx": 131,
+		"key": "hood_of_defiance",
+		"name": "Hood of Defiance",
+		"extKey": 131
 	},
 	{
-		"key": 201,
-		"label": "dagon_2",
-		"extId": 201
+		"idx": 691,
+		"key": "recipe_eternal_shroud",
+		"name": "Eternal Shroud Recipe",
+		"extKey": 691
 	},
 	{
-		"key": 202,
-		"label": "dagon_3",
-		"extId": 202
+		"idx": 692,
+		"key": "eternal_shroud",
+		"name": "Eternal Shroud",
+		"extKey": 692
 	},
 	{
-		"key": 203,
-		"label": "dagon_4",
-		"extId": 203
+		"idx": 1853,
+		"key": "recipe_consecrated_wraps",
+		"name": "Consecrated Wraps Recipe",
+		"extKey": 1853
 	},
 	{
-		"key": 204,
-		"label": "dagon_5",
-		"extId": 204
+		"idx": 1854,
+		"key": "consecrated_wraps",
+		"name": "Consecrated Wraps",
+		"extKey": 1854
 	},
 	{
-		"key": 205,
-		"label": "recipe_rod_of_atos",
-		"extId": 205
+		"idx": 1855,
+		"key": "recipe_crellas_crozier",
+		"name": "Crella's Crozier Recipe",
+		"extKey": 1855
 	},
 	{
-		"key": 206,
-		"label": "rod_of_atos",
-		"extId": 206
+		"idx": 1856,
+		"key": "crellas_crozier",
+		"name": "Crella's Crozier",
+		"extKey": 1856
 	},
 	{
-		"key": 207,
-		"label": "recipe_abyssal_blade",
-		"extId": 207
+		"idx": 133,
+		"key": "rapier",
+		"name": "Divine Rapier",
+		"extKey": 133
 	},
 	{
-		"key": 208,
-		"label": "abyssal_blade",
-		"extId": 208
+		"idx": 134,
+		"key": "recipe_monkey_king_bar",
+		"name": "Monkey King Bar Recipe",
+		"extKey": 134
 	},
 	{
-		"key": 209,
-		"label": "recipe_heavens_halberd",
-		"extId": 209
+		"idx": 135,
+		"key": "monkey_king_bar",
+		"name": "Monkey King Bar",
+		"extKey": 135
 	},
 	{
-		"key": 210,
-		"label": "heavens_halberd",
-		"extId": 210
+		"idx": 137,
+		"key": "radiance",
+		"name": "Radiance",
+		"extKey": 137
 	},
 	{
-		"key": 211,
-		"label": "recipe_ring_of_aquila",
-		"extId": 211
+		"idx": 139,
+		"key": "butterfly",
+		"name": "Butterfly",
+		"extKey": 139
 	},
 	{
-		"key": 212,
-		"label": "ring_of_aquila",
-		"extId": 212
+		"idx": 140,
+		"key": "recipe_greater_crit",
+		"name": "Daedalus Recipe",
+		"extKey": 140
 	},
 	{
-		"key": 213,
-		"label": "recipe_tranquil_boots",
-		"extId": 213
+		"idx": 141,
+		"key": "greater_crit",
+		"name": "Daedalus",
+		"extKey": 141
 	},
 	{
-		"key": 214,
-		"label": "tranquil_boots",
-		"extId": 214
+		"idx": 142,
+		"key": "recipe_basher",
+		"name": "Skull Basher Recipe",
+		"extKey": 142
 	},
 	{
-		"key": 215,
-		"label": "shadow_amulet",
-		"extId": 215
+		"idx": 143,
+		"key": "basher",
+		"name": "Skull Basher",
+		"extKey": 143
 	},
 	{
-		"key": 216,
-		"label": "enchanted_mango",
-		"extId": 216
+		"idx": 144,
+		"key": "recipe_bfury",
+		"name": "Battle Fury Recipe",
+		"extKey": 144
 	},
 	{
-		"key": 217,
-		"label": "recipe_ward_dispenser",
-		"extId": 217
+		"idx": 145,
+		"key": "bfury",
+		"name": "Battle Fury",
+		"extKey": 145
 	},
 	{
-		"key": 218,
-		"label": "ward_dispenser",
-		"extId": 218
+		"idx": 146,
+		"key": "recipe_manta",
+		"name": "Manta Style Recipe",
+		"extKey": 146
 	},
 	{
-		"key": 219,
-		"label": "recipe_travel_boots_2",
-		"extId": 219
+		"idx": 147,
+		"key": "manta",
+		"name": "Manta Style",
+		"extKey": 147
 	},
 	{
-		"key": 220,
-		"label": "travel_boots_2",
-		"extId": 220
+		"idx": 148,
+		"key": "recipe_lesser_crit",
+		"name": "Crystalys Recipe",
+		"extKey": 148
 	},
 	{
-		"key": 221,
-		"label": "recipe_lotus_orb",
-		"extId": 221
+		"idx": 149,
+		"key": "lesser_crit",
+		"name": "Crystalys",
+		"extKey": 149
 	},
 	{
-		"key": 222,
-		"label": "recipe_meteor_hammer",
-		"extId": 222
+		"idx": 234,
+		"key": "recipe_dragon_lance",
+		"name": "Dragon Lance Recipe",
+		"extKey": 234
 	},
 	{
-		"key": 223,
-		"label": "meteor_hammer",
-		"extId": 223
+		"idx": 236,
+		"key": "dragon_lance",
+		"name": "Dragon Lance",
+		"extKey": 236
 	},
 	{
-		"key": 224,
-		"label": "recipe_nullifier",
-		"extId": 224
+		"idx": 150,
+		"key": "recipe_armlet",
+		"name": "Armlet of Mordiggian Recipe",
+		"extKey": 150
 	},
 	{
-		"key": 225,
-		"label": "nullifier",
-		"extId": 225
+		"idx": 151,
+		"key": "armlet",
+		"name": "Armlet of Mordiggian",
+		"extKey": 151
 	},
 	{
-		"key": 226,
-		"label": "lotus_orb",
-		"extId": 226
+		"idx": 152,
+		"key": "invis_sword",
+		"name": "Shadow Blade",
+		"extKey": 152
 	},
 	{
-		"key": 227,
-		"label": "recipe_solar_crest",
-		"extId": 227
+		"idx": 248,
+		"key": "recipe_silver_edge",
+		"name": "Silver Edge Recipe",
+		"extKey": 248
 	},
 	{
-		"key": 228,
-		"label": "recipe_octarine_core",
-		"extId": 228
+		"idx": 249,
+		"key": "silver_edge",
+		"name": "Silver Edge",
+		"extKey": 249
 	},
 	{
-		"key": 229,
-		"label": "solar_crest",
-		"extId": 229
+		"idx": 154,
+		"key": "sange_and_yasha",
+		"name": "Sange and Yasha",
+		"extKey": 154
 	},
 	{
-		"key": 230,
-		"label": "recipe_guardian_greaves",
-		"extId": 230
+		"idx": 273,
+		"key": "kaya_and_sange",
+		"name": "Kaya and Sange",
+		"extKey": 273
 	},
 	{
-		"key": 231,
-		"label": "guardian_greaves",
-		"extId": 231
+		"idx": 277,
+		"key": "yasha_and_kaya",
+		"name": "Yasha and Kaya",
+		"extKey": 277
 	},
 	{
-		"key": 232,
-		"label": "aether_lens",
-		"extId": 232
+		"idx": 156,
+		"key": "satanic",
+		"name": "Satanic",
+		"extKey": 156
 	},
 	{
-		"key": 233,
-		"label": "recipe_aether_lens",
-		"extId": 233
+		"idx": 157,
+		"key": "recipe_mjollnir",
+		"name": "Mjollnir Recipe",
+		"extKey": 157
 	},
 	{
-		"key": 234,
-		"label": "recipe_dragon_lance",
-		"extId": 234
+		"idx": 158,
+		"key": "mjollnir",
+		"name": "Mjollnir",
+		"extKey": 158
 	},
 	{
-		"key": 235,
-		"label": "octarine_core",
-		"extId": 235
+		"idx": 160,
+		"key": "skadi",
+		"name": "Eye of Skadi",
+		"extKey": 160
 	},
 	{
-		"key": 236,
-		"label": "dragon_lance",
-		"extId": 236
+		"idx": 161,
+		"key": "recipe_sange",
+		"name": "Sange Recipe",
+		"extKey": 161
 	},
 	{
-		"key": 237,
-		"label": "faerie_fire",
-		"extId": 237
+		"idx": 162,
+		"key": "sange",
+		"name": "Sange",
+		"extKey": 162
 	},
 	{
-		"key": 238,
-		"label": "recipe_iron_talon",
-		"extId": 238
+		"idx": 163,
+		"key": "recipe_helm_of_the_dominator",
+		"name": "Helm of the Dominator Recipe",
+		"extKey": 163
 	},
 	{
-		"key": 239,
-		"label": "iron_talon",
-		"extId": 239
+		"idx": 164,
+		"key": "helm_of_the_dominator",
+		"name": "Helm of the Dominator",
+		"extKey": 164
 	},
 	{
-		"key": 240,
-		"label": "blight_stone",
-		"extId": 240
+		"idx": 633,
+		"key": "recipe_helm_of_the_overlord",
+		"name": "Helm of the Overlord Recipe",
+		"extKey": 633
 	},
 	{
-		"key": 241,
-		"label": "tango_single",
-		"extId": 241
+		"idx": 635,
+		"key": "helm_of_the_overlord",
+		"name": "Helm of the Overlord",
+		"extKey": 635
 	},
 	{
-		"key": 242,
-		"label": "crimson_guard",
-		"extId": 242
+		"idx": 166,
+		"key": "maelstrom",
+		"name": "Maelstrom",
+		"extKey": 166
 	},
 	{
-		"key": 243,
-		"label": "recipe_crimson_guard",
-		"extId": 243
+		"idx": 1565,
+		"key": "recipe_gungir",
+		"name": "Gleipnir Recipe",
+		"extKey": 1565
 	},
 	{
-		"key": 244,
-		"label": "wind_lace",
-		"extId": 244
+		"idx": 1466,
+		"key": "gungir",
+		"name": "Gleipnir",
+		"extKey": 1466
 	},
 	{
-		"key": 245,
-		"label": "recipe_bloodthorn",
-		"extId": 245
+		"idx": 168,
+		"key": "desolator",
+		"name": "Desolator",
+		"extKey": 168
 	},
 	{
-		"key": 246,
-		"label": "recipe_moon_shard",
-		"extId": 246
+		"idx": 169,
+		"key": "recipe_yasha",
+		"name": "Yasha Recipe",
+		"extKey": 169
 	},
 	{
-		"key": 247,
-		"label": "moon_shard",
-		"extId": 247
+		"idx": 170,
+		"key": "yasha",
+		"name": "Yasha",
+		"extKey": 170
 	},
 	{
-		"key": 248,
-		"label": "recipe_silver_edge",
-		"extId": 248
+		"idx": 172,
+		"key": "mask_of_madness",
+		"name": "Mask of Madness",
+		"extKey": 172
 	},
 	{
-		"key": 249,
-		"label": "silver_edge",
-		"extId": 249
+		"idx": 173,
+		"key": "recipe_diffusal_blade",
+		"name": "Diffusal Blade Recipe",
+		"extKey": 173
 	},
 	{
-		"key": 250,
-		"label": "bloodthorn",
-		"extId": 250
+		"idx": 174,
+		"key": "diffusal_blade",
+		"name": "Diffusal Blade",
+		"extKey": 174
 	},
 	{
-		"key": 251,
-		"label": "recipe_echo_sabre",
-		"extId": 251
+		"idx": 1096,
+		"key": "recipe_disperser",
+		"name": "Disperser Recipe",
+		"extKey": 1096
 	},
 	{
-		"key": 252,
-		"label": "echo_sabre",
-		"extId": 252
+		"idx": 1097,
+		"key": "disperser",
+		"name": "Disperser",
+		"extKey": 1097
 	},
 	{
-		"key": 253,
-		"label": "recipe_glimmer_cape",
-		"extId": 253
+		"idx": 175,
+		"key": "recipe_ethereal_blade",
+		"name": "Ethereal Blade Recipe",
+		"extKey": 175
 	},
 	{
-		"key": 254,
-		"label": "glimmer_cape",
-		"extId": 254
+		"idx": 176,
+		"key": "ethereal_blade",
+		"name": "Ethereal Blade",
+		"extKey": 176
 	},
 	{
-		"key": 255,
-		"label": "recipe_aeon_disk",
-		"extId": 255
+		"idx": 177,
+		"key": "recipe_soul_ring",
+		"name": "Soul Ring Recipe",
+		"extKey": 177
 	},
 	{
-		"key": 256,
-		"label": "aeon_disk",
-		"extId": 256
+		"idx": 178,
+		"key": "soul_ring",
+		"name": "Soul Ring",
+		"extKey": 178
 	},
 	{
-		"key": 257,
-		"label": "tome_of_knowledge",
-		"extId": 257
+		"idx": 179,
+		"key": "recipe_arcane_boots",
+		"name": "Arcane Boots Recipe",
+		"extKey": 179
 	},
 	{
-		"key": 258,
-		"label": "recipe_kaya",
-		"extId": 258
+		"idx": 180,
+		"key": "arcane_boots",
+		"name": "Arcane Boots",
+		"extKey": 180
 	},
 	{
-		"key": 259,
-		"label": "kaya",
-		"extId": 259
+		"idx": 228,
+		"key": "recipe_octarine_core",
+		"name": "Octarine Core Recipe",
+		"extKey": 228
 	},
 	{
-		"key": 260,
-		"label": "refresher_shard",
-		"extId": 260
+		"idx": 235,
+		"key": "octarine_core",
+		"name": "Octarine Core",
+		"extKey": 235
 	},
 	{
-		"key": 261,
-		"label": "crown",
-		"extId": 261
+		"idx": 181,
+		"key": "orb_of_venom",
+		"name": "Orb of Venom",
+		"extKey": 181
 	},
 	{
-		"key": 262,
-		"label": "recipe_hurricane_pike",
-		"extId": 262
+		"idx": 240,
+		"key": "blight_stone",
+		"name": "Orb of Blight",
+		"extKey": 240
 	},
 	{
-		"key": 263,
-		"label": "hurricane_pike",
-		"extId": 263
+		"idx": 569,
+		"key": "orb_of_corrosion",
+		"name": "Orb of Corrosion",
+		"extKey": 569
 	},
 	{
-		"key": 265,
-		"label": "infused_raindrop",
-		"extId": 265
+		"idx": 1575,
+		"key": "orb_of_frost",
+		"name": "Orb of Frost",
+		"extKey": 1575
 	},
 	{
-		"key": 266,
-		"label": "recipe_spirit_vessel",
-		"extId": 266
+		"idx": 599,
+		"key": "recipe_falcon_blade",
+		"name": "Falcon Blade Recipe",
+		"extKey": 599
 	},
 	{
-		"key": 267,
-		"label": "spirit_vessel",
-		"extId": 267
+		"idx": 596,
+		"key": "falcon_blade",
+		"name": "Falcon Blade",
+		"extKey": 596
 	},
 	{
-		"key": 268,
-		"label": "recipe_holy_locket",
-		"extId": 268
+		"idx": 598,
+		"key": "mage_slayer",
+		"name": "Mage Slayer",
+		"extKey": 598
 	},
 	{
-		"key": 269,
-		"label": "holy_locket",
-		"extId": 269
+		"idx": 184,
+		"key": "recipe_ancient_janggo",
+		"name": "Drum of Endurance Recipe",
+		"extKey": 184
 	},
 	{
-		"key": 270,
-		"label": "recipe_ultimate_scepter_2",
-		"extId": 270
+		"idx": 185,
+		"key": "ancient_janggo",
+		"name": "Drum of Endurance",
+		"extKey": 185
 	},
 	{
-		"key": 271,
-		"label": "ultimate_scepter_2",
-		"extId": 271
+		"idx": 931,
+		"key": "boots_of_bearing",
+		"name": "Boots of Bearing",
+		"extKey": 931
 	},
 	{
-		"key": 272,
-		"label": "recipe_kaya_and_sange",
-		"extId": 272
+		"idx": 187,
+		"key": "medallion_of_courage",
+		"name": "Medallion of Courage",
+		"extKey": 187
 	},
 	{
-		"key": 273,
-		"label": "kaya_and_sange",
-		"extId": 273
+		"idx": 227,
+		"key": "recipe_solar_crest",
+		"name": "Solar Crest Recipe",
+		"extKey": 227
 	},
 	{
-		"key": 274,
-		"label": "recipe_yasha_and_kaya",
-		"extId": 274
+		"idx": 229,
+		"key": "solar_crest",
+		"name": "Solar Crest",
+		"extKey": 229
 	},
 	{
-		"key": 275,
-		"label": "recipe_trident",
-		"extId": 275
+		"idx": 1127,
+		"key": "recipe_pavise",
+		"name": "Pavise Recipe",
+		"extKey": 1127
 	},
 	{
-		"key": 276,
-		"label": "combo_breaker",
-		"extId": 276
+		"idx": 1128,
+		"key": "pavise",
+		"name": "Pavise",
+		"extKey": 1128
 	},
 	{
-		"key": 277,
-		"label": "yasha_and_kaya",
-		"extId": 277
+		"idx": 188,
+		"key": "smoke_of_deceit",
+		"name": "Smoke of Deceit",
+		"extKey": 188
 	},
 	{
-		"key": 279,
-		"label": "ring_of_tarrasque",
-		"extId": 279
+		"idx": 257,
+		"key": "tome_of_knowledge",
+		"name": "Tome of Knowledge",
+		"extKey": 257
 	},
 	{
-		"key": 286,
-		"label": "flying_courier",
-		"extId": 286
+		"idx": 189,
+		"key": "recipe_veil_of_discord",
+		"name": "Veil of Discord Recipe",
+		"extKey": 189
 	},
 	{
-		"key": 287,
-		"label": "keen_optic",
-		"extId": 287
+		"idx": 190,
+		"key": "veil_of_discord",
+		"name": "Veil of Discord",
+		"extKey": 190
 	},
 	{
-		"key": 288,
-		"label": "grove_bow",
-		"extId": 288
+		"idx": 910,
+		"key": "recipe_revenants_brooch",
+		"name": "Revenant's Brooch Recipe",
+		"extKey": 910
 	},
 	{
-		"key": 289,
-		"label": "quickening_charm",
-		"extId": 289
+		"idx": 911,
+		"key": "revenants_brooch",
+		"name": "Revenant's Brooch",
+		"extKey": 911
 	},
 	{
-		"key": 290,
-		"label": "philosophers_stone",
-		"extId": 290
+		"idx": 1805,
+		"key": "recipe_devastator",
+		"name": "Parasma Recipe",
+		"extKey": 1805
 	},
 	{
-		"key": 291,
-		"label": "force_boots",
-		"extId": 291
+		"idx": 1806,
+		"key": "devastator",
+		"name": "Parasma",
+		"extKey": 1806
 	},
 	{
-		"key": 292,
-		"label": "desolator_2",
-		"extId": 292
+		"idx": 230,
+		"key": "recipe_guardian_greaves",
+		"name": "Guardian Greaves Recipe",
+		"extKey": 230
 	},
 	{
-		"key": 293,
-		"label": "phoenix_ash",
-		"extId": 293
+		"idx": 231,
+		"key": "guardian_greaves",
+		"name": "Guardian Greaves",
+		"extKey": 231
 	},
 	{
-		"key": 294,
-		"label": "seer_stone",
-		"extId": 294
+		"idx": 205,
+		"key": "recipe_rod_of_atos",
+		"name": "Rod of Atos Recipe",
+		"extKey": 205
 	},
 	{
-		"key": 295,
-		"label": "greater_mango",
-		"extId": 295
+		"idx": 206,
+		"key": "rod_of_atos",
+		"name": "Rod of Atos",
+		"extKey": 206
 	},
 	{
-		"key": 297,
-		"label": "vampire_fangs",
-		"extId": 297
+		"idx": 238,
+		"key": "recipe_iron_talon",
+		"name": "Iron Talon Recipe",
+		"extKey": 238
 	},
 	{
-		"key": 298,
-		"label": "craggy_coat",
-		"extId": 298
+		"idx": 239,
+		"key": "iron_talon",
+		"name": "Iron Talon",
+		"extKey": 239
 	},
 	{
-		"key": 299,
-		"label": "greater_faerie_fire",
-		"extId": 299
+		"idx": 207,
+		"key": "recipe_abyssal_blade",
+		"name": "Abyssal Blade Recipe",
+		"extKey": 207
 	},
 	{
-		"key": 300,
-		"label": "timeless_relic",
-		"extId": 300
+		"idx": 208,
+		"key": "abyssal_blade",
+		"name": "Abyssal Blade",
+		"extKey": 208
 	},
 	{
-		"key": 301,
-		"label": "mirror_shield",
-		"extId": 301
+		"idx": 209,
+		"key": "recipe_heavens_halberd",
+		"name": "Heaven's Halberd Recipe",
+		"extKey": 209
 	},
 	{
-		"key": 302,
-		"label": "elixer",
-		"extId": 302
+		"idx": 210,
+		"key": "heavens_halberd",
+		"name": "Heaven's Halberd",
+		"extKey": 210
 	},
 	{
-		"key": 303,
-		"label": "recipe_ironwood_tree",
-		"extId": 303
+		"idx": 212,
+		"key": "ring_of_aquila",
+		"name": "Ring of Aquila",
+		"extKey": 212
 	},
 	{
-		"key": 304,
-		"label": "ironwood_tree",
-		"extId": 304
+		"idx": 214,
+		"key": "tranquil_boots",
+		"name": "Tranquil Boots",
+		"extKey": 214
 	},
 	{
-		"key": 305,
-		"label": "royal_jelly",
-		"extId": 305
+		"idx": 215,
+		"key": "shadow_amulet",
+		"name": "Shadow Amulet",
+		"extKey": 215
 	},
 	{
-		"key": 306,
-		"label": "pupils_gift",
-		"extId": 306
+		"idx": 253,
+		"key": "recipe_glimmer_cape",
+		"name": "Glimmer Cape Recipe",
+		"extKey": 253
 	},
 	{
-		"key": 307,
-		"label": "tome_of_aghanim",
-		"extId": 307
+		"idx": 254,
+		"key": "glimmer_cape",
+		"name": "Glimmer Cape",
+		"extKey": 254
 	},
 	{
-		"key": 308,
-		"label": "repair_kit",
-		"extId": 308
+		"idx": 1021,
+		"key": "river_painter",
+		"name": "River Vial: Chrome",
+		"extKey": 1021
 	},
 	{
-		"key": 309,
-		"label": "mind_breaker",
-		"extId": 309
+		"idx": 1022,
+		"key": "river_painter2",
+		"name": "River Vial: Dry",
+		"extKey": 1022
 	},
 	{
-		"key": 310,
-		"label": "third_eye",
-		"extId": 310
+		"idx": 1023,
+		"key": "river_painter3",
+		"name": "River Vial: Slime",
+		"extKey": 1023
 	},
 	{
-		"key": 311,
-		"label": "spell_prism",
-		"extId": 311
+		"idx": 1024,
+		"key": "river_painter4",
+		"name": "River Vial: Oil",
+		"extKey": 1024
 	},
 	{
-		"key": 312,
-		"label": "horizon",
-		"extId": 312
+		"idx": 1025,
+		"key": "river_painter5",
+		"name": "River Vial: Electrified",
+		"extKey": 1025
 	},
 	{
-		"key": 313,
-		"label": "fusion_rune",
-		"extId": 313
+		"idx": 1026,
+		"key": "river_painter6",
+		"name": "River Vial: Potion",
+		"extKey": 1026
 	},
 	{
-		"key": 317,
-		"label": "recipe_fallen_sky",
-		"extId": 317
+		"idx": 1027,
+		"key": "river_painter7",
+		"name": "River Vial: Blood",
+		"extKey": 1027
 	},
 	{
-		"key": 325,
-		"label": "princes_knife",
-		"extId": 325
+		"idx": 1028,
+		"key": "mutation_tombstone",
+		"name": "Tombstone",
+		"extKey": 1028
 	},
 	{
-		"key": 326,
-		"label": "spider_legs",
-		"extId": 326
+		"idx": 1029,
+		"key": "super_blink",
+		"name": "Super Blink",
+		"extKey": 1029
 	},
 	{
-		"key": 327,
-		"label": "helm_of_the_undying",
-		"extId": 327
+		"idx": 1030,
+		"key": "pocket_tower",
+		"name": "Pocket Tower",
+		"extKey": 1030
 	},
 	{
-		"key": 328,
-		"label": "mango_tree",
-		"extId": 328
+		"idx": 1032,
+		"key": "pocket_roshan",
+		"name": "Pocket Roshan",
+		"extKey": 1032
 	},
 	{
-		"key": 330,
-		"label": "witless_shako",
-		"extId": 330
+		"idx": 287,
+		"key": "keen_optic",
+		"name": "Keen Optic",
+		"extKey": 287
 	},
 	{
-		"key": 331,
-		"label": "vambrace",
-		"extId": 331
+		"idx": 288,
+		"key": "grove_bow",
+		"name": "Grove Bow",
+		"extKey": 288
 	},
 	{
-		"key": 334,
-		"label": "imp_claw",
-		"extId": 334
+		"idx": 289,
+		"key": "quickening_charm",
+		"name": "Quickening Charm",
+		"extKey": 289
 	},
 	{
-		"key": 335,
-		"label": "flicker",
-		"extId": 335
+		"idx": 290,
+		"key": "philosophers_stone",
+		"name": "Philosopher's Stone",
+		"extKey": 290
 	},
 	{
-		"key": 336,
-		"label": "spy_gadget",
-		"extId": 336
+		"idx": 291,
+		"key": "force_boots",
+		"name": "Force Boots",
+		"extKey": 291
 	},
 	{
-		"key": 349,
-		"label": "arcane_ring",
-		"extId": 349
+		"idx": 292,
+		"key": "desolator_2",
+		"name": "Stygian Desolator",
+		"extKey": 292
 	},
 	{
-		"key": 354,
-		"label": "ocean_heart",
-		"extId": 354
+		"idx": 293,
+		"key": "phoenix_ash",
+		"name": "Phoenix Ash",
+		"extKey": 293
 	},
 	{
-		"key": 355,
-		"label": "broom_handle",
-		"extId": 355
+		"idx": 294,
+		"key": "seer_stone",
+		"name": "Seer Stone",
+		"extKey": 294
 	},
 	{
-		"key": 356,
-		"label": "trusty_shovel",
-		"extId": 356
+		"idx": 295,
+		"key": "greater_mango",
+		"name": "Greater Mango",
+		"extKey": 295
 	},
 	{
-		"key": 357,
-		"label": "nether_shawl",
-		"extId": 357
+		"idx": 302,
+		"key": "elixer",
+		"name": "Elixir",
+		"extKey": 302
 	},
 	{
-		"key": 358,
-		"label": "dragon_scale",
-		"extId": 358
+		"idx": 297,
+		"key": "vampire_fangs",
+		"name": "Vampire Fangs",
+		"extKey": 297
 	},
 	{
-		"key": 359,
-		"label": "essence_ring",
-		"extId": 359
+		"idx": 829,
+		"key": "force_field",
+		"name": "Arcanist's Armor",
+		"extKey": 829
 	},
 	{
-		"key": 360,
-		"label": "clumsy_net",
-		"extId": 360
+		"idx": 834,
+		"key": "black_powder_bag",
+		"name": "Blast Rig",
+		"extKey": 834
 	},
 	{
-		"key": 361,
-		"label": "enchanted_quiver",
-		"extId": 361
+		"idx": 849,
+		"key": "mechanical_arm",
+		"name": "Mechanical Arm",
+		"extKey": 849
 	},
 	{
-		"key": 362,
-		"label": "ninja_gear",
-		"extId": 362
+		"idx": 298,
+		"key": "craggy_coat",
+		"name": "Craggy Coat",
+		"extKey": 298
 	},
 	{
-		"key": 363,
-		"label": "illusionsts_cape",
-		"extId": 363
+		"idx": 299,
+		"key": "greater_faerie_fire",
+		"name": "Greater Faerie Fire",
+		"extKey": 299
 	},
 	{
-		"key": 364,
-		"label": "havoc_hammer",
-		"extId": 364
+		"idx": 300,
+		"key": "timeless_relic",
+		"name": "Timeless Relic",
+		"extKey": 300
 	},
 	{
-		"key": 365,
-		"label": "panic_button",
-		"extId": 365
+		"idx": 301,
+		"key": "mirror_shield",
+		"name": "Mirror Shield",
+		"extKey": 301
 	},
 	{
-		"key": 366,
-		"label": "apex",
-		"extId": 366
+		"idx": 304,
+		"key": "ironwood_tree",
+		"name": "Ironwood Tree",
+		"extKey": 304
 	},
 	{
-		"key": 367,
-		"label": "ballista",
-		"extId": 367
+		"idx": 328,
+		"key": "mango_tree",
+		"name": "Mango Tree",
+		"extKey": 328
 	},
 	{
-		"key": 368,
-		"label": "woodland_striders",
-		"extId": 368
+		"idx": 305,
+		"key": "royal_jelly",
+		"name": "Royal Jelly",
+		"extKey": 305
 	},
 	{
-		"key": 369,
-		"label": "trident",
-		"extId": 369
+		"idx": 306,
+		"key": "pupils_gift",
+		"name": "Pupil's Gift",
+		"extKey": 306
 	},
 	{
-		"key": 370,
-		"label": "demonicon",
-		"extId": 370
+		"idx": 307,
+		"key": "tome_of_aghanim",
+		"name": "Tome of Aghanim",
+		"extKey": 307
 	},
 	{
-		"key": 371,
-		"label": "fallen_sky",
-		"extId": 371
+		"idx": 308,
+		"key": "repair_kit",
+		"name": "Repair Kit",
+		"extKey": 308
 	},
 	{
-		"key": 372,
-		"label": "pirate_hat",
-		"extId": 372
+		"idx": 309,
+		"key": "mind_breaker",
+		"name": "Mind Breaker",
+		"extKey": 309
 	},
 	{
-		"key": 373,
-		"label": "dimensional_doorway",
-		"extId": 373
+		"idx": 310,
+		"key": "third_eye",
+		"name": "Third Eye",
+		"extKey": 310
 	},
 	{
-		"key": 374,
-		"label": "ex_machina",
-		"extId": 374
+		"idx": 311,
+		"key": "spell_prism",
+		"name": "Spell Prism",
+		"extKey": 311
 	},
 	{
-		"key": 375,
-		"label": "faded_broach",
-		"extId": 375
+		"idx": 325,
+		"key": "princes_knife",
+		"name": "Prince's Knife",
+		"extKey": 325
 	},
 	{
-		"key": 376,
-		"label": "paladin_sword",
-		"extId": 376
+		"idx": 330,
+		"key": "witless_shako",
+		"name": "Witless Shako",
+		"extKey": 330
 	},
 	{
-		"key": 377,
-		"label": "minotaur_horn",
-		"extId": 377
+		"idx": 334,
+		"key": "imp_claw",
+		"name": "Imp Claw",
+		"extKey": 334
 	},
 	{
-		"key": 378,
-		"label": "orb_of_destruction",
-		"extId": 378
+		"idx": 335,
+		"key": "flicker",
+		"name": "Flicker",
+		"extKey": 335
 	},
 	{
-		"key": 379,
-		"label": "the_leveller",
-		"extId": 379
+		"idx": 336,
+		"key": "spy_gadget",
+		"name": "Telescope",
+		"extKey": 336
 	},
 	{
-		"key": 381,
-		"label": "titan_sliver",
-		"extId": 381
+		"idx": 326,
+		"key": "spider_legs",
+		"name": "Spider Legs",
+		"extKey": 326
 	},
 	{
-		"key": 473,
-		"label": "voodoo_mask",
-		"extId": 473
+		"idx": 327,
+		"key": "helm_of_the_undying",
+		"name": "Helm of the Undying",
+		"extKey": 327
 	},
 	{
-		"key": 485,
-		"label": "blitz_knuckles",
-		"extId": 485
+		"idx": 331,
+		"key": "vambrace",
+		"name": "Vambrace",
+		"extKey": 331
 	},
 	{
-		"key": 533,
-		"label": "recipe_witch_blade",
-		"extId": 533
+		"idx": 312,
+		"key": "horizon",
+		"name": "Horizon",
+		"extKey": 312
 	},
 	{
-		"key": 534,
-		"label": "witch_blade",
-		"extId": 534
+		"idx": 313,
+		"key": "fusion_rune",
+		"name": "Fusion Rune",
+		"extKey": 313
 	},
 	{
-		"key": 565,
-		"label": "chipped_vest",
-		"extId": 565
+		"idx": 354,
+		"key": "ocean_heart",
+		"name": "Ocean Heart",
+		"extKey": 354
 	},
 	{
-		"key": 566,
-		"label": "wizard_glass",
-		"extId": 566
+		"idx": 1124,
+		"key": "spark_of_courage",
+		"name": "Spark of Courage",
+		"extKey": 1124
 	},
 	{
-		"key": 569,
-		"label": "orb_of_corrosion",
-		"extId": 569
+		"idx": 355,
+		"key": "broom_handle",
+		"name": "Broom Handle",
+		"extKey": 355
 	},
 	{
-		"key": 570,
-		"label": "gloves_of_travel",
-		"extId": 570
+		"idx": 356,
+		"key": "trusty_shovel",
+		"name": "Trusty Shovel",
+		"extKey": 356
 	},
 	{
-		"key": 571,
-		"label": "trickster_cloak",
-		"extId": 571
+		"idx": 357,
+		"key": "nether_shawl",
+		"name": "Nether Shawl",
+		"extKey": 357
 	},
 	{
-		"key": 573,
-		"label": "elven_tunic",
-		"extId": 573
+		"idx": 358,
+		"key": "dragon_scale",
+		"name": "Dragon Scale",
+		"extKey": 358
 	},
 	{
-		"key": 574,
-		"label": "cloak_of_flames",
-		"extId": 574
+		"idx": 359,
+		"key": "essence_ring",
+		"name": "Essence Ring",
+		"extKey": 359
 	},
 	{
-		"key": 575,
-		"label": "venom_gland",
-		"extId": 575
+		"idx": 360,
+		"key": "clumsy_net",
+		"name": "Clumsy Net",
+		"extKey": 360
 	},
 	{
-		"key": 576,
-		"label": "gladiator_helm",
-		"extId": 576
+		"idx": 361,
+		"key": "enchanted_quiver",
+		"name": "Enchanted Quiver",
+		"extKey": 361
 	},
 	{
-		"key": 577,
-		"label": "possessed_mask",
-		"extId": 577
+		"idx": 362,
+		"key": "ninja_gear",
+		"name": "Ninja Gear",
+		"extKey": 362
 	},
 	{
-		"key": 578,
-		"label": "ancient_perseverance",
-		"extId": 578
+		"idx": 363,
+		"key": "illusionsts_cape",
+		"name": "Illusionist's Cape",
+		"extKey": 363
 	},
 	{
-		"key": 582,
-		"label": "oakheart",
-		"extId": 582
+		"idx": 364,
+		"key": "havoc_hammer",
+		"name": "Havoc Hammer",
+		"extKey": 364
 	},
 	{
-		"key": 585,
-		"label": "stormcrafter",
-		"extId": 585
+		"idx": 365,
+		"key": "panic_button",
+		"name": "Magic Lamp",
+		"extKey": 365
 	},
 	{
-		"key": 588,
-		"label": "overflowing_elixir",
-		"extId": 588
+		"idx": 366,
+		"key": "apex",
+		"name": "Apex",
+		"extKey": 366
 	},
 	{
-		"key": 589,
-		"label": "mysterious_hat",
-		"extId": 589
+		"idx": 367,
+		"key": "ballista",
+		"name": "Ballista",
+		"extKey": 367
 	},
 	{
-		"key": 593,
-		"label": "fluffy_hat",
-		"extId": 593
+		"idx": 368,
+		"key": "woodland_striders",
+		"name": "Woodland Striders",
+		"extKey": 368
 	},
 	{
-		"key": 596,
-		"label": "falcon_blade",
-		"extId": 596
+		"idx": 275,
+		"key": "recipe_trident",
+		"name": "Trident Recipe",
+		"extKey": 275
 	},
 	{
-		"key": 597,
-		"label": "recipe_mage_slayer",
-		"extId": 597
+		"idx": 370,
+		"key": "demonicon",
+		"name": "Book of the Dead",
+		"extKey": 370
 	},
 	{
-		"key": 598,
-		"label": "mage_slayer",
-		"extId": 598
+		"idx": 371,
+		"key": "fallen_sky",
+		"name": "Fallen Sky",
+		"extKey": 371
 	},
 	{
-		"key": 599,
-		"label": "recipe_falcon_blade",
-		"extId": 599
+		"idx": 372,
+		"key": "pirate_hat",
+		"name": "Pirate Hat",
+		"extKey": 372
 	},
 	{
-		"key": 600,
-		"label": "overwhelming_blink",
-		"extId": 600
+		"idx": 374,
+		"key": "ex_machina",
+		"name": "Ex Machina",
+		"extKey": 374
 	},
 	{
-		"key": 603,
-		"label": "swift_blink",
-		"extId": 603
+		"idx": 375,
+		"key": "faded_broach",
+		"name": "Faded Broach",
+		"extKey": 375
 	},
 	{
-		"key": 604,
-		"label": "arcane_blink",
-		"extId": 604
+		"idx": 376,
+		"key": "paladin_sword",
+		"name": "Paladin Sword",
+		"extKey": 376
 	},
 	{
-		"key": 606,
-		"label": "recipe_arcane_blink",
-		"extId": 606
+		"idx": 377,
+		"key": "minotaur_horn",
+		"name": "Minotaur Horn",
+		"extKey": 377
 	},
 	{
-		"key": 607,
-		"label": "recipe_swift_blink",
-		"extId": 607
+		"idx": 378,
+		"key": "orb_of_destruction",
+		"name": "Orb of Destruction",
+		"extKey": 378
 	},
 	{
-		"key": 608,
-		"label": "recipe_overwhelming_blink",
-		"extId": 608
+		"idx": 379,
+		"key": "the_leveller",
+		"name": "The Leveller",
+		"extKey": 379
 	},
 	{
-		"key": 609,
-		"label": "aghanims_shard",
-		"extId": 609
+		"idx": 349,
+		"key": "arcane_ring",
+		"name": "Arcane Ring",
+		"extKey": 349
 	},
 	{
-		"key": 610,
-		"label": "wind_waker",
-		"extId": 610
+		"idx": 381,
+		"key": "titan_sliver",
+		"name": "Titan Sliver",
+		"extKey": 381
 	},
 	{
-		"key": 612,
-		"label": "recipe_wind_waker",
-		"extId": 612
+		"idx": 565,
+		"key": "chipped_vest",
+		"name": "Chipped Vest",
+		"extKey": 565
 	},
 	{
-		"key": 633,
-		"label": "recipe_helm_of_the_overlord",
-		"extId": 633
+		"idx": 573,
+		"key": "elven_tunic",
+		"name": "Elven Tunic",
+		"extKey": 573
 	},
 	{
-		"key": 635,
-		"label": "helm_of_the_overlord",
-		"extId": 635
+		"idx": 574,
+		"key": "cloak_of_flames",
+		"name": "Cloak of Flames",
+		"extKey": 574
 	},
 	{
-		"key": 637,
-		"label": "star_mace",
-		"extId": 637
+		"idx": 571,
+		"key": "trickster_cloak",
+		"name": "Trickster Cloak",
+		"extKey": 571
 	},
 	{
-		"key": 638,
-		"label": "penta_edged_sword",
-		"extId": 638
+		"idx": 577,
+		"key": "possessed_mask",
+		"name": "Possessed Mask",
+		"extKey": 577
 	},
 	{
-		"key": 640,
-		"label": "recipe_orb_of_corrosion",
-		"extId": 640
+		"idx": 638,
+		"key": "penta_edged_sword",
+		"name": "Penta-Edged Sword",
+		"extKey": 638
 	},
 	{
-		"key": 653,
-		"label": "recipe_grandmasters_glaive",
-		"extId": 653
+		"idx": 680,
+		"key": "bullwhip",
+		"name": "Bullwhip",
+		"extKey": 680
 	},
 	{
-		"key": 655,
-		"label": "grandmasters_glaive",
-		"extId": 655
+		"idx": 675,
+		"key": "psychic_headband",
+		"name": "Psychic Headband",
+		"extKey": 675
 	},
 	{
-		"key": 674,
-		"label": "warhammer",
-		"extId": 674
+		"idx": 676,
+		"key": "ceremonial_robe",
+		"name": "Ceremonial Robe",
+		"extKey": 676
 	},
 	{
-		"key": 675,
-		"label": "psychic_headband",
-		"extId": 675
+		"idx": 686,
+		"key": "quicksilver_amulet",
+		"name": "Quicksilver Amulet",
+		"extKey": 686
 	},
 	{
-		"key": 676,
-		"label": "ceremonial_robe",
-		"extId": 676
+		"idx": 677,
+		"key": "book_of_shadows",
+		"name": "Book of Shadows",
+		"extKey": 677
 	},
 	{
-		"key": 677,
-		"label": "book_of_shadows",
-		"extId": 677
+		"idx": 678,
+		"key": "giants_ring",
+		"name": "Giant's Ring",
+		"extKey": 678
 	},
 	{
-		"key": 678,
-		"label": "giants_ring",
-		"extId": 678
+		"idx": 585,
+		"key": "stormcrafter",
+		"name": "Stormcrafter",
+		"extKey": 585
 	},
 	{
-		"key": 679,
-		"label": "vengeances_shadow",
-		"extId": 679
+		"idx": 589,
+		"key": "mysterious_hat",
+		"name": "Fairy's Trinket",
+		"extKey": 589
 	},
 	{
-		"key": 680,
-		"label": "bullwhip",
-		"extId": 680
+		"idx": 825,
+		"key": "ascetic_cap",
+		"name": "Ascetic's Cap",
+		"extKey": 825
 	},
 	{
-		"key": 686,
-		"label": "quicksilver_amulet",
-		"extId": 686
+		"idx": 828,
+		"key": "misericorde",
+		"name": "Brigand's Blade",
+		"extKey": 828
 	},
 	{
-		"key": 691,
-		"label": "recipe_eternal_shroud",
-		"extId": 691
+		"idx": 837,
+		"key": "heavy_blade",
+		"name": "Witchbane",
+		"extKey": 837
 	},
 	{
-		"key": 692,
-		"label": "eternal_shroud",
-		"extId": 692
+		"idx": 838,
+		"key": "unstable_wand",
+		"name": "Pig Pole",
+		"extKey": 838
 	},
 	{
-		"key": 725,
-		"label": "aghanims_shard_roshan",
-		"extId": 725
+		"idx": 840,
+		"key": "pogo_stick",
+		"name": "Tumbler's Toy",
+		"extKey": 840
 	},
 	{
-		"key": 727,
-		"label": "ultimate_scepter_roshan",
-		"extId": 727
+		"idx": 835,
+		"key": "paintball",
+		"name": "Fae Grenade",
+		"extKey": 835
 	},
 	{
-		"key": 731,
-		"label": "satchel",
-		"extId": 731
+		"idx": 945,
+		"key": "seeds_of_serenity",
+		"name": "Seeds of Serenity",
+		"extKey": 945
 	},
 	{
-		"key": 824,
-		"label": "assassins_dagger",
-		"extId": 824
+		"idx": 946,
+		"key": "lance_of_pursuit",
+		"name": "Lance of Pursuit",
+		"extKey": 946
 	},
 	{
-		"key": 825,
-		"label": "ascetic_cap",
-		"extId": 825
+		"idx": 947,
+		"key": "occult_bracelet",
+		"name": "Occult Bracelet",
+		"extKey": 947
 	},
 	{
-		"key": 826,
-		"label": "sample_picker",
-		"extId": 826
+		"idx": 949,
+		"key": "ogre_seal_totem",
+		"name": "Ogre Seal Totem",
+		"extKey": 949
 	},
 	{
-		"key": 827,
-		"label": "icarus_wings",
-		"extId": 827
+		"idx": 1101,
+		"key": "recipe_harpoon",
+		"name": "Harpoon Recipe",
+		"extKey": 1101
 	},
 	{
-		"key": 828,
-		"label": "misericorde",
-		"extId": 828
+		"idx": 939,
+		"key": "harpoon",
+		"name": "Harpoon",
+		"extKey": 939
 	},
 	{
-		"key": 829,
-		"label": "force_field",
-		"extId": 829
+		"idx": 950,
+		"key": "defiant_shell",
+		"name": "Defiant Shell",
+		"extKey": 950
 	},
 	{
-		"key": 834,
-		"label": "black_powder_bag",
-		"extId": 834
+		"idx": 990,
+		"key": "eye_of_the_vizier",
+		"name": "Eye of the Vizier",
+		"extKey": 990
 	},
 	{
-		"key": 835,
-		"label": "paintball",
-		"extId": 835
+		"idx": 1000,
+		"key": "bottomless_chalice",
+		"name": "Bottomless Chalice",
+		"extKey": 1000
 	},
 	{
-		"key": 836,
-		"label": "light_robes",
-		"extId": 836
+		"idx": 1077,
+		"key": "dagger_of_ristul",
+		"name": "Dagger of Ristul",
+		"extKey": 1077
 	},
 	{
-		"key": 837,
-		"label": "heavy_blade",
-		"extId": 837
+		"idx": 4300,
+		"key": "ofrenda",
+		"name": "Beloved Memory",
+		"extKey": 4300
 	},
 	{
-		"key": 838,
-		"label": "unstable_wand",
-		"extId": 838
+		"idx": 4301,
+		"key": "ofrenda_shovel",
+		"name": "Scrying Shovel",
+		"extKey": 4301
 	},
 	{
-		"key": 839,
-		"label": "fortitude_ring",
-		"extId": 839
+		"idx": 4302,
+		"key": "ofrenda_pledge",
+		"name": "Forebearer's Fortune",
+		"extKey": 4302
 	},
 	{
-		"key": 840,
-		"label": "pogo_stick",
-		"extId": 840
+		"idx": 1090,
+		"key": "muertas_gun",
+		"name": "Mercy & Grace",
+		"extKey": 1090
 	},
 	{
-		"key": 849,
-		"label": "mechanical_arm",
-		"extId": 849
+		"idx": 2091,
+		"key": "tier1_token",
+		"name": "Tier 1 Token",
+		"extKey": 2091
 	},
 	{
-		"key": 907,
-		"label": "recipe_wraith_pact",
-		"extId": 907
+		"idx": 2092,
+		"key": "tier2_token",
+		"name": "Tier 2 Token",
+		"extKey": 2092
 	},
 	{
-		"key": 908,
-		"label": "wraith_pact",
-		"extId": 908
+		"idx": 2093,
+		"key": "tier3_token",
+		"name": "Tier 3 Token",
+		"extKey": 2093
 	},
 	{
-		"key": 910,
-		"label": "recipe_revenants_brooch",
-		"extId": 910
+		"idx": 2094,
+		"key": "tier4_token",
+		"name": "Tier 4 Token",
+		"extKey": 2094
 	},
 	{
-		"key": 911,
-		"label": "revenants_brooch",
-		"extId": 911
+		"idx": 2095,
+		"key": "tier5_token",
+		"name": "Tier 5 Token",
+		"extKey": 2095
 	},
 	{
-		"key": 930,
-		"label": "recipe_boots_of_bearing",
-		"extId": 930
+		"idx": 2096,
+		"key": "vindicators_axe",
+		"name": "Vindicator's Axe",
+		"extKey": 2096
 	},
 	{
-		"key": 931,
-		"label": "boots_of_bearing",
-		"extId": 931
+		"idx": 2097,
+		"key": "duelist_gloves",
+		"name": "Duelist Gloves",
+		"extKey": 2097
 	},
 	{
-		"key": 938,
-		"label": "slime_vial",
-		"extId": 938
+		"idx": 1156,
+		"key": "ancient_guardian",
+		"name": "Ancient Guardian",
+		"extKey": 1156
 	},
 	{
-		"key": 939,
-		"label": "harpoon",
-		"extId": 939
+		"idx": 1157,
+		"key": "safety_bubble",
+		"name": "Safety Bubble",
+		"extKey": 1157
 	},
 	{
-		"key": 940,
-		"label": "wand_of_the_brine",
-		"extId": 940
+		"idx": 1158,
+		"key": "whisper_of_the_dread",
+		"name": "Whisper of the Dread",
+		"extKey": 1158
 	},
 	{
-		"key": 945,
-		"label": "seeds_of_serenity",
-		"extId": 945
+		"idx": 1159,
+		"key": "nemesis_curse",
+		"name": "Nemesis Curse",
+		"extKey": 1159
 	},
 	{
-		"key": 946,
-		"label": "lance_of_pursuit",
-		"extId": 946
+		"idx": 1160,
+		"key": "avianas_feather",
+		"name": "Aviana's Feather",
+		"extKey": 1160
 	},
 	{
-		"key": 947,
-		"label": "occult_bracelet",
-		"extId": 947
+		"idx": 1161,
+		"key": "unwavering_condition",
+		"name": "Unwavering Condition",
+		"extKey": 1161
 	},
 	{
-		"key": 948,
-		"label": "tome_of_omniscience",
-		"extId": 948
+		"idx": 2190,
+		"key": "dandelion_amulet",
+		"name": "Dandelion Amulet",
+		"extKey": 2190
 	},
 	{
-		"key": 949,
-		"label": "ogre_seal_totem",
-		"extId": 949
+		"idx": 2192,
+		"key": "martyrs_plate",
+		"name": "Martyr's Plate",
+		"extKey": 2192
 	},
 	{
-		"key": 950,
-		"label": "defiant_shell",
-		"extId": 950
+		"idx": 2193,
+		"key": "gossamer_cape",
+		"name": "Gossamer Cape",
+		"extKey": 2193
 	},
 	{
-		"key": 968,
-		"label": "arcane_scout",
-		"extId": 968
+		"idx": 1167,
+		"key": "light_collector",
+		"name": "Light Collector",
+		"extKey": 1167
 	},
 	{
-		"key": 969,
-		"label": "barricade",
-		"extId": 969
+		"idx": 1168,
+		"key": "rattlecage",
+		"name": "Rattlecage",
+		"extKey": 1168
 	},
 	{
-		"key": 990,
-		"label": "eye_of_the_vizier",
-		"extId": 990
+		"idx": 1803,
+		"key": "doubloon",
+		"name": "Doubloon",
+		"extKey": 1803
 	},
 	{
-		"key": 998,
-		"label": "manacles_of_power",
-		"extId": 998
+		"idx": 1804,
+		"key": "roshans_banner",
+		"name": "Roshan's Banner",
+		"extKey": 1804
 	},
 	{
-		"key": 1000,
-		"label": "bottomless_chalice",
-		"extId": 1000
+		"idx": 1440,
+		"key": "black_grimoire",
+		"name": "Black Grimoire\\n(Warlock)",
+		"extKey": 1440
 	},
 	{
-		"key": 1017,
-		"label": "wand_of_sanctitude",
-		"extId": 1017
+		"idx": 1441,
+		"key": "grisgris",
+		"name": "Gris-Gris",
+		"extKey": 1441
 	},
 	{
-		"key": 1021,
-		"label": "river_painter",
-		"extId": 1021
+		"idx": 1576,
+		"key": "enhancement_vast",
+		"name": "Vast",
+		"extKey": 1576
 	},
 	{
-		"key": 1022,
-		"label": "river_painter2",
-		"extId": 1022
+		"idx": 1577,
+		"key": "enhancement_quickened",
+		"name": "Quickened",
+		"extKey": 1577
 	},
 	{
-		"key": 1023,
-		"label": "river_painter3",
-		"extId": 1023
+		"idx": 1581,
+		"key": "enhancement_audacious",
+		"name": "Audacious",
+		"extKey": 1581
 	},
 	{
-		"key": 1024,
-		"label": "river_painter4",
-		"extId": 1024
+		"idx": 1583,
+		"key": "enhancement_mystical",
+		"name": "Mystical",
+		"extKey": 1583
 	},
 	{
-		"key": 1025,
-		"label": "river_painter5",
-		"extId": 1025
+		"idx": 1584,
+		"key": "enhancement_alert",
+		"name": "Alert",
+		"extKey": 1584
 	},
 	{
-		"key": 1026,
-		"label": "river_painter6",
-		"extId": 1026
+		"idx": 1585,
+		"key": "enhancement_brawny",
+		"name": "Brawny",
+		"extKey": 1585
 	},
 	{
-		"key": 1027,
-		"label": "river_painter7",
-		"extId": 1027
+		"idx": 1586,
+		"key": "enhancement_tough",
+		"name": "Tough",
+		"extKey": 1586
 	},
 	{
-		"key": 1028,
-		"label": "mutation_tombstone",
-		"extId": 1028
+		"idx": 1587,
+		"key": "enhancement_feverish",
+		"name": "Feverish",
+		"extKey": 1587
 	},
 	{
-		"key": 1029,
-		"label": "super_blink",
-		"extId": 1029
+		"idx": 1588,
+		"key": "enhancement_fleetfooted",
+		"name": "Fleetfooted",
+		"extKey": 1588
 	},
 	{
-		"key": 1030,
-		"label": "pocket_tower",
-		"extId": 1030
+		"idx": 1589,
+		"key": "enhancement_crude",
+		"name": "Crude",
+		"extKey": 1589
 	},
 	{
-		"key": 1032,
-		"label": "pocket_roshan",
-		"extId": 1032
+		"idx": 1590,
+		"key": "enhancement_boundless",
+		"name": "Boundless",
+		"extKey": 1590
 	},
 	{
-		"key": 1076,
-		"label": "specialists_array",
-		"extId": 1076
+		"idx": 1591,
+		"key": "enhancement_wise",
+		"name": "Wise",
+		"extKey": 1591
 	},
 	{
-		"key": 1077,
-		"label": "dagger_of_ristul",
-		"extId": 1077
+		"idx": 1592,
+		"key": "enhancement_timeless",
+		"name": "Timeless",
+		"extKey": 1592
 	},
 	{
-		"key": 1090,
-		"label": "muertas_gun",
-		"extId": 1090
+		"idx": 1593,
+		"key": "enhancement_greedy",
+		"name": "Greedy",
+		"extKey": 1593
 	},
 	{
-		"key": 1091,
-		"label": "samurai_tabi",
-		"extId": 1091
+		"idx": 1594,
+		"key": "enhancement_vampiric",
+		"name": "Vampiric",
+		"extKey": 1594
 	},
 	{
-		"key": 1092,
-		"label": "recipe_hermes_sandals",
-		"extId": 1092
+		"idx": 1595,
+		"key": "enhancement_keen_eyed",
+		"name": "Keen-eyed",
+		"extKey": 1595
 	},
 	{
-		"key": 1093,
-		"label": "hermes_sandals",
-		"extId": 1093
+		"idx": 1596,
+		"key": "enhancement_evolved",
+		"name": "Evolved",
+		"extKey": 1596
 	},
 	{
-		"key": 1094,
-		"label": "recipe_lunar_crest",
-		"extId": 1094
+		"idx": 1597,
+		"key": "enhancement_titanic",
+		"name": "Titanic",
+		"extKey": 1597
 	},
 	{
-		"key": 1095,
-		"label": "lunar_crest",
-		"extId": 1095
+		"idx": 1598,
+		"key": "unrelenting_eye",
+		"name": "Unrelenting Eye",
+		"extKey": 1598
 	},
 	{
-		"key": 1096,
-		"label": "recipe_disperser",
-		"extId": 1096
+		"idx": 1599,
+		"key": "mana_draught",
+		"name": "Mana Draught",
+		"extKey": 1599
 	},
 	{
-		"key": 1097,
-		"label": "disperser",
-		"extId": 1097
+		"idx": 1600,
+		"key": "rippers_lash",
+		"name": "Ripper's Lash",
+		"extKey": 1600
 	},
 	{
-		"key": 1098,
-		"label": "recipe_samurai_tabi",
-		"extId": 1098
+		"idx": 1601,
+		"key": "crippling_crossbow",
+		"name": "Crippling Crossbow",
+		"extKey": 1601
 	},
 	{
-		"key": 1099,
-		"label": "recipe_witches_switch",
-		"extId": 1099
+		"idx": 1602,
+		"key": "gale_guard",
+		"name": "Gale Guard",
+		"extKey": 1602
 	},
 	{
-		"key": 1100,
-		"label": "witches_switch",
-		"extId": 1100
+		"idx": 1603,
+		"key": "gunpowder_gauntlets",
+		"name": "Gunpowder Gauntlet",
+		"extKey": 1603
 	},
 	{
-		"key": 1101,
-		"label": "recipe_harpoon",
-		"extId": 1101
+		"idx": 1604,
+		"key": "searing_signet",
+		"name": "Searing Signet",
+		"extKey": 1604
 	},
 	{
-		"key": 1106,
-		"label": "recipe_phylactery",
-		"extId": 1106
+		"idx": 1605,
+		"key": "serrated_shiv",
+		"name": "Serrated Shiv",
+		"extKey": 1605
 	},
 	{
-		"key": 1107,
-		"label": "phylactery",
-		"extId": 1107
+		"idx": 1606,
+		"key": "polliwog_charm",
+		"name": "Pollywog Charm",
+		"extKey": 1606
 	},
 	{
-		"key": 1122,
-		"label": "diadem",
-		"extId": 1122
+		"idx": 1607,
+		"key": "magnifying_monocle",
+		"name": "Magnifying Monocle",
+		"extKey": 1607
 	},
 	{
-		"key": 1123,
-		"label": "blood_grenade",
-		"extId": 1123
+		"idx": 1608,
+		"key": "pyrrhic_cloak",
+		"name": "Pyrrhic Cloak",
+		"extKey": 1608
 	},
 	{
-		"key": 1124,
-		"label": "spark_of_courage",
-		"extId": 1124
+		"idx": 1609,
+		"key": "madstone_bundle",
+		"name": "Madstone Bundle",
+		"extKey": 1609
 	},
 	{
-		"key": 1125,
-		"label": "cornucopia",
-		"extId": 1125
+		"idx": 1610,
+		"key": "miniboss_minion_summoner",
+		"name": "Miniboss Minion Summoner",
+		"extKey": 1610
 	},
 	{
-		"key": 1127,
-		"label": "recipe_pavise",
-		"extId": 1127
+		"idx": 1637,
+		"key": "kobold_cup",
+		"name": "Kobold Cup",
+		"extKey": 1637
 	},
 	{
-		"key": 1128,
-		"label": "pavise",
-		"extId": 1128
+		"idx": 1638,
+		"key": "dormant_curio",
+		"name": "Dormant Curio",
+		"extKey": 1638
 	},
 	{
-		"key": 1154,
-		"label": "royale_with_cheese",
-		"extId": 1154
+		"idx": 1639,
+		"key": "sisters_shroud",
+		"name": "Sister's Shroud",
+		"extKey": 1639
 	},
 	{
-		"key": 1156,
-		"label": "ancient_guardian",
-		"extId": 1156
+		"idx": 1640,
+		"key": "jidi_pollen_bag",
+		"name": "Jidi Pollen Bag",
+		"extKey": 1640
 	},
 	{
-		"key": 1157,
-		"label": "safety_bubble",
-		"extId": 1157
+		"idx": 1641,
+		"key": "outworld_staff",
+		"name": "Outworld Staff",
+		"extKey": 1641
 	},
 	{
-		"key": 1158,
-		"label": "whisper_of_the_dread",
-		"extId": 1158
+		"idx": 1642,
+		"key": "dezun_bloodrite",
+		"name": "Dezun Bloodrite",
+		"extKey": 1642
 	},
 	{
-		"key": 1159,
-		"label": "nemesis_curse",
-		"extId": 1159
+		"idx": 1643,
+		"key": "giant_maul",
+		"name": "Giant's Maul",
+		"extKey": 1643
 	},
 	{
-		"key": 1160,
-		"label": "avianas_feather",
-		"extId": 1160
+		"idx": 1644,
+		"key": "divine_regalia",
+		"name": "Divine Regalia",
+		"extKey": 1644
 	},
 	{
-		"key": 1161,
-		"label": "unwavering_condition",
-		"extId": 1161
+		"idx": 1645,
+		"key": "divine_regalia_broken",
+		"name": "Disgraced Regalia",
+		"extKey": 1645
 	},
 	{
-		"key": 1162,
-		"label": "halo",
-		"extId": 1162
+		"idx": 1647,
+		"key": "enhancement_fierce",
+		"name": "Fierce",
+		"extKey": 1647
 	},
 	{
-		"key": 1163,
-		"label": "recipe_aetherial_halo",
-		"extId": 1163
+		"idx": 1648,
+		"key": "enhancement_dominant",
+		"name": "Dominant",
+		"extKey": 1648
 	},
 	{
-		"key": 1164,
-		"label": "aetherial_halo",
-		"extId": 1164
+		"idx": 1649,
+		"key": "enhancement_restorative",
+		"name": "Restorative",
+		"extKey": 1649
 	},
 	{
-		"key": 1167,
-		"label": "light_collector",
-		"extId": 1167
+		"idx": 1650,
+		"key": "enhancement_thick",
+		"name": "Thick",
+		"extKey": 1650
 	},
 	{
-		"key": 1168,
-		"label": "rattlecage",
-		"extId": 1168
+		"idx": 1651,
+		"key": "enhancement_curious",
+		"name": "Unleashed",
+		"extKey": 1651
 	},
 	{
-		"key": 1440,
-		"label": "black_grimoire",
-		"extId": 1440
+		"idx": 1652,
+		"key": "furion_gold_bag",
+		"name": "Bag of Gold",
+		"extKey": 1652
 	},
 	{
-		"key": 1441,
-		"label": "grisgris",
-		"extId": 1441
+		"idx": 1715,
+		"key": "recipe_specialists_array",
+		"name": "Specialists Array Recipe",
+		"extKey": 1715
 	},
 	{
-		"key": 1466,
-		"label": "gungir",
-		"extId": 1466
+		"idx": 1076,
+		"key": "specialists_array",
+		"name": "Specialist's Array",
+		"extKey": 1076
 	},
 	{
-		"key": 1487,
-		"label": "claddish_spyglass",
-		"extId": 1487
+		"idx": 1857,
+		"key": "recipe_hydras_breath",
+		"name": "Hydras Breath Recipe",
+		"extKey": 1857
 	},
 	{
-		"key": 1565,
-		"label": "recipe_gungir",
-		"extId": 1565
+		"idx": 1858,
+		"key": "hydras_breath",
+		"name": "Hydra's Breath",
+		"extKey": 1858
 	},
 	{
-		"key": 1575,
-		"label": "orb_of_frost",
-		"extId": 1575
+		"idx": 1716,
+		"key": "weighted_dice",
+		"name": "Weighted Dice",
+		"extKey": 1716
 	},
 	{
-		"key": 1576,
-		"label": "enhancement_vast",
-		"extId": 1576
+		"idx": 1717,
+		"key": "ash_legion_shield",
+		"name": "Ash Legion Shield",
+		"extKey": 1717
 	},
 	{
-		"key": 1577,
-		"label": "enhancement_quickened",
-		"extId": 1577
+		"idx": 1718,
+		"key": "riftshadow_prism",
+		"name": "Riftshadow Prism",
+		"extKey": 1718
 	},
 	{
-		"key": 1578,
-		"label": "cursed_circlet",
-		"extId": 1578
+		"idx": 1719,
+		"key": "metamorphic_mandible",
+		"name": "Metamorphic Mandible",
+		"extKey": 1719
 	},
 	{
-		"key": 1579,
-		"label": "ogre_heart",
-		"extId": 1579
+		"idx": 1720,
+		"key": "idol_of_screeauk",
+		"name": "Idol of Scree'auk",
+		"extKey": 1720
 	},
 	{
-		"key": 1580,
-		"label": "neutral_tabi",
-		"extId": 1580
+		"idx": 1721,
+		"key": "flayers_bota",
+		"name": "Flayer's Bota",
+		"extKey": 1721
 	},
 	{
-		"key": 1581,
-		"label": "enhancement_audacious",
-		"extId": 1581
+		"idx": 1859,
+		"key": "spellslinger",
+		"name": "Spellslinger",
+		"extKey": 1859
 	},
 	{
-		"key": 1582,
-		"label": "hellbear_totem",
-		"extId": 1582
+		"idx": 1860,
+		"key": "prophets_pendulum",
+		"name": "Prophet's Pendulum",
+		"extKey": 1860
 	},
 	{
-		"key": 1583,
-		"label": "enhancement_mystical",
-		"extId": 1583
+		"idx": 1861,
+		"key": "stonefeather_satchel",
+		"name": "Stonefeather Satchel",
+		"extKey": 1861
 	},
 	{
-		"key": 1584,
-		"label": "enhancement_alert",
-		"extId": 1584
+		"idx": 1862,
+		"key": "enchanters_bauble",
+		"name": "Enchanter's Bauble",
+		"extKey": 1862
 	},
 	{
-		"key": 1585,
-		"label": "enhancement_brawny",
-		"extId": 1585
+		"idx": 1863,
+		"key": "harmonizer",
+		"name": "Harmonizer",
+		"extKey": 1863
 	},
 	{
-		"key": 1586,
-		"label": "enhancement_tough",
-		"extId": 1586
+		"idx": 1864,
+		"key": "conjurers_catalyst",
+		"name": "Conjurer's Catalyst",
+		"extKey": 1864
 	},
 	{
-		"key": 1587,
-		"label": "enhancement_feverish",
-		"extId": 1587
+		"idx": 1865,
+		"key": "enhancement_vital",
+		"name": "Vital",
+		"extKey": 1865
 	},
 	{
-		"key": 1588,
-		"label": "enhancement_fleetfooted",
-		"extId": 1588
+		"idx": 1866,
+		"key": "enhancement_hulking",
+		"name": "Hulking",
+		"extKey": 1866
 	},
 	{
-		"key": 1589,
-		"label": "enhancement_crude",
-		"extId": 1589
+		"idx": 1867,
+		"key": "enhancement_manic",
+		"name": "Manic",
+		"extKey": 1867
 	},
 	{
-		"key": 1590,
-		"label": "enhancement_boundless",
-		"extId": 1590
+		"idx": 1868,
+		"key": "foragers_kit",
+		"name": "Forager's Kit",
+		"extKey": 1868
 	},
 	{
-		"key": 1591,
-		"label": "enhancement_wise",
-		"extId": 1591
+		"idx": 1869,
+		"key": "foragers_health",
+		"name": "Vital Toadstool",
+		"extKey": 1869
 	},
 	{
-		"key": 1592,
-		"label": "enhancement_timeless",
-		"extId": 1592
+		"idx": 1870,
+		"key": "foragers_stats",
+		"name": "Ironwood Nut",
+		"extKey": 1870
 	},
 	{
-		"key": 1593,
-		"label": "enhancement_greedy",
-		"extId": 1593
+		"idx": 1871,
+		"key": "foragers_mana",
+		"name": "Tomo'kan Ringcap",
+		"extKey": 1871
 	},
 	{
-		"key": 1594,
-		"label": "enhancement_vampiric",
-		"extId": 1594
+		"idx": 1872,
+		"key": "chasm_stone",
+		"name": "Chasm Stone",
+		"extKey": 1872
 	},
 	{
-		"key": 1595,
-		"label": "enhancement_keen_eyed",
-		"extId": 1595
+		"idx": 1873,
+		"key": "partisans_brand",
+		"name": "Partisan's Brand",
+		"extKey": 1873
 	},
 	{
-		"key": 1596,
-		"label": "enhancement_evolved",
-		"extId": 1596
+		"idx": 1874,
+		"key": "enhancement_nimble",
+		"name": "Nimble",
+		"extKey": 1874
 	},
 	{
-		"key": 1597,
-		"label": "enhancement_titanic",
-		"extId": 1597
+		"idx": 1875,
+		"key": "tidehunter_fish",
+		"name": "Leviathan's Fish",
+		"extKey": 1875
 	},
 	{
-		"key": 1598,
-		"label": "unrelenting_eye",
-		"extId": 1598
-	},
-	{
-		"key": 1599,
-		"label": "mana_draught",
-		"extId": 1599
-	},
-	{
-		"key": 1600,
-		"label": "rippers_lash",
-		"extId": 1600
-	},
-	{
-		"key": 1601,
-		"label": "crippling_crossbow",
-		"extId": 1601
-	},
-	{
-		"key": 1602,
-		"label": "gale_guard",
-		"extId": 1602
-	},
-	{
-		"key": 1603,
-		"label": "gunpowder_gauntlets",
-		"extId": 1603
-	},
-	{
-		"key": 1604,
-		"label": "searing_signet",
-		"extId": 1604
-	},
-	{
-		"key": 1605,
-		"label": "serrated_shiv",
-		"extId": 1605
-	},
-	{
-		"key": 1606,
-		"label": "polliwog_charm",
-		"extId": 1606
-	},
-	{
-		"key": 1607,
-		"label": "magnifying_monocle",
-		"extId": 1607
-	},
-	{
-		"key": 1608,
-		"label": "pyrrhic_cloak",
-		"extId": 1608
-	},
-	{
-		"key": 1609,
-		"label": "madstone_bundle",
-		"extId": 1609
-	},
-	{
-		"key": 1610,
-		"label": "miniboss_minion_summoner",
-		"extId": 1610
-	},
-	{
-		"key": 1636,
-		"label": "crystal_raindrop",
-		"extId": 1636
-	},
-	{
-		"key": 1637,
-		"label": "kobold_cup",
-		"extId": 1637
-	},
-	{
-		"key": 1638,
-		"label": "dormant_curio",
-		"extId": 1638
-	},
-	{
-		"key": 1639,
-		"label": "sisters_shroud",
-		"extId": 1639
-	},
-	{
-		"key": 1640,
-		"label": "jidi_pollen_bag",
-		"extId": 1640
-	},
-	{
-		"key": 1641,
-		"label": "outworld_staff",
-		"extId": 1641
-	},
-	{
-		"key": 1642,
-		"label": "dezun_bloodrite",
-		"extId": 1642
-	},
-	{
-		"key": 1643,
-		"label": "giant_maul",
-		"extId": 1643
-	},
-	{
-		"key": 1644,
-		"label": "divine_regalia",
-		"extId": 1644
-	},
-	{
-		"key": 1645,
-		"label": "divine_regalia_broken",
-		"extId": 1645
-	},
-	{
-		"key": 1646,
-		"label": "circlet_of_the_flayed_twins",
-		"extId": 1646
-	},
-	{
-		"key": 1647,
-		"label": "enhancement_fierce",
-		"extId": 1647
-	},
-	{
-		"key": 1648,
-		"label": "enhancement_dominant",
-		"extId": 1648
-	},
-	{
-		"key": 1649,
-		"label": "enhancement_restorative",
-		"extId": 1649
-	},
-	{
-		"key": 1650,
-		"label": "enhancement_thick",
-		"extId": 1650
-	},
-	{
-		"key": 1651,
-		"label": "enhancement_curious",
-		"extId": 1651
-	},
-	{
-		"key": 1652,
-		"label": "furion_gold_bag",
-		"extId": 1652
-	},
-	{
-		"key": 1715,
-		"label": "recipe_specialists_array",
-		"extId": 1715
-	},
-	{
-		"key": 1716,
-		"label": "weighted_dice",
-		"extId": 1716
-	},
-	{
-		"key": 1717,
-		"label": "ash_legion_shield",
-		"extId": 1717
-	},
-	{
-		"key": 1718,
-		"label": "riftshadow_prism",
-		"extId": 1718
-	},
-	{
-		"key": 1719,
-		"label": "metamorphic_mandible",
-		"extId": 1719
-	},
-	{
-		"key": 1720,
-		"label": "idol_of_screeauk",
-		"extId": 1720
-	},
-	{
-		"key": 1721,
-		"label": "flayers_bota",
-		"extId": 1721
-	},
-	{
-		"key": 1800,
-		"label": "recipe_caster_rapier",
-		"extId": 1800
-	},
-	{
-		"key": 1801,
-		"label": "caster_rapier",
-		"extId": 1801
-	},
-	{
-		"key": 1802,
-		"label": "tiara_of_selemene",
-		"extId": 1802
-	},
-	{
-		"key": 1803,
-		"label": "doubloon",
-		"extId": 1803
-	},
-	{
-		"key": 1804,
-		"label": "roshans_banner",
-		"extId": 1804
-	},
-	{
-		"key": 1805,
-		"label": "recipe_devastator",
-		"extId": 1805
-	},
-	{
-		"key": 1806,
-		"label": "devastator",
-		"extId": 1806
-	},
-	{
-		"key": 1807,
-		"label": "recipe_angels_demise",
-		"extId": 1807
-	},
-	{
-		"key": 1808,
-		"label": "angels_demise",
-		"extId": 1808
-	},
-	{
-		"key": 1847,
-		"label": "splintmail",
-		"extId": 1847
-	},
-	{
-		"key": 1848,
-		"label": "shawl",
-		"extId": 1848
-	},
-	{
-		"key": 1849,
-		"label": "wizard_hat",
-		"extId": 1849
-	},
-	{
-		"key": 1850,
-		"label": "eldwurms_edda",
-		"extId": 1850
-	},
-	{
-		"key": 1851,
-		"label": "recipe_essence_distiller",
-		"extId": 1851
-	},
-	{
-		"key": 1852,
-		"label": "essence_distiller",
-		"extId": 1852
-	},
-	{
-		"key": 1853,
-		"label": "recipe_consecrated_wraps",
-		"extId": 1853
-	},
-	{
-		"key": 1854,
-		"label": "consecrated_wraps",
-		"extId": 1854
-	},
-	{
-		"key": 1855,
-		"label": "recipe_crellas_crozier",
-		"extId": 1855
-	},
-	{
-		"key": 1856,
-		"label": "crellas_crozier",
-		"extId": 1856
-	},
-	{
-		"key": 1857,
-		"label": "recipe_hydras_breath",
-		"extId": 1857
-	},
-	{
-		"key": 1858,
-		"label": "hydras_breath",
-		"extId": 1858
-	},
-	{
-		"key": 1859,
-		"label": "spellslinger",
-		"extId": 1859
-	},
-	{
-		"key": 1860,
-		"label": "prophets_pendulum",
-		"extId": 1860
-	},
-	{
-		"key": 1861,
-		"label": "stonefeather_satchel",
-		"extId": 1861
-	},
-	{
-		"key": 1862,
-		"label": "enchanters_bauble",
-		"extId": 1862
-	},
-	{
-		"key": 1863,
-		"label": "harmonizer",
-		"extId": 1863
-	},
-	{
-		"key": 1864,
-		"label": "conjurers_catalyst",
-		"extId": 1864
-	},
-	{
-		"key": 1865,
-		"label": "enhancement_vital",
-		"extId": 1865
-	},
-	{
-		"key": 1866,
-		"label": "enhancement_hulking",
-		"extId": 1866
-	},
-	{
-		"key": 1867,
-		"label": "enhancement_manic",
-		"extId": 1867
-	},
-	{
-		"key": 1868,
-		"label": "foragers_kit",
-		"extId": 1868
-	},
-	{
-		"key": 1869,
-		"label": "foragers_health",
-		"extId": 1869
-	},
-	{
-		"key": 1870,
-		"label": "foragers_stats",
-		"extId": 1870
-	},
-	{
-		"key": 1871,
-		"label": "foragers_mana",
-		"extId": 1871
-	},
-	{
-		"key": 1872,
-		"label": "chasm_stone",
-		"extId": 1872
-	},
-	{
-		"key": 1873,
-		"label": "partisans_brand",
-		"extId": 1873
-	},
-	{
-		"key": 1874,
-		"label": "enhancement_nimble",
-		"extId": 1874
-	},
-	{
-		"key": 1875,
-		"label": "tidehunter_fish",
-		"extId": 1875
-	},
-	{
-		"key": 2091,
-		"label": "tier1_token",
-		"extId": 2091
-	},
-	{
-		"key": 2092,
-		"label": "tier2_token",
-		"extId": 2092
-	},
-	{
-		"key": 2093,
-		"label": "tier3_token",
-		"extId": 2093
-	},
-	{
-		"key": 2094,
-		"label": "tier4_token",
-		"extId": 2094
-	},
-	{
-		"key": 2095,
-		"label": "tier5_token",
-		"extId": 2095
-	},
-	{
-		"key": 2096,
-		"label": "vindicators_axe",
-		"extId": 2096
-	},
-	{
-		"key": 2097,
-		"label": "duelist_gloves",
-		"extId": 2097
-	},
-	{
-		"key": 2098,
-		"label": "horizons_equilibrium",
-		"extId": 2098
-	},
-	{
-		"key": 2099,
-		"label": "blighted_spirit",
-		"extId": 2099
-	},
-	{
-		"key": 2190,
-		"label": "dandelion_amulet",
-		"extId": 2190
-	},
-	{
-		"key": 2191,
-		"label": "turtle_shell",
-		"extId": 2191
-	},
-	{
-		"key": 2192,
-		"label": "martyrs_plate",
-		"extId": 2192
-	},
-	{
-		"key": 2193,
-		"label": "gossamer_cape",
-		"extId": 2193
-	},
-	{
-		"key": 4204,
-		"label": "famango",
-		"extId": 4204
-	},
-	{
-		"key": 4205,
-		"label": "great_famango",
-		"extId": 4205
-	},
-	{
-		"key": 4206,
-		"label": "greater_famango",
-		"extId": 4206
-	},
-	{
-		"key": 4207,
-		"label": "recipe_great_famango",
-		"extId": 4207
-	},
-	{
-		"key": 4208,
-		"label": "recipe_greater_famango",
-		"extId": 4208
-	},
-	{
-		"key": 4300,
-		"label": "ofrenda",
-		"extId": 4300
-	},
-	{
-		"key": 4301,
-		"label": "ofrenda_shovel",
-		"extId": 4301
-	},
-	{
-		"key": 4302,
-		"label": "ofrenda_pledge",
-		"extId": 4302
+		"idx": 196,
+		"key": "diffusal_blade_2",
+		"name": "Diffusal Blade",
+		"extKey": 196
 	}
 ]

@@ -4,8 +4,8 @@ const HEROES_URL = new URL('https://raw.githubusercontent.com/odota/dotaconstant
 const ITEM_IDS_URL = new URL('https://raw.githubusercontent.com/odota/dotaconstants/refs/heads/master/build/item_ids.json')
 const ITEMS_URL = new URL('https://raw.githubusercontent.com/odota/dotaconstants/refs/heads/master/build/items.json')
 const ABILITY_IDS_URL = new URL('https://raw.githubusercontent.com/odota/dotaconstants/refs/heads/master/build/ability_ids.json')
+const ABILITIES_URL = new URL('https://raw.githubusercontent.com/odota/dotaconstants/refs/heads/master/build/abilities.json')
 
-// vite treats the public folder as root when serving files. Here at build time we prefix it.
 const DATA_PATH = `${DIR.BUILD}/${PATHS.GENERATED_DATA}`
 const HERO_BINDINGS_PATH = `${DATA_PATH}/${FILES.BINDINGS.HEROES}`
 const HERO_DATA_PATH = `${DATA_PATH}/${FILES.DATA.HEROES}`
@@ -14,70 +14,76 @@ const ITEMS_PATH = `${DATA_PATH}/${FILES.DATA.ITEMS}`
 const ABILITY_ID_BINDINGS_PATH = `${DATA_PATH}/${FILES.BINDINGS.ABILITIES}`
 
 import type { DotaConstantsHero, DotaConstantsItem } from '../types/DotaConstantsTypes.js'
-import { tryGetImg, assert, tryGetJson, logWarning } from '../modules/flow.js'
+import { tryGetImg, assert, tryGetJson, logWarning, log, logError } from '../modules/flow.js'
 import { tryReadJSON, tryWriteImg, tryWriteJSON } from '../modules/flowNode.js'
-import type { Hero, IdBinding, Item, Targets } from '../types/BoundTypes.js'
+import { AttributeBindings, type Hero, type Id, type IdBinding, type Item, type Targets } from '../types/BoundTypes.js'
 import { DIR, FILES, PATHS } from '../modules/paths.js'
-import type { ItemKey, ItemLabel } from '../modules/bindings.js'
 
-const itemLog = {
-	msg: [] as string[],
-	warnings: [] as string[],
-	errors: [] as string[]
-}
+interface Log {messages: string[], warnings: string[], errors: string[]}
+const itemLog: Log = {messages: [], warnings: [], errors: []}
 
 const imgErrors: string[] = []
+await tryUpdateHeroes()
 await tryUpdateItems()
+await tryUpdateAbilities()
 
 // Heroes
-const heroResult = await tryGetJson<Record<string, DotaConstantsHero>>(HEROES_URL)
-if(heroResult.ok) {
-	// Update Id bindings
-	const rawHeroes = Object.values(assert(heroResult.data, 'heroResult.data', 'Could not unpack rawHeroes'))
-	const newHeroIds: Record<string, string> = Object.fromEntries(
-		rawHeroes.map(hero => [hero.id, hero.name])
-	)
-	await tryUpdateNumericIdBindings(newHeroIds, HERO_BINDINGS_PATH)
+async function tryUpdateHeroes() {
+	const heroResult = await tryGetJson<Record<string, DotaConstantsHero>>(HEROES_URL)
+	if(heroResult.ok) {
+		// Update Id bindings
+		const rawHeroes = Object.values(assert(heroResult.data, 'heroResult.data', 'Could not unpack rawHeroes'))
+		const newHeroIds: Omit<IdBinding<number>, 'idx'>[] = rawHeroes.map(
+			({id, name, localized_name}) => {return {extKey: id, key: name.replace('npc_dota_hero_' ,''), name: localized_name}}
+		)
+		await tryUpdateNumericIdBindings(newHeroIds, HERO_BINDINGS_PATH)
 
-	// Format Heroes to our bind shape.
-	const heroIdsResult = await tryReadJSON<IdBinding<number>[]>(HERO_BINDINGS_PATH)
-	if (!heroIdsResult.ok) {
-		console.error(`Failed to open new HeroId bindings: ${heroIdsResult.msg}`)
-	}
-	const heroIds = heroIdsResult.data!
-	type HeroKey = typeof heroIds[number]['key']
-	type HeroExtId = typeof heroIds[number]['extId']
-	const heroKeysByExtId = Object.fromEntries(
-		heroIds.map(hero => [hero.extId, hero.key])
-	) as Record<HeroExtId, HeroKey>
-
-	const formattedHeroes = rawHeroes.map(hero => bindHero(hero, heroKeysByExtId))
-	const err = await tryWriteJSON(HERO_DATA_PATH, formattedHeroes)
-	if(err) {
-		console.log(err)
-	}
-	// Get hero images
-	rawHeroes.forEach(async hero => {
-		const img = await tryGetImg(new URL(hero.img, CDN_HOST))
-		if(!img.ok) {
-			imgErrors.push(img.msg!)
+		// Format Heroes to our bind shape.
+		const heroIdsResult = await tryReadJSON<IdBinding<number>[]>(HERO_BINDINGS_PATH)
+		if (!heroIdsResult.ok) {
+			console.error(`Failed to open new HeroId bindings: ${heroIdsResult.msg}`)
 		}
-		await tryWriteImg(`${DIR.BUILD}/${PATHS.IMG.HEROES}/${hero.name}.png`, Buffer.from(
-			assert(img.data, 'img.data', 'Could not convert to buffer')
-		))
-	});
+		const heroIds = heroIdsResult.data!
+		type HeroIdx = typeof heroIds[number]['idx']
+		type HeroExtKey = typeof heroIds[number]['extKey']
+		const heroIdxByExtKey = Object.fromEntries(
+			heroIds.map(hero => [hero.extKey, hero.idx])
+		) as Record<HeroExtKey, HeroIdx>
+
+		const formattedHeroes = rawHeroes.map(hero => bindHero(hero, heroIdxByExtKey))
+		const err = await tryWriteJSON(HERO_DATA_PATH, formattedHeroes)
+		if(err) {
+			console.log(err)
+		}
+		// Get hero images
+		rawHeroes.forEach(async hero => {
+			const img = await tryGetImg(new URL(hero.img, CDN_HOST))
+			if(!img.ok) {
+				imgErrors.push(img.msg!)
+			}
+			await tryWriteImg(`${DIR.BUILD}/${PATHS.IMG.HEROES}/${hero.name.replace('npc_dota_hero_','')}.png`, Buffer.from(
+				assert(img.data, 'img.data', 'Could not convert to buffer')
+			))
+		});
+	}
 }
 
 // Items
 async function tryUpdateItems() {
 	const itemMessages: string[] = []
-	const itemIdsResult = await tryGetJson<Record<string, string>>(ITEM_IDS_URL)
-	if(!(itemIdsResult.ok && itemIdsResult.data)) {
-		console.error(`Could not get item ids from dotaconstants repo: ${itemIdsResult.msg}`)
+	const itemsResult = await tryGetJson<Record<string, DotaConstantsItem>>(ITEMS_URL)
+	if(!(itemsResult.ok && itemsResult.data)) {
+		console.error(`Could not get items from dotaconstants repo: ${itemsResult.msg}`)
 		return
 	}
-	itemMessages.push(`Got item ids from dotaconstants repo: ${itemIdsResult.msg}`)
-	const newItemIds = itemIdsResult.data!
+	const items = Object.entries(itemsResult.data!)
+	const newItemIds:Omit<IdBinding<number>, 'idx'>[] = items.map(([dataName, item]) => {
+		return {
+			extKey: item.id,
+			key: dataName,
+			name: item.dname ?? generateMissingItemName(dataName)
+		}
+	})
 	await tryUpdateNumericIdBindings(newItemIds, ITEM_ID_BINDINGS_PATH)
 	itemMessages.push(`Updated item id bindings.`)
 
@@ -87,25 +93,19 @@ async function tryUpdateItems() {
 		return
 	}
 	const itemIdBindings = itemBindingsResult.data!
+	type ItemIdx = typeof itemIdBindings[number]['idx']
 	type ItemKey = typeof itemIdBindings[number]['key']
-	type ItemLabel = typeof itemIdBindings[number]['label']
-	type ItemExtId = typeof itemIdBindings[number]['extId']
-	const ItemKeysByExtId = Object.fromEntries(
-		itemIdBindings.map(item => [item.extId, item.key])
-	) as Record<ItemExtId, ItemKey>
-	const itemsByKey = Object.fromEntries(
-		itemIdBindings.map(item => [item.key, item.label])
-	) as Record<ItemKey, ItemLabel>
+	type ItemExtKey = typeof itemIdBindings[number]['extKey']
+	const ItemIdByExtKey = Object.fromEntries(
+		itemIdBindings.map(item => [item.extKey, {idx: item.idx, key: item.key, name: item.name}])
+	) as Record<ItemExtKey, Id>
 	
-	const itemsResult = await tryGetJson<Record<string, DotaConstantsItem>>(ITEMS_URL)
-	if(!(itemsResult.ok && itemIdsResult.data)) {
-		console.error(`Could not get items from dotaconstants repo: ${itemsResult.msg}`)
-		return
-	}
-	const items = Object.entries(itemsResult.data!)
 	const boundItems = Object.fromEntries(
-		items.map(([label, item]) => [label, bindItem(item, ItemKeysByExtId, itemsByKey)])
-	) as Record<ItemLabel, Item>
+		items.map(([key, item]) => {
+			const itemId = ItemIdByExtKey[item.id]!
+			return [key, bindItem(item, itemId.idx, itemId.key)]
+		})
+	) as Record<ItemKey, Item>
 	
 	const err = await tryWriteJSON(ITEMS_PATH, boundItems)
 	if(err) {
@@ -128,125 +128,162 @@ async function tryUpdateItems() {
 }
 
 // Abilities
-const abilityIdsResult = await tryGetJson<Record<string, string>>(ABILITY_IDS_URL)
-if(abilityIdsResult.ok){
-	const newAbilityIds = assert(abilityIdsResult.data, 'abilityIdsResult.data', 'Could not unpack ability IDs')
-	await tryUpdateNumericIdBindings(newAbilityIds, ABILITY_ID_BINDINGS_PATH)
+async function tryUpdateAbilities() {
+	const log: Log = {messages: [], warnings: [], errors: []}
+
+	const abilityIdsResult = await tryGetJson<Record<number, string>>(ABILITY_IDS_URL)
+	const abilitiesResult = await tryGetJson<Record<string, any>>(ABILITIES_URL)
+	const abilityIds = abilityIdsResult.data
+	const abilities = abilitiesResult.data
+	if(!(abilityIdsResult.ok || !abilityIds)) {
+		logError(`Could not get ${ABILITY_IDS_URL}: ${abilityIdsResult.msg} Ability update cancelled.`, log.errors)
+		return
+	}
+	else if(!abilitiesResult.ok || !abilities) {
+		logError(`Could not get ${ABILITIES_URL}: ${abilitiesResult.msg} Ability update cancelled.`, log.errors)
+		return
+	}
+	else {
+		const newAbilityIds: Omit<IdBinding<number>, 'idx'>[] = []
+		Object.entries(abilityIds!).forEach(async ([extKey, key]) => {
+			const ability = abilities[key]
+			if(!ability){
+				logError(`Could not get ability for key ${key}. Ability update cancelled.`, log.errors)
+				return
+			}
+			newAbilityIds.push({key: key, name: ability['dname'], extKey: parseInt(extKey)})
+			if(ability.img) {
+				const img = await tryGetImg(new URL(ability.img, CDN_HOST))
+				if(!img.ok) {
+					logError(img.msg!, log.errors)
+				}
+				else {
+					const error = await tryWriteImg(`${DIR.BUILD}/${PATHS.IMG.ABILITIES}/${key}.png`, Buffer.from(
+						assert(img.data, 'img.data', 'Could not convert to buffer')
+					))
+					if(error) {
+						logError(error.message, log.errors)
+					}
+				}
+			}
+		})
+		await tryUpdateNumericIdBindings(newAbilityIds, ABILITY_ID_BINDINGS_PATH)
+	}
 }
 
-async function tryUpdateNumericIdBindings(newIds: Record<string, string>, oldBindingsFile: string) {
-	const messages: string[] = []
-	const warnings: string[] = []
+async function tryUpdateNumericIdBindings(
+	newIds: Omit<IdBinding<number>, 'idx'>[], oldBindingsFile: string) 
+{
+	const logs: Log = {messages: [], warnings: [], errors: []}
 
 	const oldBindingsResult = await tryReadJSON<IdBinding<number>[]>(oldBindingsFile)
 	const oldBindings: IdBinding<number>[] = oldBindingsResult.data ?? []
 	const newBindings: IdBinding<number>[] = []
-	let nextKey = 0
-	const assignedKeys = new Set<number>()
-	const reservedKeys = new Set<number>(Object.keys(newIds).map(k => parseInt(k)))
+	let nextIndex = 0
+	const assignedIndices = new Set<number>()
+	const reservedIndices = new Set<number>(newIds.map(id => id.extKey))
 	function getNextAvailableKey() {
-		const unavailableKeys = assignedKeys.union(reservedKeys)
-		while(unavailableKeys.has(nextKey)) {
-			nextKey++
+		const unavailableIndices = assignedIndices.union(reservedIndices)
+		while(unavailableIndices.has(nextIndex)) {
+			nextIndex++
 		}
-		return nextKey
+		return nextIndex
 	}
-	const existingByExtId = new Map<number, IdBinding<number>>()
-	const existingByLabel = new Map<string, IdBinding<number>>()
+	const existingByExtKey = new Map<number, IdBinding<number>>()
+	const existingByKey = new Map<string, IdBinding<number>>()
 
 	const duplicateErrors: string[] =  []
 	oldBindings.forEach(b => {
 		let error = false
 		let errorMsg = `Existing bindings have duplicate entries:`
-		if(existingByLabel.has(b.label)) {
+		if(existingByKey.has(b.key)) {
 			error = true
-			errorMsg += `\n${b.label} in ${JSON.stringify(b)} and ${JSON.stringify(existingByLabel.get(b.label))}`
+			errorMsg += `\n${b.key} in ${JSON.stringify(b)} and ${JSON.stringify(existingByKey.get(b.key))}`
 		}
-		if(existingByExtId.has(b.extId)) {
+		if(existingByExtKey.has(b.extKey) && b.extKey !== -1) {
 			error = true
-			errorMsg += `\n${b.extId} in ${JSON.stringify(b)} and ${JSON.stringify(existingByExtId.get(b.extId))}}`
+			errorMsg += `\n${b.extKey} in ${JSON.stringify(b)} and ${JSON.stringify(existingByExtKey.get(b.extKey))}}`
 		}
-		if(assignedKeys.has(b.key)) {
+		if(assignedIndices.has(b.idx)) {
 			error = true
-			errorMsg += `\n${b.key} in ${JSON.stringify(b)}`
+			errorMsg += `\n${b.idx} in ${JSON.stringify(b)}`
 		}
 		if(error) {
 			duplicateErrors.push(errorMsg)
 		}
 		else {
-			existingByExtId.set(b.extId, b)
-			existingByLabel.set(b.label, b)
-			assignedKeys.add(b.key)
+			existingByExtKey.set(b.extKey, b)
+			existingByKey.set(b.key, b)
+			assignedIndices.add(b.idx)
 		}
 	})
 	if(duplicateErrors.length > 0) {
 		throw new Error(duplicateErrors.join('\n'))
 	}
 
-	for(const [extIdString, label] of Object.entries(newIds)) {
+	newIds.forEach(({extKey, key, name}) => {
 		// keys are always strings in js / json, we need to convert to number for ts-typing
-		const extId = parseInt(extIdString)
+		const oldBindingByNewKey = existingByKey.get(key)
+		const oldBindingByNewExtKey = existingByExtKey.get(extKey)
 
-		const oldBindingByNewLabel = existingByLabel.get(label)
-		const oldBindingByNewExtId = existingByExtId.get(extId)
-
-		// If label exist -> assign id to existing <key, label> pair.
-		if(oldBindingByNewLabel) {
-			if(oldBindingByNewLabel.extId != extId) {
-				warnings.push(`External id for label ${label} changed from ${oldBindingByNewLabel.extId} to ${extId}.`)
+		// If key exist -> assign id to existing <idx, key> pair.
+		if(oldBindingByNewKey) {
+			if(oldBindingByNewKey.extKey != extKey) {
+				logWarning(`External id for key ${key} changed from ${oldBindingByNewKey.extKey} to ${extKey}.`, logs.warnings)
 			}
 			const updatedBinding: IdBinding<number> = {
-				key: oldBindingByNewLabel.key,
-				label: label,
-				extId: extId
+				idx: oldBindingByNewKey.idx,
+				key: key,
+				name: name,
+				extKey: extKey
 			}
 			newBindings.push(updatedBinding)
-			assignedKeys.add(updatedBinding.key)
+			assignedIndices.add(updatedBinding.idx)
 		}
 		// Else -> assign label to new key, preferably equal to id.
 		else {
 			const updatedBinding: IdBinding<number> = {
-				key: assignedKeys.has(extId) ? getNextAvailableKey() : extId,
-				label: label,
-				extId: extId
+				idx: assignedIndices.has(extKey) ? getNextAvailableKey() : extKey,
+				key: key,
+				name: name,
+				extKey: extKey
 			}
 			newBindings.push(updatedBinding)
-			assignedKeys.add(updatedBinding.key)
-			if(oldBindingByNewExtId) {
-				warnings.push(`External id for new label ${label} was already bound: ${JSON.stringify(oldBindingByNewExtId)}.`)
+			assignedIndices.add(updatedBinding.idx)
+			if(oldBindingByNewExtKey) {
+				logWarning(`External id for new key ${key} was already bound: ${JSON.stringify(oldBindingByNewExtKey)}.`, logs.warnings)
 			}
 			else {
-				messages.push(`added new binding ${JSON.stringify(updatedBinding)}`)
+				log(`added new binding ${JSON.stringify(updatedBinding)}`, logs.messages)
 			}
 		}
-	}
-	const newBindingsExtIds = new Set<number>(newBindings.map(binding => binding.extId))
-	const newBindingsKeys = new Set<number>(newBindings.map(binding => binding.key))
+	})
+	const newBindingsExtKeys = new Set<number>(newBindings.map(binding => binding.extKey))
+	const newBindingsIdx = new Set<number>(newBindings.map(binding => binding.idx))
 	
 	oldBindings.forEach(binding => {
-		if(!newBindingsKeys.has(binding.key)) {
+		if(!newBindingsIdx.has(binding.idx)) {
 			const deprecatedBinding: IdBinding<number> = {
+				idx: binding.idx,
 				key: binding.key,
-				label: binding.label,
-				extId: newBindingsExtIds.has(binding.extId) ? -1 : binding.extId
+				name: binding.name,
+				extKey: newBindingsExtKeys.has(binding.extKey) ? -1 : binding.extKey
 			} 
 			newBindings.push(deprecatedBinding)
-			warnings.push(`Transferred old binding ${JSON.stringify(deprecatedBinding)}, which was not present in new dataset.`)
+			logWarning(`Transferred old binding ${JSON.stringify(deprecatedBinding)}, which was not present in new dataset.`, logs.warnings)
 		}
 	})
 	const error = await tryWriteJSON(oldBindingsFile, newBindings)
 	if(error) {
 		throw error
 	}
-	console.log(messages.join('\n'))
-	console.warn(warnings.join('\n'))
 }
 
-function bindHero(hero: DotaConstantsHero, keysByExtId: Record<number, number>): Hero {
+function bindHero(hero: DotaConstantsHero, IdxByExtKey: Record<number, number>): Hero {
 	return {
-		id: keysByExtId[hero.id]!,
+		id: IdxByExtKey[hero.id]!,
 		name: {
-			static: hero.name,
+			static: hero.name.replace('npc_dota_hero_',''),
 			localized: hero.localized_name
 		},
 		roles: hero.roles,
@@ -272,7 +309,7 @@ function bindHero(hero: DotaConstantsHero, keysByExtId: Record<number, number>):
 			projectile_speed: hero.projectile_speed
 		},
 		attributes: {
-			primary: hero.primary_attr,
+			primary: AttributeBindings[hero.primary_attr],
 			base: {
 				strength: hero.base_str,
 				agility: hero.base_agi,
@@ -297,16 +334,14 @@ function bindHero(hero: DotaConstantsHero, keysByExtId: Record<number, number>):
 	}
 }
 
-function bindItem(item: DotaConstantsItem, keysByExtId: Record<number, number>, itemsByKey: Record<ItemKey, ItemLabel>): Item {
-	const id = keysByExtId[item.id]!
+function bindItem(item: DotaConstantsItem, idx: number, dataName: string): Item {
 	let name = item.dname
 	if(!name) {
-		const label = itemsByKey[item.id]!
-		logWarning(`${label} does not have property dname. Attempting to generate name`, itemLog.warnings)
-		name = generateMissingItemName(label)
+		logWarning(`${dataName} does not have property dname. Attempting to generate name`, itemLog.warnings)
+		name = generateMissingItemName(dataName)
 	}
 	const boundItem: Item = {
-		id: keysByExtId[item.id]!,
+		id: idx,
 		name: name,
 		lore: item.lore,
 		goldPrice: item.cost ?? undefined,

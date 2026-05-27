@@ -1,7 +1,12 @@
 import type { ItemAbility, ItemAttribute } from "./DotaConstantsTypes.js"
 
-export interface Id {key: number, label: string}
-export interface IdBinding<T> extends Id {extId: T}
+// <Key> should be name used in code, <name> should be display name.
+export interface Id {idx: number, key: string, name: string}
+export interface IdBinding<T extends number | string> extends Id {extKey: T}
+// Creates static, compile time key:value pairs.
+export type ConstEnum<O, K extends keyof O, V extends keyof O> = {
+	[E in O as E[K] & PropertyKey]: E[V]
+}
 
 export interface Hero {
 	id: number,
@@ -16,7 +21,7 @@ export interface Hero {
 	baseMagicResist: number,
 	baseAttack: Attack,
 	attributes: {
-		primary: AttributeLabel,
+		primary: AttributeIdx,
 		base: AttributeSet,
 		gain: AttributeSet
 	},
@@ -31,20 +36,21 @@ interface Resource {
 	regen: number
 }
 
-const ATTRIBUTE = {
-	STR: 0,
-	AGI: 1,
-	INT: 2,
-	UNI: 3
-} as const
 const ATTRIBUTES = [
-	{key:ATTRIBUTE.STR, label:'strength', extId:'str'},
-	{key:ATTRIBUTE.AGI, label:'agility', extId:'agi'},
-	{key:ATTRIBUTE.INT, label:'intelligence', extId: 'int'},
-	{key:ATTRIBUTE.UNI, label:'universal', extId:'all'}
+	{idx:0, key:'STR', name:'strength', extKey:'str'},
+	{idx:1, key:'AGI', name:'agility', extKey:'agi'},
+	{idx:2, key:'INT', name:'intelligence', extKey: 'int'},
+	{idx:3, key:'UNI', name:'universal', extKey:'all'}
 ] as const satisfies IdBinding<string>[]
-export type AttributeLabel = typeof ATTRIBUTES[number]['label']
-export type AttributeExtId = typeof ATTRIBUTES[number]['extId']
+export type AttributeIdx = typeof ATTRIBUTES[number]['idx']
+export type AttributeName = typeof ATTRIBUTES[number]['name']
+export type AttributeExtKey = typeof ATTRIBUTES[number]['extKey']
+export const ATTRIBUTE = Object.fromEntries(
+	ATTRIBUTES.map(({idx, key}) => [key, idx])
+) as ConstEnum<typeof ATTRIBUTES[number], 'key', 'idx'>
+export const AttributeBindings = Object.fromEntries(
+	ATTRIBUTES.map(({idx, extKey}) => [extKey, idx])
+) as ConstEnum<typeof ATTRIBUTES[number], 'extKey', 'idx'>
 
 interface AttributeSet {
 	strength: number,

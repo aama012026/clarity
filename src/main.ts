@@ -5,7 +5,7 @@ import {getLocalOrSet, round, setLocal, tryGetElement, tryGetLocal, type NamedEl
 	type Result, type UnixTimestamp 
 } from './modules/flow.js';
 import {bindPlayer, formatFullMatch, bindMatchSummary, formatRankDistribution,
-	formatSparseMatch, heroLabels, RANK_NAMES, type FullMatch,
+	formatSparseMatch, heroNames, RANK_NAMES, type FullMatch,
 	type Player, type PlayerMatchSummary, type RankDistribution, type RankStats,
 	type SparseMatch
 } from './modules/bindings.js';
