@@ -1,5 +1,5 @@
 import { isEmpty, nullsToUndefined, type ISO8601TimeString, type Unique, type UnixTimestamp } from "./flow.js"
-import type { IdBinding } from "../types/BoundTypes.js"
+import type { Id, IdBinding } from "../types/BoundTypes.js"
 import type { GameModeId, LobbyTypeId, PatchId, RegionId, UnitOrderId} from "../types/DotaConstantsTypes.js"
 import { BARRACK_FLAGS, TOWER_FLAGS, type AccountId, type BarracksBitmask,
 	type Cosmetic, type Distributions, type GoldReasonId, type OdotaUnparsedPlayer,
@@ -12,6 +12,7 @@ import { BARRACK_FLAGS, TOWER_FLAGS, type AccountId, type BarracksBitmask,
 import heroIds from '../../public/generated/data/heroBindings.json'
 import abilityIds from '../../public/generated/data/abilityBindings.json'
 import itemIds from '../../public/generated/data/itemBindings.json'
+import type { SHA512_256 } from "bun"
 
 export type HeroIdx = typeof heroIds[number]['idx']
 export type HeroKey = typeof heroIds[number]['key']
@@ -395,7 +396,7 @@ export interface PlayerMatchSummary {
 }
 
 export function bindMatchSummary(summary: MatchForPlayer, player: AccountId): PlayerMatchSummary {
-	const matchSummary: PlayerMatchSummary = {
+	return {
 		match: {
 			id: summary.match_id,
 			fetchTime: new Date().getTime() as UnixTimestamp,
@@ -408,7 +409,9 @@ export function bindMatchSummary(summary: MatchForPlayer, player: AccountId): Pl
 		},
 		player: {
 			id: player,
-			leaverStatus: summary.leaver_status
+			leaverStatus: summary.leaver_status,
+			partySize: summary.party_size ?? undefined,
+			slot: summary.player_slot ?? undefined
 		},
 		hero: {
 			id: heroKeysByExtKey[summary.hero_id]!,
@@ -419,18 +422,8 @@ export function bindMatchSummary(summary: MatchForPlayer, player: AccountId): Pl
 			}
 		}
 	}
-	if(summary.start_time) {
-		matchSummary.match.startTime = summary.start_time
-	}
-	if(summary.party_size) {
-		matchSummary.player.partySize = summary.party_size
-	}
-	if(summary.player_slot) {
-		matchSummary.player.slot = summary.player_slot
-	}
 	// TODO: check if facets are still deprecated through dotaconstants,
 	// and assign hero_variant if not
-	return matchSummary
 }
 
 export interface SparseMatch extends MatchBase {
@@ -461,7 +454,7 @@ export interface SparseMatch extends MatchBase {
 }
 
 export function formatSparseMatch(match: UnparsedMatch): SparseMatch {
-	const formattedMatch: SparseMatch = {
+	return {
 		id: match.match_id,
 		fetchTime: new Date().getTime() as UnixTimestamp,
 		startTime: match.start_time ?? undefined,
@@ -519,7 +512,6 @@ export function formatSparseMatch(match: UnparsedMatch): SparseMatch {
 		humanPlayerCount: match.human_players,
 		preGameLengthSeconds: match.pre_game_duration,
 	}
-	return formattedMatch
 }
 
 export interface FullMatch extends SparseMatch {
@@ -623,14 +615,14 @@ export interface TeamfightPlayerData {
 	xpStart: number // We don't need to keep xp_end when we have the start and offset
 }
 
-export const OBJECTIVES = {
-	FIRST_BLOOD: 'first blood',
-	COURIER: 'courier',
-	BUILDING: 'building',
-	TORMENTOR: 'tormentor',
-	ROSHAN: 'roshan',
-	AEGIS: 'aegis'
-} as const
+export const OBJECTIVES = [
+	{idx:0, key:'FIRST_BLOOD', name:'first blood'},
+	{idx:1, key:'COURIER', name:'courier'},
+	{idx:2, key:'BUILDING', name:'building'},
+	{idx:3, key:'TORMENTOR', name: 'tormentor'},
+	{idx:4, key:'ROSHAN', name:'roshan'},
+	{idx:5, key:'AEGIS', name: 'aegis'}
+] as const satisfies Id[]
 export type Objective = typeof OBJECTIVES[keyof typeof OBJECTIVES]
 
 export interface NormalizedObjective {
