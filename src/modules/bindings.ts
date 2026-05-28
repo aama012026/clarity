@@ -1,5 +1,4 @@
 import { isEmpty, nullsToUndefined, type ISO8601TimeString, type Unique, type UnixTimestamp } from "./flow.js"
-import type { Binding, IdData, Ids} from "../types/BoundTypes.js"
 import type { GameModeId, LobbyTypeId, PatchId, RegionId, UnitOrderId} from "../types/DotaConstantsTypes.js"
 import { BARRACK_FLAGS, TOWER_FLAGS, type AccountId, type BarracksBitmask,
 	type Cosmetic, type Distributions, type GoldReasonId, type OdotaUnparsedPlayer,
@@ -12,6 +11,7 @@ import { BARRACK_FLAGS, TOWER_FLAGS, type AccountId, type BarracksBitmask,
 import heroIds from '../../public/generated/data/heroBindings.json'
 import abilityIds from '../../public/generated/data/abilityBindings.json'
 import itemIds from '../../public/generated/data/itemBindings.json'
+import { getIdMap, type Binding, type IdData, type Ids } from "../types/clarityTypes.js"
 
 export type HeroIdx = typeof heroIds[number]['idx']
 export type HeroKey = typeof heroIds[number]['key']
@@ -56,28 +56,21 @@ const SIDE = {
 type SideIdx = keyof typeof SIDE
 type SideKey = typeof SIDE[SideIdx]['key']
 type SideExtKey = typeof SIDE[SideIdx]['ext']
-const SideIdxByExtKey = Object.fromEntries(
-	SIDE.map(side => [side.extKey, side.idx])
-) as Record<SideExtKey, SideIdx>
-
-// Used for rendering.
-export const sideKeys = Object.fromEntries(
-	SIDE.map(side => [side.idx, side.key])
-) as Record<SideIdx, SideKey>
+const SideIdxByExtKey = getIdMap(SIDE, 'ext')
 
 // This comes as a bool from opendota, so no need to freeze keys atm.
 export type Outcome = 'win' | 'loss'
 export type PermanentBuffId = Unique<number, 'permanentBuff'>
 
-export const LANES = [
-	{idx:0, key:'SAF', name:'safelane', ext:1},
-	{idx:1, key:'MID', name:'midlane', ext:2},
-	{idx:2, key:'OFF', name:'offlane', ext:3},
+export const LANES = {
+	0: {key:'SAF', name:'safelane', ext:1},
+	1: {key:'MID', name:'midlane', ext:2},
+	2: {key:'OFF', name:'offlane', ext:3},
 	/** maybe not needed */
-	{idx:3, key:'RAJ', name:'radiant jungle', ext:4},
+	3: {key:'RAJ', name:'radiant jungle', ext:4},
 	/** maybe not needed */
-	{idx: 4, key:'DIJ', name:'dire junle', ext:5}
-] as const satisfies IdBindings<number>[]
+	4: {key:'DIJ', name:'dire junle', ext:5}
+} as const satisfies Ids<Binding<number> & IdData<'name'>>
 
 export type LaneIdx = typeof LANES[number]['idx']
 export type LaneKey = typeof LANES[number]['key']
