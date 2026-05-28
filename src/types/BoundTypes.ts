@@ -8,6 +8,8 @@ export type ConstEnum<O, K extends keyof O, V extends keyof O> = {
 	[E in O as E[K] & PropertyKey]: E[V]
 }
 
+export type IdMap<R extends Record<number, object>, K extends keyof R[keyof R]> = {[I in keyof R as R[I][K] & PropertyKey]: I}
+
 export interface Hero {
 	id: number,
 	name: {
@@ -104,6 +106,18 @@ export interface Item {
 	dmgType?: 'Physical' | 'Magical' | 'Pure' | string,
 	tier?: number
 }
+
+const DAMAGE_TYPES = {
+	0: {key: 'PHYS', name: 'physical', extKey: 'Physical'},
+	1: {key: 'MAGI', name: 'magical', extKey: 'Magical'},
+	2: {key: 'PURE', name: 'pure', extKey: 'Pure'},
+	3: {key: 'UNKN', name: 'other', extKey: ''},
+} as const satisfies Record<number, any>
+
+type dmgTypeIdx = keyof typeof DAMAGE_TYPES
+const DAMAGE_TYPE = Object.fromEntries(
+	Object.entries(DAMAGE_TYPES).map(([idx, {key}]) => [key, parseInt(idx)])
+) as IdMap<typeof DAMAGE_TYPES, 'key'>
 
 export interface Targets {
 	team?: string[],
