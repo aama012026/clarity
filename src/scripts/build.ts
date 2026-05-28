@@ -16,7 +16,7 @@ const ABILITY_ID_BINDINGS_PATH = `${DATA_PATH}/${FILES.BINDINGS.ABILITIES}`
 import type { DotaConstantsHero, DotaConstantsItem } from '../types/DotaConstantsTypes.js'
 import { tryGetImg, assert, tryGetJson, logWarning, log, logError } from '../modules/flow.js'
 import { tryReadJSON, tryWriteImg, tryWriteJSON } from '../modules/flowNode.js'
-import { AttributeBindings, type Hero, type Id, type IdBinding, type Item, type Targets } from '../types/BoundTypes.js'
+import { AttributeBindings, type Hero, type Ids, type IdBindings, type Item, type Targets } from '../types/BoundTypes.js'
 import { DIR, FILES, PATHS } from '../modules/paths.js'
 
 interface Log {messages: string[], warnings: string[], errors: string[]}
@@ -33,21 +33,21 @@ async function tryUpdateHeroes() {
 	if(heroResult.ok) {
 		// Update Id bindings
 		const rawHeroes = Object.values(assert(heroResult.data, 'heroResult.data', 'Could not unpack rawHeroes'))
-		const newHeroIds: Omit<IdBinding<number>, 'idx'>[] = rawHeroes.map(
+		const newHeroIds: Omit<IdBindings<number>, 'idx'>[] = rawHeroes.map(
 			({id, name, localized_name}) => {return {extKey: id, key: name.replace('npc_dota_hero_' ,''), name: localized_name}}
 		)
 		await tryUpdateNumericIdBindings(newHeroIds, HERO_BINDINGS_PATH)
 
 		// Format Heroes to our bind shape.
-		const heroIdsResult = await tryReadJSON<IdBinding<number>[]>(HERO_BINDINGS_PATH)
+		const heroIdsResult = await tryReadJSON<IdBindings<number>[]>(HERO_BINDINGS_PATH)
 		if (!heroIdsResult.ok) {
 			console.error(`Failed to open new HeroId bindings: ${heroIdsResult.msg}`)
 		}
 		const heroIds = heroIdsResult.data!
 		type HeroIdx = typeof heroIds[number]['idx']
-		type HeroExtKey = typeof heroIds[number]['extKey']
+		type HeroExtKey = typeof heroIds[number]['ext']
 		const heroIdxByExtKey = Object.fromEntries(
-			heroIds.map(hero => [hero.extKey, hero.idx])
+			heroIds.map(hero => [hero.ext, hero.idx])
 		) as Record<HeroExtKey, HeroIdx>
 
 		const formattedHeroes = rawHeroes.map(hero => bindHero(hero, heroIdxByExtKey))
@@ -77,7 +77,7 @@ async function tryUpdateItems() {
 		return
 	}
 	const items = Object.entries(itemsResult.data!)
-	const newItemIds:Omit<IdBinding<number>, 'idx'>[] = items.map(([dataName, item]) => {
+	const newItemIds:Omit<IdBindings<number>, 'idx'>[] = items.map(([dataName, item]) => {
 		return {
 			extKey: item.id,
 			key: dataName,
@@ -87,7 +87,7 @@ async function tryUpdateItems() {
 	await tryUpdateNumericIdBindings(newItemIds, ITEM_ID_BINDINGS_PATH)
 	itemMessages.push(`Updated item id bindings.`)
 
-	const itemBindingsResult = await tryReadJSON<IdBinding<number>[]>(ITEM_ID_BINDINGS_PATH)
+	const itemBindingsResult = await tryReadJSON<IdBindings<number>[]>(ITEM_ID_BINDINGS_PATH)
 	if(!(itemBindingsResult.ok && itemBindingsResult.data)) {
 		console.error(`Could not read the updated item bindings: ${itemBindingsResult.msg}`)
 		return
@@ -95,10 +95,10 @@ async function tryUpdateItems() {
 	const itemIdBindings = itemBindingsResult.data!
 	type ItemIdx = typeof itemIdBindings[number]['idx']
 	type ItemKey = typeof itemIdBindings[number]['key']
-	type ItemExtKey = typeof itemIdBindings[number]['extKey']
+	type ItemExtKey = typeof itemIdBindings[number]['ext']
 	const ItemIdByExtKey = Object.fromEntries(
-		itemIdBindings.map(item => [item.extKey, {idx: item.idx, key: item.key, name: item.name}])
-	) as Record<ItemExtKey, Id>
+		itemIdBindings.map(item => [item.ext, {idx: item.idx, key: item.key, name: item.name}])
+	) as Record<ItemExtKey, Ids>
 	
 	const boundItems = Object.fromEntries(
 		items.map(([key, item]) => {
@@ -144,14 +144,14 @@ async function tryUpdateAbilities() {
 		return
 	}
 	else {
-		const newAbilityIds: Omit<IdBinding<number>, 'idx'>[] = []
+		const newAbilityIds: Omit<IdBindings<number>, 'idx'>[] = []
 		Object.entries(abilityIds!).forEach(async ([extKey, key]) => {
 			const ability = abilities[key]
 			if(!ability){
 				logError(`Could not get ability for key ${key}. Ability update cancelled.`, log.errors)
 				return
 			}
-			newAbilityIds.push({key: key, name: ability['dname'], extKey: parseInt(extKey)})
+			newAbilityIds.push({key: key, name: ability['dname'], ext: parseInt(extKey)})
 			if(ability.img) {
 				const img = await tryGetImg(new URL(ability.img, CDN_HOST))
 				if(!img.ok) {
@@ -172,16 +172,16 @@ async function tryUpdateAbilities() {
 }
 
 async function tryUpdateNumericIdBindings(
-	newIds: Omit<IdBinding<number>, 'idx'>[], oldBindingsFile: string) 
+	newIds: Omit<IdBindings<number>, 'idx'>[], oldBindingsFile: string) 
 {
 	const logs: Log = {messages: [], warnings: [], errors: []}
 
-	const oldBindingsResult = await tryReadJSON<IdBinding<number>[]>(oldBindingsFile)
-	const oldBindings: IdBinding<number>[] = oldBindingsResult.data ?? []
-	const newBindings: IdBinding<number>[] = []
+	const oldBindingsResult = await tryReadJSON<IdBindings<number>[]>(oldBindingsFile)
+	const oldBindings: IdBindings<number>[] = oldBindingsResult.data ?? []
+	const newBindings: IdBindings<number>[] = []
 	let nextIndex = 0
 	const assignedIndices = new Set<number>()
-	const reservedIndices = new Set<number>(newIds.map(id => id.extKey))
+	const reservedIndices = new Set<number>(newIds.map(id => id.ext))
 	function getNextAvailableKey() {
 		const unavailableIndices = assignedIndices.union(reservedIndices)
 		while(unavailableIndices.has(nextIndex)) {
@@ -189,8 +189,8 @@ async function tryUpdateNumericIdBindings(
 		}
 		return nextIndex
 	}
-	const existingByExtKey = new Map<number, IdBinding<number>>()
-	const existingByKey = new Map<string, IdBinding<number>>()
+	const existingByExtKey = new Map<number, IdBindings<number>>()
+	const existingByKey = new Map<string, IdBindings<number>>()
 
 	const duplicateErrors: string[] =  []
 	oldBindings.forEach(b => {
@@ -200,9 +200,9 @@ async function tryUpdateNumericIdBindings(
 			error = true
 			errorMsg += `\n${b.key} in ${JSON.stringify(b)} and ${JSON.stringify(existingByKey.get(b.key))}`
 		}
-		if(existingByExtKey.has(b.extKey) && b.extKey !== -1) {
+		if(existingByExtKey.has(b.ext) && b.ext !== -1) {
 			error = true
-			errorMsg += `\n${b.extKey} in ${JSON.stringify(b)} and ${JSON.stringify(existingByExtKey.get(b.extKey))}}`
+			errorMsg += `\n${b.ext} in ${JSON.stringify(b)} and ${JSON.stringify(existingByExtKey.get(b.ext))}}`
 		}
 		if(assignedIndices.has(b.idx)) {
 			error = true
@@ -212,7 +212,7 @@ async function tryUpdateNumericIdBindings(
 			duplicateErrors.push(errorMsg)
 		}
 		else {
-			existingByExtKey.set(b.extKey, b)
+			existingByExtKey.set(b.ext, b)
 			existingByKey.set(b.key, b)
 			assignedIndices.add(b.idx)
 		}
@@ -221,32 +221,32 @@ async function tryUpdateNumericIdBindings(
 		throw new Error(duplicateErrors.join('\n'))
 	}
 
-	newIds.forEach(({extKey, key, name}) => {
+	newIds.forEach(({ext: extKey, key, name}) => {
 		// keys are always strings in js / json, we need to convert to number for ts-typing
 		const oldBindingByNewKey = existingByKey.get(key)
 		const oldBindingByNewExtKey = existingByExtKey.get(extKey)
 
 		// If key exist -> assign id to existing <idx, key> pair.
 		if(oldBindingByNewKey) {
-			if(oldBindingByNewKey.extKey != extKey) {
-				logWarning(`External id for key ${key} changed from ${oldBindingByNewKey.extKey} to ${extKey}.`, logs.warnings)
+			if(oldBindingByNewKey.ext != extKey) {
+				logWarning(`External id for key ${key} changed from ${oldBindingByNewKey.ext} to ${extKey}.`, logs.warnings)
 			}
-			const updatedBinding: IdBinding<number> = {
+			const updatedBinding: IdBindings<number> = {
 				idx: oldBindingByNewKey.idx,
 				key: key,
 				name: name,
-				extKey: extKey
+				ext: extKey
 			}
 			newBindings.push(updatedBinding)
 			assignedIndices.add(updatedBinding.idx)
 		}
 		// Else -> assign label to new key, preferably equal to id.
 		else {
-			const updatedBinding: IdBinding<number> = {
+			const updatedBinding: IdBindings<number> = {
 				idx: assignedIndices.has(extKey) ? getNextAvailableKey() : extKey,
 				key: key,
 				name: name,
-				extKey: extKey
+				ext: extKey
 			}
 			newBindings.push(updatedBinding)
 			assignedIndices.add(updatedBinding.idx)
@@ -258,16 +258,16 @@ async function tryUpdateNumericIdBindings(
 			}
 		}
 	})
-	const newBindingsExtKeys = new Set<number>(newBindings.map(binding => binding.extKey))
+	const newBindingsExtKeys = new Set<number>(newBindings.map(binding => binding.ext))
 	const newBindingsIdx = new Set<number>(newBindings.map(binding => binding.idx))
 	
 	oldBindings.forEach(binding => {
 		if(!newBindingsIdx.has(binding.idx)) {
-			const deprecatedBinding: IdBinding<number> = {
+			const deprecatedBinding: IdBindings<number> = {
 				idx: binding.idx,
 				key: binding.key,
 				name: binding.name,
-				extKey: newBindingsExtKeys.has(binding.extKey) ? -1 : binding.extKey
+				ext: newBindingsExtKeys.has(binding.ext) ? -1 : binding.ext
 			} 
 			newBindings.push(deprecatedBinding)
 			logWarning(`Transferred old binding ${JSON.stringify(deprecatedBinding)}, which was not present in new dataset.`, logs.warnings)

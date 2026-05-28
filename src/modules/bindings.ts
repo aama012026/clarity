@@ -1,5 +1,5 @@
 import { isEmpty, nullsToUndefined, type ISO8601TimeString, type Unique, type UnixTimestamp } from "./flow.js"
-import type { Id, IdBinding } from "../types/BoundTypes.js"
+import type { Ids, IdBindings } from "../types/BoundTypes.js"
 import type { GameModeId, LobbyTypeId, PatchId, RegionId, UnitOrderId} from "../types/DotaConstantsTypes.js"
 import { BARRACK_FLAGS, TOWER_FLAGS, type AccountId, type BarracksBitmask,
 	type Cosmetic, type Distributions, type GoldReasonId, type OdotaUnparsedPlayer,
@@ -12,7 +12,6 @@ import { BARRACK_FLAGS, TOWER_FLAGS, type AccountId, type BarracksBitmask,
 import heroIds from '../../public/generated/data/heroBindings.json'
 import abilityIds from '../../public/generated/data/abilityBindings.json'
 import itemIds from '../../public/generated/data/itemBindings.json'
-import type { SHA512_256 } from "bun"
 
 export type HeroIdx = typeof heroIds[number]['idx']
 export type HeroKey = typeof heroIds[number]['key']
@@ -51,9 +50,9 @@ const ItemIdxByExtKey = Object.fromEntries(
 ) as Record<ItemExtKey, ItemIdx>
 
 const SIDE = [
-	{idx:0, key:'RADI', name:'radiant', extKey:0},
-	{idx:1, key:'DIRE', name:'dire', extKey:1}
-] as const satisfies IdBinding<number>[]
+	{idx:0, key:'RADI', name:'radiant', ext:0},
+	{idx:1, key:'DIRE', name:'dire', ext:1}
+] as const satisfies IdBindings<number>[]
 type SideIdx = typeof SIDE[number]['idx']
 type SideKey = typeof SIDE[number]['key']
 type SideExtId = typeof SIDE[number]['extKey']
@@ -71,14 +70,14 @@ export type Outcome = 'win' | 'loss'
 export type PermanentBuffId = Unique<number, 'permanentBuff'>
 
 export const LANES = [
-	{idx:0, key:'SAF', name:'safelane', extKey:1},
-	{idx:1, key:'MID', name:'midlane', extKey:2},
-	{idx:2, key:'OFF', name:'offlane', extKey:3},
+	{idx:0, key:'SAF', name:'safelane', ext:1},
+	{idx:1, key:'MID', name:'midlane', ext:2},
+	{idx:2, key:'OFF', name:'offlane', ext:3},
 	/** maybe not needed */
-	{idx:3, key:'RAJ', name:'radiant jungle', extKey:4},
+	{idx:3, key:'RAJ', name:'radiant jungle', ext:4},
 	/** maybe not needed */
-	{idx: 4, key:'DIJ', name:'dire junle', extKey:5}
-] as const satisfies IdBinding<number>[]
+	{idx: 4, key:'DIJ', name:'dire junle', ext:5}
+] as const satisfies IdBindings<number>[]
 
 export type LaneIdx = typeof LANES[number]['idx']
 export type LaneKey = typeof LANES[number]['key']
@@ -622,7 +621,7 @@ export const OBJECTIVES = [
 	{idx:3, key:'TORMENTOR', name: 'tormentor'},
 	{idx:4, key:'ROSHAN', name:'roshan'},
 	{idx:5, key:'AEGIS', name: 'aegis'}
-] as const satisfies Id[]
+] as const satisfies Ids[]
 export type Objective = typeof OBJECTIVES[keyof typeof OBJECTIVES]
 
 export interface NormalizedObjective {
@@ -1168,17 +1167,17 @@ export interface CaptainsModeDraftStep extends DraftStep {
 }
 
 export const RUNES = [
-	{idx:0, key:'BNTY', name:'bounty', extKey:5},
-	{idx:1, key:'WISD', name:'wisdom', extKey:8},
-	{idx:2, key:'WATR', name:'water', extKey:7},
-	{idx:3, key:'INVS', name:'invisibility', extKey:3},
-	{idx:4, key:'RGEN', name:'regeneration', extKey:4},
-	{idx:5, key:'AMPD', name:'amplify damage', extKey:0},
-	{idx:6, key:'ARCA', name:'arcane', extKey:6},
-	{idx:7, key:'HAST', name:'haste', extKey:1},
-	{idx:8, key:'ILLU', name:'illusion', extKey:2},
-	{idx:9, key:'SHLD', name:'shield', extKey:9}
-] as const satisfies readonly IdBinding<number>[]
+	{idx:0, key:'BNTY', name:'bounty', ext:5},
+	{idx:1, key:'WISD', name:'wisdom', ext:8},
+	{idx:2, key:'WATR', name:'water', ext:7},
+	{idx:3, key:'INVS', name:'invisibility', ext:3},
+	{idx:4, key:'RGEN', name:'regeneration', ext:4},
+	{idx:5, key:'AMPD', name:'amplify damage', ext:0},
+	{idx:6, key:'ARCA', name:'arcane', ext:6},
+	{idx:7, key:'HAST', name:'haste', ext:1},
+	{idx:8, key:'ILLU', name:'illusion', ext:2},
+	{idx:9, key:'SHLD', name:'shield', ext:9}
+] as const satisfies readonly IdBindings<number>[]
 
 export type RuneIdx = typeof RUNES[number]['idx']
 export type RuneLabel = typeof RUNES[number]['name']
@@ -1192,19 +1191,19 @@ export const Runes = Object.fromEntries(
 ) as Record<RuneIdx, RuneLabel>
 
 export const GOLD_SOURCES = [
-	{idx:0, key:'OTHER', name:'other', extKey:0},
-	{idx:1, key:'DEATHS', name:'deaths', extKey:1},
-	{idx:6, key:'UNKN6', name:'unknown6', extKey:6},
-	{idx:11,key:'STRCTS', name:'structures', extKey:11},
-	{idx:12,key:'HEROES', name:'heroes', extKey:12},
-	{idx:13,key:'LANE_C', name:'lane creeps', extKey:13},
-	{idx:14,key:'JNGL_C', name:'neutral creeps', extKey:14},
-	{idx:16,key:'FBLOOD', name:'first blood', extKey:16},
-	{idx:17,key:'BNTY_R', name:'bounty runes', extKey:17},
-	{idx:19,key:'UNKN19', name:'unknown19', extKey:19},
-	{idx:20,key:'WARDS',name:'wards', extKey:20},
-	{idx:21,key:'UNKN21', name:'unknown21 (value 135)', extKey:21}
-] as const satisfies readonly IdBinding<number>[]
+	{idx:0, key:'OTHER', name:'other', ext:0},
+	{idx:1, key:'DEATHS', name:'deaths', ext:1},
+	{idx:6, key:'UNKN6', name:'unknown6', ext:6},
+	{idx:11,key:'STRCTS', name:'structures', ext:11},
+	{idx:12,key:'HEROES', name:'heroes', ext:12},
+	{idx:13,key:'LANE_C', name:'lane creeps', ext:13},
+	{idx:14,key:'JNGL_C', name:'neutral creeps', ext:14},
+	{idx:16,key:'FBLOOD', name:'first blood', ext:16},
+	{idx:17,key:'BNTY_R', name:'bounty runes', ext:17},
+	{idx:19,key:'UNKN19', name:'unknown19', ext:19},
+	{idx:20,key:'WARDS',name:'wards', ext:20},
+	{idx:21,key:'UNKN21', name:'unknown21 (value 135)', ext:21}
+] as const satisfies readonly IdBindings<number>[]
 
 export type GoldSourceKey = typeof GOLD_SOURCES[number]['idx']
 export type GoldSourceLabel = typeof GOLD_SOURCES[number]['name']
@@ -1218,11 +1217,11 @@ export const GoldSources = Object.fromEntries(
 ) as Record<GoldSourceKey, GoldSourceLabel>
 
 export const XP_SOURCES = [
-	{idx:0, key:'OTHER', name:'other', extKey:0},
-	{idx:1, key:'HEROES', name:'heroes', extKey:1},
-	{idx:2, key:'CREEPS', name:'creeps', extKey:2},
-	{idx:4, key:'UNKN4', name:'unknown4', extKey:4},
-] as const satisfies readonly IdBinding<number>[]
+	{idx:0, key:'OTHER', name:'other', ext:0},
+	{idx:1, key:'HEROES', name:'heroes', ext:1},
+	{idx:2, key:'CREEPS', name:'creeps', ext:2},
+	{idx:4, key:'UNKN4', name:'unknown4', ext:4},
+] as const satisfies readonly IdBindings<number>[]
 
 export type XpSourceIdx = typeof XP_SOURCES[number]['idx']
 export type XpSourceName = typeof XP_SOURCES[number]['name']
@@ -1237,11 +1236,11 @@ export const XpSources = Object.fromEntries(
 
 // Single source of truth data binding
 export const LIFE_STATES = [
-	{idx:0, key:'ALIVE', name: 'alive', extKey: 0},
-	{idx:1, key:'UNKN', name:'unknown (pseudo-death?)', extKey: 1},
-	{idx:2, key:'DEAD', name:'dead', extKey: 2}
+	{idx:0, key:'ALIVE', name: 'alive', ext: 0},
+	{idx:1, key:'UNKN', name:'unknown (pseudo-death?)', ext: 1},
+	{idx:2, key:'DEAD', name:'dead', ext: 2}
 	// Potential unknown sources: respawning, reincarnation / pseudo-death (aegis, wraith king)
-] as const satisfies readonly IdBinding<number>[]
+] as const satisfies readonly IdBindings<number>[]
 
 // Derived types
 export type LifeStateIdx = typeof LIFE_STATES[number]['idx']
@@ -1268,39 +1267,39 @@ export const UNIT_IDS = [
 		idx: 0,
 		key: 'RADI_MEELE',
 		name: 'radiant melee creep',
-		extKey: 'npc_dota_creep_goodguys_melee'
+		ext: 'npc_dota_creep_goodguys_melee'
 	},
 	{
 		idx: 1,
 		key: 'RADI_RANGE',
 		name: 'radiant ranged creep',
-		extKey: 'npc_dota_creep_goodguys_ranged'
+		ext: 'npc_dota_creep_goodguys_ranged'
 	},
 	{
 		idx: 2,
 		key: 'RADI_SIEGE',
 		name: 'radiant siege creep',
-		extKey: 'npc_dota_goodguys_siege'
+		ext: 'npc_dota_goodguys_siege'
 	},
 	{
 		idx: 3,
 		key: 'DIRE_MELEE',
 		name: 'dire melee creep',
-		extKey: 'npc_dota_creep_badguys_melee'
+		ext: 'npc_dota_creep_badguys_melee'
 	},
 	{
 		idx: 4,
 		key: 'DIRE_RANGE',
 		name: 'dire ranged creep',
-		extKey: 'npc_dota_creep_badguys_ranged'
+		ext: 'npc_dota_creep_badguys_ranged'
 	},
 	{
 		idx: 5,
 		key: 'DIRE_SIEGE',
 		name: 'dire siege creep',
-		extKey: 'npc_dota_badguys_siege'
+		ext: 'npc_dota_badguys_siege'
 	}
-] as const satisfies IdBinding<string>[]
+] as const satisfies IdBindings<string>[]
 
 export type UnitIdx = typeof UNIT_IDS[number]['idx']
 export type UnitName = typeof UNIT_IDS[number]['name']
@@ -1319,207 +1318,207 @@ export const STRUCTURE_IDS = [
 		idx: 0,
 		key: 'RADI_SAF_T1',
 		name: 'radiant safelane tier 1 tower',
-		extKey: 'npc_dota_goodguys_tower1_bot'
+		ext: 'npc_dota_goodguys_tower1_bot'
 	},
 	{
 		idx: 1,
 		key: 'RADI_SAF_T2',
 		name: 'radiant safelane tier 2 tower',
-		extKey: 'npc_dota_goodguys_tower2_bot'
+		ext: 'npc_dota_goodguys_tower2_bot'
 	},
 	{
 		idx: 2,
 		key: 'RADI_SAF_T3',
 		name: 'radiant safelane tier 3 tower',
-		extKey: 'npc_dota_goodguys_tower3_bot'
+		ext: 'npc_dota_goodguys_tower3_bot'
 	},
 	{
 		idx: 3,
 		key: 'RADI_SAF_RAX_MEELE',
 		name: 'radiant safelane melee barracks',
-		extKey: 'npc_dota_goodguys_melee_rax_bot'
+		ext: 'npc_dota_goodguys_melee_rax_bot'
 	},
 	{
 		idx: 4,
 		key: 'RADI_SAF_RAX_RANGE',
 		name: 'radiant safelane range barracks',
-		extKey: 'npc_dota_goodguys_range_rax_bot'
+		ext: 'npc_dota_goodguys_range_rax_bot'
 	},
 	{
 		idx: 5,
 		key: 'RADI_MID_T1',
 		name: 'radiant midlane tier 1 tower',
-		extKey: 'npc_dota_goodguys_tower1_mid'
+		ext: 'npc_dota_goodguys_tower1_mid'
 	},
 	{
 		idx: 6,
 		key: 'RADI_MID_T2',
 		name: 'radiant midlane tier 2 tower',
-		extKey: 'npc_dota_goodguys_tower2_mid'
+		ext: 'npc_dota_goodguys_tower2_mid'
 	},
 	{
 		idx: 7,
 		key: 'RADI_MID_T3',
 		name: 'radiant midlane tier 3 tower',
-		extKey: 'npc_dota_goodguys_tower3_mid'
+		ext: 'npc_dota_goodguys_tower3_mid'
 	},
 	{
 		idx: 8,
 		key: 'RADI_MID_RAX_MELEE',
 		name: 'radiant midlane melee barracks',
-		extKey: 'npc_dota_goodguys_melee_rax_mid'
+		ext: 'npc_dota_goodguys_melee_rax_mid'
 	},
 	{
 		idx: 9,
 		key: 'RADI_MID_RAX_RANGE',
 		name: 'radiant midlane range barracks',
-		extKey: 'npc_dota_goodguys_range_rax_mid'
+		ext: 'npc_dota_goodguys_range_rax_mid'
 	},
 		{
 		idx: 10,
 		key: 'RADI_OFF_T1',
 		name: 'radiant offlane tier 1 tower',
-		extKey: 'npc_dota_goodguys_tower1_top'
+		ext: 'npc_dota_goodguys_tower1_top'
 	},
 	{
 		idx: 11,
 		key: 'RADI_OFF_T2',
 		name: 'radiant offlane tier 2 tower',
-		extKey: 'npc_dota_goodguys_tower2_top'
+		ext: 'npc_dota_goodguys_tower2_top'
 	},
 	{
 		idx: 12,
 		key: 'RADI_OFF_T3',
 		name: 'radiant offlane tier 3 tower',
-		extKey: 'npc_dota_goodguys_tower3_top'
+		ext: 'npc_dota_goodguys_tower3_top'
 	},
 	{
 		idx: 13,
 		key: 'RADI_OFF_RAX_MELEE',
 		name: 'radiant offlane melee barracks',
-		extKey: 'npc_dota_goodguys_melee_rax_top'
+		ext: 'npc_dota_goodguys_melee_rax_top'
 	},
 	{
 		idx: 14,
 		key: 'RADI_OFF_RAX_RANGE',
 		name: 'radiant offlane range barracks',
-		extKey: 'npc_dota_goodguys_range_rax_top'
+		ext: 'npc_dota_goodguys_range_rax_top'
 	},
 	{
 		idx: 15,
 		key: 'RADI_T4',
 		name: 'radiant tier 4 tower',
-		extKey: 'npc_dota_goodguys_tower4'
+		ext: 'npc_dota_goodguys_tower4'
 	},
 	{
 		idx: 16,
 		key: 'RADI_FORT',
 		name: 'radiant ancient',
-		extKey: 'npc_dota_goodguys_fort'
+		ext: 'npc_dota_goodguys_fort'
 	},
 	{
 		idx: 17,
 		key: 'DIRE_SAF_T1',
 		name: 'dire safelane tier 1 tower',
-		extKey: 'npc_dota_badguys_tower1_top'
+		ext: 'npc_dota_badguys_tower1_top'
 	},
 	{
 		idx: 18,
 		key: 'DIRE_SAF_T2',
 		name: 'dire safelane tier 2 tower',
-		extKey: 'npc_dota_badguys_tower2_top'
+		ext: 'npc_dota_badguys_tower2_top'
 	},
 	{
 		idx: 19,
 		key: 'DIRE_SAF_T3',
 		name: 'dire safelane tier 3 tower',
-		extKey: 'npc_dota_badguys_tower3_top'
+		ext: 'npc_dota_badguys_tower3_top'
 	},
 	{
 		idx: 20,
 		key: 'DIRE_SAF_RAX_MELEE',
 		name: 'dire safelane melee barracks',
-		extKey: 'npc_dota_badguys_melee_rax_top'
+		ext: 'npc_dota_badguys_melee_rax_top'
 	},
 	{
 		idx: 21,
 		key: 'DIRE_SAF_RAX_RANGE',
 		name: 'dire safelane range barracks',
-		extKey: 'npc_dota_badguys_range_rax_top'
+		ext: 'npc_dota_badguys_range_rax_top'
 	},
 	{
 		idx: 22,
 		key: 'DIRE_MID_T1',
 		name: 'dire midlane tier 1 tower',
-		extKey: 'npc_dota_badguys_tower1_mid'
+		ext: 'npc_dota_badguys_tower1_mid'
 	},
 	{
 		idx: 23,
 		key: 'DIRE_MID_T2',
 		name: 'dire midlane tier 2 tower',
-		extKey: 'npc_dota_badguys_tower2_mid'
+		ext: 'npc_dota_badguys_tower2_mid'
 	},
 	{
 		idx: 24,
 		key: 'DIRE_MID_T3',
 		name: 'dire midlane tier 3 tower',
-		extKey: 'npc_dota_badguys_tower3_mid'
+		ext: 'npc_dota_badguys_tower3_mid'
 	},
 	{
 		idx: 25,
 		key: 'DIRE_MID_RAX_MELEE',
 		name: 'dire midlane melee barracks',
-		extKey: 'npc_dota_badguys_melee_rax_mid'
+		ext: 'npc_dota_badguys_melee_rax_mid'
 	},
 	{
 		idx: 26,
 		key: 'DIRE_MID_RAX_RANGE',
 		name: 'dire midlane range barracks',
-		extKey: 'npc_dota_badguys_range_rax_mid'
+		ext: 'npc_dota_badguys_range_rax_mid'
 	},
 	{
 		idx: 27,
 		key: 'DIRE_OFF_T1',
 		name: 'dire offlane tier 1 tower',
-		extKey: 'npc_dota_badguys_tower1_bot'
+		ext: 'npc_dota_badguys_tower1_bot'
 	},
 	{
 		idx: 28,
 		key: 'DIRE_OFF_T2',
 		name: 'dire offlane tier 2 tower',
-		extKey: 'npc_dota_badguys_tower2_bot'
+		ext: 'npc_dota_badguys_tower2_bot'
 	},
 	{
 		idx: 29,
 		key: 'DIRE_OFF_T3',
 		name: 'dire offlane tier 3 tower',
-		extKey: 'npc_dota_badguys_tower3_bot'
+		ext: 'npc_dota_badguys_tower3_bot'
 	},
 	{
 		idx: 30,
 		key: 'DIRE_OFF_RAX_MELEE',
 		name: 'dire offlane melee barracks',
-		extKey: 'npc_dota_badguys_melee_rax_bot'
+		ext: 'npc_dota_badguys_melee_rax_bot'
 	},
 	{
 		idx: 31,
 		key: 'DIRE_OFF_RAX_RANGE',
 		name: 'dire offlane range barracks',
-		extKey: 'npc_dota_badguys_range_rax_bot'
+		ext: 'npc_dota_badguys_range_rax_bot'
 	},
 	{
 		idx: 32,
 		key: 'DIRE_T4',
 		name: 'dire tier 4 tower',
-		extKey: 'npc_dota_badguys_tower4'
+		ext: 'npc_dota_badguys_tower4'
 	},
 	{
 		idx: 33,
 		key: 'DIRE_FORT',
 		name: 'dire ancient',
-		extKey: 'npc_dota_badguys_fort'
+		ext: 'npc_dota_badguys_fort'
 	},
-] as const satisfies IdBinding<string>[]
+] as const satisfies IdBindings<string>[]
 
 export type StructureIdx = typeof STRUCTURE_IDS[number]['idx']
 export type StructureName = typeof STRUCTURE_IDS[number]['name']

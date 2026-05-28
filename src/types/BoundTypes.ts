@@ -1,14 +1,17 @@
 import type { ItemAbility, ItemAttribute } from "./DotaConstantsTypes.js"
 
-// <Key> should be name used in code, <name> should be display name.
-export interface Id {idx: number, key: string, name: string}
-export interface IdBinding<T extends number | string> extends Id {extKey: T}
+export type Ids<T extends object ={}> = Record<number,{key: string} & T>
+export interface Binding<T extends number | string> {ext: T}
+interface IdDataProps {name: string, img: string}
+export type IdData<P extends keyof IdDataProps> = Pick<IdDataProps, P>
 // Creates static, compile time key:value pairs.
 export type ConstEnum<O, K extends keyof O, V extends keyof O> = {
 	[E in O as E[K] & PropertyKey]: E[V]
 }
 
-export type IdMap<R extends Record<number, object>, K extends keyof R[keyof R]> = {[I in keyof R as R[I][K] & PropertyKey]: I}
+export type IdMap<R extends Record<number, object>, K extends keyof R[keyof R]> = {
+	[I in keyof R as R[I][K] & PropertyKey]: I
+}
 
 export interface Hero {
 	id: number,
@@ -38,21 +41,21 @@ interface Resource {
 	regen: number
 }
 
-const ATTRIBUTES = [
-	{idx:0, key:'STR', name:'strength', extKey:'str'},
-	{idx:1, key:'AGI', name:'agility', extKey:'agi'},
-	{idx:2, key:'INT', name:'intelligence', extKey: 'int'},
-	{idx:3, key:'UNI', name:'universal', extKey:'all'}
-] as const satisfies IdBinding<string>[]
-export type AttributeIdx = typeof ATTRIBUTES[number]['idx']
-export type AttributeName = typeof ATTRIBUTES[number]['name']
-export type AttributeExtKey = typeof ATTRIBUTES[number]['extKey']
+const ATTRIBUTES = {
+	0: {key:'STR', name:'strength', ext:'str'},
+	1: {key:'AGI', name:'agility', ext:'agi'},
+	2: {key:'INT', name:'intelligence', ext: 'int'},
+	3: {key:'UNI', name:'universal', ext:'all'}
+} as const satisfies Ids<Binding<string> & IdData<'name'>>
+export type AttributeIdx = keyof typeof ATTRIBUTES
+export type AttributeName = typeof ATTRIBUTES[AttributeIdx]['name']
+export type AttributeExtKey = typeof ATTRIBUTES[AttributeIdx]['ext']
 export const ATTRIBUTE = Object.fromEntries(
-	ATTRIBUTES.map(({idx, key}) => [key, idx])
-) as ConstEnum<typeof ATTRIBUTES[number], 'key', 'idx'>
+	Object.entries(ATTRIBUTES).map(([idx, {key}]) => [key, parseInt(idx)])
+) as IdMap<typeof ATTRIBUTES, 'key'>
 export const AttributeBindings = Object.fromEntries(
-	ATTRIBUTES.map(({idx, extKey}) => [extKey, idx])
-) as ConstEnum<typeof ATTRIBUTES[number], 'extKey', 'idx'>
+	Object.entries(ATTRIBUTES).map(([idx, {ext}]) => [ext, parseInt(idx)])
+) as IdMap<typeof ATTRIBUTES, 'ext'>
 
 interface AttributeSet {
 	strength: number,
@@ -108,11 +111,11 @@ export interface Item {
 }
 
 const DAMAGE_TYPES = {
-	0: {key: 'PHYS', name: 'physical', extKey: 'Physical'},
-	1: {key: 'MAGI', name: 'magical', extKey: 'Magical'},
-	2: {key: 'PURE', name: 'pure', extKey: 'Pure'},
-	3: {key: 'UNKN', name: 'other', extKey: ''},
-} as const satisfies Record<number, any>
+	0: {key: 'PHYS', name: 'physical', ext: 'Physical'},
+	1: {key: 'MAGI', name: 'magical', ext: 'Magical'},
+	2: {key: 'PURE', name: 'pure', ext: 'Pure'},
+	3: {key: 'UNKN', name: 'other', ext: ''},
+} as const satisfies Ids<Binding<string> & IdData<'name'>>
 
 type dmgTypeIdx = keyof typeof DAMAGE_TYPES
 const DAMAGE_TYPE = Object.fromEntries(

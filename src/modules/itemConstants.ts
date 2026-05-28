@@ -1,34 +1,38 @@
-import { ATTRIBUTE, type AttributeIdx, type ConstEnum, type Id } from "../types/BoundTypes"
+import { ATTRIBUTE, type AttributeIdx, type Binding, type ConstEnum, type IdData, type IdMap, type Ids } from "../types/BoundTypes"
 import type { ItemKey } from "./bindings"
 
 
 
-export const GROUPS = [
-	{idx: 0, key:'CONS', name: 'consumables'},
-	{idx: 1, key:'ATTR', name: 'attributes'},
-	{idx: 2, key:'EQUI', name: 'equipment'},
-	{idx: 3, key:'MISC', name: 'miscellaneous'},
-	{idx: 4, key:'SECR', name: 'secret shop'},
-	{idx: 5, key:'ACCE', name: 'accessories'},
-	{idx: 6, key:'SUPP', name: 'support'},
-	{idx: 7, key:'MAGI', name: 'magical'},
-	{idx: 8, key:'ARMO', name: 'armor'},
-	{idx: 9, key:'WEAP', name: 'weapons'},
-	{idx: 10,key:'ARMA', name: 'armaments'},
-	{idx: 11,key:'ARTI', name: 'neutral artifacts'},
-	{idx: 12,key:'ENCH', name: 'neutral enchantments'},
-	{idx: 13,key:'UNIT', name: 'unit specific'},
-	{idx: 14,key:'OUT', name: 'retired'},
-	{idx: 15,key:'WIP', name: 'not implemented'},
-] as const satisfies Id[]
+export const GROUPS = {
+	0: {key:'CONS', name: 'consumables'},
+	1: {key:'ATTR', name: 'attributes'},
+	2: {key:'EQUI', name: 'equipment'},
+	3: {key:'MISC', name: 'miscellaneous'},
+	4: {key:'SECR', name: 'secret shop'},
+	5: {key:'ACCE', name: 'accessories'},
+	6: {key:'SUPP', name: 'support'},
+	7: {key:'MAGI', name: 'magical'},
+	8: {key:'ARMO', name: 'armor'},
+	9: {key:'WEAP', name: 'weapons'},
+	10:{key:'ARMA', name: 'armaments'},
+	11:{key:'ARTI', name: 'neutral artifacts'},
+	12:{key:'ENCH', name: 'neutral enchantments'},
+	13:{key:'UNIT', name: 'unit specific'},
+	14:{key:'OUT', name: 'retired'},
+	15:{key:'WIP', name: 'not implemented'},
+} as const satisfies Ids<IdData<'name'>>
 
-type GroupIdx = typeof GROUPS[number]['idx']
-export const GROUP = Object.fromEntries(
-	GROUPS.map(({idx, key}) => [key, idx])
-) as ConstEnum<typeof GROUPS[number], 'key', 'idx'>
+type GroupIdx = keyof typeof GROUPS
+export const GROUP = getIdMap(GROUPS, 'key')
 const {
 	CONS, ATTR, EQUI, MISC, SECR, ACCE, SUPP, MAGI, ARMO, WEAP, ARMA, ARTI, ENCH
 } = GROUP
+
+function getIdMap<T extends Record<number, any>, K extends keyof T[keyof T]>(ids: T, keyProp: K) {
+	return Object.fromEntries(
+		Object.entries(ids).map(([i, v]) => [v[keyProp], parseInt(i)])
+	) as IdMap<T, K>
+}
 export const GROUP_BY_ITEM = {
 	//BASICS
 	//Consumables
