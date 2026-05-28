@@ -1,5 +1,5 @@
 import { isEmpty, nullsToUndefined, type ISO8601TimeString, type Unique, type UnixTimestamp } from "./flow.js"
-import type { Ids, IdBindings } from "../types/BoundTypes.js"
+import type { Binding, IdData, Ids} from "../types/BoundTypes.js"
 import type { GameModeId, LobbyTypeId, PatchId, RegionId, UnitOrderId} from "../types/DotaConstantsTypes.js"
 import { BARRACK_FLAGS, TOWER_FLAGS, type AccountId, type BarracksBitmask,
 	type Cosmetic, type Distributions, type GoldReasonId, type OdotaUnparsedPlayer,
@@ -49,16 +49,16 @@ const ItemIdxByExtKey = Object.fromEntries(
 	itemIds.map(item => [item.extKey, item.idx])
 ) as Record<ItemExtKey, ItemIdx>
 
-const SIDE = [
-	{idx:0, key:'RADI', name:'radiant', ext:0},
-	{idx:1, key:'DIRE', name:'dire', ext:1}
-] as const satisfies IdBindings<number>[]
-type SideIdx = typeof SIDE[number]['idx']
-type SideKey = typeof SIDE[number]['key']
-type SideExtId = typeof SIDE[number]['extKey']
+const SIDE = {
+	0: {key:'RADI', name:'radiant', ext:0},
+	1: {key:'DIRE', name:'dire', ext:1}
+} as const satisfies Ids<Binding<number> & IdData<'name'>>
+type SideIdx = keyof typeof SIDE
+type SideKey = typeof SIDE[SideIdx]['key']
+type SideExtKey = typeof SIDE[SideIdx]['ext']
 const SideIdxByExtKey = Object.fromEntries(
 	SIDE.map(side => [side.extKey, side.idx])
-) as Record<SideExtId, SideIdx>
+) as Record<SideExtKey, SideIdx>
 
 // Used for rendering.
 export const sideKeys = Object.fromEntries(
@@ -1154,7 +1154,7 @@ export function parsePickBan(pickBan: PickBan): DraftStep {
 	return {
 		order: pickBan.order,
 		action: pickBan.is_pick ? 'pick' : 'ban',
-		team: SideIdxByExtKey[pickBan.team as SideExtId],
+		team: SideIdxByExtKey[pickBan.team as SideExtKey],
 		hero: heroKeysByExtKey[pickBan.hero_id]!,
 	}
 }

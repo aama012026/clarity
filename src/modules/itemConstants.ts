@@ -28,11 +28,7 @@ const {
 	CONS, ATTR, EQUI, MISC, SECR, ACCE, SUPP, MAGI, ARMO, WEAP, ARMA, ARTI, ENCH
 } = GROUP
 
-function getIdMap<T extends Record<number, any>, K extends keyof T[keyof T]>(ids: T, keyProp: K) {
-	return Object.fromEntries(
-		Object.entries(ids).map(([i, v]) => [v[keyProp], parseInt(i)])
-	) as IdMap<T, K>
-}
+
 export const GROUP_BY_ITEM = {
 	//BASICS
 	//Consumables
