@@ -1,7 +1,6 @@
-import { ATTRIBUTE, type AttributeIdx, type Binding, type ConstEnum, type IdData, type IdMap, type Ids } from "../types/BoundTypes"
+import { ATTRIBUTE, type AttributeIdx} from "../types/BoundTypes"
+import { getIdMap, type IdData, type Ids } from "../types/clarityTypes"
 import type { ItemKey } from "./bindings"
-
-
 
 export const GROUPS = {
 	0: {key:'CONS', name: 'consumables'},
@@ -27,7 +26,6 @@ export const GROUP = getIdMap(GROUPS, 'key')
 const {
 	CONS, ATTR, EQUI, MISC, SECR, ACCE, SUPP, MAGI, ARMO, WEAP, ARMA, ARTI, ENCH
 } = GROUP
-
 
 export const GROUP_BY_ITEM = {
 	//BASICS
