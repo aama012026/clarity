@@ -3,7 +3,6 @@ import type { ItemAbility, ItemAttribute } from "./DotaConstantsTypes.js"
 
 
 export interface Hero {
-	id: number,
 	name: {
 		static: string,
 		localized: string
@@ -77,7 +76,6 @@ interface Vision {
 }
 
 export interface Item {
-	id: number,
 	name: string,
 	lore: string,
 	goldPrice?: number,
