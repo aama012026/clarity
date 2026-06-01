@@ -205,15 +205,17 @@ export function round(number: number, decimals?: number): number {
 	return Math.round(number * factor) / factor
 }
 
-export function log(msg: string, log?: string[]): void {
-	log?.push(msg)
+export interface LogEntry {timestamp: string, msg: string}
+
+export function log(msg: string, log?: LogEntry[]): void {
+	log?.push({timestamp: new Date().toUTCString(), msg:msg})
 	console.log(`\n${new Date().toUTCString()}\n${msg}`)
 }
-export function logWarning(msg: string, log?: string[]): void {
-	log?.push(msg)
+export function logWarning(msg: string, log?: LogEntry[]): void {
+	log?.push({timestamp: new Date().toUTCString(), msg:msg})
 	console.warn(`\n${new Date().toUTCString()}\n${msg}`)
 }
-export function logError(msg: string, log?: string[]): void {
-	log?.push(msg)
+export function logError(msg: string, log?: LogEntry[]): void {
+	log?.push({timestamp: new Date().toUTCString(), msg:msg})
 	console.error(`\n${new Date().toUTCString()}\n${msg}`)
 }

@@ -1,4 +1,4 @@
-import { tryGetImg, assert, tryGetJson, logWarning, log, logError } from '../modules/flow.js'
+import { tryGetImg, assert, tryGetJson, logWarning, log, logError, type LogEntry } from '../modules/flow.js'
 import { tryReadJSON, tryWriteImg, tryWriteJSON } from '../modules/flowNode.js'
 import { DIR, FILES, PATHS } from '../modules/paths.js'
 import { type Ids, type Binding, type IdKey, getIdMap } from '../types/clarityTypes.js'
@@ -20,14 +20,14 @@ const ABILITY_BINDINGS_PATH = `${DATA_PATH}/${FILES.BINDINGS.ABILITIES}`
 
 type ExtId = Binding & IdKey
 type IdBinding = {idx: number} & ExtId
-interface Log {messages: string[], warnings: string[], errors: string[]}
+interface Log {messages: LogEntry[], warnings: LogEntry[], errors: LogEntry[]}
 const logs: Log = {messages: [], warnings: [], errors: []}
 
 // FETCH REQUIRED DOTACONSTANTS RESOURCES -> MAP TO CUSTOM DATASTRUCTURES -> WRITE TO ASSETS
 await tryUpdateHeroes()
 await tryUpdateItems()
 await tryUpdateAbilities()
-await tryWriteJSON(`${PATHS.LOGS.BUILD}.json`, logs)
+await tryWriteJSON(`${PATHS.LOGS.BUILD}-${new Date().toUTCString()}.txt`, logs)
 
 // Heroes
 async function tryUpdateHeroes() {
@@ -229,7 +229,7 @@ function tryUpdateNumericIdBindings(newIds: ExtId[], oldIds: Ids<Binding>) {
 		}
 		if(error) {
 			hasDuplicateEntries = true
-			logs.errors.push(errorMsg)
+			logError(errorMsg, logs.errors)
 		}
 		else {
 			existingByExtKey.set(b.ext, b)
