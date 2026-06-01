@@ -1,3 +1,4 @@
+import { getIdMap, type Binding, type IdData, type IdMap, type Ids } from "./clarityTypes.js"
 import type { ItemAbility, ItemAttribute } from "./DotaConstantsTypes.js"
 
 
@@ -38,12 +39,8 @@ const ATTRIBUTES = {
 export type AttributeIdx = keyof typeof ATTRIBUTES
 export type AttributeName = typeof ATTRIBUTES[AttributeIdx]['name']
 export type AttributeExtKey = typeof ATTRIBUTES[AttributeIdx]['ext']
-export const ATTRIBUTE = Object.fromEntries(
-	Object.entries(ATTRIBUTES).map(([idx, {key}]) => [key, parseInt(idx)])
-) as IdMap<typeof ATTRIBUTES, 'key'>
-export const AttributeBindings = Object.fromEntries(
-	Object.entries(ATTRIBUTES).map(([idx, {ext}]) => [ext, parseInt(idx)])
-) as IdMap<typeof ATTRIBUTES, 'ext'>
+export const ATTRIBUTE = getIdMap(ATTRIBUTES, 'key') 
+export const ATTRIBUTE_BINDING = getIdMap(ATTRIBUTES, 'ext')
 
 interface AttributeSet {
 	strength: number,
