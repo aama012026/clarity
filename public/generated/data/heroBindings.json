@@ -1,1526 +1,510 @@
-[
-	{
-		"idx": 0,
+{
+	"0": {
 		"key": "antimage",
-		"name": "Anti-Mage",
-		"extKey": 1
+		"ext": 1
 	},
-	{
-		"idx": 24,
+	"1": {
 		"key": "axe",
-		"name": "Axe",
-		"extKey": 2
+		"ext": 2
 	},
-	{
-		"idx": 115,
+	"2": {
 		"key": "bane",
-		"name": "Bane",
-		"extKey": 3
+		"ext": 3
 	},
-	{
-		"idx": 116,
+	"3": {
 		"key": "bloodseeker",
-		"name": "Bloodseeker",
-		"extKey": 4
+		"ext": 4
 	},
-	{
-		"idx": 117,
+	"4": {
 		"key": "crystal_maiden",
-		"name": "Crystal Maiden",
-		"extKey": 5
+		"ext": 5
 	},
-	{
-		"idx": 118,
+	"5": {
 		"key": "drow_ranger",
-		"name": "Drow Ranger",
-		"extKey": 6
+		"ext": 6
 	},
-	{
-		"idx": 122,
+	"6": {
 		"key": "earthshaker",
-		"name": "Earthshaker",
-		"extKey": 7
+		"ext": 7
 	},
-	{
-		"idx": 124,
+	"7": {
 		"key": "juggernaut",
-		"name": "Juggernaut",
-		"extKey": 8
+		"ext": 8
 	},
-	{
-		"idx": 125,
+	"8": {
 		"key": "mirana",
-		"name": "Mirana",
-		"extKey": 9
+		"ext": 9
 	},
-	{
-		"idx": 127,
+	"9": {
 		"key": "morphling",
-		"name": "Morphling",
-		"extKey": 10
+		"ext": 10
 	},
-	{
-		"idx": 130,
+	"10": {
 		"key": "nevermore",
-		"name": "Shadow Fiend",
-		"extKey": 11
+		"ext": 11
 	},
-	{
-		"idx": 132,
+	"11": {
 		"key": "phantom_lancer",
-		"name": "Phantom Lancer",
-		"extKey": 12
+		"ext": 12
 	},
-	{
-		"idx": 133,
+	"12": {
 		"key": "puck",
-		"name": "Puck",
-		"extKey": 13
+		"ext": 13
 	},
-	{
-		"idx": 134,
+	"13": {
 		"key": "pudge",
-		"name": "Pudge",
-		"extKey": 14
+		"ext": 14
 	},
-	{
-		"idx": 139,
+	"14": {
 		"key": "razor",
-		"name": "Razor",
-		"extKey": 15
+		"ext": 15
 	},
-	{
-		"idx": 140,
+	"15": {
 		"key": "sand_king",
-		"name": "Sand King",
-		"extKey": 16
+		"ext": 16
 	},
-	{
-		"idx": 141,
+	"16": {
 		"key": "storm_spirit",
-		"name": "Storm Spirit",
-		"extKey": 17
+		"ext": 17
 	},
-	{
-		"idx": 142,
+	"17": {
 		"key": "sven",
-		"name": "Sven",
-		"extKey": 18
+		"ext": 18
 	},
-	{
-		"idx": 143,
+	"18": {
 		"key": "tiny",
-		"name": "Tiny",
-		"extKey": 19
+		"ext": 19
 	},
-	{
-		"idx": 144,
+	"19": {
 		"key": "vengefulspirit",
-		"name": "Vengeful Spirit",
-		"extKey": 20
+		"ext": 20
 	},
-	{
-		"idx": 146,
+	"20": {
 		"key": "windrunner",
-		"name": "Windranger",
-		"extKey": 21
+		"ext": 21
 	},
-	{
-		"idx": 147,
+	"21": {
 		"key": "zuus",
-		"name": "Zeus",
-		"extKey": 22
+		"ext": 22
 	},
-	{
-		"idx": 148,
+	"22": {
 		"key": "kunkka",
-		"name": "Kunkka",
-		"extKey": 23
+		"ext": 23
 	},
-	{
-		"idx": 149,
+	"23": {
 		"key": "lina",
-		"name": "Lina",
-		"extKey": 25
+		"ext": 25
 	},
-	{
-		"idx": 150,
+	"24": {
 		"key": "lion",
-		"name": "Lion",
-		"extKey": 26
+		"ext": 26
 	},
-	{
-		"idx": 151,
+	"25": {
 		"key": "shadow_shaman",
-		"name": "Shadow Shaman",
-		"extKey": 27
+		"ext": 27
 	},
-	{
-		"idx": 152,
+	"26": {
 		"key": "slardar",
-		"name": "Slardar",
-		"extKey": 28
+		"ext": 28
 	},
-	{
-		"idx": 153,
+	"27": {
 		"key": "tidehunter",
-		"name": "Tidehunter",
-		"extKey": 29
+		"ext": 29
 	},
-	{
-		"idx": 154,
+	"28": {
 		"key": "witch_doctor",
-		"name": "Witch Doctor",
-		"extKey": 30
+		"ext": 30
 	},
-	{
-		"idx": 156,
+	"29": {
 		"key": "lich",
-		"name": "Lich",
-		"extKey": 31
+		"ext": 31
 	},
-	{
-		"idx": 157,
+	"30": {
 		"key": "riki",
-		"name": "Riki",
-		"extKey": 32
+		"ext": 32
 	},
-	{
-		"idx": 158,
+	"31": {
 		"key": "enigma",
-		"name": "Enigma",
-		"extKey": 33
+		"ext": 33
 	},
-	{
-		"idx": 159,
+	"32": {
 		"key": "tinker",
-		"name": "Tinker",
-		"extKey": 34
+		"ext": 34
 	},
-	{
-		"idx": 160,
+	"33": {
 		"key": "sniper",
-		"name": "Sniper",
-		"extKey": 35
+		"ext": 35
 	},
-	{
-		"idx": 161,
+	"34": {
 		"key": "necrolyte",
-		"name": "Necrophos",
-		"extKey": 36
+		"ext": 36
 	},
-	{
-		"idx": 162,
+	"35": {
 		"key": "warlock",
-		"name": "Warlock",
-		"extKey": 37
+		"ext": 37
 	},
-	{
-		"idx": 163,
+	"36": {
 		"key": "beastmaster",
-		"name": "Beastmaster",
-		"extKey": 38
+		"ext": 38
 	},
-	{
-		"idx": 164,
+	"37": {
 		"key": "queenofpain",
-		"name": "Queen of Pain",
-		"extKey": 39
+		"ext": 39
 	},
-	{
-		"idx": 165,
+	"38": {
 		"key": "venomancer",
-		"name": "Venomancer",
-		"extKey": 40
+		"ext": 40
 	},
-	{
-		"idx": 166,
+	"39": {
 		"key": "faceless_void",
-		"name": "Faceless Void",
-		"extKey": 41
+		"ext": 41
 	},
-	{
-		"idx": 167,
+	"40": {
 		"key": "skeleton_king",
-		"name": "Wraith King",
-		"extKey": 42
+		"ext": 42
 	},
-	{
-		"idx": 168,
+	"41": {
 		"key": "death_prophet",
-		"name": "Death Prophet",
-		"extKey": 43
+		"ext": 43
 	},
-	{
-		"idx": 169,
+	"42": {
 		"key": "phantom_assassin",
-		"name": "Phantom Assassin",
-		"extKey": 44
+		"ext": 44
 	},
-	{
-		"idx": 170,
+	"43": {
 		"key": "pugna",
-		"name": "Pugna",
-		"extKey": 45
+		"ext": 45
 	},
-	{
-		"idx": 171,
+	"44": {
 		"key": "templar_assassin",
-		"name": "Templar Assassin",
-		"extKey": 46
+		"ext": 46
 	},
-	{
-		"idx": 172,
+	"45": {
 		"key": "viper",
-		"name": "Viper",
-		"extKey": 47
+		"ext": 47
 	},
-	{
-		"idx": 173,
+	"46": {
 		"key": "luna",
-		"name": "Luna",
-		"extKey": 48
+		"ext": 48
 	},
-	{
-		"idx": 174,
+	"47": {
 		"key": "dragon_knight",
-		"name": "Dragon Knight",
-		"extKey": 49
+		"ext": 49
 	},
-	{
-		"idx": 175,
+	"48": {
 		"key": "dazzle",
-		"name": "Dazzle",
-		"extKey": 50
+		"ext": 50
 	},
-	{
-		"idx": 176,
+	"49": {
 		"key": "rattletrap",
-		"name": "Clockwerk",
-		"extKey": 51
+		"ext": 51
 	},
-	{
-		"idx": 177,
+	"50": {
 		"key": "leshrac",
-		"name": "Leshrac",
-		"extKey": 52
+		"ext": 52
 	},
-	{
-		"idx": 178,
+	"51": {
 		"key": "furion",
-		"name": "Nature's Prophet",
-		"extKey": 53
+		"ext": 53
 	},
-	{
-		"idx": 179,
+	"52": {
 		"key": "life_stealer",
-		"name": "Lifestealer",
-		"extKey": 54
+		"ext": 54
 	},
-	{
-		"idx": 180,
+	"53": {
 		"key": "dark_seer",
-		"name": "Dark Seer",
-		"extKey": 55
+		"ext": 55
 	},
-	{
-		"idx": 181,
+	"54": {
 		"key": "clinkz",
-		"name": "Clinkz",
-		"extKey": 56
+		"ext": 56
 	},
-	{
-		"idx": 182,
+	"55": {
 		"key": "omniknight",
-		"name": "Omniknight",
-		"extKey": 57
+		"ext": 57
 	},
-	{
-		"idx": 183,
+	"56": {
 		"key": "enchantress",
-		"name": "Enchantress",
-		"extKey": 58
+		"ext": 58
 	},
-	{
-		"idx": 184,
+	"57": {
 		"key": "huskar",
-		"name": "Huskar",
-		"extKey": 59
+		"ext": 59
 	},
-	{
-		"idx": 185,
+	"58": {
 		"key": "night_stalker",
-		"name": "Night Stalker",
-		"extKey": 60
+		"ext": 60
 	},
-	{
-		"idx": 186,
+	"59": {
 		"key": "broodmother",
-		"name": "Broodmother",
-		"extKey": 61
+		"ext": 61
 	},
-	{
-		"idx": 187,
+	"60": {
 		"key": "bounty_hunter",
-		"name": "Bounty Hunter",
-		"extKey": 62
+		"ext": 62
 	},
-	{
-		"idx": 188,
+	"61": {
 		"key": "weaver",
-		"name": "Weaver",
-		"extKey": 63
+		"ext": 63
 	},
-	{
-		"idx": 189,
+	"62": {
 		"key": "jakiro",
-		"name": "Jakiro",
-		"extKey": 64
+		"ext": 64
 	},
-	{
-		"idx": 190,
+	"63": {
 		"key": "batrider",
-		"name": "Batrider",
-		"extKey": 65
+		"ext": 65
 	},
-	{
-		"idx": 191,
+	"64": {
 		"key": "chen",
-		"name": "Chen",
-		"extKey": 66
+		"ext": 66
 	},
-	{
-		"idx": 192,
+	"65": {
 		"key": "spectre",
-		"name": "Spectre",
-		"extKey": 67
+		"ext": 67
 	},
-	{
-		"idx": 193,
+	"66": {
 		"key": "ancient_apparition",
-		"name": "Ancient Apparition",
-		"extKey": 68
+		"ext": 68
 	},
-	{
-		"idx": 194,
+	"67": {
 		"key": "doom_bringer",
-		"name": "Doom",
-		"extKey": 69
+		"ext": 69
 	},
-	{
-		"idx": 195,
+	"68": {
 		"key": "ursa",
-		"name": "Ursa",
-		"extKey": 70
+		"ext": 70
 	},
-	{
-		"idx": 196,
+	"69": {
 		"key": "spirit_breaker",
-		"name": "Spirit Breaker",
-		"extKey": 71
+		"ext": 71
 	},
-	{
-		"idx": 197,
+	"70": {
 		"key": "gyrocopter",
-		"name": "Gyrocopter",
-		"extKey": 72
+		"ext": 72
 	},
-	{
-		"idx": 198,
+	"71": {
 		"key": "alchemist",
-		"name": "Alchemist",
-		"extKey": 73
+		"ext": 73
 	},
-	{
-		"idx": 199,
+	"72": {
 		"key": "invoker",
-		"name": "Invoker",
-		"extKey": 74
+		"ext": 74
 	},
-	{
-		"idx": 200,
+	"73": {
 		"key": "silencer",
-		"name": "Silencer",
-		"extKey": 75
+		"ext": 75
 	},
-	{
-		"idx": 201,
+	"74": {
 		"key": "obsidian_destroyer",
-		"name": "Outworld Devourer",
-		"extKey": 76
+		"ext": 76
 	},
-	{
-		"idx": 202,
+	"75": {
 		"key": "lycan",
-		"name": "Lycan",
-		"extKey": 77
+		"ext": 77
 	},
-	{
-		"idx": 203,
+	"76": {
 		"key": "brewmaster",
-		"name": "Brewmaster",
-		"extKey": 78
+		"ext": 78
 	},
-	{
-		"idx": 204,
+	"77": {
 		"key": "shadow_demon",
-		"name": "Shadow Demon",
-		"extKey": 79
+		"ext": 79
 	},
-	{
-		"idx": 205,
+	"78": {
 		"key": "lone_druid",
-		"name": "Lone Druid",
-		"extKey": 80
+		"ext": 80
 	},
-	{
-		"idx": 206,
+	"79": {
 		"key": "chaos_knight",
-		"name": "Chaos Knight",
-		"extKey": 81
+		"ext": 81
 	},
-	{
-		"idx": 207,
+	"80": {
 		"key": "meepo",
-		"name": "Meepo",
-		"extKey": 82
+		"ext": 82
 	},
-	{
-		"idx": 208,
+	"81": {
 		"key": "treant",
-		"name": "Treant Protector",
-		"extKey": 83
+		"ext": 83
 	},
-	{
-		"idx": 209,
+	"82": {
 		"key": "ogre_magi",
-		"name": "Ogre Magi",
-		"extKey": 84
+		"ext": 84
 	},
-	{
-		"idx": 210,
+	"83": {
 		"key": "undying",
-		"name": "Undying",
-		"extKey": 85
+		"ext": 85
 	},
-	{
-		"idx": 211,
+	"84": {
 		"key": "rubick",
-		"name": "Rubick",
-		"extKey": 86
+		"ext": 86
 	},
-	{
-		"idx": 212,
+	"85": {
 		"key": "disruptor",
-		"name": "Disruptor",
-		"extKey": 87
+		"ext": 87
 	},
-	{
-		"idx": 213,
+	"86": {
 		"key": "nyx_assassin",
-		"name": "Nyx Assassin",
-		"extKey": 88
+		"ext": 88
 	},
-	{
-		"idx": 214,
+	"87": {
 		"key": "naga_siren",
-		"name": "Naga Siren",
-		"extKey": 89
+		"ext": 89
 	},
-	{
-		"idx": 215,
+	"88": {
 		"key": "keeper_of_the_light",
-		"name": "Keeper of the Light",
-		"extKey": 90
+		"ext": 90
 	},
-	{
-		"idx": 216,
+	"89": {
 		"key": "wisp",
-		"name": "Io",
-		"extKey": 91
+		"ext": 91
 	},
-	{
-		"idx": 217,
+	"90": {
 		"key": "visage",
-		"name": "Visage",
-		"extKey": 92
+		"ext": 92
 	},
-	{
-		"idx": 218,
+	"91": {
 		"key": "slark",
-		"name": "Slark",
-		"extKey": 93
+		"ext": 93
 	},
-	{
-		"idx": 219,
+	"92": {
 		"key": "medusa",
-		"name": "Medusa",
-		"extKey": 94
+		"ext": 94
 	},
-	{
-		"idx": 220,
+	"93": {
 		"key": "troll_warlord",
-		"name": "Troll Warlord",
-		"extKey": 95
+		"ext": 95
 	},
-	{
-		"idx": 221,
+	"94": {
 		"key": "centaur",
-		"name": "Centaur Warrunner",
-		"extKey": 96
+		"ext": 96
 	},
-	{
-		"idx": 222,
+	"95": {
 		"key": "magnataur",
-		"name": "Magnus",
-		"extKey": 97
+		"ext": 97
 	},
-	{
-		"idx": 223,
+	"96": {
 		"key": "shredder",
-		"name": "Timbersaw",
-		"extKey": 98
+		"ext": 98
 	},
-	{
-		"idx": 224,
+	"97": {
 		"key": "bristleback",
-		"name": "Bristleback",
-		"extKey": 99
+		"ext": 99
 	},
-	{
-		"idx": 225,
+	"98": {
 		"key": "tusk",
-		"name": "Tusk",
-		"extKey": 100
+		"ext": 100
 	},
-	{
-		"idx": 226,
+	"99": {
 		"key": "skywrath_mage",
-		"name": "Skywrath Mage",
-		"extKey": 101
+		"ext": 101
 	},
-	{
-		"idx": 227,
+	"100": {
 		"key": "abaddon",
-		"name": "Abaddon",
-		"extKey": 102
+		"ext": 102
 	},
-	{
-		"idx": 228,
+	"101": {
 		"key": "elder_titan",
-		"name": "Elder Titan",
-		"extKey": 103
+		"ext": 103
 	},
-	{
-		"idx": 229,
+	"102": {
 		"key": "legion_commander",
-		"name": "Legion Commander",
-		"extKey": 104
+		"ext": 104
 	},
-	{
-		"idx": 230,
+	"103": {
 		"key": "techies",
-		"name": "Techies",
-		"extKey": 105
+		"ext": 105
 	},
-	{
-		"idx": 231,
+	"104": {
 		"key": "ember_spirit",
-		"name": "Ember Spirit",
-		"extKey": 106
+		"ext": 106
 	},
-	{
-		"idx": 232,
+	"105": {
 		"key": "earth_spirit",
-		"name": "Earth Spirit",
-		"extKey": 107
+		"ext": 107
 	},
-	{
-		"idx": 233,
+	"106": {
 		"key": "abyssal_underlord",
-		"name": "Underlord",
-		"extKey": 108
+		"ext": 108
 	},
-	{
-		"idx": 234,
+	"107": {
 		"key": "terrorblade",
-		"name": "Terrorblade",
-		"extKey": 109
+		"ext": 109
 	},
-	{
-		"idx": 235,
+	"108": {
 		"key": "phoenix",
-		"name": "Phoenix",
-		"extKey": 110
+		"ext": 110
 	},
-	{
-		"idx": 236,
+	"109": {
 		"key": "oracle",
-		"name": "Oracle",
-		"extKey": 111
+		"ext": 111
 	},
-	{
-		"idx": 237,
+	"110": {
 		"key": "winter_wyvern",
-		"name": "Winter Wyvern",
-		"extKey": 112
+		"ext": 112
 	},
-	{
-		"idx": 238,
+	"111": {
 		"key": "arc_warden",
-		"name": "Arc Warden",
-		"extKey": 113
+		"ext": 113
 	},
-	{
-		"idx": 239,
+	"112": {
 		"key": "monkey_king",
-		"name": "Monkey King",
-		"extKey": 114
+		"ext": 114
 	},
-	{
-		"idx": 240,
+	"113": {
 		"key": "dark_willow",
-		"name": "Dark Willow",
-		"extKey": 119
+		"ext": 119
 	},
-	{
-		"idx": 241,
+	"114": {
 		"key": "pangolier",
-		"name": "Pangolier",
-		"extKey": 120
+		"ext": 120
 	},
-	{
-		"idx": 242,
+	"115": {
 		"key": "grimstroke",
-		"name": "Grimstroke",
-		"extKey": 121
+		"ext": 121
 	},
-	{
-		"idx": 243,
+	"116": {
 		"key": "hoodwink",
-		"name": "Hoodwink",
-		"extKey": 123
+		"ext": 123
 	},
-	{
-		"idx": 244,
+	"117": {
 		"key": "void_spirit",
-		"name": "Void Spirit",
-		"extKey": 126
+		"ext": 126
 	},
-	{
-		"idx": 245,
+	"118": {
 		"key": "snapfire",
-		"name": "Snapfire",
-		"extKey": 128
+		"ext": 128
 	},
-	{
-		"idx": 246,
+	"119": {
 		"key": "mars",
-		"name": "Mars",
-		"extKey": 129
+		"ext": 129
 	},
-	{
-		"idx": 247,
+	"120": {
 		"key": "ringmaster",
-		"name": "Ring Master",
-		"extKey": 131
+		"ext": 131
 	},
-	{
-		"idx": 248,
+	"121": {
 		"key": "dawnbreaker",
-		"name": "Dawnbreaker",
-		"extKey": 135
+		"ext": 135
 	},
-	{
-		"idx": 249,
+	"122": {
 		"key": "marci",
-		"name": "Marci",
-		"extKey": 136
+		"ext": 136
 	},
-	{
-		"idx": 250,
+	"123": {
 		"key": "primal_beast",
-		"name": "Primal Beast",
-		"extKey": 137
+		"ext": 137
 	},
-	{
-		"idx": 251,
+	"124": {
 		"key": "muerta",
-		"name": "Muerta",
-		"extKey": 138
+		"ext": 138
 	},
-	{
-		"idx": 252,
+	"125": {
 		"key": "kez",
-		"name": "Kez",
-		"extKey": 145
+		"ext": 145
 	},
-	{
-		"idx": 253,
+	"126": {
 		"key": "largo",
-		"name": "Largo",
-		"extKey": 155
-	},
-	{
-		"idx": 1,
-		"key": "npc_dota_hero_antimage",
-		"name": "Anti-Mage",
-		"extKey": -1
-	},
-	{
-		"idx": 2,
-		"key": "npc_dota_hero_axe",
-		"name": "Axe",
-		"extKey": -1
-	},
-	{
-		"idx": 3,
-		"key": "npc_dota_hero_bane",
-		"name": "Bane",
-		"extKey": -1
-	},
-	{
-		"idx": 4,
-		"key": "npc_dota_hero_bloodseeker",
-		"name": "Bloodseeker",
-		"extKey": -1
-	},
-	{
-		"idx": 5,
-		"key": "npc_dota_hero_crystal_maiden",
-		"name": "Crystal Maiden",
-		"extKey": -1
-	},
-	{
-		"idx": 6,
-		"key": "npc_dota_hero_drow_ranger",
-		"name": "Drow Ranger",
-		"extKey": -1
-	},
-	{
-		"idx": 7,
-		"key": "npc_dota_hero_earthshaker",
-		"name": "Earthshaker",
-		"extKey": -1
-	},
-	{
-		"idx": 8,
-		"key": "npc_dota_hero_juggernaut",
-		"name": "Juggernaut",
-		"extKey": -1
-	},
-	{
-		"idx": 9,
-		"key": "npc_dota_hero_mirana",
-		"name": "Mirana",
-		"extKey": -1
-	},
-	{
-		"idx": 10,
-		"key": "npc_dota_hero_morphling",
-		"name": "Morphling",
-		"extKey": -1
-	},
-	{
-		"idx": 11,
-		"key": "npc_dota_hero_nevermore",
-		"name": "Shadow Fiend",
-		"extKey": -1
-	},
-	{
-		"idx": 12,
-		"key": "npc_dota_hero_phantom_lancer",
-		"name": "Phantom Lancer",
-		"extKey": -1
-	},
-	{
-		"idx": 13,
-		"key": "npc_dota_hero_puck",
-		"name": "Puck",
-		"extKey": -1
-	},
-	{
-		"idx": 14,
-		"key": "npc_dota_hero_pudge",
-		"name": "Pudge",
-		"extKey": -1
-	},
-	{
-		"idx": 15,
-		"key": "npc_dota_hero_razor",
-		"name": "Razor",
-		"extKey": -1
-	},
-	{
-		"idx": 16,
-		"key": "npc_dota_hero_sand_king",
-		"name": "Sand King",
-		"extKey": -1
-	},
-	{
-		"idx": 17,
-		"key": "npc_dota_hero_storm_spirit",
-		"name": "Storm Spirit",
-		"extKey": -1
-	},
-	{
-		"idx": 18,
-		"key": "npc_dota_hero_sven",
-		"name": "Sven",
-		"extKey": -1
-	},
-	{
-		"idx": 19,
-		"key": "npc_dota_hero_tiny",
-		"name": "Tiny",
-		"extKey": -1
-	},
-	{
-		"idx": 20,
-		"key": "npc_dota_hero_vengefulspirit",
-		"name": "Vengeful Spirit",
-		"extKey": -1
-	},
-	{
-		"idx": 21,
-		"key": "npc_dota_hero_windrunner",
-		"name": "Windranger",
-		"extKey": -1
-	},
-	{
-		"idx": 22,
-		"key": "npc_dota_hero_zuus",
-		"name": "Zeus",
-		"extKey": -1
-	},
-	{
-		"idx": 23,
-		"key": "npc_dota_hero_kunkka",
-		"name": "Kunkka",
-		"extKey": -1
-	},
-	{
-		"idx": 25,
-		"key": "npc_dota_hero_lina",
-		"name": "Lina",
-		"extKey": -1
-	},
-	{
-		"idx": 26,
-		"key": "npc_dota_hero_lion",
-		"name": "Lion",
-		"extKey": -1
-	},
-	{
-		"idx": 27,
-		"key": "npc_dota_hero_shadow_shaman",
-		"name": "Shadow Shaman",
-		"extKey": -1
-	},
-	{
-		"idx": 28,
-		"key": "npc_dota_hero_slardar",
-		"name": "Slardar",
-		"extKey": -1
-	},
-	{
-		"idx": 29,
-		"key": "npc_dota_hero_tidehunter",
-		"name": "Tidehunter",
-		"extKey": -1
-	},
-	{
-		"idx": 30,
-		"key": "npc_dota_hero_witch_doctor",
-		"name": "Witch Doctor",
-		"extKey": -1
-	},
-	{
-		"idx": 31,
-		"key": "npc_dota_hero_lich",
-		"name": "Lich",
-		"extKey": -1
-	},
-	{
-		"idx": 32,
-		"key": "npc_dota_hero_riki",
-		"name": "Riki",
-		"extKey": -1
-	},
-	{
-		"idx": 33,
-		"key": "npc_dota_hero_enigma",
-		"name": "Enigma",
-		"extKey": -1
-	},
-	{
-		"idx": 34,
-		"key": "npc_dota_hero_tinker",
-		"name": "Tinker",
-		"extKey": -1
-	},
-	{
-		"idx": 35,
-		"key": "npc_dota_hero_sniper",
-		"name": "Sniper",
-		"extKey": -1
-	},
-	{
-		"idx": 36,
-		"key": "npc_dota_hero_necrolyte",
-		"name": "Necrophos",
-		"extKey": -1
-	},
-	{
-		"idx": 37,
-		"key": "npc_dota_hero_warlock",
-		"name": "Warlock",
-		"extKey": -1
-	},
-	{
-		"idx": 38,
-		"key": "npc_dota_hero_beastmaster",
-		"name": "Beastmaster",
-		"extKey": -1
-	},
-	{
-		"idx": 39,
-		"key": "npc_dota_hero_queenofpain",
-		"name": "Queen of Pain",
-		"extKey": -1
-	},
-	{
-		"idx": 40,
-		"key": "npc_dota_hero_venomancer",
-		"name": "Venomancer",
-		"extKey": -1
-	},
-	{
-		"idx": 41,
-		"key": "npc_dota_hero_faceless_void",
-		"name": "Faceless Void",
-		"extKey": -1
-	},
-	{
-		"idx": 42,
-		"key": "npc_dota_hero_skeleton_king",
-		"name": "Wraith King",
-		"extKey": -1
-	},
-	{
-		"idx": 43,
-		"key": "npc_dota_hero_death_prophet",
-		"name": "Death Prophet",
-		"extKey": -1
-	},
-	{
-		"idx": 44,
-		"key": "npc_dota_hero_phantom_assassin",
-		"name": "Phantom Assassin",
-		"extKey": -1
-	},
-	{
-		"idx": 45,
-		"key": "npc_dota_hero_pugna",
-		"name": "Pugna",
-		"extKey": -1
-	},
-	{
-		"idx": 46,
-		"key": "npc_dota_hero_templar_assassin",
-		"name": "Templar Assassin",
-		"extKey": -1
-	},
-	{
-		"idx": 47,
-		"key": "npc_dota_hero_viper",
-		"name": "Viper",
-		"extKey": -1
-	},
-	{
-		"idx": 48,
-		"key": "npc_dota_hero_luna",
-		"name": "Luna",
-		"extKey": -1
-	},
-	{
-		"idx": 49,
-		"key": "npc_dota_hero_dragon_knight",
-		"name": "Dragon Knight",
-		"extKey": -1
-	},
-	{
-		"idx": 50,
-		"key": "npc_dota_hero_dazzle",
-		"name": "Dazzle",
-		"extKey": -1
-	},
-	{
-		"idx": 51,
-		"key": "npc_dota_hero_rattletrap",
-		"name": "Clockwerk",
-		"extKey": -1
-	},
-	{
-		"idx": 52,
-		"key": "npc_dota_hero_leshrac",
-		"name": "Leshrac",
-		"extKey": -1
-	},
-	{
-		"idx": 53,
-		"key": "npc_dota_hero_furion",
-		"name": "Nature's Prophet",
-		"extKey": -1
-	},
-	{
-		"idx": 54,
-		"key": "npc_dota_hero_life_stealer",
-		"name": "Lifestealer",
-		"extKey": -1
-	},
-	{
-		"idx": 55,
-		"key": "npc_dota_hero_dark_seer",
-		"name": "Dark Seer",
-		"extKey": -1
-	},
-	{
-		"idx": 56,
-		"key": "npc_dota_hero_clinkz",
-		"name": "Clinkz",
-		"extKey": -1
-	},
-	{
-		"idx": 57,
-		"key": "npc_dota_hero_omniknight",
-		"name": "Omniknight",
-		"extKey": -1
-	},
-	{
-		"idx": 58,
-		"key": "npc_dota_hero_enchantress",
-		"name": "Enchantress",
-		"extKey": -1
-	},
-	{
-		"idx": 59,
-		"key": "npc_dota_hero_huskar",
-		"name": "Huskar",
-		"extKey": -1
-	},
-	{
-		"idx": 60,
-		"key": "npc_dota_hero_night_stalker",
-		"name": "Night Stalker",
-		"extKey": -1
-	},
-	{
-		"idx": 61,
-		"key": "npc_dota_hero_broodmother",
-		"name": "Broodmother",
-		"extKey": -1
-	},
-	{
-		"idx": 62,
-		"key": "npc_dota_hero_bounty_hunter",
-		"name": "Bounty Hunter",
-		"extKey": -1
-	},
-	{
-		"idx": 63,
-		"key": "npc_dota_hero_weaver",
-		"name": "Weaver",
-		"extKey": -1
-	},
-	{
-		"idx": 64,
-		"key": "npc_dota_hero_jakiro",
-		"name": "Jakiro",
-		"extKey": -1
-	},
-	{
-		"idx": 65,
-		"key": "npc_dota_hero_batrider",
-		"name": "Batrider",
-		"extKey": -1
-	},
-	{
-		"idx": 66,
-		"key": "npc_dota_hero_chen",
-		"name": "Chen",
-		"extKey": -1
-	},
-	{
-		"idx": 67,
-		"key": "npc_dota_hero_spectre",
-		"name": "Spectre",
-		"extKey": -1
-	},
-	{
-		"idx": 68,
-		"key": "npc_dota_hero_ancient_apparition",
-		"name": "Ancient Apparition",
-		"extKey": -1
-	},
-	{
-		"idx": 69,
-		"key": "npc_dota_hero_doom_bringer",
-		"name": "Doom",
-		"extKey": -1
-	},
-	{
-		"idx": 70,
-		"key": "npc_dota_hero_ursa",
-		"name": "Ursa",
-		"extKey": -1
-	},
-	{
-		"idx": 71,
-		"key": "npc_dota_hero_spirit_breaker",
-		"name": "Spirit Breaker",
-		"extKey": -1
-	},
-	{
-		"idx": 72,
-		"key": "npc_dota_hero_gyrocopter",
-		"name": "Gyrocopter",
-		"extKey": -1
-	},
-	{
-		"idx": 73,
-		"key": "npc_dota_hero_alchemist",
-		"name": "Alchemist",
-		"extKey": -1
-	},
-	{
-		"idx": 74,
-		"key": "npc_dota_hero_invoker",
-		"name": "Invoker",
-		"extKey": -1
-	},
-	{
-		"idx": 75,
-		"key": "npc_dota_hero_silencer",
-		"name": "Silencer",
-		"extKey": -1
-	},
-	{
-		"idx": 76,
-		"key": "npc_dota_hero_obsidian_destroyer",
-		"name": "Outworld Devourer",
-		"extKey": -1
-	},
-	{
-		"idx": 77,
-		"key": "npc_dota_hero_lycan",
-		"name": "Lycan",
-		"extKey": -1
-	},
-	{
-		"idx": 78,
-		"key": "npc_dota_hero_brewmaster",
-		"name": "Brewmaster",
-		"extKey": -1
-	},
-	{
-		"idx": 79,
-		"key": "npc_dota_hero_shadow_demon",
-		"name": "Shadow Demon",
-		"extKey": -1
-	},
-	{
-		"idx": 80,
-		"key": "npc_dota_hero_lone_druid",
-		"name": "Lone Druid",
-		"extKey": -1
-	},
-	{
-		"idx": 81,
-		"key": "npc_dota_hero_chaos_knight",
-		"name": "Chaos Knight",
-		"extKey": -1
-	},
-	{
-		"idx": 82,
-		"key": "npc_dota_hero_meepo",
-		"name": "Meepo",
-		"extKey": -1
-	},
-	{
-		"idx": 83,
-		"key": "npc_dota_hero_treant",
-		"name": "Treant Protector",
-		"extKey": -1
-	},
-	{
-		"idx": 84,
-		"key": "npc_dota_hero_ogre_magi",
-		"name": "Ogre Magi",
-		"extKey": -1
-	},
-	{
-		"idx": 85,
-		"key": "npc_dota_hero_undying",
-		"name": "Undying",
-		"extKey": -1
-	},
-	{
-		"idx": 86,
-		"key": "npc_dota_hero_rubick",
-		"name": "Rubick",
-		"extKey": -1
-	},
-	{
-		"idx": 87,
-		"key": "npc_dota_hero_disruptor",
-		"name": "Disruptor",
-		"extKey": -1
-	},
-	{
-		"idx": 88,
-		"key": "npc_dota_hero_nyx_assassin",
-		"name": "Nyx Assassin",
-		"extKey": -1
-	},
-	{
-		"idx": 89,
-		"key": "npc_dota_hero_naga_siren",
-		"name": "Naga Siren",
-		"extKey": -1
-	},
-	{
-		"idx": 90,
-		"key": "npc_dota_hero_keeper_of_the_light",
-		"name": "Keeper of the Light",
-		"extKey": -1
-	},
-	{
-		"idx": 91,
-		"key": "npc_dota_hero_wisp",
-		"name": "Io",
-		"extKey": -1
-	},
-	{
-		"idx": 92,
-		"key": "npc_dota_hero_visage",
-		"name": "Visage",
-		"extKey": -1
-	},
-	{
-		"idx": 93,
-		"key": "npc_dota_hero_slark",
-		"name": "Slark",
-		"extKey": -1
-	},
-	{
-		"idx": 94,
-		"key": "npc_dota_hero_medusa",
-		"name": "Medusa",
-		"extKey": -1
-	},
-	{
-		"idx": 95,
-		"key": "npc_dota_hero_troll_warlord",
-		"name": "Troll Warlord",
-		"extKey": -1
-	},
-	{
-		"idx": 96,
-		"key": "npc_dota_hero_centaur",
-		"name": "Centaur Warrunner",
-		"extKey": -1
-	},
-	{
-		"idx": 97,
-		"key": "npc_dota_hero_magnataur",
-		"name": "Magnus",
-		"extKey": -1
-	},
-	{
-		"idx": 98,
-		"key": "npc_dota_hero_shredder",
-		"name": "Timbersaw",
-		"extKey": -1
-	},
-	{
-		"idx": 99,
-		"key": "npc_dota_hero_bristleback",
-		"name": "Bristleback",
-		"extKey": -1
-	},
-	{
-		"idx": 100,
-		"key": "npc_dota_hero_tusk",
-		"name": "Tusk",
-		"extKey": -1
-	},
-	{
-		"idx": 101,
-		"key": "npc_dota_hero_skywrath_mage",
-		"name": "Skywrath Mage",
-		"extKey": -1
-	},
-	{
-		"idx": 102,
-		"key": "npc_dota_hero_abaddon",
-		"name": "Abaddon",
-		"extKey": -1
-	},
-	{
-		"idx": 103,
-		"key": "npc_dota_hero_elder_titan",
-		"name": "Elder Titan",
-		"extKey": -1
-	},
-	{
-		"idx": 104,
-		"key": "npc_dota_hero_legion_commander",
-		"name": "Legion Commander",
-		"extKey": -1
-	},
-	{
-		"idx": 105,
-		"key": "npc_dota_hero_techies",
-		"name": "Techies",
-		"extKey": -1
-	},
-	{
-		"idx": 106,
-		"key": "npc_dota_hero_ember_spirit",
-		"name": "Ember Spirit",
-		"extKey": -1
-	},
-	{
-		"idx": 107,
-		"key": "npc_dota_hero_earth_spirit",
-		"name": "Earth Spirit",
-		"extKey": -1
-	},
-	{
-		"idx": 108,
-		"key": "npc_dota_hero_abyssal_underlord",
-		"name": "Underlord",
-		"extKey": -1
-	},
-	{
-		"idx": 109,
-		"key": "npc_dota_hero_terrorblade",
-		"name": "Terrorblade",
-		"extKey": -1
-	},
-	{
-		"idx": 110,
-		"key": "npc_dota_hero_phoenix",
-		"name": "Phoenix",
-		"extKey": -1
-	},
-	{
-		"idx": 111,
-		"key": "npc_dota_hero_oracle",
-		"name": "Oracle",
-		"extKey": -1
-	},
-	{
-		"idx": 112,
-		"key": "npc_dota_hero_winter_wyvern",
-		"name": "Winter Wyvern",
-		"extKey": -1
-	},
-	{
-		"idx": 113,
-		"key": "npc_dota_hero_arc_warden",
-		"name": "Arc Warden",
-		"extKey": -1
-	},
-	{
-		"idx": 114,
-		"key": "npc_dota_hero_monkey_king",
-		"name": "Monkey King",
-		"extKey": -1
-	},
-	{
-		"idx": 119,
-		"key": "npc_dota_hero_dark_willow",
-		"name": "Dark Willow",
-		"extKey": -1
-	},
-	{
-		"idx": 120,
-		"key": "npc_dota_hero_pangolier",
-		"name": "Pangolier",
-		"extKey": -1
-	},
-	{
-		"idx": 121,
-		"key": "npc_dota_hero_grimstroke",
-		"name": "Grimstroke",
-		"extKey": -1
-	},
-	{
-		"idx": 123,
-		"key": "npc_dota_hero_hoodwink",
-		"name": "Hoodwink",
-		"extKey": -1
-	},
-	{
-		"idx": 126,
-		"key": "npc_dota_hero_void_spirit",
-		"name": "Void Spirit",
-		"extKey": -1
-	},
-	{
-		"idx": 128,
-		"key": "npc_dota_hero_snapfire",
-		"name": "Snapfire",
-		"extKey": -1
-	},
-	{
-		"idx": 129,
-		"key": "npc_dota_hero_mars",
-		"name": "Mars",
-		"extKey": -1
-	},
-	{
-		"idx": 131,
-		"key": "npc_dota_hero_ringmaster",
-		"name": "Ring Master",
-		"extKey": -1
-	},
-	{
-		"idx": 135,
-		"key": "npc_dota_hero_dawnbreaker",
-		"name": "Dawnbreaker",
-		"extKey": -1
-	},
-	{
-		"idx": 136,
-		"key": "npc_dota_hero_marci",
-		"name": "Marci",
-		"extKey": -1
-	},
-	{
-		"idx": 137,
-		"key": "npc_dota_hero_primal_beast",
-		"name": "Primal Beast",
-		"extKey": -1
-	},
-	{
-		"idx": 138,
-		"key": "npc_dota_hero_muerta",
-		"name": "Muerta",
-		"extKey": -1
-	},
-	{
-		"idx": 145,
-		"key": "npc_dota_hero_kez",
-		"name": "Kez",
-		"extKey": -1
-	},
-	{
-		"idx": 155,
-		"key": "npc_dota_hero_largo",
-		"name": "Largo",
-		"extKey": -1
+		"ext": 155
 	}
-]
+}

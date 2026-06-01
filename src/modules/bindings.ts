@@ -11,13 +11,9 @@ import { BARRACK_FLAGS, TOWER_FLAGS, type AccountId, type BarracksBitmask,
 import heroIds from '../../public/generated/data/heroBindings.json'
 import abilityIds from '../../public/generated/data/abilityBindings.json'
 import itemIds from '../../public/generated/data/itemBindings.json'
+import { getIdMap } from "../types/clarityTypes.js"
 
-export type HeroIdx = typeof heroIds[number]['idx']
-export type HeroKey = typeof heroIds[number]['key']
-type HeroExtKey = typeof heroIds[number]['extKey']
-const heroKeysByExtKey = Object.fromEntries(
-	heroIds.map(hero => [hero.extKey, hero.idx])
-) as Record<HeroExtKey, HeroIdx>
+const HERO_ID = getIdMap(heroIds, 'key')
 const heroIdxByKey = Object.fromEntries(
 	heroIds.map(hero => [hero.key, hero.idx])
 ) as Record<HeroKey, HeroIdx>
@@ -338,7 +334,7 @@ export function bindMatchSummary(summary: MatchForPlayer, player: AccountId): Pl
 			slot: summary.player_slot ?? undefined
 		},
 		hero: {
-			id: heroKeysByExtKey[summary.hero_id]!,
+			id: HERO_ID[summary.hero_id]!,
 			kda: {
 				kills: summary.kills,
 				deaths: summary.deaths,
@@ -657,7 +653,7 @@ function formatSparsePlayer(player: OdotaUnparsedPlayer): SparsePlayer {
 			spent: player.gold_spent,
 			remaining: player.gold},
 		hero: {
-			id: heroKeysByExtKey[player.hero_id]!,
+			id: HERO_ID[player.hero_id]!,
 			lvl: player.level,
 			abilityUpgrades: player.ability_upgrades_arr.map(ability => {
 				return abilityKeysByExtKey[ability]!
@@ -1072,7 +1068,7 @@ export function parsePickBan(pickBan: PickBan): DraftStep {
 		order: pickBan.order,
 		action: pickBan.is_pick ? 'pick' : 'ban',
 		team: SideByExtKey[pickBan.team as SideExtKey],
-		hero: heroKeysByExtKey[pickBan.hero_id]!,
+		hero: HERO_ID[pickBan.hero_id]!,
 	}
 }
 

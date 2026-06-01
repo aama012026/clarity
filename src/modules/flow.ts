@@ -89,8 +89,8 @@ export function isEmpty<T extends object>(obj: T): boolean {
 	return !Object.values(obj).some(v => !!v)
 }
 
-export function getLocalOrSet<T>(key: string, defaultValue: T): T {
-	return ((item) => item ? JSON.parse(item) : defaultValue)(localStorage.getItem(key))
+export function getLocalOrInit<T>(key: string, initValue: T): T {
+	return ((item) => item ? JSON.parse(item) : initValue)(localStorage.getItem(key))
 }
 
 export function tryGetLocal<T>(key: string): T | null {
@@ -132,7 +132,7 @@ export async function tryGetJson<T>(url: URL, requestInit?: RequestInit): Promis
 export async function tryGetImg(url: URL, logName?: string):Promise<Result<ArrayBuffer>> {
 	const result: Result<ArrayBuffer> = {ok: false}
 	try {
-		console.log(`Fetching ${logName ? logName : url}`)
+		log(`Fetching ${logName ?? url}`)
 		const response = await fetch(url)
 		result.msg = getResponseMsg(url, response.status)
 		if (!response.ok) {
@@ -194,7 +194,8 @@ export function tryGetElements(selector: string, root?: NamedElement): NodeListO
 // ERROR HANDLING
 export function assert<T>(object: T, objectName: string, partialErrorMsg: string): NonNullable<T> {
 	if(!object) {
-		throw new Error(`${partialErrorMsg}: ${objectName} is nullish!`)
+		logError(`${partialErrorMsg}: ${objectName} is nullish!`)
+		throw new Error()
 	}
 	return object;
 }
@@ -204,15 +205,15 @@ export function round(number: number, decimals?: number): number {
 	return Math.round(number * factor) / factor
 }
 
-export function log(msg: string, log: string[]): void {
-	log.push(msg)
+export function log(msg: string, log?: string[]): void {
+	log?.push(msg)
 	console.log(`\n${new Date().toUTCString()}\n${msg}`)
 }
-export function logWarning(msg: string, log: string[]): void {
-	log.push(msg)
+export function logWarning(msg: string, log?: string[]): void {
+	log?.push(msg)
 	console.warn(`\n${new Date().toUTCString()}\n${msg}`)
 }
-export function logError(msg: string, log: string[]): void {
-	log.push(msg)
+export function logError(msg: string, log?: string[]): void {
+	log?.push(msg)
 	console.error(`\n${new Date().toUTCString()}\n${msg}`)
 }

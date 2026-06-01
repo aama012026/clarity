@@ -3,6 +3,7 @@ export const DIR = {
 	BUILD: `public`,
 	GENERATED: `generated`,
 	STATIC: 'static',
+	LOGS: 'logs',
 	DATA: `data`,
 	IMG: `img`,
 	HEROES: `heroes`,
@@ -14,6 +15,9 @@ const IMG_PATH = `${DIR.GENERATED}/${DIR.IMG}`
 
 export const PATHS = {
 	GENERATED_DATA: `${DIR.GENERATED}/${DIR.DATA}`,
+	LOGS: {
+		BUILD: `${DIR.LOGS}/build`
+	},
 	IMG: {
 		HEROES: `${IMG_PATH}/${DIR.HEROES}`,
 		ITEMS: `${IMG_PATH}/${DIR.ITEMS}`,
@@ -26,7 +30,7 @@ export const FILES = {
 	BINDINGS: {
 		HEROES: 'heroBindings.json',
 		ITEMS: 'itemBindings.json',
-		ABILITIES: 'abilityBindings.json'
+		ABILITIES: 'abilityBindings.json',
 	},
 	DATA: {
 		HEROES: 'heroes.json',

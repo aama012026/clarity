@@ -1,7 +1,7 @@
 import axios from 'axios';
 import type {AxiosResponse} from 'axios';
 import {PATHS} from './modules/paths.js';
-import {getLocalOrSet, round, setLocal, tryGetElement, tryGetLocal, type NamedElement,
+import {getLocalOrInit, round, setLocal, tryGetElement, tryGetLocal, type NamedElement,
 	type Result, type UnixTimestamp 
 } from './modules/flow.js';
 import {bindPlayer, formatFullMatch, bindMatchSummary, formatRankDistribution,
@@ -74,7 +74,7 @@ const sections = {
 	rankDistribution: tryGetElement<HTMLDivElement>('#rank-distribution')
 }
 
-const calls = getLocalOrSet<CallsLeft>(
+const calls = getLocalOrInit<CallsLeft>(
 	LocalDataKey.CALL_LIMIT_TIMESTAMPS, {
 		minute: {left: 60, sinceWhen: Date.now() as UnixTimestamp},
 		today: {left: 3000, sinceWhen: Date.now() as UnixTimestamp}
