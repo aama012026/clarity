@@ -11,38 +11,19 @@ import { BARRACK_FLAGS, TOWER_FLAGS, type AccountId, type BarracksBitmask,
 import heroIds from '../../public/generated/data/heroBindings.json'
 import abilityIds from '../../public/generated/data/abilityBindings.json'
 import itemIds from '../../public/generated/data/itemBindings.json'
-import { getIdMap } from "../types/clarityTypes.js"
+import { getIdMap, type Binding, type Ids } from "../types/clarityTypes.js"
+import { ATTRIBUTES, DAMAGE_TYPES, SIDES, STRUCTURE_FLAGS, type Side, type StructureFlag, type StructuresBitmask } from "./domainConstants.js"
 
-const HERO_ID = getIdMap(heroIds, 'key')
-const heroIdxByKey = Object.fromEntries(
-	heroIds.map(hero => [hero.key, hero.idx])
-) as Record<HeroKey, HeroIdx>
-export const heroNames = Object.fromEntries(
-	heroIds.map(hero => [hero.idx, hero.name])
-) as Record<HeroIdx, HeroKey>
 
-export type AbilityIdx = typeof abilityIds[number]['idx']
-export type AbilityKey = typeof abilityIds[number]['key']
-type AbilityExtKey = typeof abilityIds[number]['extKey']
-const abilityKeysByExtKey = Object.fromEntries(
-	abilityIds.map(ability => [ability.extKey, ability.idx])
-) as Record<AbilityExtKey, AbilityIdx>
-const abilityIdxByKey = Object.fromEntries(
-	abilityIds.map(ability => [ability.key, ability.idx])
-) as Record<AbilityKey, AbilityIdx>
-export const abilityNames = Object.fromEntries(
-	abilityIds.map(ability => [ability.idx, ability.name])
-) as Record<AbilityIdx, AbilityKey>
-
-export type ItemIdx = typeof itemIds[number]['idx']
-export type ItemKey = typeof itemIds[number]['key']
-type ItemExtKey = typeof itemIds[number]['extKey']
-const ItemIdxByKey = Object.fromEntries(
-	itemIds.map(item => [item.key, item.idx])
-) as Record<ItemKey, ItemIdx>
-const ItemIdxByExtKey = Object.fromEntries(
-	itemIds.map(item => [item.extKey, item.idx])
-) as Record<ItemExtKey, ItemIdx>
+const HERO_IDS = heroIds as Ids<Binding>
+type HeroId = keyof typeof heroIds
+const HERO_ID = getIdMap(HERO_IDS, 'key')
+const ITEM_ID = getIdMap(itemIds, 'key')
+const ABILITY_ID = getIdMap(abilityIds, 'key')
+const SIDE = getIdMap(SIDES, 'key')
+const DAMAGE_TYPE = getIdMap(DAMAGE_TYPES, 'key')
+export const ATTRIBUTE = getIdMap(ATTRIBUTES, 'key') 
+export const ATTRIBUTE_BINDING = getIdMap(ATTRIBUTES, 'ext')
 
 // This comes as a bool from opendota, so no need to freeze keys atm.
 export type Outcome = 'win' | 'loss'
@@ -51,7 +32,7 @@ export type PermanentBuffId = Unique<number, 'permanentBuff'>
 function setStructureBitmask(
 	towers: TowersBitmask,
 	barracks: BarracksBitmask,
-	side: SideKey,
+	side: Side,
 	won: boolean
 ) {
 	let standingStructures = 0
@@ -61,7 +42,7 @@ function setStructureBitmask(
 	let raxBitshift = 0
 	let t4Safe = TOWER_FLAGS.T4.BOT
 	let t4Off = TOWER_FLAGS.T4.TOP
-	if(side === 'DIRE') {
+	if(side === SIDE.DIRE) {
 		towerBitshift = 6
 		raxBitshift = 4
 		t4Safe = TOWER_FLAGS.T4.TOP

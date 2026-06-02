@@ -1,3 +1,4 @@
+import type { Attribute } from "../modules/domainConstants.js"
 import { getIdMap, type Binding, type IdData, type IdMap, type Ids } from "./clarityTypes.js"
 import type { ItemAbility, ItemAttribute } from "./DotaConstantsTypes.js"
 
@@ -15,7 +16,7 @@ export interface Hero {
 	baseMagicResist: number,
 	baseAttack: Attack,
 	attributes: {
-		primary: AttributeIdx,
+		primary: Attribute,
 		base: AttributeSet,
 		gain: AttributeSet
 	},
@@ -29,18 +30,6 @@ interface Resource {
 	size: number,
 	regen: number
 }
-
-const ATTRIBUTES = {
-	0: {key:'STR', name:'strength', ext:'str'},
-	1: {key:'AGI', name:'agility', ext:'agi'},
-	2: {key:'INT', name:'intelligence', ext: 'int'},
-	3: {key:'UNI', name:'universal', ext:'all'}
-} as const satisfies Ids<Binding<string> & IdData<'name'>>
-export type AttributeIdx = keyof typeof ATTRIBUTES
-export type AttributeName = typeof ATTRIBUTES[AttributeIdx]['name']
-export type AttributeExtKey = typeof ATTRIBUTES[AttributeIdx]['ext']
-export const ATTRIBUTE = getIdMap(ATTRIBUTES, 'key') 
-export const ATTRIBUTE_BINDING = getIdMap(ATTRIBUTES, 'ext')
 
 interface AttributeSet {
 	strength: number,
@@ -93,18 +82,6 @@ export interface Item {
 	dmgType?: 'Physical' | 'Magical' | 'Pure' | string,
 	tier?: number
 }
-
-const DAMAGE_TYPES = {
-	0: {key: 'PHYS', name: 'physical', ext: 'Physical'},
-	1: {key: 'MAGI', name: 'magical', ext: 'Magical'},
-	2: {key: 'PURE', name: 'pure', ext: 'Pure'},
-	3: {key: 'UNKN', name: 'other', ext: ''},
-} as const satisfies Ids<Binding<string> & IdData<'name'>>
-
-type dmgTypeIdx = keyof typeof DAMAGE_TYPES
-const DAMAGE_TYPE = Object.fromEntries(
-	Object.entries(DAMAGE_TYPES).map(([idx, {key}]) => [key, parseInt(idx)])
-) as IdMap<typeof DAMAGE_TYPES, 'key'>
 
 export interface Targets {
 	team?: string[],

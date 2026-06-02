@@ -5,6 +5,7 @@ export const SIDES = {
 	0: {key:'RADIANT', ext:0},
 	1: {key:'DIRE', ext:1}
 } as const satisfies Ids<Binding>
+export type Side = keyof typeof SIDES
 
 export const LANES = {
 	0: {key:'SAF', name:'safelane', ext:1},
@@ -303,3 +304,22 @@ export const RANK_NAMES = {
 	7:{key:'DIVINE'},
 	8:{key:'IMMORTAL'}
 } as const satisfies Ids
+
+export const DAMAGE_TYPES = {
+	0: {key: 'PHYS', name: 'physical', ext: 'Physical'},
+	1: {key: 'MAGI', name: 'magical', ext: 'Magical'},
+	2: {key: 'PURE', name: 'pure', ext: 'Pure'},
+	3: {key: 'UNKN', name: 'other', ext: ''},
+} as const satisfies Ids<Binding<string> & IdData<'name'>>
+
+export type dmgType = keyof typeof DAMAGE_TYPES
+
+export const ATTRIBUTES = {
+	0: {key:'STR', name:'strength', ext:'str'},
+	1: {key:'AGI', name:'agility', ext:'agi'},
+	2: {key:'INT', name:'intelligence', ext: 'int'},
+	3: {key:'UNI', name:'universal', ext:'all'}
+} as const satisfies Ids<Binding<string> & IdData<'name'>>
+export type Attribute = keyof typeof ATTRIBUTES
+export type AttributeName = typeof ATTRIBUTES[Attribute]['name']
+export type AttributeBinding = typeof ATTRIBUTES[Attribute]['ext']

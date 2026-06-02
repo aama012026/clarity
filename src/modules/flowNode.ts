@@ -1,51 +1,42 @@
 // Node part of user library
 import fs from 'node:fs/promises'
+import { logError, logMessage, type Log, type LogEntry } from './flow'
 
-export interface Result<T> {
-	data: T | null,
+export interface Result<Data, Log> {
+	data: Data | null,
 	ok: boolean,
-	msg?: string
+	msg: Log[]
 }
 
-export async function tryReadJSON<T>(filePath: string): Promise<Result<T>> {
+export async function tryReadJSON<T>(filePath: string): Promise<Result<T, LogEntry>> {
+	let log: LogEntry[] = []
 	try {
-		console.log(`reading ${filePath}...`)
+		logMessage(`Reading ${filePath}...`, log)
 		const contents = await fs.readFile(filePath, {encoding: 'utf8'})
-		return {data: JSON.parse(contents) as T, ok: true}
+		logMessage(`Read ${filePath} in ${Date.now() - log[0]!.timestamp.getTime()}`, log)
+		return {data: JSON.parse(contents) as T, ok: true, msg: log}
 	}
-	catch(err) {
-		const error = err as Error
-		return {data: null, ok: false, msg: error.message}
-	}
-}
-
-export async function tryWriteJSON(filePath: string, data: any): Promise<Error | void> {
-	try {
-		console.log(`Writing ${filePath}...`)
-		const pathComponents = filePath.split('/')
-		pathComponents.pop()
-		const directory = pathComponents.join('/')
-		await fs.mkdir(directory, {recursive: true})
-		await fs.writeFile(filePath, JSON.stringify(data, null, '\t'))
-		console.log(`Wrote ${filePath}!`)
-	}
-	catch (error) {
-		return new Error(`Could not write ${filePath}: ${error}`)
+	catch(e) {
+		const error = e as Error
+		logError(error.message, log)
+		return {data: null, ok: false, msg: log}
 	}
 }
 
-
-export async function tryWriteImg(filePath: string, data: Buffer): Promise<Error | void> {
+export async function tryWrite(filePath: string, data: any): Promise<Result<void, LogEntry>> {
+	let log: LogEntry[] = []
 	try {
-		console.log(`Writing ${filePath}...`);
-		const pathComponents = filePath.split('/')
-		pathComponents.pop()
-		const directory = pathComponents.join('/')
-		await fs.mkdir(directory, {recursive: true})
-		await fs.writeFile(filePath, data);
-		console.log(`Wrote ${filePath}!`);
+		logMessage(`Writing ${filePath}...\n`, log)
+		const bytesWritten = await Bun.write(filePath, data)
+		logMessage(`Wrote ${bytesWritten} bytes to ${filePath} in ${Date.now() - log[0]!.timestamp.getTime()}ms.\n`, log)
+		return {data, ok: true, msg: log}
 	}
 	catch (error) {
-		return new Error(`Could not write ${filePath}: ${error}`);
+		logError(`Could not write ${filePath}: ${error}`, log)
+		return {data, ok: false, msg: log}
 	}
+}
+
+export async function tryWriteJSON(filePath: string, data: any): Promise<Result<void, LogEntry>>{
+	return tryWrite(filePath, JSON.stringify(data))
 }

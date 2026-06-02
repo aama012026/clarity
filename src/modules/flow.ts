@@ -1,5 +1,7 @@
 // USER LIBRARY WITH UNIQUE NAME TO AVOID STANDARD COLLISIONS
 
+import type { Result } from "./flowNode"
+
 export declare const _brand: unique symbol
 export type Unique<T, B> = T & {readonly [_brand]: B}
 export type Id<B> = Unique<number, B>
@@ -101,54 +103,47 @@ export function setLocal<T>(key: string, value: T) {
 	localStorage.setItem(key, JSON.stringify(value))
 }
 
-export interface Result<T> {
-	ok: boolean,
-	data?: T,
-	msg?: string
-}
-
-export async function tryGetJson<T>(url: URL, requestInit?: RequestInit): Promise<Result<T>> {
-	const result: Result<T> = {ok: false}
+export async function tryGetJson<T>(url: URL, requestInit?: RequestInit): Promise<Result<T, LogEntry>> {
+	const result: Result<T, LogEntry> = {data: null, ok: false, msg: []}
 	try {
-		console.log(`Fetching ${url}...`)
+		logMessage(`Fetching ${url}...`, result.msg)
 		const response = requestInit? await fetch(url, requestInit) : await fetch(url)
-		result.msg = getResponseMsg(url, response.status)
+		let msg = getResponseMsg(url, response.status)
 		if(!response.ok) {
-			result.msg += `\nResponse body: ${await response.text()}`
+			msg += `\nResponse body: ${await response.text()}`
+			logError(msg, result.msg)
 			return result
 		}
+		logMessage(msg, result.msg)
 		result.data = await response.json() as T
 		result.ok = true
 		return result
 	}
 	catch (error) {
-		return {
-			ok: false,
-			msg: error instanceof Error ? `tryGetJson failed for url: ${url}\n${error.message}` : `tryGetJson failed unexpectedly for url: ${url}`
-		}
+		logError(error instanceof Error ? `tryGetJson failed for url: ${url}\n${error.message}` : `tryGetJson failed unexpectedly for url: ${url}`, result.msg)
+		return result
 	}
 }
 
-export async function tryGetImg(url: URL, logName?: string):Promise<Result<ArrayBuffer>> {
-	const result: Result<ArrayBuffer> = {ok: false}
+export async function tryGetImg(url: URL, logName?: string):Promise<Result<ArrayBuffer, LogEntry>> {
+	const result: Result<ArrayBuffer, LogEntry> = {data: null, ok: false, msg: []}
 	try {
-		log(`Fetching ${logName ?? url}`)
+		logMessage(`Fetching ${logName ?? url}`, result.msg)
 		const response = await fetch(url)
-		result.msg = getResponseMsg(url, response.status)
+		let msg = getResponseMsg(url, response.status)
 		if (!response.ok) {
-			result.msg += `\nResponse body: ${await response.text()}`
+			msg += `\nResponse body: ${await response.text()}`
+			logError(msg, result.msg)
 			return result
 		}
-		console.log(`Got ${logName ? logName + ': ' + url : url}`)
+		logMessage(`Got ${logName ? logName + ': ' + url : url}`, result.msg)
 		result.data = await response.arrayBuffer()
 		result.ok = true
 		return result
 	}	
 	catch (error) {
-		return {
-			ok: false,
-			msg: error instanceof Error ? `tryGetImg failed for url: ${url}\n${error.message}` : `tryGetImg failed unexpectedly for url: ${url}`
-		}
+		logError(error instanceof Error ? `tryGetImg failed for url: ${url}\n${error.message}` : `tryGetImg failed unexpectedly for url: ${url}`, result.msg)
+		return result
 	}
 }
 
@@ -205,20 +200,34 @@ export function round(number: number, decimals?: number): number {
 	return Math.round(number * factor) / factor
 }
 
-export interface LogEntry {timestamp: string, msg: string}
+export const LOG_LVL = {
+	DBG: 0,
+	MSG: 1,
+	WRN: 2,
+	ERR: 3
+} as const
+type LogLvl = typeof LOG_LVL[keyof typeof LOG_LVL]
+export interface LogEntry {timestamp: Date, msg: string, lvl: LogLvl}
+export interface Log {messages: LogEntry[], warnings: LogEntry[], errors: LogEntry[]}
 
-export function log(msg: string, log?: LogEntry[]): void {
-	const entry: LogEntry = {timestamp: new Date().toUTCString(), msg: msg}
+export function logEntry(msg: string, lvl: LogLvl ): LogEntry {
+	return {timestamp: new Date(), msg: msg, lvl: lvl}
+}
+export function getLogString(entry: LogEntry): string {
+	return `${entry.timestamp.toUTCString}: ${entry.msg}`
+}
+export function logMessage(msg: string, log?: LogEntry[]): void {
+	const entry = logEntry(msg, LOG_LVL.MSG)
 	log?.push(entry)
-	console.log(`\n${entry.timestamp}\n${entry.msg}`)
+	console.log(getLogString(entry))
 }
 export function logWarning(msg: string, log?: LogEntry[]): void {
-	const entry: LogEntry = {timestamp: new Date().toUTCString(), msg: msg}
+	const entry = logEntry(msg, LOG_LVL.WRN)
 	log?.push(entry)
-	console.warn(`\n${entry.timestamp}\n${entry.msg}`)
+	console.warn(getLogString(entry))
 }
 export function logError(msg: string, log?: LogEntry[]): void {
-	const entry: LogEntry = {timestamp: new Date().toUTCString(), msg: msg}
+	const entry = logEntry(msg, LOG_LVL.ERR)
 	log?.push(entry)
-	console.error(`\n${entry.timestamp}\n${entry.msg}`)
+	console.error(entry)
 }
