@@ -208,14 +208,17 @@ export function round(number: number, decimals?: number): number {
 export interface LogEntry {timestamp: string, msg: string}
 
 export function log(msg: string, log?: LogEntry[]): void {
-	log?.push({timestamp: new Date().toUTCString(), msg:msg})
-	console.log(`\n${new Date().toUTCString()}\n${msg}`)
+	const entry: LogEntry = {timestamp: new Date().toUTCString(), msg: msg}
+	log?.push(entry)
+	console.log(`\n${entry.timestamp}\n${entry.msg}`)
 }
 export function logWarning(msg: string, log?: LogEntry[]): void {
-	log?.push({timestamp: new Date().toUTCString(), msg:msg})
-	console.warn(`\n${new Date().toUTCString()}\n${msg}`)
+	const entry: LogEntry = {timestamp: new Date().toUTCString(), msg: msg}
+	log?.push(entry)
+	console.warn(`\n${entry.timestamp}\n${entry.msg}`)
 }
 export function logError(msg: string, log?: LogEntry[]): void {
-	log?.push({timestamp: new Date().toUTCString(), msg:msg})
-	console.error(`\n${new Date().toUTCString()}\n${msg}`)
+	const entry: LogEntry = {timestamp: new Date().toUTCString(), msg: msg}
+	log?.push(entry)
+	console.error(`\n${entry.timestamp}\n${entry.msg}`)
 }
