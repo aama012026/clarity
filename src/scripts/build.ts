@@ -31,63 +31,62 @@ await tryWriteJSON(`${PATHS.LOGS.BUILD}-${new Date().toUTCString()}.txt`, log)
 
 // Heroes
 async function tryUpdateHeroes() {
-	let res
-	const [heroResult, oldHeroBindingsResult] = await Promise.all([
+	const [heroesRes, oldHeroBindingsRes] = await Promise.all([
 		tryGetJson<Record<string, DotaConstantsHero>>(HEROES_URL),
 		tryReadJSON<Ids<Binding<number>>>(HERO_BINDINGS_PATH),
 	])
-
-	if(!heroResult.ok) {
-		logError(heroResult.msg!, log)
+	log.push(...heroesRes.msg, ...oldHeroBindingsRes.msg)
+	if(!(heroesRes.ok && heroesRes.data)) {
 		return
 	}
-	// Update Id bindings
-	const rawHeroes = Object.values(assert(heroResult.data, 'heroResult.data', 'Could not unpack rawHeroes'))
-	const newHeroIds: ExtId[] = rawHeroes.map(
-		({id, name}) => {return {key: name.replace('npc_dota_hero_', ''), ext: id}}
-	)
-	const oldHeroBindings = oldHeroBindingsResult.data ?? {}
+	// Update bindings
+	const rawHeroes = Object.values(heroesRes.data)
+	const newHeroIds: ExtId[] = rawHeroes.map(({id, name}) => {
+		return {key: name.replace('npc_dota_hero_', ''), ext: id}
+	})
+	const oldHeroBindings = oldHeroBindingsRes.data ?? {}
 	const newHeroBindings = tryUpdateNumericIdBindings(newHeroIds, oldHeroBindings)
 	if(!newHeroBindings) {
 		return
 	}
-	res = await tryWriteJSON(HERO_BINDINGS_PATH, newHeroBindings)
-	log.concat(res.msg ?? [])
-	if(!res.ok) {
-		logError(`Could not write new HeroBindings:${res.msg}\n Hero bindings cancelled.`, log)
+	// Write bindings
+	const bindingsWriteRes = await tryWriteJSON(HERO_BINDINGS_PATH, newHeroBindings)
+	log.push(...bindingsWriteRes.msg)
+	if(!bindingsWriteRes.ok) {
 		return
 	}
-	// Format Heroes to our bind shape.
-	const HeroIdxByExtKey  = getIdMap(newHeroBindings, 'ext')
+	// bind heroes to our shape.
+	const HeroIdByExt  = getIdMap(newHeroBindings, 'ext')
 	const boundHeroes: Record<number, Hero> = Object.fromEntries(
-		rawHeroes.map(hero => [HeroIdxByExtKey[hero.id], bindHero(hero)])
+		rawHeroes.map(hero => [HeroIdByExt[hero.id], bindHero(hero)])
 	)
-	res = await tryWriteJSON(HERO_DATA_PATH, boundHeroes)
-	log.concat(res.msg ?? [])
+	tryWriteJSON(HERO_DATA_PATH, boundHeroes).then(r => log.push(...r.msg))
 	// Get hero images
 	rawHeroes.forEach(async hero => {
 		const img = await tryGetImg(new URL(hero.img, CDN_HOST))
+		log.push(...img.msg)
 		if(!img.ok) {
-			logError(img.msg!, log)
+			return
 		}
-		await tryWrite(`${DIR.BUILD}/${PATHS.IMG.HEROES}/${hero.name.replace('npc_dota_hero_','')}.png`, Buffer.from(
-			assert(img.data, 'img.data', 'Could not convert to buffer')
-		))
+		tryWrite(
+			`${DIR.BUILD}/${PATHS.IMG.HEROES}/${hero.name.replace('npc_dota_hero_','')}.png`,
+			Buffer.from(img.data!)
+		).then(r => log.push(...r.msg))
 	});
 }
 
 // Items
 async function tryUpdateItems() {
-	let err = undefined
 	const [itemsResult, oldItemBindingsResult] = await Promise.all([
 		tryGetJson<Record<string, DotaConstantsItem>>(ITEMS_URL),
 		tryReadJSON<Ids<Binding>>(ITEM_BINDINGS_PATH)
 	])
+	log.push(...itemsResult.msg, ...oldItemBindingsResult.msg)
 	if(!(itemsResult.ok && itemsResult.data)) {
-		logError(`Could not get items from dotaconstants repo: ${itemsResult.msg}`)
+		logError(`Could not get items from dotaconstants repo: ${itemsResult.msg}`, log)
 		return
 	}
-	const items = Object.entries(itemsResult.data!)
+	const items = Object.entries(itemsResult.data)
 	const newItemIds: ExtId[] = items.map(([dataName, item]) => {
 		return {
 			ext: item.id,
@@ -99,92 +98,76 @@ async function tryUpdateItems() {
 	if(!newItemBindings) {
 		return
 	}
-	err = await tryWriteJSON(ITEM_BINDINGS_PATH, newItemBindings)
-	if(err) {
-		logError(err.message, logs.errors)
+	const bindingsWriteRes = await tryWriteJSON(ITEM_BINDINGS_PATH, newItemBindings)
+	log.push(...bindingsWriteRes.msg)
+	if(!bindingsWriteRes.ok) {
 		return
 	}
-	else {
-		logMessage(`Updated item id bindings.`, logs.messages)
-	}
+
 
 	const ItemByExtKey = getIdMap(newItemBindings, 'ext')
 	const boundItems: Record<number, Item> = Object.fromEntries(
 		items.map(([key, item]) => [ItemByExtKey[item.id], bindItem(item, key)])
 	)
-	err = await tryWriteJSON(ITEMS_PATH, boundItems)
-	if(err) {
-		logError(err.message, logs.errors)
-		return
-	}
-	else {
-		logMessage('Updated item data.', logs.messages)
-	}
+	tryWriteJSON(ITEMS_PATH, boundItems).then(r => log.push(...r.msg))
+	
 	// Get images
 	items.forEach(async ([label, item]) => {
 		const img = await tryGetImg(new URL(item.img, CDN_HOST))
-		if(!img.ok) {
-			logError(img.msg!, logs.errors)
-		}
-		const error = await tryWrite(`${DIR.BUILD}/${PATHS.IMG.ITEMS}/${label}.png`, Buffer.from(
-			assert(img.data, 'img.data', 'Could not convert to buffer')
-		))
-		if(error) {
-			logError(error.message, logs.errors)
+		log.push(...img.msg)
+		if(img.ok && img.data) {
+			tryWrite(
+				`${DIR.BUILD}/${PATHS.IMG.ITEMS}/${label}.png`,
+				Buffer.from(img.data)
+			).then(r => log.push(...r.msg))
 		}
 	});
 }
 
 // Abilities
 async function tryUpdateAbilities() {
-	const abilityIdsResult = await tryGetJson<Record<number, string>>(ABILITY_IDS_URL)
-	const abilitiesResult = await tryGetJson<Record<string, any>>(ABILITIES_URL)
+	const [abilityIdsResult, abilitiesResult] = await Promise.all([
+		tryGetJson<Record<number, string>>(ABILITY_IDS_URL),
+		tryGetJson<Record<string, any>>(ABILITIES_URL)
+	])
+	log.push(...abilityIdsResult.msg, ...abilitiesResult.msg)
 	const abilityIds = abilityIdsResult.data
 	const abilities = abilitiesResult.data
-	if(!(abilityIdsResult.ok || !abilityIds)) {
-		logError(`Could not get ${ABILITY_IDS_URL}: ${abilityIdsResult.msg} Ability update cancelled.`, logs.errors)
+	if(!(abilityIdsResult.ok && abilityIds && abilitiesResult.ok && abilities)) {
 		return
 	}
-	else if(!abilitiesResult.ok || !abilities) {
-		logError(`Could not get ${ABILITIES_URL}: ${abilitiesResult.msg} Ability update cancelled.`, logs.errors)
-		return
-	}
-	else {
-		const newAbilityIds: ExtId[] = []
-		const imgResources: {url: URL, name: string}[] = []
-		Object.entries(abilityIds!).forEach(([ext, key]) => {
-			const id = {ext: parseInt(ext), key: key}
-			const ability = abilities[key]
-			if(!ability){
-				logError(`Could not get ability for key ${key}.`, logs.errors)
-			}
-			else {
-				newAbilityIds.push({key: key, ext: parseInt(ext)})
-				if(ability.img) {
-					imgResources.push({url: new URL(ability.img, CDN_HOST), name: key})
-				}
-			}
-		})
-		imgResources.forEach(async (resource) => {
-			const img = await tryGetImg(new URL(resource.url, CDN_HOST))
-				if(!img.ok) {
-					logError(img.msg!, logs.errors)
-				}
-				else {
-					const error = await tryWrite(`${DIR.BUILD}/${PATHS.IMG.ABILITIES}/${resource.name}.png`, Buffer.from(
-						assert(img.data, 'img.data', 'Could not convert to buffer')
-					))
-					if(error) {
-						logError(error.message, logs.errors)
-					}
-				}
-		})
-		const oldAbilityBindings = (await tryReadJSON<Ids<Binding>>(ABILITY_BINDINGS_PATH)).data ?? {}
-		const newAbilityBindings = tryUpdateNumericIdBindings(newAbilityIds, oldAbilityBindings)
-		const err = await tryWriteJSON(ABILITY_BINDINGS_PATH, newAbilityBindings)
-		if(err) {
-			logError(err.message, logs.errors)
+	const newAbilityIds: ExtId[] = []
+	const imgResources: {url: URL, name: string}[] = []
+	Object.entries(abilityIds).forEach(([ext, key]) => {
+		const id = {ext: parseInt(ext), key: key}
+		const ability = abilities[key]
+		if(!ability){
+			logError(`Could not get ability for key ${key}.`, log)
 		}
+		else {
+			newAbilityIds.push({key: key, ext: parseInt(ext)})
+			if(ability.img) {
+				imgResources.push({url: new URL(ability.img, CDN_HOST), name: key})
+			}
+		}
+	})
+	imgResources.forEach(async (resource) => {
+		tryGetImg(new URL(resource.url, CDN_HOST)).then(async img => {
+			log.push(...img.msg)
+			if(img.ok && img.data) {
+				tryWrite(
+					`${DIR.BUILD}/${PATHS.IMG.ABILITIES}/${resource.name}.png`,
+					Buffer.from(img.data)
+				).then(r => log.push(...r.msg))
+			}
+		})
+	})
+	const oldAbilityBindings = (await tryReadJSON<Ids<Binding>>(ABILITY_BINDINGS_PATH)).data ?? {}
+	const newAbilityBindings = tryUpdateNumericIdBindings(newAbilityIds, oldAbilityBindings)
+	if(newAbilityBindings) {
+		tryWriteJSON(ABILITY_BINDINGS_PATH, newAbilityBindings).then(
+			r => log.push(...r.msg)
+		)
 	}
 }
 
@@ -228,7 +211,7 @@ function tryUpdateNumericIdBindings(newIds: ExtId[], oldIds: Ids<Binding>) {
 		}
 		if(error) {
 			hasDuplicateEntries = true
-			logError(errorMsg, logs.errors)
+			logError(errorMsg, log)
 		}
 		else {
 			existingByExtKey.set(b.ext, b)
@@ -249,7 +232,7 @@ function tryUpdateNumericIdBindings(newIds: ExtId[], oldIds: Ids<Binding>) {
 		// If key exist -> assign binding to existing <idx, key> pair.
 		if(oldBindingByNewKey) {
 			if(oldBindingByNewKey.ext != binding.ext) {
-				logWarning(`External id for key ${binding.key} changed from ${oldBindingByNewKey.ext} to ${binding.ext}.`, logs.warnings)
+				logWarning(`External id for key ${binding.key} changed from ${oldBindingByNewKey.ext} to ${binding.ext}.`, log)
 			}	
 			idx = oldBindingByNewKey.idx
 		}
@@ -257,10 +240,10 @@ function tryUpdateNumericIdBindings(newIds: ExtId[], oldIds: Ids<Binding>) {
 		else {
 			idx = assignedIndices.has(binding.ext) ? getNextAvailableKey() : binding.ext
 			if(oldBindingByNewExtKey) {
-				logWarning(`External id for new key ${binding.key} was already bound: ${JSON.stringify(oldBindingByNewExtKey)}.`, logs.warnings)
+				logWarning(`External id for new key ${binding.key} was already bound: ${JSON.stringify(oldBindingByNewExtKey)}.`, log)
 			}
 			else {
-				logMessage(`added new binding ${JSON.stringify(binding)}`, logs.messages)
+				logMessage(`added new binding ${JSON.stringify(binding)}`, log)
 			}
 		}
 		newBindings[idx] = binding
@@ -280,7 +263,7 @@ function tryUpdateNumericIdBindings(newIds: ExtId[], oldIds: Ids<Binding>) {
 				ext: newBindingsExtKeys.has(binding.ext) ? -1 : binding.ext
 			}
 			newBindings[idx] = deprecatedBinding
-			logWarning(`Transferred old binding ${JSON.stringify(deprecatedBinding)}, which was not present in new dataset.`, logs.warnings)
+			logWarning(`Transferred old binding ${JSON.stringify(deprecatedBinding)}, which was not present in new dataset.`, log)
 		}
 	})
 	return newBindings
@@ -343,7 +326,7 @@ function bindHero(hero: DotaConstantsHero): Hero {
 function bindItem(item: DotaConstantsItem, dataName: string): Item {
 	let name = item.dname
 	if(!name) {
-		logWarning(`${dataName} does not have property dname. Attempting to generate name`, logs.warnings)
+		logWarning(`${dataName} does not have property dname. Attempting to generate name`, log)
 		name = generateMissingItemName(dataName)
 	}
 	const boundItem: Item = {
