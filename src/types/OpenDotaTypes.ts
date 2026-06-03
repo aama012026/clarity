@@ -1,6 +1,6 @@
 import type { ISO8601TimeString, Unique, UnixTimestamp } from "../modules/flow.js"
 import type { AbilityId, GameModeId, HeroId, ItemId, LobbyTypeId, PatchId, RegionId,
-	UnitOrderId } from "./DotaConstantsTypes.js"
+	UnitOrderId } from "./dotaConstantsTypes.js"
 
 // Type guards
 export type MatchId = Unique<number, 'match'>

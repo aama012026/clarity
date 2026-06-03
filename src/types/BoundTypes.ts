@@ -1,8 +1,5 @@
-import type { Attribute } from "../modules/domainConstants.js"
-import { getIdMap, type Binding, type IdData, type IdMap, type Ids } from "./clarityTypes.js"
-import type { ItemAbility, ItemAttribute } from "./DotaConstantsTypes.js"
-
-
+import type { Attribute } from "../modules/domainConstants"
+import type { ItemAbility, ItemAttribute } from "./dotaConstantsTypes"
 
 export interface Hero {
 	name: {

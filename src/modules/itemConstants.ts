@@ -1,6 +1,5 @@
-import { ATTRIBUTE, type AttributeIdx} from "../types/BoundTypes"
 import { getIdMap, type IdData, type Ids } from "../types/clarityTypes"
-import type { ItemKey } from "./bindings"
+import { ATTRIBUTE } from "./bindings"
 
 export const GROUPS = {
 	0: {key:'CONS', name: 'consumables'},

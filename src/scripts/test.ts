@@ -1,6 +1,6 @@
 import * as ITEMS from '../modules/itemConstants'
 import itemJson from '../../public/generated/data/items.json'
-import type { Item } from '../types/BoundTypes'
+import type { Item } from '../types/boundTypes'
 import type { ItemKey } from '../modules/bindings'
 const items = itemJson as Record<ItemKey, Item>
 

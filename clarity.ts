@@ -41,10 +41,10 @@ const itemsPage = makeItemsPage(
 import { makeHead, makeHeader, makeItem, makeItemGrid, makeItemsPage, makeItemsPanel, makeMatchHistorySection, makeMatchSummary } from './transpiled/templates';
 import { PATHS } from './src/modules/paths';
 import { bindPlayer, bindMatchSummary, heroNames, RANK_NAMES, type Player, type PlayerMatchSummary, type ItemKey } from './src/modules/bindings';
-import { LEAVER_STATUS, leaverStatusByKey, type AccountId, type MatchForPlayer, type OdotaPlayer, type RankBitmask } from './src/types/OpenDotaTypes';
+import { LEAVER_STATUS, leaverStatusByKey, type AccountId, type MatchForPlayer, type OdotaPlayer, type RankBitmask } from './src/types/openDotaTypes';
 
 import axios from 'axios';
-import type { Item } from './src/types/BoundTypes'
+import type { Item } from './src/types/boundTypes'
 axios.defaults.baseURL = 'https://api.opendota.com/api'
 
 const ENDPOINT = {

@@ -1,6 +1,8 @@
 export const DIR = {
-	ROOT: `public`,
 	BUILD: `public`,
+	SRC: 'src',
+	TYPES: 'types',
+	MODULES: 'src',
 	GENERATED: `generated`,
 	STATIC: 'static',
 	LOGS: 'logs',
@@ -23,18 +25,23 @@ export const PATHS = {
 		ITEMS: `${IMG_PATH}/${DIR.ITEMS}`,
 		ABILITIES: `${IMG_PATH}/${DIR.ABILITIES}`,
 		MEDALS: `${DIR.STATIC}/${DIR.IMG}/${DIR.MEDALS}`
-	}
+	},
+	TYPES: `${DIR.SRC}/${DIR.TYPES}`
 } as const
 
 export const FILES = {
 	BINDINGS: {
-		HEROES: 'heroBindings.json',
-		ITEMS: 'itemBindings.json',
-		ABILITIES: 'abilityBindings.json',
+		HEROES: 'heroBindings.ts',
+		ITEMS: 'itemBindings.ts',
+		ABILITIES: 'abilityBindings.ts',
 	},
 	DATA: {
-		HEROES: 'heroes.json',
-		ITEMS: 'items.json',
-		ABILITIES: 'abilities.json',
+		HEROES: 'heroes.ts',
+		ITEMS: 'items.ts',
+		ABILITIES: 'abilities.ts',
+	},
+	TYPES: {
+		BOUND_TYPES: 'boundTypes.ts',
+		CLARITY_TYPES: 'clarityTypes.ts',
 	}
 } as const

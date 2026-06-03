@@ -1,10 +1,10 @@
-import { type Ids, type Binding, type IdKey, getIdMap } from '../types/clarityTypes.js'
-import type { DotaConstantsHero, DotaConstantsItem } from '../types/DotaConstantsTypes.js'
-import type { Hero, Item, Targets } from '../types/BoundTypes.js'
-import { DIR, FILES, PATHS } from '../modules/paths.js'
-import { ATTRIBUTE_BINDING } from '../modules/bindings.js'
-import { tryGetImg, tryGetJson, logWarning, logMessage, logError, type LogEntry, LOG_LVL, getLogString, type Result } from '../modules/flow.js'
-import { tryReadJSON, tryWrite, tryWriteJSON } from '../modules/flowNode.js'
+import { type Ids, type Binding, type IdKey, getIdMap } from '../types/clarityTypes'
+import type { DotaConstantsHero, DotaConstantsItem } from '../types/dotaConstantsTypes'
+import type { Hero, Item, Targets } from '../types/boundTypes'
+import { DIR, FILES, PATHS } from '../modules/paths'
+import { tryGetImg, tryGetJson, logWarning, logMessage, logError, type LogEntry, LOG_LVL, getLogString, type Result, stringify } from '../modules/flow.js'
+import { tryReadJSON, tryWrite } from '../modules/flowNode'
+import { ATTRIBUTE_BINDING } from '../modules/domainConstants'
 
 const CDN_HOST = 'https://cdn.steamstatic.com/'
 const HEROES_URL = new URL('https://raw.githubusercontent.com/odota/dotaconstants/refs/heads/master/build/heroes.json')
@@ -18,6 +18,9 @@ const HERO_DATA_PATH = `${DATA_PATH}/${FILES.DATA.HEROES}`
 const ITEM_BINDINGS_PATH = `${DATA_PATH}/${FILES.BINDINGS.ITEMS}`
 const ITEMS_PATH = `${DATA_PATH}/${FILES.DATA.ITEMS}`
 const ABILITY_BINDINGS_PATH = `${DATA_PATH}/${FILES.BINDINGS.ABILITIES}`
+const ROOT_FROM_DATA_PATH = `../../..`
+
+
 
 type ExtId = Binding & IdKey
 type IdBinding = {idx: number} & ExtId
@@ -50,8 +53,9 @@ async function tryUpdateHeroes() {
 	if(!newHeroBindings) {
 		return
 	}
+
 	// Write bindings
-	const bindingsWriteRes = await tryWriteJSON(HERO_BINDINGS_PATH, newHeroBindings)
+	const bindingsWriteRes = await tryWrite(HERO_BINDINGS_PATH, `export const HERO_IDS = ${stringify(newHeroBindings)} as const`)
 	log.push(...bindingsWriteRes.msg)
 	if(!bindingsWriteRes.ok) {
 		return
@@ -62,7 +66,7 @@ async function tryUpdateHeroes() {
 		rawHeroes.map(hero => [HeroIdByExt[hero.id], bindHero(hero)])
 	)
 	await Promise.all([
-		tryWriteJSON(HERO_DATA_PATH, boundHeroes).then(r => log.push(...r.msg)),
+		tryWrite(HERO_DATA_PATH, `export const HEROES = ${stringify(boundHeroes)} as const`).then(r => log.push(...r.msg)),
 		// Get hero images
 		Promise.all(rawHeroes.map(async hero => {
 			const img = await tryGetImg(new URL(hero.img, CDN_HOST))
@@ -100,7 +104,9 @@ async function tryUpdateItems() {
 	if(!newItemBindings) {
 		return
 	}
-	const bindingsWriteRes = await tryWriteJSON(ITEM_BINDINGS_PATH, newItemBindings)
+	const bindingsWriteRes = await tryWrite(ITEM_BINDINGS_PATH,
+		`export const ITEM_BINDINGS = ${stringify(newItemBindings)} as const`
+	)
 	log.push(...bindingsWriteRes.msg)
 	if(!bindingsWriteRes.ok) {
 		return
@@ -113,7 +119,7 @@ async function tryUpdateItems() {
 	)
 
 	await Promise.all([
-		tryWriteJSON(ITEMS_PATH, boundItems).then(r => log.push(...r.msg)),
+		tryWrite(ITEMS_PATH, `export const ITEMS = ${stringify(boundItems)} as const`).then(r => log.push(...r.msg)),
 		// Get images
 		Promise.all(items.map(async ([label, item]) => {
 			const img = await tryGetImg(new URL(item.img, CDN_HOST))
@@ -168,9 +174,9 @@ async function tryUpdateAbilities() {
 	const oldAbilityBindings = (await tryReadJSON<Ids<Binding>>(ABILITY_BINDINGS_PATH)).data ?? {}
 	const newAbilityBindings = tryUpdateNumericIdBindings(newAbilityIds, oldAbilityBindings)
 	if(newAbilityBindings) {
-		await tryWriteJSON(ABILITY_BINDINGS_PATH, newAbilityBindings).then(
-			r => log.push(...r.msg)
-		)
+		await tryWrite(ABILITY_BINDINGS_PATH,
+			`export const ABILITY_BINDINGS = ${stringify(newAbilityBindings)} as const`
+		).then(r => log.push(...r.msg))
 	}
 }
 
@@ -337,7 +343,7 @@ function bindItem(item: DotaConstantsItem, dataName: string): Item {
 		lore: item.lore,
 		goldPrice: item.cost ?? undefined,
 		quality: item.qual ?? undefined,
-		notes: item.notes ?? undefined,
+		notes: (n => n === '' ? undefined : n)(item.notes ?? undefined),
 		dispellable: item.dispellable ?? undefined,
 		dmgType: item.dmg_type ?? undefined,
 		tier: item.tier ?? undefined
@@ -398,6 +404,11 @@ function generateMissingItemName(label: string): string {
 	return parts.map(
 		(part) => part[0]?.toUpperCase() + part.slice(1)
 	).join(' ')
+}
+
+function getTypeImport(type: string, file: string):string {
+	const path = `${ROOT_FROM_DATA_PATH}/${PATHS.TYPES}/${file.split('.')[0]}`
+	return `import type {${type}} from '${path}'`
 }
 
 async function tryWriteLogFile(log: LogEntry[]): Promise<Result> {

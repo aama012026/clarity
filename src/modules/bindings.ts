@@ -1,29 +1,18 @@
-import { isEmpty, nullsToUndefined, type ISO8601TimeString, type Unique, type UnixTimestamp } from "./flow.js"
-import type { GameModeId, LobbyTypeId, PatchId, RegionId, UnitOrderId} from "../types/DotaConstantsTypes.js"
-import { BARRACK_FLAGS, TOWER_FLAGS, type AccountId, type BarracksBitmask,
-	type Cosmetic, type Distributions, type GoldReasonId, type OdotaUnparsedPlayer,
-	type LeagueId, type LeaverStatus, type MatchForPlayer, type MatchId,
-	type OdotaParsedPlayer, type OdotaPlayer, type OdotaProfile, type OdotaSteamAlias, type OdotaWardLogEntry, type ParsedMatch, type PartyId,
-	type Pause, type Percentile, type PickBan, type PlayerSlot, type RankBitmask,
-	type SeriesId, type SteamId, type TowersBitmask, type UnparsedMatch, type XpReasonId
-} from "../types/OpenDotaTypes.js"
-
-import heroIds from '../../public/generated/data/heroBindings.json'
-import abilityIds from '../../public/generated/data/abilityBindings.json'
-import itemIds from '../../public/generated/data/itemBindings.json'
-import { getIdMap, type Binding, type Ids } from "../types/clarityTypes.js"
-import { ATTRIBUTES, DAMAGE_TYPES, SIDES, STRUCTURE_FLAGS, type Side, type StructureFlag, type StructuresBitmask } from "./domainConstants.js"
-
+import { HEROES } from "../../public/generated/data/heroes"
+import { ITEMS } from "../../public/generated/data/items"
+import type { Hero, Item } from "../types/boundTypes"
+import type { Binding, Ids } from "../types/clarityTypes"
 
 const HERO_IDS = heroIds as Ids<Binding>
+const ITEMSS = ITEMS satisfies Record<number, Item>
+const HEROESS = HEROES satisfies Record<number, Hero>
 type HeroId = keyof typeof heroIds
 const HERO_ID = getIdMap(HERO_IDS, 'key')
 const ITEM_ID = getIdMap(itemIds, 'key')
 const ABILITY_ID = getIdMap(abilityIds, 'key')
 const SIDE = getIdMap(SIDES, 'key')
 const DAMAGE_TYPE = getIdMap(DAMAGE_TYPES, 'key')
-export const ATTRIBUTE = getIdMap(ATTRIBUTES, 'key') 
-export const ATTRIBUTE_BINDING = getIdMap(ATTRIBUTES, 'ext')
+
 
 // This comes as a bool from opendota, so no need to freeze keys atm.
 export type Outcome = 'win' | 'loss'

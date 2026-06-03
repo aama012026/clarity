@@ -323,3 +323,5 @@ export const ATTRIBUTES = {
 export type Attribute = keyof typeof ATTRIBUTES
 export type AttributeName = typeof ATTRIBUTES[Attribute]['name']
 export type AttributeBinding = typeof ATTRIBUTES[Attribute]['ext']
+export const ATTRIBUTE = getIdMap(ATTRIBUTES, 'key') 
+export const ATTRIBUTE_BINDING = getIdMap(ATTRIBUTES, 'ext')

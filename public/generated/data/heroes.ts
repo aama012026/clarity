@@ -1,0 +1,3180 @@
+export const HEROES = {
+	1: {
+		name: {static: "antimage", localized: "Anti-Mage"},
+		roles: ["Carry", "Escape", "Nuker"],
+		baseHealth: {size: 120, regen: 1},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 2,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 29, max: 33},
+			speed: 100,
+			rate: 1.4,
+			point: 0.3,
+			range: 150,
+			projectile_speed: 0
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 21, agility: 24, intelligence: 12},
+			gain: {strength: 1.6, agility: 2.8, intelligence: 1.8}
+		},
+		movement: {speed: 310, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	2: {
+		name: {static: "axe", localized: "Axe"},
+		roles: ["Initiator", "Durable", "Disabler", "Carry"],
+		baseHealth: {size: 120, regen: 2.5},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 31, max: 35},
+			speed: 100,
+			rate: 1.7,
+			point: 0.4,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 25, agility: 20, intelligence: 18},
+			gain: {strength: 2.7, agility: 1.7, intelligence: 1.6}
+		},
+		movement: {speed: 315, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	3: {
+		name: {static: "bane", localized: "Bane"},
+		roles: ["Support", "Disabler", "Nuker", "Durable"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 24, max: 30},
+			speed: 100,
+			rate: 1.7,
+			point: 0.3,
+			range: 425,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 3,
+			base: {strength: 23, agility: 23, intelligence: 23},
+			gain: {strength: 2.5, agility: 2.5, intelligence: 2.5}
+		},
+		movement: {speed: 305, turnRate: null},
+		vision: {day: 1800, night: 1200},
+		legs: 4,
+		isInCaptainsMode: true
+	},
+	4: {
+		name: {static: "bloodseeker", localized: "Bloodseeker"},
+		roles: ["Carry", "Disabler", "Nuker", "Initiator"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 2,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 35, max: 41},
+			speed: 100,
+			rate: 1.7,
+			point: 0.43,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 24, agility: 24, intelligence: 17},
+			gain: {strength: 2.7, agility: 3.1, intelligence: 2}
+		},
+		movement: {speed: 285, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	5: {
+		name: {static: "crystal_maiden", localized: "Crystal Maiden"},
+		roles: ["Support", "Disabler", "Nuker"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 28, max: 34},
+			speed: 100,
+			rate: 1.7,
+			point: 0.45,
+			range: 600,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 17, agility: 16, intelligence: 20},
+			gain: {strength: 2.2, agility: 1.8, intelligence: 3.3}
+		},
+		movement: {speed: 280, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	6: {
+		name: {static: "drow_ranger", localized: "Drow Ranger"},
+		roles: ["Carry", "Disabler", "Pusher"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 27, max: 34},
+			speed: 100,
+			rate: 1.7,
+			point: 0.5,
+			range: 625,
+			projectile_speed: 1250
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 16, agility: 22, intelligence: 15},
+			gain: {strength: 1.9, agility: 2.8, intelligence: 1.4}
+		},
+		movement: {speed: 310, turnRate: 0.7},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	7: {
+		name: {static: "earthshaker", localized: "Earthshaker"},
+		roles: ["Support", "Initiator", "Disabler", "Nuker"],
+		baseHealth: {size: 120, regen: 1},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 2,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 27, max: 37},
+			speed: 100,
+			rate: 1.7,
+			point: 0.467,
+			range: 150,
+			projectile_speed: 0
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 22, agility: 12, intelligence: 18},
+			gain: {strength: 3.7, agility: 1.4, intelligence: 2.1}
+		},
+		movement: {speed: 315, turnRate: 0.9},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	8: {
+		name: {static: "juggernaut", localized: "Juggernaut"},
+		roles: ["Carry", "Pusher", "Escape"],
+		baseHealth: {size: 120, regen: 0.5},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 22, max: 24},
+			speed: 110,
+			rate: 1.4,
+			point: 0.33,
+			range: 150,
+			projectile_speed: 0
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 20, agility: 32, intelligence: 14},
+			gain: {strength: 2, agility: 2.8, intelligence: 1.4}
+		},
+		movement: {speed: 300, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	9: {
+		name: {static: "mirana", localized: "Mirana"},
+		roles: ["Carry", "Support", "Escape", "Nuker", "Disabler"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0.4},
+		baseArmor: -2,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 22, max: 28},
+			speed: 100,
+			rate: 1.7,
+			point: 0.35,
+			range: 630,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 20, agility: 26, intelligence: 22},
+			gain: {strength: 2.2, agility: 3.1, intelligence: 1.9}
+		},
+		movement: {speed: 285, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	10: {
+		name: {static: "morphling", localized: "Morphling"},
+		roles: ["Carry", "Escape", "Durable", "Nuker", "Disabler"],
+		baseHealth: {size: 120, regen: 0.5},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: -1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 12, max: 21},
+			speed: 100,
+			rate: 1.5,
+			point: 0.5,
+			range: 350,
+			projectile_speed: 1300
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 23, agility: 24, intelligence: 19},
+			gain: {strength: 2.6, agility: 3.9, intelligence: 1.8}
+		},
+		movement: {speed: 285, turnRate: 0.7},
+		vision: {day: 1800, night: 800},
+		legs: 0,
+		isInCaptainsMode: true
+	},
+	11: {
+		name: {static: "nevermore", localized: "Shadow Fiend"},
+		roles: ["Carry", "Nuker"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0.3},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 16, max: 22},
+			speed: 100,
+			rate: 1.6,
+			point: 0.5,
+			range: 525,
+			projectile_speed: 1200
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 19, agility: 25, intelligence: 18},
+			gain: {strength: 2.7, agility: 3.6, intelligence: 2.2}
+		},
+		movement: {speed: 305, turnRate: 0.9},
+		vision: {day: 1800, night: 800},
+		legs: 0,
+		isInCaptainsMode: true
+	},
+	12: {
+		name: {static: "phantom_lancer", localized: "Phantom Lancer"},
+		roles: ["Carry", "Escape", "Pusher", "Nuker"],
+		baseHealth: {size: 120, regen: 2},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 26, max: 36},
+			speed: 110,
+			rate: 1.7,
+			point: 0.5,
+			range: 225,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 21, agility: 26, intelligence: 21},
+			gain: {strength: 2.2, agility: 3.4, intelligence: 1.8}
+		},
+		movement: {speed: 285, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	13: {
+		name: {static: "puck", localized: "Puck"},
+		roles: ["Initiator", "Disabler", "Escape", "Nuker"],
+		baseHealth: {size: 120, regen: 0.5},
+		baseMana: {size: 75, regen: 0.5},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 22, max: 30},
+			speed: 100,
+			rate: 1.7,
+			point: 0.5,
+			range: 550,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 17, agility: 14, intelligence: 23},
+			gain: {strength: 2.4, agility: 2.3, intelligence: 3.8}
+		},
+		movement: {speed: 290, turnRate: 0.9},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	14: {
+		name: {static: "pudge", localized: "Pudge"},
+		roles: ["Disabler", "Initiator", "Durable", "Nuker"],
+		baseHealth: {size: 120, regen: 2.5},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 45, max: 51},
+			speed: 100,
+			rate: 1.7,
+			point: 0.5,
+			range: 175,
+			projectile_speed: 0
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 25, agility: 11, intelligence: 16},
+			gain: {strength: 3, agility: 1.4, intelligence: 1.8}
+		},
+		movement: {speed: 280, turnRate: 0.7},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	15: {
+		name: {static: "razor", localized: "Razor"},
+		roles: ["Carry", "Durable", "Nuker", "Pusher"],
+		baseHealth: {size: 120, regen: 1},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 23, max: 25},
+			speed: 100,
+			rate: 1.7,
+			point: 0.3,
+			range: 475,
+			projectile_speed: 2000
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 22, agility: 24, intelligence: 21},
+			gain: {strength: 2.8, agility: 2.8, intelligence: 2.2}
+		},
+		movement: {speed: 280, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 0,
+		isInCaptainsMode: true
+	},
+	16: {
+		name: {static: "sand_king", localized: "Sand King"},
+		roles: ["Initiator", "Disabler", "Support", "Nuker", "Escape"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 19, max: 29},
+			speed: 110,
+			rate: 1.7,
+			point: 0.53,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 3,
+			base: {strength: 23, agility: 19, intelligence: 17},
+			gain: {strength: 2.3, agility: 2, intelligence: 2}
+		},
+		movement: {speed: 290, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 6,
+		isInCaptainsMode: true
+	},
+	17: {
+		name: {static: "storm_spirit", localized: "Storm Spirit"},
+		roles: ["Carry", "Escape", "Nuker", "Initiator", "Disabler"],
+		baseHealth: {size: 120, regen: 0.5},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 24, max: 34},
+			speed: 115,
+			rate: 1.6,
+			point: 0.5,
+			range: 480,
+			projectile_speed: 1100
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 21, agility: 22, intelligence: 23},
+			gain: {strength: 2, agility: 2.6, intelligence: 3.7}
+		},
+		movement: {speed: 285, turnRate: 0.8},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	18: {
+		name: {static: "sven", localized: "Sven"},
+		roles: ["Carry", "Disabler", "Initiator", "Durable", "Nuker"],
+		baseHealth: {size: 120, regen: 0.75},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 37, max: 39},
+			speed: 110,
+			rate: 1.9,
+			point: 0.4,
+			range: 150,
+			projectile_speed: 0
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 24, agility: 18, intelligence: 16},
+			gain: {strength: 3.5, agility: 2.2, intelligence: 1.5}
+		},
+		movement: {speed: 325, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	19: {
+		name: {static: "tiny", localized: "Tiny"},
+		roles: ["Carry", "Nuker", "Pusher", "Initiator", "Durable", "Disabler"],
+		baseHealth: {size: 120, regen: 2},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 31, max: 37},
+			speed: 90,
+			rate: 1.7,
+			point: 0.4,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 30, agility: 0, intelligence: 17},
+			gain: {strength: 4.2, agility: 0, intelligence: 2.2}
+		},
+		movement: {speed: 275, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	20: {
+		name: {static: "vengefulspirit", localized: "Vengeful Spirit"},
+		roles: ["Support", "Initiator", "Disabler", "Nuker", "Escape"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 28, max: 34},
+			speed: 100,
+			rate: 1.5,
+			point: 0.33,
+			range: 400,
+			projectile_speed: 1500
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 20, agility: 23, intelligence: 19},
+			gain: {strength: 2.6, agility: 3, intelligence: 1.5}
+		},
+		movement: {speed: 300, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	21: {
+		name: {static: "windrunner", localized: "Windranger"},
+		roles: ["Carry", "Support", "Disabler", "Escape", "Nuker"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0.25},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 24, max: 36},
+			speed: 90,
+			rate: 1.5,
+			point: 0.4,
+			range: 600,
+			projectile_speed: 1250
+		},
+		attributes: {
+			primary: 3,
+			base: {strength: 18, agility: 17, intelligence: 18},
+			gain: {strength: 2.6, agility: 2.1, intelligence: 3.2}
+		},
+		movement: {speed: 285, turnRate: 0.8},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	22: {
+		name: {static: "zuus", localized: "Zeus"},
+		roles: ["Nuker", "Carry"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 30, max: 40},
+			speed: 100,
+			rate: 1.7,
+			point: 0.35,
+			range: 380,
+			projectile_speed: 1100
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 21, agility: 11, intelligence: 23},
+			gain: {strength: 2.1, agility: 1.2, intelligence: 3.3}
+		},
+		movement: {speed: 305, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	23: {
+		name: {static: "kunkka", localized: "Kunkka"},
+		roles: ["Carry", "Support", "Disabler", "Initiator", "Durable", "Nuker"],
+		baseHealth: {size: 120, regen: 0.75},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 2,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 30, max: 36},
+			speed: 100,
+			rate: 1.7,
+			point: 0.4,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 24, agility: 14, intelligence: 18},
+			gain: {strength: 3.6, agility: 1.6, intelligence: 1.8}
+		},
+		movement: {speed: 315, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	25: {
+		name: {static: "lina", localized: "Lina"},
+		roles: ["Support", "Carry", "Nuker", "Disabler"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 21, max: 29},
+			speed: 100,
+			rate: 1.6,
+			point: 0.65,
+			range: 670,
+			projectile_speed: 1000
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 20, agility: 23, intelligence: 30},
+			gain: {strength: 2.4, agility: 2.4, intelligence: 4}
+		},
+		movement: {speed: 290, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	26: {
+		name: {static: "lion", localized: "Lion"},
+		roles: ["Support", "Disabler", "Nuker", "Initiator"],
+		baseHealth: {size: 120, regen: 0.5},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 29, max: 35},
+			speed: 115,
+			rate: 1.7,
+			point: 0.43,
+			range: 600,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 18, agility: 15, intelligence: 19},
+			gain: {strength: 2.4, agility: 1.7, intelligence: 3.5}
+		},
+		movement: {speed: 290, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	27: {
+		name: {static: "shadow_shaman", localized: "Shadow Shaman"},
+		roles: ["Support", "Pusher", "Disabler", "Nuker", "Initiator"],
+		baseHealth: {size: 120, regen: 1},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 2,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 40, max: 47},
+			speed: 100,
+			rate: 1.7,
+			point: 0.3,
+			range: 400,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 20, agility: 16, intelligence: 23},
+			gain: {strength: 2.3, agility: 1.6, intelligence: 3.5}
+		},
+		movement: {speed: 285, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	28: {
+		name: {static: "slardar", localized: "Slardar"},
+		roles: ["Carry", "Durable", "Initiator", "Disabler", "Escape"],
+		baseHealth: {size: 120, regen: 0.5},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 2,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 30, max: 38},
+			speed: 100,
+			rate: 1.7,
+			point: 0.36,
+			range: 150,
+			projectile_speed: 0
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 21, agility: 17, intelligence: 15},
+			gain: {strength: 3.4, agility: 2.1, intelligence: 1.5}
+		},
+		movement: {speed: 300, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 0,
+		isInCaptainsMode: true
+	},
+	29: {
+		name: {static: "tidehunter", localized: "Tidehunter"},
+		roles: ["Initiator", "Durable", "Disabler", "Nuker", "Carry"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0.5},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 25, max: 31},
+			speed: 100,
+			rate: 1.7,
+			point: 0.6,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 26, agility: 15, intelligence: 20},
+			gain: {strength: 3.7, agility: 1.5, intelligence: 1.7}
+		},
+		movement: {speed: 300, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	30: {
+		name: {static: "witch_doctor", localized: "Witch Doctor"},
+		roles: ["Support", "Nuker", "Disabler"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 26, max: 36},
+			speed: 100,
+			rate: 1.7,
+			point: 0.4,
+			range: 550,
+			projectile_speed: 1200
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 20, agility: 13, intelligence: 22},
+			gain: {strength: 2.1, agility: 1.4, intelligence: 3.1}
+		},
+		movement: {speed: 300, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	31: {
+		name: {static: "lich", localized: "Lich"},
+		roles: ["Support", "Nuker"],
+		baseHealth: {size: 120, regen: 0.5},
+		baseMana: {size: 75, regen: -1},
+		baseArmor: -1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 24, max: 33},
+			speed: 100,
+			rate: 1.7,
+			point: 0.46,
+			range: 550,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 20, agility: 17, intelligence: 28},
+			gain: {strength: 2.1, agility: 1.7, intelligence: 3.4}
+		},
+		movement: {speed: 290, turnRate: 0.7},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	32: {
+		name: {static: "riki", localized: "Riki"},
+		roles: ["Carry", "Escape", "Disabler"],
+		baseHealth: {size: 120, regen: 2.5},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 22, max: 26},
+			speed: 90,
+			rate: 1.7,
+			point: 0.3,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 18, agility: 30, intelligence: 14},
+			gain: {strength: 2, agility: 2.4, intelligence: 1.3}
+		},
+		movement: {speed: 315, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	33: {
+		name: {static: "enigma", localized: "Enigma"},
+		roles: ["Disabler", "Initiator", "Pusher"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0.5},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 19, max: 25},
+			speed: 100,
+			rate: 1.7,
+			point: 0.4,
+			range: 500,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 3,
+			base: {strength: 21, agility: 14, intelligence: 19},
+			gain: {strength: 2.5, agility: 1, intelligence: 3.6}
+		},
+		movement: {speed: 280, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 0,
+		isInCaptainsMode: true
+	},
+	34: {
+		name: {static: "tinker", localized: "Tinker"},
+		roles: ["Carry", "Nuker", "Pusher"],
+		baseHealth: {size: 120, regen: 0.5},
+		baseMana: {size: 75, regen: 0.5},
+		baseArmor: 2,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 22, max: 28},
+			speed: 100,
+			rate: 1.7,
+			point: 0.35,
+			range: 500,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 19, agility: 17, intelligence: 30},
+			gain: {strength: 2.3, agility: 1.4, intelligence: 3.3}
+		},
+		movement: {speed: 305, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	35: {
+		name: {static: "sniper", localized: "Sniper"},
+		roles: ["Carry", "Nuker"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 13, max: 19},
+			speed: 100,
+			rate: 1.7,
+			point: 0.17,
+			range: 550,
+			projectile_speed: 3000
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 19, agility: 27, intelligence: 15},
+			gain: {strength: 2, agility: 3.2, intelligence: 2.6}
+		},
+		movement: {speed: 285, turnRate: 0.7},
+		vision: {day: 1800, night: 1400},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	36: {
+		name: {static: "necrolyte", localized: "Necrophos"},
+		roles: ["Carry", "Nuker", "Durable", "Disabler"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 2,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 26, max: 30},
+			speed: 100,
+			rate: 1.7,
+			point: 0.3,
+			range: 500,
+			projectile_speed: 1200
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 18, agility: 12, intelligence: 23},
+			gain: {strength: 2.3, agility: 1.3, intelligence: 2.7}
+		},
+		movement: {speed: 280, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	37: {
+		name: {static: "warlock", localized: "Warlock"},
+		roles: ["Support", "Initiator", "Disabler"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 27, max: 37},
+			speed: 90,
+			rate: 1.7,
+			point: 0.3,
+			range: 600,
+			projectile_speed: 1200
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 22, agility: 10, intelligence: 25},
+			gain: {strength: 2.4, agility: 1, intelligence: 3.1}
+		},
+		movement: {speed: 300, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	38: {
+		name: {static: "beastmaster", localized: "Beastmaster"},
+		roles: ["Initiator", "Disabler", "Durable", "Nuker"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: -1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 23, max: 27},
+			speed: 100,
+			rate: 1.7,
+			point: 0.3,
+			range: 150,
+			projectile_speed: 0
+		},
+		attributes: {
+			primary: 3,
+			base: {strength: 25, agility: 19, intelligence: 16},
+			gain: {strength: 2.9, agility: 2, intelligence: 1.9}
+		},
+		movement: {speed: 305, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	39: {
+		name: {static: "queenofpain", localized: "Queen of Pain"},
+		roles: ["Carry", "Nuker", "Escape"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 26, max: 32},
+			speed: 100,
+			rate: 1.5,
+			point: 0.56,
+			range: 550,
+			projectile_speed: 1500
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 20, agility: 22, intelligence: 25},
+			gain: {strength: 2.4, agility: 2.5, intelligence: 3.4}
+		},
+		movement: {speed: 290, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	40: {
+		name: {static: "venomancer", localized: "Venomancer"},
+		roles: ["Support", "Nuker", "Initiator", "Pusher", "Disabler"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 18, max: 21},
+			speed: 115,
+			rate: 1.7,
+			point: 0.3,
+			range: 450,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 3,
+			base: {strength: 19, agility: 25, intelligence: 19},
+			gain: {strength: 2.1, agility: 2.8, intelligence: 1.8}
+		},
+		movement: {speed: 280, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 0,
+		isInCaptainsMode: true
+	},
+	41: {
+		name: {static: "faceless_void", localized: "Faceless Void"},
+		roles: ["Carry", "Initiator", "Disabler", "Escape", "Durable"],
+		baseHealth: {size: 120, regen: 1},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 34, max: 40},
+			speed: 100,
+			rate: 1.7,
+			point: 0.5,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 20, agility: 24, intelligence: 15},
+			gain: {strength: 2.6, agility: 3.3, intelligence: 1.5}
+		},
+		movement: {speed: 300, turnRate: 0.9},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	42: {
+		name: {static: "skeleton_king", localized: "Wraith King"},
+		roles: ["Carry", "Support", "Durable", "Disabler", "Initiator"],
+		baseHealth: {size: 120, regen: 0.5},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 38, max: 40},
+			speed: 100,
+			rate: 1.7,
+			point: 0.56,
+			range: 150,
+			projectile_speed: 0
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 22, agility: 16, intelligence: 16},
+			gain: {strength: 2.8, agility: 1.7, intelligence: 1.6}
+		},
+		movement: {speed: 310, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	43: {
+		name: {static: "death_prophet", localized: "Death Prophet"},
+		roles: ["Carry", "Pusher", "Nuker", "Disabler"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0.5},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 22, max: 32},
+			speed: 100,
+			rate: 1.7,
+			point: 0.5,
+			range: 600,
+			projectile_speed: 1000
+		},
+		attributes: {
+			primary: 3,
+			base: {strength: 21, agility: 17, intelligence: 24},
+			gain: {strength: 2.9, agility: 2, intelligence: 3}
+		},
+		movement: {speed: 290, turnRate: 0.8},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	44: {
+		name: {static: "phantom_assassin", localized: "Phantom Assassin"},
+		roles: ["Carry", "Escape"],
+		baseHealth: {size: 120, regen: 1},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 35, max: 37},
+			speed: 110,
+			rate: 1.7,
+			point: 0.3,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 19, agility: 21, intelligence: 15},
+			gain: {strength: 2, agility: 3.4, intelligence: 1.7}
+		},
+		movement: {speed: 310, turnRate: 0.8},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	45: {
+		name: {static: "pugna", localized: "Pugna"},
+		roles: ["Nuker", "Pusher"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0.5},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 21, max: 28},
+			speed: 100,
+			rate: 1.7,
+			point: 0.5,
+			range: 630,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 19, agility: 21, intelligence: 26},
+			gain: {strength: 2, agility: 1.3, intelligence: 5.2}
+		},
+		movement: {speed: 325, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	46: {
+		name: {static: "templar_assassin", localized: "Templar Assassin"},
+		roles: ["Carry", "Escape"],
+		baseHealth: {size: 120, regen: 0},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 28, max: 33},
+			speed: 100,
+			rate: 1.6,
+			point: 0.3,
+			range: 250,
+			projectile_speed: 1000
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 21, agility: 23, intelligence: 20},
+			gain: {strength: 2.4, agility: 3.4, intelligence: 2}
+		},
+		movement: {speed: 310, turnRate: 0.7},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	47: {
+		name: {static: "viper", localized: "Viper"},
+		roles: ["Carry", "Durable", "Initiator", "Disabler"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: -2,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 27, max: 29},
+			speed: 110,
+			rate: 1.7,
+			point: 0.33,
+			range: 575,
+			projectile_speed: 1200
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 21, agility: 21, intelligence: 17},
+			gain: {strength: 2.4, agility: 2.9, intelligence: 2}
+		},
+		movement: {speed: 275, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 0,
+		isInCaptainsMode: true
+	},
+	48: {
+		name: {static: "luna", localized: "Luna"},
+		roles: ["Carry", "Nuker", "Pusher"],
+		baseHealth: {size: 120, regen: 0.5},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 2,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 26, max: 32},
+			speed: 100,
+			rate: 1.7,
+			point: 0.35,
+			range: 330,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 21, agility: 24, intelligence: 23},
+			gain: {strength: 2.2, agility: 3.4, intelligence: 1.9}
+		},
+		movement: {speed: 325, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	49: {
+		name: {static: "dragon_knight", localized: "Dragon Knight"},
+		roles: ["Carry", "Pusher", "Durable", "Disabler", "Initiator", "Nuker"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 34, max: 40},
+			speed: 100,
+			rate: 1.6,
+			point: 0.5,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 21, agility: 14, intelligence: 18},
+			gain: {strength: 3.2, agility: 2, intelligence: 1.7}
+		},
+		movement: {speed: 310, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	50: {
+		name: {static: "dazzle", localized: "Dazzle"},
+		roles: ["Support", "Nuker", "Disabler"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0.3},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 19, max: 25},
+			speed: 100,
+			rate: 1.7,
+			point: 0.3,
+			range: 575,
+			projectile_speed: 1200
+		},
+		attributes: {
+			primary: 3,
+			base: {strength: 19, agility: 20, intelligence: 25},
+			gain: {strength: 2.3, agility: 1.7, intelligence: 3.5}
+		},
+		movement: {speed: 305, turnRate: 0.7},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	51: {
+		name: {static: "rattletrap", localized: "Clockwerk"},
+		roles: ["Initiator", "Disabler", "Durable", "Nuker"],
+		baseHealth: {size: 120, regen: 0.5},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 24, max: 26},
+			speed: 100,
+			rate: 1.7,
+			point: 0.33,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 26, agility: 13, intelligence: 18},
+			gain: {strength: 3.2, agility: 2.3, intelligence: 1.7}
+		},
+		movement: {speed: 310, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	52: {
+		name: {static: "leshrac", localized: "Leshrac"},
+		roles: ["Carry", "Support", "Nuker", "Pusher", "Disabler"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 27, max: 31},
+			speed: 100,
+			rate: 1.7,
+			point: 0.4,
+			range: 575,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 20, agility: 17, intelligence: 22},
+			gain: {strength: 2.8, agility: 2.5, intelligence: 3.5}
+		},
+		movement: {speed: 325, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 4,
+		isInCaptainsMode: true
+	},
+	53: {
+		name: {static: "furion", localized: "Nature's Prophet"},
+		roles: ["Carry", "Pusher", "Escape", "Nuker"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 20, max: 26},
+			speed: 100,
+			rate: 1.5,
+			point: 0.4,
+			range: 600,
+			projectile_speed: 1125
+		},
+		attributes: {
+			primary: 3,
+			base: {strength: 19, agility: 14, intelligence: 22},
+			gain: {strength: 2.6, agility: 2.6, intelligence: 3.5}
+		},
+		movement: {speed: 295, turnRate: 0.9},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	54: {
+		name: {static: "life_stealer", localized: "Lifestealer"},
+		roles: ["Carry", "Durable", "Escape", "Disabler"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 26, max: 32},
+			speed: 120,
+			rate: 1.7,
+			point: 0.39,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 23, agility: 15, intelligence: 15},
+			gain: {strength: 2.4, agility: 1.9, intelligence: 1.8}
+		},
+		movement: {speed: 320, turnRate: 0.9},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	55: {
+		name: {static: "dark_seer", localized: "Dark Seer"},
+		roles: ["Initiator", "Escape", "Disabler"],
+		baseHealth: {size: 120, regen: 1},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 2,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 31, max: 37},
+			speed: 100,
+			rate: 1.7,
+			point: 0.59,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 20, agility: 19, intelligence: 22},
+			gain: {strength: 2.6, agility: 1.5, intelligence: 2.7}
+		},
+		movement: {speed: 295, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	56: {
+		name: {static: "clinkz", localized: "Clinkz"},
+		roles: ["Carry", "Escape", "Pusher"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 19, max: 25},
+			speed: 100,
+			rate: 1.7,
+			point: 0.4,
+			range: 600,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 18, agility: 25, intelligence: 21},
+			gain: {strength: 2, agility: 2.7, intelligence: 2.2}
+		},
+		movement: {speed: 285, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	57: {
+		name: {static: "omniknight", localized: "Omniknight"},
+		roles: ["Support", "Durable", "Nuker"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 2,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 31, max: 41},
+			speed: 100,
+			rate: 1.7,
+			point: 0.433,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 22, agility: 15, intelligence: 16},
+			gain: {strength: 3.1, agility: 1.7, intelligence: 2.1}
+		},
+		movement: {speed: 310, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	58: {
+		name: {static: "enchantress", localized: "Enchantress"},
+		roles: ["Support", "Pusher", "Durable", "Disabler"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0.5},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 21, max: 31},
+			speed: 100,
+			rate: 1.7,
+			point: 0.3,
+			range: 575,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 17, agility: 19, intelligence: 22},
+			gain: {strength: 2, agility: 2.1, intelligence: 4}
+		},
+		movement: {speed: 320, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 4,
+		isInCaptainsMode: true
+	},
+	59: {
+		name: {static: "huskar", localized: "Huskar"},
+		roles: ["Carry", "Durable", "Initiator"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {
+	"size": 0,
+	"regen": 0
+},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 21, max: 26},
+			speed: 100,
+			rate: 1.6,
+			point: 0.3,
+			range: 400,
+			projectile_speed: 1400
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 23, agility: 10, intelligence: 18},
+			gain: {strength: 3.3, agility: 1.5, intelligence: 0}
+		},
+		movement: {speed: 290, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	60: {
+		name: {static: "night_stalker", localized: "Night Stalker"},
+		roles: ["Carry", "Initiator", "Durable", "Disabler", "Nuker"],
+		baseHealth: {size: 120, regen: 1.5},
+		baseMana: {size: 75, regen: 0.25},
+		baseArmor: 2,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 40, max: 44},
+			speed: 100,
+			rate: 1.7,
+			point: 0.55,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 23, agility: 18, intelligence: 15},
+			gain: {strength: 3, agility: 2.2, intelligence: 1.6}
+		},
+		movement: {speed: 295, turnRate: null},
+		vision: {day: 800, night: 1800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	61: {
+		name: {static: "broodmother", localized: "Broodmother"},
+		roles: ["Carry", "Pusher", "Escape", "Nuker"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: -1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 27, max: 33},
+			speed: 125,
+			rate: 1.7,
+			point: 0.4,
+			range: 175,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 18, agility: 18, intelligence: 18},
+			gain: {strength: 2.9, agility: 3.4, intelligence: 2}
+		},
+		movement: {speed: 285, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 8,
+		isInCaptainsMode: true
+	},
+	62: {
+		name: {static: "bounty_hunter", localized: "Bounty Hunter"},
+		roles: ["Escape", "Nuker"],
+		baseHealth: {size: 120, regen: 0.75},
+		baseMana: {size: 75, regen: 0.5},
+		baseArmor: 5,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 33, max: 41},
+			speed: 100,
+			rate: 1.5,
+			point: 0.59,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 19, agility: 21, intelligence: 20},
+			gain: {strength: 2.5, agility: 2.6, intelligence: 1.9}
+		},
+		movement: {speed: 325, turnRate: null},
+		vision: {day: 1800, night: 1000},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	63: {
+		name: {static: "weaver", localized: "Weaver"},
+		roles: ["Carry", "Escape"],
+		baseHealth: {size: 120, regen: 1.25},
+		baseMana: {size: 75, regen: 0.5},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 37, max: 43},
+			speed: 120,
+			rate: 1.8,
+			point: 0.55,
+			range: 425,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 16, agility: 17, intelligence: 20},
+			gain: {strength: 2, agility: 3.3, intelligence: 2}
+		},
+		movement: {speed: 275, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 4,
+		isInCaptainsMode: true
+	},
+	64: {
+		name: {static: "jakiro", localized: "Jakiro"},
+		roles: ["Support", "Nuker", "Pusher", "Disabler"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 27, max: 35},
+			speed: 100,
+			rate: 1.7,
+			point: 0.4,
+			range: 400,
+			projectile_speed: 1100
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 25, agility: 15, intelligence: 25},
+			gain: {strength: 2.5, agility: 1.2, intelligence: 3}
+		},
+		movement: {speed: 290, turnRate: 0.8},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	65: {
+		name: {static: "batrider", localized: "Batrider"},
+		roles: ["Initiator", "Disabler", "Escape"],
+		baseHealth: {size: 120, regen: 1.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 2,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 12, max: 16},
+			speed: 100,
+			rate: 1.7,
+			point: 0.3,
+			range: 400,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 3,
+			base: {strength: 23, agility: 13, intelligence: 22},
+			gain: {strength: 2.9, agility: 2, intelligence: 2.9}
+		},
+		movement: {speed: 320, turnRate: 0.9},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	66: {
+		name: {static: "chen", localized: "Chen"},
+		roles: ["Support", "Pusher"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0.5},
+		baseArmor: -1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 29, max: 39},
+			speed: 100,
+			rate: 1.7,
+			point: 0.5,
+			range: 650,
+			projectile_speed: 1100
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 23, agility: 15, intelligence: 19},
+			gain: {strength: 2, agility: 2.1, intelligence: 3.2}
+		},
+		movement: {speed: 305, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	67: {
+		name: {static: "spectre", localized: "Spectre"},
+		roles: ["Carry", "Durable", "Escape"],
+		baseHealth: {size: 120, regen: 1.5},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 23, max: 27},
+			speed: 110,
+			rate: 1.8,
+			point: 0.3,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 21, agility: 26, intelligence: 16},
+			gain: {strength: 2.4, agility: 2.4, intelligence: 1.7}
+		},
+		movement: {speed: 295, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 0,
+		isInCaptainsMode: true
+	},
+	68: {
+		name: {static: "ancient_apparition", localized: "Ancient Apparition"},
+		roles: ["Support", "Disabler", "Nuker"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: -1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 21, max: 31},
+			speed: 100,
+			rate: 1.7,
+			point: 0.45,
+			range: 675,
+			projectile_speed: 1250
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 20, agility: 20, intelligence: 23},
+			gain: {strength: 1.9, agility: 2, intelligence: 3.1}
+		},
+		movement: {speed: 285, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 0,
+		isInCaptainsMode: true
+	},
+	69: {
+		name: {static: "doom_bringer", localized: "Doom"},
+		roles: ["Carry", "Disabler", "Initiator", "Durable", "Nuker"],
+		baseHealth: {size: 120, regen: 0.66},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 2,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 32, max: 42},
+			speed: 100,
+			rate: 1.9,
+			point: 0.5,
+			range: 200,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 24, agility: 15, intelligence: 15},
+			gain: {strength: 3.6, agility: 1.5, intelligence: 1.9}
+		},
+		movement: {speed: 290, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	70: {
+		name: {static: "ursa", localized: "Ursa"},
+		roles: ["Carry", "Durable", "Disabler"],
+		baseHealth: {size: 120, regen: 1},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 24, max: 28},
+			speed: 100,
+			rate: 1.7,
+			point: 0.3,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 25, agility: 18, intelligence: 16},
+			gain: {strength: 2.4, agility: 2.8, intelligence: 1.5}
+		},
+		movement: {speed: 310, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	71: {
+		name: {static: "spirit_breaker", localized: "Spirit Breaker"},
+		roles: ["Carry", "Initiator", "Disabler", "Durable", "Escape"],
+		baseHealth: {size: 120, regen: 1.25},
+		baseMana: {size: 75, regen: 0.5},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 34, max: 44},
+			speed: 100,
+			rate: 1.9,
+			point: 0.6,
+			range: 170,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 28, agility: 17, intelligence: 14},
+			gain: {strength: 3.3, agility: 1.7, intelligence: 1.8}
+		},
+		movement: {speed: 295, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	72: {
+		name: {static: "gyrocopter", localized: "Gyrocopter"},
+		roles: ["Carry", "Nuker", "Disabler"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 18, max: 24},
+			speed: 115,
+			rate: 1.7,
+			point: 0.2,
+			range: 365,
+			projectile_speed: 3000
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 22, agility: 25, intelligence: 21},
+			gain: {strength: 2.5, agility: 3.4, intelligence: 2.4}
+		},
+		movement: {speed: 315, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	73: {
+		name: {static: "alchemist", localized: "Alchemist"},
+		roles: ["Carry", "Support", "Durable", "Disabler", "Initiator", "Nuker"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 27, max: 33},
+			speed: 110,
+			rate: 1.7,
+			point: 0.35,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 23, agility: 22, intelligence: 25},
+			gain: {strength: 2.7, agility: 1.5, intelligence: 1.8}
+		},
+		movement: {speed: 295, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	74: {
+		name: {static: "invoker", localized: "Invoker"},
+		roles: ["Carry", "Nuker", "Disabler", "Escape", "Pusher"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: -1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 19, max: 25},
+			speed: 100,
+			rate: 1.7,
+			point: 0.4,
+			range: 600,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 19, agility: 14, intelligence: 20},
+			gain: {strength: 2.5, agility: 2, intelligence: 4}
+		},
+		movement: {speed: 285, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	75: {
+		name: {static: "silencer", localized: "Silencer"},
+		roles: ["Carry", "Support", "Disabler", "Initiator", "Nuker"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 18, max: 32},
+			speed: 110,
+			rate: 1.6,
+			point: 0.5,
+			range: 600,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 18, agility: 22, intelligence: 25},
+			gain: {strength: 2.2, agility: 2.2, intelligence: 2.9}
+		},
+		movement: {speed: 300, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	76: {
+		name: {static: "obsidian_destroyer", localized: "Outworld Devourer"},
+		roles: ["Carry", "Nuker", "Disabler"],
+		baseHealth: {size: 120, regen: 1},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 19, max: 31},
+			speed: 100,
+			rate: 1.9,
+			point: 0.46,
+			range: 450,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 21, agility: 17, intelligence: 30},
+			gain: {strength: 2.9, agility: 1.6, intelligence: 4.2}
+		},
+		movement: {speed: 315, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 4,
+		isInCaptainsMode: true
+	},
+	77: {
+		name: {static: "lycan", localized: "Lycan"},
+		roles: ["Carry", "Pusher", "Durable", "Escape"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 24, max: 29},
+			speed: 110,
+			rate: 1.7,
+			point: 0.55,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 28, agility: 18, intelligence: 23},
+			gain: {strength: 3.4, agility: 1.7, intelligence: 1.7}
+		},
+		movement: {speed: 305, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	78: {
+		name: {static: "brewmaster", localized: "Brewmaster"},
+		roles: ["Carry", "Initiator", "Durable", "Disabler", "Nuker"],
+		baseHealth: {size: 120, regen: 0.5},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 26, max: 33},
+			speed: 100,
+			rate: 1.7,
+			point: 0.35,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 3,
+			base: {strength: 24, agility: 19, intelligence: 17},
+			gain: {strength: 3.2, agility: 2, intelligence: 1.9}
+		},
+		movement: {speed: 310, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	79: {
+		name: {static: "shadow_demon", localized: "Shadow Demon"},
+		roles: ["Support", "Disabler", "Initiator", "Nuker"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 29, max: 33},
+			speed: 100,
+			rate: 1.7,
+			point: 0.35,
+			range: 500,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 23, agility: 18, intelligence: 22},
+			gain: {strength: 2.6, agility: 2.2, intelligence: 3.6}
+		},
+		movement: {speed: 290, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	80: {
+		name: {static: "lone_druid", localized: "Lone Druid"},
+		roles: ["Carry", "Pusher", "Durable"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 22, max: 26},
+			speed: 100,
+			rate: 1.6,
+			point: 0.33,
+			range: 550,
+			projectile_speed: 1125
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 20, agility: 22, intelligence: 13},
+			gain: {strength: 2.5, agility: 2.8, intelligence: 1.4}
+		},
+		movement: {speed: 300, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	81: {
+		name: {static: "chaos_knight", localized: "Chaos Knight"},
+		roles: ["Carry", "Disabler", "Durable", "Pusher", "Initiator"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 2,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 29, max: 49},
+			speed: 100,
+			rate: 1.7,
+			point: 0.5,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 24, agility: 18, intelligence: 18},
+			gain: {strength: 3.1, agility: 1.8, intelligence: 1.2}
+		},
+		movement: {speed: 325, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	82: {
+		name: {static: "meepo", localized: "Meepo"},
+		roles: ["Carry", "Escape", "Nuker", "Disabler", "Initiator", "Pusher"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0.25},
+		baseArmor: 3,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 29, max: 35},
+			speed: 100,
+			rate: 1.7,
+			point: 0.38,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 24, agility: 17, intelligence: 18},
+			gain: {strength: 2.2, agility: 2.1, intelligence: 1.9}
+		},
+		movement: {speed: 315, turnRate: 0.9},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	83: {
+		name: {static: "treant", localized: "Treant Protector"},
+		roles: ["Support", "Initiator", "Durable", "Disabler", "Escape"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0.25},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 60, max: 68},
+			speed: 100,
+			rate: 1.9,
+			point: 0.6,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 25, agility: 15, intelligence: 20},
+			gain: {strength: 3.4, agility: 1.8, intelligence: 1.8}
+		},
+		movement: {speed: 280, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	84: {
+		name: {static: "ogre_magi", localized: "Ogre Magi"},
+		roles: ["Support", "Nuker", "Disabler", "Durable", "Initiator"],
+		baseHealth: {size: 120, regen: 1.5},
+		baseMana: {size: 120, regen: 0},
+		baseArmor: 4,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 45, max: 51},
+			speed: 100,
+			rate: 1.7,
+			point: 0.3,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 25, agility: 14, intelligence: 0},
+			gain: {strength: 4.2, agility: 1.5, intelligence: 0}
+		},
+		movement: {speed: 290, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	85: {
+		name: {static: "undying", localized: "Undying"},
+		roles: ["Support", "Durable", "Disabler", "Nuker"],
+		baseHealth: {size: 120, regen: -0.25},
+		baseMana: {size: 75, regen: 0.25},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 33, max: 41},
+			speed: 100,
+			rate: 1.7,
+			point: 0.3,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 22, agility: 13, intelligence: 27},
+			gain: {strength: 2.4, agility: 1.2, intelligence: 2.8}
+		},
+		movement: {speed: 300, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	86: {
+		name: {static: "rubick", localized: "Rubick"},
+		roles: ["Support", "Disabler", "Nuker"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0.5},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 25, max: 31},
+			speed: 100,
+			rate: 1.7,
+			point: 0.4,
+			range: 550,
+			projectile_speed: 1125
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 21, agility: 23, intelligence: 24},
+			gain: {strength: 2, agility: 2.5, intelligence: 3.7}
+		},
+		movement: {speed: 290, turnRate: 0.7},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	87: {
+		name: {static: "disruptor", localized: "Disruptor"},
+		roles: ["Support", "Disabler", "Nuker", "Initiator"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 27, max: 31},
+			speed: 100,
+			rate: 1.7,
+			point: 0.4,
+			range: 625,
+			projectile_speed: 1200
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 21, agility: 15, intelligence: 20},
+			gain: {strength: 2.4, agility: 1.4, intelligence: 2.9}
+		},
+		movement: {speed: 295, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	88: {
+		name: {static: "nyx_assassin", localized: "Nyx Assassin"},
+		roles: ["Disabler", "Nuker", "Initiator", "Escape"],
+		baseHealth: {size: 120, regen: 2},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 26, max: 30},
+			speed: 100,
+			rate: 1.7,
+			point: 0.46,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 3,
+			base: {strength: 17, agility: 18, intelligence: 21},
+			gain: {strength: 2.7, agility: 2.9, intelligence: 2.6}
+		},
+		movement: {speed: 310, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 6,
+		isInCaptainsMode: true
+	},
+	89: {
+		name: {static: "naga_siren", localized: "Naga Siren"},
+		roles: ["Carry", "Support", "Pusher", "Disabler", "Initiator", "Escape"],
+		baseHealth: {size: 120, regen: 1},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 23, max: 25},
+			speed: 110,
+			rate: 1.7,
+			point: 0.5,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 21, agility: 22, intelligence: 19},
+			gain: {strength: 2.4, agility: 3.4, intelligence: 2}
+		},
+		movement: {speed: 330, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 0,
+		isInCaptainsMode: true
+	},
+	90: {
+		name: {static: "keeper_of_the_light", localized: "Keeper of the Light"},
+		roles: ["Support", "Nuker", "Disabler"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 20, max: 27},
+			speed: 100,
+			rate: 1.7,
+			point: 0.3,
+			range: 600,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 18, agility: 15, intelligence: 24},
+			gain: {strength: 2.3, agility: 1.6, intelligence: 3.3}
+		},
+		movement: {speed: 315, turnRate: 0.7},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	91: {
+		name: {static: "wisp", localized: "Io"},
+		roles: ["Support", "Escape", "Nuker"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 21, max: 27},
+			speed: 100,
+			rate: 1.7,
+			point: 0.3,
+			range: 500,
+			projectile_speed: 1200
+		},
+		attributes: {
+			primary: 3,
+			base: {strength: 19, agility: 14, intelligence: 21},
+			gain: {strength: 3, agility: 1.6, intelligence: 1.7}
+		},
+		movement: {speed: 320, turnRate: 0.7},
+		vision: {day: 1800, night: 800},
+		legs: 0,
+		isInCaptainsMode: true
+	},
+	92: {
+		name: {static: "visage", localized: "Visage"},
+		roles: ["Support", "Nuker", "Durable", "Disabler", "Pusher"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 21, max: 31},
+			speed: 110,
+			rate: 1.7,
+			point: 0.4,
+			range: 600,
+			projectile_speed: 1400
+		},
+		attributes: {
+			primary: 3,
+			base: {strength: 22, agility: 11, intelligence: 22},
+			gain: {strength: 2.8, agility: 1.3, intelligence: 2.9}
+		},
+		movement: {speed: 285, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	93: {
+		name: {static: "slark", localized: "Slark"},
+		roles: ["Carry", "Escape", "Disabler", "Nuker"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 37, max: 43},
+			speed: 120,
+			rate: 1.7,
+			point: 0.5,
+			range: 150,
+			projectile_speed: 0
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 20, agility: 21, intelligence: 16},
+			gain: {strength: 2.1, agility: 1.5, intelligence: 1.9}
+		},
+		movement: {speed: 300, turnRate: 0.7},
+		vision: {day: 1800, night: 1800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	94: {
+		name: {static: "medusa", localized: "Medusa"},
+		roles: ["Carry", "Disabler", "Durable"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: -1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 26, max: 32},
+			speed: 100,
+			rate: 1.7,
+			point: 0.5,
+			range: 600,
+			projectile_speed: 1200
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 0, agility: 22, intelligence: 25},
+			gain: {strength: 0, agility: 3.6, intelligence: 3.6}
+		},
+		movement: {speed: 275, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 0,
+		isInCaptainsMode: true
+	},
+	95: {
+		name: {static: "troll_warlord", localized: "Troll Warlord"},
+		roles: ["Carry", "Pusher", "Disabler", "Durable"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: -1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 27, max: 35},
+			speed: 100,
+			rate: 1.7,
+			point: 0.3,
+			range: 500,
+			projectile_speed: 1200
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 21, agility: 23, intelligence: 13},
+			gain: {strength: 2.5, agility: 3.3, intelligence: 1}
+		},
+		movement: {speed: 290, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	96: {
+		name: {static: "centaur", localized: "Centaur Warrunner"},
+		roles: ["Durable", "Initiator", "Disabler", "Nuker", "Escape"],
+		baseHealth: {size: 120, regen: 3},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: -2,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 36, max: 38},
+			speed: 90,
+			rate: 1.7,
+			point: 0.3,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 27, agility: 15, intelligence: 15},
+			gain: {strength: 4.2, agility: 1, intelligence: 1.6}
+		},
+		movement: {speed: 300, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 4,
+		isInCaptainsMode: true
+	},
+	97: {
+		name: {static: "magnataur", localized: "Magnus"},
+		roles: ["Initiator", "Disabler", "Nuker", "Escape"],
+		baseHealth: {size: 120, regen: 0.5},
+		baseMana: {size: 75, regen: 0.5},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 31, max: 39},
+			speed: 100,
+			rate: 1.8,
+			point: 0.5,
+			range: 200,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 3,
+			base: {strength: 23, agility: 14, intelligence: 20},
+			gain: {strength: 3.1, agility: 2, intelligence: 2.1}
+		},
+		movement: {speed: 305, turnRate: 0.8},
+		vision: {day: 1800, night: 800},
+		legs: 4,
+		isInCaptainsMode: true
+	},
+	98: {
+		name: {static: "shredder", localized: "Timbersaw"},
+		roles: ["Nuker", "Durable", "Escape"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0.5},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 23, max: 27},
+			speed: 100,
+			rate: 1.7,
+			point: 0.36,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 23, agility: 16, intelligence: 23},
+			gain: {strength: 3.6, agility: 1.6, intelligence: 2.7}
+		},
+		movement: {speed: 280, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	99: {
+		name: {static: "bristleback", localized: "Bristleback"},
+		roles: ["Carry", "Durable", "Initiator", "Nuker"],
+		baseHealth: {size: 120, regen: 1},
+		baseMana: {size: 75, regen: 0.4},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 31, max: 37},
+			speed: 100,
+			rate: 1.8,
+			point: 0.3,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 22, agility: 17, intelligence: 14},
+			gain: {strength: 2.8, agility: 1.8, intelligence: 2.8}
+		},
+		movement: {speed: 295, turnRate: 0.9},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	100: {
+		name: {static: "tusk", localized: "Tusk"},
+		roles: ["Initiator", "Disabler", "Nuker"],
+		baseHealth: {size: 120, regen: 1},
+		baseMana: {size: 75, regen: 0.5},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 27, max: 31},
+			speed: 100,
+			rate: 1.7,
+			point: 0.36,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 23, agility: 23, intelligence: 18},
+			gain: {strength: 3.9, agility: 1.9, intelligence: 1.7}
+		},
+		movement: {speed: 310, turnRate: 0.7},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	101: {
+		name: {static: "skywrath_mage", localized: "Skywrath Mage"},
+		roles: ["Support", "Nuker", "Disabler"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0.25},
+		baseArmor: -2,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 16, max: 26},
+			speed: 90,
+			rate: 1.7,
+			point: 0.4,
+			range: 625,
+			projectile_speed: 1000
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 21, agility: 13, intelligence: 25},
+			gain: {strength: 2, agility: 0.8, intelligence: 4.1}
+		},
+		movement: {speed: 325, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	102: {
+		name: {static: "abaddon", localized: "Abaddon"},
+		roles: ["Support", "Carry", "Durable"],
+		baseHealth: {size: 120, regen: 1},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: -1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 22, max: 32},
+			speed: 95,
+			rate: 1.5,
+			point: 0.56,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 3,
+			base: {strength: 21, agility: 22, intelligence: 18},
+			gain: {strength: 2.6, agility: 1.5, intelligence: 2}
+		},
+		movement: {speed: 325, turnRate: 0.6},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	103: {
+		name: {static: "elder_titan", localized: "Elder Titan"},
+		roles: ["Initiator", "Disabler", "Nuker", "Durable"],
+		baseHealth: {size: 120, regen: 0.75},
+		baseMana: {size: 75, regen: 0.25},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 23, max: 33},
+			speed: 100,
+			rate: 1.7,
+			point: 0.35,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 26, agility: 16, intelligence: 23},
+			gain: {strength: 3, agility: 1.8, intelligence: 1.6}
+		},
+		movement: {speed: 305, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	104: {
+		name: {static: "legion_commander", localized: "Legion Commander"},
+		roles: ["Carry", "Disabler", "Initiator", "Durable", "Nuker"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: -1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 33, max: 37},
+			speed: 100,
+			rate: 1.7,
+			point: 0.46,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 24, agility: 18, intelligence: 20},
+			gain: {strength: 3.1, agility: 1.7, intelligence: 2.2}
+		},
+		movement: {speed: 325, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	105: {
+		name: {static: "techies", localized: "Techies"},
+		roles: ["Nuker", "Disabler"],
+		baseHealth: {size: 120, regen: 1},
+		baseMana: {size: 75, regen: 1},
+		baseArmor: 2,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 20, max: 22},
+			speed: 90,
+			rate: 1.7,
+			point: 0.5,
+			range: 600,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 3,
+			base: {strength: 19, agility: 16, intelligence: 25},
+			gain: {strength: 2.6, agility: 1.8, intelligence: 3}
+		},
+		movement: {speed: 310, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 6,
+		isInCaptainsMode: true
+	},
+	106: {
+		name: {static: "ember_spirit", localized: "Ember Spirit"},
+		roles: ["Carry", "Escape", "Nuker", "Disabler", "Initiator"],
+		baseHealth: {size: 120, regen: 0.5},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 33, max: 37},
+			speed: 100,
+			rate: 1.7,
+			point: 0.4,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 22, agility: 22, intelligence: 20},
+			gain: {strength: 2.5, agility: 3.2, intelligence: 2.2}
+		},
+		movement: {speed: 300, turnRate: 0.8},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	107: {
+		name: {static: "earth_spirit", localized: "Earth Spirit"},
+		roles: ["Nuker", "Escape", "Disabler", "Initiator", "Durable"],
+		baseHealth: {size: 120, regen: 1},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 25, max: 29},
+			speed: 100,
+			rate: 1.7,
+			point: 0.35,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 22, agility: 17, intelligence: 18},
+			gain: {strength: 3.8, agility: 2.4, intelligence: 2.1}
+		},
+		movement: {speed: 290, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	108: {
+		name: {static: "abyssal_underlord", localized: "Underlord"},
+		roles: ["Support", "Nuker", "Disabler", "Durable", "Escape"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 3,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 37, max: 43},
+			speed: 100,
+			rate: 1.7,
+			point: 0.45,
+			range: 200,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 25, agility: 12, intelligence: 18},
+			gain: {strength: 3.2, agility: 1.6, intelligence: 2.3}
+		},
+		movement: {speed: 290, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	109: {
+		name: {static: "terrorblade", localized: "Terrorblade"},
+		roles: ["Carry", "Pusher", "Nuker"],
+		baseHealth: {size: 120, regen: 0.5},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 6,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 26, max: 32},
+			speed: 110,
+			rate: 1.5,
+			point: 0.3,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 18, agility: 23, intelligence: 19},
+			gain: {strength: 2, agility: 4, intelligence: 1.6}
+		},
+		movement: {speed: 315, turnRate: 0.8},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	110: {
+		name: {static: "phoenix", localized: "Phoenix"},
+		roles: ["Support", "Nuker", "Initiator", "Escape", "Disabler"],
+		baseHealth: {size: 120, regen: 2},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: -1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 21, max: 31},
+			speed: 100,
+			rate: 1.7,
+			point: 0.35,
+			range: 525,
+			projectile_speed: 1100
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 23, agility: 12, intelligence: 16},
+			gain: {strength: 3.3, agility: 1.5, intelligence: 1.8}
+		},
+		movement: {speed: 280, turnRate: 0.9},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	111: {
+		name: {static: "oracle", localized: "Oracle"},
+		roles: ["Support", "Nuker", "Disabler", "Escape"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0.5},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 13, max: 19},
+			speed: 100,
+			rate: 1.7,
+			point: 0.3,
+			range: 625,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 20, agility: 15, intelligence: 26},
+			gain: {strength: 2.2, agility: 1.7, intelligence: 3.6}
+		},
+		movement: {speed: 295, turnRate: 0.7},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	112: {
+		name: {static: "winter_wyvern", localized: "Winter Wyvern"},
+		roles: ["Support", "Disabler", "Nuker"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0.5},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 16, max: 23},
+			speed: 100,
+			rate: 1.7,
+			point: 0.25,
+			range: 450,
+			projectile_speed: 700
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 22, agility: 16, intelligence: 26},
+			gain: {strength: 2.5, agility: 1.7, intelligence: 3.6}
+		},
+		movement: {speed: 285, turnRate: null},
+		vision: {day: 1800, night: 1200},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	113: {
+		name: {static: "arc_warden", localized: "Arc Warden"},
+		roles: ["Carry", "Escape", "Nuker"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 23, max: 29},
+			speed: 110,
+			rate: 1.7,
+			point: 0.3,
+			range: 625,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 3,
+			base: {strength: 20, agility: 20, intelligence: 24},
+			gain: {strength: 2.2, agility: 2.7, intelligence: 2.6}
+		},
+		movement: {speed: 300, turnRate: 0.7},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	114: {
+		name: {static: "monkey_king", localized: "Monkey King"},
+		roles: ["Carry", "Escape", "Disabler", "Initiator"],
+		baseHealth: {size: 120, regen: 1},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 29, max: 33},
+			speed: 95,
+			rate: 1.6,
+			point: 0.45,
+			range: 300,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 19, agility: 24, intelligence: 20},
+			gain: {strength: 2.8, agility: 3.7, intelligence: 1.8}
+		},
+		movement: {speed: 300, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	119: {
+		name: {static: "dark_willow", localized: "Dark Willow"},
+		roles: ["Support", "Nuker", "Disabler", "Escape"],
+		baseHealth: {size: 120, regen: 0.75},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 27, max: 35},
+			speed: 115,
+			rate: 1.5,
+			point: 0.3,
+			range: 475,
+			projectile_speed: 1200
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 20, agility: 18, intelligence: 21},
+			gain: {strength: 2, agility: 1.6, intelligence: 3.5}
+		},
+		movement: {speed: 290, turnRate: 0.7},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	120: {
+		name: {static: "pangolier", localized: "Pangolier"},
+		roles: ["Carry", "Nuker", "Disabler", "Durable", "Escape", "Initiator"],
+		baseHealth: {size: 120, regen: 1.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 2,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 26, max: 32},
+			speed: 100,
+			rate: 1.7,
+			point: 0.33,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 3,
+			base: {strength: 20, agility: 18, intelligence: 16},
+			gain: {strength: 2.7, agility: 3.2, intelligence: 2.5}
+		},
+		movement: {speed: 300, turnRate: 0.9},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	121: {
+		name: {static: "grimstroke", localized: "Grimstroke"},
+		roles: ["Support", "Nuker", "Disabler", "Escape"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 22, max: 26},
+			speed: 100,
+			rate: 1.7,
+			point: 0.35,
+			range: 600,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 21, agility: 18, intelligence: 25},
+			gain: {strength: 2.4, agility: 1.9, intelligence: 3.8}
+		},
+		movement: {speed: 290, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 0,
+		isInCaptainsMode: true
+	},
+	123: {
+		name: {static: "hoodwink", localized: "Hoodwink"},
+		roles: ["Support", "Nuker", "Escape", "Disabler"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 22, max: 29},
+			speed: 100,
+			rate: 2,
+			point: 0.4,
+			range: 575,
+			projectile_speed: 1800
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 17, agility: 25, intelligence: 21},
+			gain: {strength: 2, agility: 3.6, intelligence: 2.9}
+		},
+		movement: {speed: 315, turnRate: 0.9},
+		vision: {day: 1800, night: 800},
+		legs: 4,
+		isInCaptainsMode: true
+	},
+	126: {
+		name: {static: "void_spirit", localized: "Void Spirit"},
+		roles: ["Carry", "Escape", "Nuker", "Disabler"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0.6},
+		baseArmor: -1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 18, max: 22},
+			speed: 100,
+			rate: 1.7,
+			point: 0.35,
+			range: 200,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 3,
+			base: {strength: 22, agility: 21, intelligence: 24},
+			gain: {strength: 2.6, agility: 2.2, intelligence: 3.1}
+		},
+		movement: {speed: 290, turnRate: 0.7},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	128: {
+		name: {static: "snapfire", localized: "Snapfire"},
+		roles: ["Support", "Nuker", "Disabler", "Escape"],
+		baseHealth: {size: 120, regen: 0.75},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 25, max: 31},
+			speed: 100,
+			rate: 1.8,
+			point: 0.35,
+			range: 400,
+			projectile_speed: 1800
+		},
+		attributes: {
+			primary: 3,
+			base: {strength: 21, agility: 16, intelligence: 21},
+			gain: {strength: 3.5, agility: 1.9, intelligence: 2.2}
+		},
+		movement: {speed: 300, turnRate: null},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	129: {
+		name: {static: "mars", localized: "Mars"},
+		roles: ["Carry", "Initiator", "Disabler", "Durable"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0.5},
+		baseArmor: -1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 26, max: 34},
+			speed: 100,
+			rate: 1.8,
+			point: 0.4,
+			range: 250,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 23, agility: 18, intelligence: 21},
+			gain: {strength: 3.7, agility: 1.7, intelligence: 2.2}
+		},
+		movement: {speed: 310, turnRate: 0.8},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	131: {
+		name: {static: "ringmaster", localized: "Ring Master"},
+		roles: ["Support", "Nuker", "Escape", "Disabler"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 23, max: 33},
+			speed: 100,
+			rate: 1.7,
+			point: 0.5,
+			range: 575,
+			projectile_speed: 1200
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 21, agility: 11, intelligence: 25},
+			gain: {strength: 2.1, agility: 1.6, intelligence: 3}
+		},
+		movement: {speed: 310, turnRate: 0.6},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	135: {
+		name: {static: "dawnbreaker", localized: "Dawnbreaker"},
+		roles: ["Carry", "Durable"],
+		baseHealth: {size: 120, regen: 0.5},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 2,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 31, max: 35},
+			speed: 100,
+			rate: 1.7,
+			point: 0.46,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 25, agility: 14, intelligence: 20},
+			gain: {strength: 3.4, agility: 1.7, intelligence: 2}
+		},
+		movement: {speed: 300, turnRate: 0.6},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	136: {
+		name: {static: "marci", localized: "Marci"},
+		roles: ["Support", "Carry", "Initiator", "Disabler", "Escape"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 29, max: 33},
+			speed: 100,
+			rate: 1.7,
+			point: 0.3,
+			range: 150,
+			projectile_speed: 0
+		},
+		attributes: {
+			primary: 3,
+			base: {strength: 23, agility: 20, intelligence: 19},
+			gain: {strength: 3.2, agility: 2.2, intelligence: 1.9}
+		},
+		movement: {speed: 315, turnRate: 0.9},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	137: {
+		name: {static: "primal_beast", localized: "Primal Beast"},
+		roles: ["Initiator", "Durable", "Disabler"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 2,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 36, max: 38},
+			speed: 100,
+			rate: 1.8,
+			point: 0.6,
+			range: 150,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 26, agility: 15, intelligence: 16},
+			gain: {strength: 4.3, agility: 1, intelligence: 1.7}
+		},
+		movement: {speed: 305, turnRate: 0.6},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	138: {
+		name: {static: "muerta", localized: "Muerta"},
+		roles: ["Carry", "Nuker", "Disabler"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 0,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 24, max: 32},
+			speed: 115,
+			rate: 1.7,
+			point: 0.35,
+			range: 575,
+			projectile_speed: 3000
+		},
+		attributes: {
+			primary: 2,
+			base: {strength: 19, agility: 21, intelligence: 23},
+			gain: {strength: 2, agility: 2.7, intelligence: 3.6}
+		},
+		movement: {speed: 295, turnRate: 0.7},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	145: {
+		name: {static: "kez", localized: "Kez"},
+		roles: ["Carry", "Escape", "Disabler"],
+		baseHealth: {size: 120, regen: 1.5},
+		baseMana: {size: 75, regen: 0.25},
+		baseArmor: 1,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 23, max: 29},
+			speed: 100,
+			rate: 1.9,
+			point: 0.35,
+			range: 225,
+			projectile_speed: 900
+		},
+		attributes: {
+			primary: 1,
+			base: {strength: 20, agility: 27, intelligence: 20},
+			gain: {strength: 2.8, agility: 3.5, intelligence: 1.7}
+		},
+		movement: {speed: 310, turnRate: 1},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	},
+	155: {
+		name: {static: "largo", localized: "Largo"},
+		roles: ["Durable", "Disabler", "Support"],
+		baseHealth: {size: 120, regen: 0.25},
+		baseMana: {size: 75, regen: 0},
+		baseArmor: 2,
+		baseMagicResist: 25,
+		baseAttack: {
+			damage: {min: 39, max: 45},
+			speed: 100,
+			rate: 1.7,
+			point: 0.35,
+			range: 150,
+			projectile_speed: 0
+		},
+		attributes: {
+			primary: 0,
+			base: {strength: 24, agility: 14, intelligence: 21},
+			gain: {strength: 3.6, agility: 1.3, intelligence: 2.6}
+		},
+		movement: {speed: 290, turnRate: 0.7},
+		vision: {day: 1800, night: 800},
+		legs: 2,
+		isInCaptainsMode: true
+	}
+} as const

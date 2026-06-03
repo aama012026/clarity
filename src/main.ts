@@ -12,7 +12,7 @@ import {bindPlayer, formatFullMatch, bindMatchSummary, formatRankDistribution,
 import {type Distributions, type AccountId, type OdotaPlayer, type OdotaSearchResult,
 	type MatchForPlayer, leaverStatusByKey, LEAVER_STATUS, type RankBitmask,
 	type UnparsedMatch, type ParsedMatch, type MatchId
-} from './types/OpenDotaTypes.js'
+} from './types/openDotaTypes.js'
 
 axios.defaults.baseURL = 'https://api.opendota.com/api'
 axios.defaults.allowAbsoluteUrls = false

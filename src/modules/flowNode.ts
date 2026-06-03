@@ -22,9 +22,9 @@ export async function tryReadJSON<T>(filePath: string): Promise<Result<T>> {
 export async function tryWrite(filePath: string, fileData: any): Promise<Result> {
 	let log: LogEntry[] = []
 	try {
-		logMessage(`Writing ${filePath}...\n`, log)
+		logMessage(`Writing ${filePath}...`, log)
 		const bytesWritten = await Bun.write(filePath, fileData)
-		logMessage(`Wrote ${bytesWritten} bytes to ${filePath} in ${Date.now() - log[0]!.timestamp.getTime()}ms.\n`, log)
+		logMessage(`Wrote ${bytesWritten} bytes to ${filePath} in ${Date.now() - log[0]!.timestamp.getTime()}ms.`, log)
 		return {ok: true, msg: log}
 	}
 	catch (error) {
