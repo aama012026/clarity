@@ -214,7 +214,7 @@ export function logEntry(msg: string, lvl: LogLvl ): LogEntry {
 	return {timestamp: new Date(), msg: msg, lvl: lvl}
 }
 export function getLogString(entry: LogEntry): string {
-	return `${entry.timestamp.toUTCString}: ${entry.msg}`
+	return `${entry.timestamp.toUTCString()}: ${entry.msg}`
 }
 export function logMessage(msg: string, log?: LogEntry[]): void {
 	const entry = logEntry(msg, LOG_LVL.MSG)
