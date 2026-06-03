@@ -1,10 +1,10 @@
-import { tryGetImg, assert, tryGetJson, logWarning, logMessage, logError, type LogEntry } from '../modules/flow.js'
-import { tryReadJSON, tryWrite, tryWriteJSON } from '../modules/flowNode.js'
-import { DIR, FILES, PATHS } from '../modules/paths.js'
 import { type Ids, type Binding, type IdKey, getIdMap } from '../types/clarityTypes.js'
 import type { DotaConstantsHero, DotaConstantsItem } from '../types/DotaConstantsTypes.js'
-import { type Hero, type Item, type Targets } from '../types/BoundTypes.js'
+import type { Hero, Item, Targets } from '../types/BoundTypes.js'
+import { DIR, FILES, PATHS } from '../modules/paths.js'
 import { ATTRIBUTE_BINDING } from '../modules/bindings.js'
+import { tryGetImg, tryGetJson, logWarning, logMessage, logError, type LogEntry, LOG_LVL, getLogString, type Result } from '../modules/flow.js'
+import { tryReadJSON, tryWrite, tryWriteJSON } from '../modules/flowNode.js'
 
 const CDN_HOST = 'https://cdn.steamstatic.com/'
 const HEROES_URL = new URL('https://raw.githubusercontent.com/odota/dotaconstants/refs/heads/master/build/heroes.json')
@@ -24,11 +24,12 @@ type IdBinding = {idx: number} & ExtId
 const log: LogEntry[] = []
 
 // FETCH REQUIRED DOTACONSTANTS RESOURCES -> MAP TO CUSTOM DATASTRUCTURES -> WRITE TO ASSETS
-await tryUpdateHeroes()
-await tryUpdateItems()
-await tryUpdateAbilities()
-await tryWriteJSON(`${PATHS.LOGS.BUILD}-${new Date().toUTCString()}.txt`, log)
-
+await Promise.all([
+	tryUpdateHeroes(),
+	tryUpdateItems(),
+	tryUpdateAbilities()
+])
+await tryWriteLogFile(log)
 // Heroes
 async function tryUpdateHeroes() {
 	const [heroesRes, oldHeroBindingsRes] = await Promise.all([
@@ -60,19 +61,20 @@ async function tryUpdateHeroes() {
 	const boundHeroes: Record<number, Hero> = Object.fromEntries(
 		rawHeroes.map(hero => [HeroIdByExt[hero.id], bindHero(hero)])
 	)
-	tryWriteJSON(HERO_DATA_PATH, boundHeroes).then(r => log.push(...r.msg))
-	// Get hero images
-	rawHeroes.forEach(async hero => {
-		const img = await tryGetImg(new URL(hero.img, CDN_HOST))
-		log.push(...img.msg)
-		if(!img.ok) {
-			return
-		}
-		tryWrite(
-			`${DIR.BUILD}/${PATHS.IMG.HEROES}/${hero.name.replace('npc_dota_hero_','')}.png`,
-			Buffer.from(img.data!)
-		).then(r => log.push(...r.msg))
-	});
+	await Promise.all([
+		tryWriteJSON(HERO_DATA_PATH, boundHeroes).then(r => log.push(...r.msg)),
+		// Get hero images
+		Promise.all(rawHeroes.map(async hero => {
+			const img = await tryGetImg(new URL(hero.img, CDN_HOST))
+			log.push(...img.msg)
+			if(img.ok && img.data) {
+				return tryWrite(
+					`${DIR.BUILD}/${PATHS.IMG.HEROES}/${hero.name.replace('npc_dota_hero_','')}.png`,
+					Buffer.from(img.data)
+				).then(r => log.push(...r.msg))
+			}
+		}))
+	])
 }
 
 // Items
@@ -109,19 +111,21 @@ async function tryUpdateItems() {
 	const boundItems: Record<number, Item> = Object.fromEntries(
 		items.map(([key, item]) => [ItemByExtKey[item.id], bindItem(item, key)])
 	)
-	tryWriteJSON(ITEMS_PATH, boundItems).then(r => log.push(...r.msg))
-	
-	// Get images
-	items.forEach(async ([label, item]) => {
-		const img = await tryGetImg(new URL(item.img, CDN_HOST))
-		log.push(...img.msg)
-		if(img.ok && img.data) {
-			tryWrite(
-				`${DIR.BUILD}/${PATHS.IMG.ITEMS}/${label}.png`,
-				Buffer.from(img.data)
-			).then(r => log.push(...r.msg))
-		}
-	});
+
+	await Promise.all([
+		tryWriteJSON(ITEMS_PATH, boundItems).then(r => log.push(...r.msg)),
+		// Get images
+		Promise.all(items.map(async ([label, item]) => {
+			const img = await tryGetImg(new URL(item.img, CDN_HOST))
+			log.push(...img.msg)
+			if(img.ok && img.data) {
+				return tryWrite(
+					`${DIR.BUILD}/${PATHS.IMG.ITEMS}/${label}.png`,
+					Buffer.from(img.data)
+				).then(r => log.push(...r.msg))
+			}
+		}))
+	])
 }
 
 // Abilities
@@ -151,21 +155,20 @@ async function tryUpdateAbilities() {
 			}
 		}
 	})
-	imgResources.forEach(async (resource) => {
-		tryGetImg(new URL(resource.url, CDN_HOST)).then(async img => {
-			log.push(...img.msg)
-			if(img.ok && img.data) {
-				tryWrite(
-					`${DIR.BUILD}/${PATHS.IMG.ABILITIES}/${resource.name}.png`,
-					Buffer.from(img.data)
-				).then(r => log.push(...r.msg))
-			}
-		})
-	})
+	await Promise.all(imgResources.map(async (resource) => {
+		const img = await tryGetImg(new URL(resource.url, CDN_HOST))
+		log.push(...img.msg)
+		if(img.ok && img.data) {
+			return tryWrite(
+				`${DIR.BUILD}/${PATHS.IMG.ABILITIES}/${resource.name}.png`,
+				Buffer.from(img.data)
+			).then(r => log.push(...r.msg))
+		}
+	}))
 	const oldAbilityBindings = (await tryReadJSON<Ids<Binding>>(ABILITY_BINDINGS_PATH)).data ?? {}
 	const newAbilityBindings = tryUpdateNumericIdBindings(newAbilityIds, oldAbilityBindings)
 	if(newAbilityBindings) {
-		tryWriteJSON(ABILITY_BINDINGS_PATH, newAbilityBindings).then(
+		await tryWriteJSON(ABILITY_BINDINGS_PATH, newAbilityBindings).then(
 			r => log.push(...r.msg)
 		)
 	}
@@ -220,7 +223,7 @@ function tryUpdateNumericIdBindings(newIds: ExtId[], oldIds: Ids<Binding>) {
 		}
 	})
 	if(hasDuplicateEntries) {
-		logError('Duplicate entries in old bindings. Cancelling binding update.')
+		logError('Duplicate entries in old bindings. Cancelling binding update.', log)
 		return
 	}
 
@@ -346,7 +349,7 @@ function bindItem(item: DotaConstantsItem, dataName: string): Item {
 		boundItem.manaCost = item.mc
 	}
 	if(typeof item.hc === 'number') {
-		boundItem.healthCost === item.hc
+		boundItem.healthCost = item.hc
 	}
 	if(typeof item.cd === 'number') {
 		boundItem.cooldown = item.cd
@@ -395,4 +398,26 @@ function generateMissingItemName(label: string): string {
 	return parts.map(
 		(part) => part[0]?.toUpperCase() + part.slice(1)
 	).join(' ')
+}
+
+async function tryWriteLogFile(log: LogEntry[]): Promise<Result> {
+	const errors: string[] = ['\nERRORS:\n']
+	const warnings: string[] = ['\nWARNINGS:\n']
+	const all: string[] = ['\nFULL LOG:\n']
+
+	log.sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime())
+	log.forEach(entry => {
+		const msgString = getLogString(entry)
+		if(entry.lvl === LOG_LVL.ERR) {
+			errors.push(msgString)
+		}
+		if(entry.lvl === LOG_LVL.WRN) {
+			warnings.push(msgString)
+		}
+		all.push(msgString)
+	})
+	const logString = errors.join('\n')+warnings.join('\n')+all.join('\n')
+	return await tryWrite(
+		`${PATHS.LOGS.BUILD + new Date().toISOString().replace(/:/g,'.')}.txt`, logString
+	)
 }
