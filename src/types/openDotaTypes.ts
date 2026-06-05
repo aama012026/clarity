@@ -1,6 +1,7 @@
-import type { ISO8601TimeString, Unique, UnixTimestamp } from "../modules/flow.js"
-import type { AbilityId, GameModeId, HeroId, ItemId, LobbyTypeId, PatchId, RegionId,
-	UnitOrderId } from "./dotaConstantsTypes.js"
+import type { ISO8601TimeString, Unique, UnixTimestamp 
+} from "../modules/flow.js"
+import type { GameModeId, LobbyTypeId, PatchId, RegionId, UnitOrderId
+} from "./dotaConstantsTypes.js"
 
 // Type guards
 export type MatchId = Unique<number, 'match'>
@@ -12,8 +13,8 @@ export type PartyId = Unique<number, 'party'>
 export type BarracksBitmask = Unique<number, 'barracksBitmask'>
 export type TowersBitmask = Unique<number, 'towersBitmask'>
 export type RankBitmask = Unique<number, 'rankBitmask'>
-export type GoldReasonId = Unique<number, 'goldReason'>
-export type XpReasonId = Unique<number, 'xpReason'>
+export type GoldReasonId = number
+export type XpReasonId = number
 
 // Self documentation
 export type xPos = number
@@ -189,7 +190,7 @@ export interface DraftTiming {
 	order: number,
 	pick: boolean,
 	active_team: number,
-	hero_id: HeroId,
+	hero_id: number,
 	player_slot: PlayerSlot | null,
 	extra_time: number,
 	total_time_taken: number
@@ -207,7 +208,7 @@ export interface InGamePlayerSummary {
 	kills: number,
 	deaths: number,
 	assists: number,
-	hero_id: HeroId,
+	hero_id: number,
 	leaver_status: LeaverStatus,
 	party_size: number | null,
 	hero_variant?: number
@@ -220,17 +221,17 @@ export interface OdotaUnparsedPlayer extends InGamePlayerSummary {
 	team_number: number, // undocumented, prob unneeded - 0 for radiant and 1 for dire
 	team_slot: number, // undocumented, prob unneeded (0-4)
 	permanent_buffs?: OdotaPermanentBuff[],
-	item_0: ItemId,
-	item_1: ItemId,
-	item_2: ItemId,
-	item_3: ItemId,
-	item_4: ItemId,
-	item_5: ItemId,
-	backpack_0: ItemId, // prob. id for item
-	backpack_1: ItemId,
-	backpack_2: ItemId,
-	item_neutral: ItemId, // artifact
-	item_neutral2: ItemId, // enchantment
+	item_0: number,
+	item_1: number,
+	item_2: number,
+	item_3: number,
+	item_4: number,
+	item_5: number,
+	backpack_0: number, // prob. id for item
+	backpack_1: number,
+	backpack_2: number,
+	item_neutral: number, // artifact
+	item_neutral2: number, // enchantment
 	last_hits: number,
 	denies: number,
 	gold_per_min: number,
@@ -245,7 +246,7 @@ export interface OdotaUnparsedPlayer extends InGamePlayerSummary {
 	hero_healing: number,
 	gold: number, // @ match conclusion
 	gold_spent: number,
-	ability_upgrades_arr: AbilityId[],
+	ability_upgrades_arr: number[],
 	// Composed from profile?
 	personaname: string | null,
 	name: string | null,
@@ -301,7 +302,7 @@ export interface OdotaParsedPlayer extends OdotaUnparsedPlayer {
 	runes_log: Timing[],
 	connection_log: ConnectionEvent[],
 	lane_pos: Record<xPos, Record<yPos, number>>, //outer record key is x, inner y (or other way around), and value of inner is presumably weight.
-	obs: Record<xPos, Record<yPos, number>>,
+	obs: Record<xPos, Record<yPos, number>>
 	sen: Record<xPos, Record<yPos, number>>,
 	actions: Record<UnitOrderId, number>,
 	pings: number,
@@ -368,7 +369,7 @@ export interface OdotaPermanentBuff {
 export interface Percentile {percentile: number, value: number | null}
 
 export interface HeroBenchmark {
-	hero_id: HeroId,
+	hero_id: number,
 	result: {
 		gold_per_min: Percentile[],
 		xp_per_min: Percentile[],
@@ -457,7 +458,7 @@ export interface Pause {
 }
 
 export interface HeroPlayerStats {
-	hero_id: HeroId,
+	hero_id: number,
 	last_played: number, // maybe a match id?
 	games: number,
 	win: number,
@@ -664,7 +665,7 @@ export type ObjectiveType = typeof OBJECTIVE_TYPES[keyof typeof OBJECTIVE_TYPES]
 // const arrays lets us access the slots for both team with i < 5.
 export const RADIANT_SLOTS = [0, 1, 2, 3, 4] as const
 export const DIRE_SLOTS = [128, 129, 130, 131, 132] as const
-export type PlayerSlot = Unique<typeof RADIANT_SLOTS[number] | typeof DIRE_SLOTS[number], 'playerSlot'>
+export type PlayerSlot = typeof RADIANT_SLOTS[number] | typeof DIRE_SLOTS[number]
 
 export interface Distributions {
 	ranks: {

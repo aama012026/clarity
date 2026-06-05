@@ -4,7 +4,7 @@ import type { Hero, Item, Targets } from '../types/boundTypes'
 import { DIR, FILES, PATHS } from '../modules/paths'
 import { tryGetImg, tryGetJson, logWarning, logMessage, logError, type LogEntry, LOG_LVL, getLogString, type Result, stringify } from '../modules/flow.js'
 import { tryReadJSON, tryWrite } from '../modules/flowNode'
-import { ATTRIBUTE_BINDING } from '../modules/domainConstants'
+import { ATTRIBUTE_BY_EXT } from '../modules/domainConstants'
 
 const CDN_HOST = 'https://cdn.steamstatic.com/'
 const HEROES_URL = new URL('https://raw.githubusercontent.com/odota/dotaconstants/refs/heads/master/build/heroes.json')
@@ -19,8 +19,6 @@ const ITEM_BINDINGS_PATH = `${DATA_PATH}/${FILES.BINDINGS.ITEMS}`
 const ITEMS_PATH = `${DATA_PATH}/${FILES.DATA.ITEMS}`
 const ABILITY_BINDINGS_PATH = `${DATA_PATH}/${FILES.BINDINGS.ABILITIES}`
 const ROOT_FROM_DATA_PATH = `../../..`
-
-
 
 type ExtId = Binding & IdKey
 type IdBinding = {idx: number} & ExtId
@@ -53,9 +51,13 @@ async function tryUpdateHeroes() {
 	if(!newHeroBindings) {
 		return
 	}
-
+	
 	// Write bindings
-	const bindingsWriteRes = await tryWrite(HERO_BINDINGS_PATH, `export const HERO_IDS = ${stringify(newHeroBindings)} as const`)
+	const bindingsString = (
+		getTypeImport(FILES.TYPES.CLARITY_TYPES, 'Ids', 'Binding') +
+		getConstExport('HERO_IDS', newHeroBindings, 'Ids<Binding>')
+	)
+	const bindingsWriteRes = await tryWrite(HERO_BINDINGS_PATH, bindingsString)
 	log.push(...bindingsWriteRes.msg)
 	if(!bindingsWriteRes.ok) {
 		return
@@ -65,18 +67,25 @@ async function tryUpdateHeroes() {
 	const boundHeroes: Record<number, Hero> = Object.fromEntries(
 		rawHeroes.map(hero => [HeroIdByExt[hero.id], bindHero(hero)])
 	)
+
+	const heroesString = (
+		getTypeImport(FILES.TYPES.BOUND_TYPES, 'Hero') +
+		getConstExport('HEROES', boundHeroes, 'Record<number, Hero>')
+	)
 	await Promise.all([
-		tryWrite(HERO_DATA_PATH, `export const HEROES = ${stringify(boundHeroes)} as const`).then(r => log.push(...r.msg)),
+		
+		tryWrite(HERO_DATA_PATH, heroesString).then(r => log.push(...r.msg)),
 		// Get hero images
 		Promise.all(rawHeroes.map(async hero => {
 			const img = await tryGetImg(new URL(hero.img, CDN_HOST))
 			log.push(...img.msg)
-			if(img.ok && img.data) {
-				return tryWrite(
-					`${DIR.BUILD}/${PATHS.IMG.HEROES}/${hero.name.replace('npc_dota_hero_','')}.png`,
-					Buffer.from(img.data)
-				).then(r => log.push(...r.msg))
+			if(!(img.ok && img.data)) {
+				return
 			}
+			const imgFolder = `${DIR.BUILD}/${PATHS.IMG.HEROES}`
+			const fileName = `${hero.name.replace('npc_dota_hero_','')}.png`
+			return tryWrite(`${imgFolder}/${fileName}`, Buffer.from(img.data)
+			).then(r => log.push(...r.msg))
 		}))
 	])
 }
@@ -104,22 +113,27 @@ async function tryUpdateItems() {
 	if(!newItemBindings) {
 		return
 	}
-	const bindingsWriteRes = await tryWrite(ITEM_BINDINGS_PATH,
-		`export const ITEM_BINDINGS = ${stringify(newItemBindings)} as const`
+	const bindingsString = (
+		getTypeImport(FILES.TYPES.CLARITY_TYPES, 'Ids', 'Binding') +
+		getConstExport('ITEM_IDS', newItemBindings, 'Ids<Binding>')
 	)
+	const bindingsWriteRes = await tryWrite(ITEM_BINDINGS_PATH, bindingsString)
 	log.push(...bindingsWriteRes.msg)
 	if(!bindingsWriteRes.ok) {
 		return
 	}
-
-
+	
 	const ItemByExtKey = getIdMap(newItemBindings, 'ext')
 	const boundItems: Record<number, Item> = Object.fromEntries(
 		items.map(([key, item]) => [ItemByExtKey[item.id], bindItem(item, key)])
 	)
-
+	
+	const itemsString = (
+		getTypeImport(FILES.TYPES.BOUND_TYPES, 'Item') +
+		getConstExport('ITEMS', boundItems, 'Record<number, Item>')
+	)
 	await Promise.all([
-		tryWrite(ITEMS_PATH, `export const ITEMS = ${stringify(boundItems)} as const`).then(r => log.push(...r.msg)),
+		tryWrite(ITEMS_PATH, itemsString).then(r => log.push(...r.msg)),
 		// Get images
 		Promise.all(items.map(async ([label, item]) => {
 			const img = await tryGetImg(new URL(item.img, CDN_HOST))
@@ -149,7 +163,6 @@ async function tryUpdateAbilities() {
 	const newAbilityIds: ExtId[] = []
 	const imgResources: {url: URL, name: string}[] = []
 	Object.entries(abilityIds).forEach(([ext, key]) => {
-		const id = {ext: parseInt(ext), key: key}
 		const ability = abilities[key]
 		if(!ability){
 			logError(`Could not get ability for key ${key}.`, log)
@@ -173,11 +186,16 @@ async function tryUpdateAbilities() {
 	}))
 	const oldAbilityBindings = (await tryReadJSON<Ids<Binding>>(ABILITY_BINDINGS_PATH)).data ?? {}
 	const newAbilityBindings = tryUpdateNumericIdBindings(newAbilityIds, oldAbilityBindings)
-	if(newAbilityBindings) {
-		await tryWrite(ABILITY_BINDINGS_PATH,
-			`export const ABILITY_BINDINGS = ${stringify(newAbilityBindings)} as const`
-		).then(r => log.push(...r.msg))
+	if(!newAbilityBindings) {
+		return
 	}
+	const bindingsString = (
+		getTypeImport(FILES.TYPES.CLARITY_TYPES, 'Ids', 'Binding') +
+		getConstExport('ABILITY_IDS', newAbilityBindings, 'Ids<Binding>')
+	)
+	await tryWrite(ABILITY_BINDINGS_PATH, bindingsString).then(
+		r => log.push(...r.msg)
+	)
 }
 
 function tryUpdateNumericIdBindings(newIds: ExtId[], oldIds: Ids<Binding>) {
@@ -307,7 +325,7 @@ function bindHero(hero: DotaConstantsHero): Hero {
 			projectile_speed: hero.projectile_speed
 		},
 		attributes: {
-			primary: ATTRIBUTE_BINDING[hero.primary_attr],
+			primary: ATTRIBUTE_BY_EXT[hero.primary_attr],
 			base: {
 				strength: hero.base_str,
 				agility: hero.base_agi,
@@ -406,9 +424,14 @@ function generateMissingItemName(label: string): string {
 	).join(' ')
 }
 
-function getTypeImport(type: string, file: string):string {
+function getTypeImport(file: string, type: string, ...types: string[]): string {
+	types.unshift(type)
 	const path = `${ROOT_FROM_DATA_PATH}/${PATHS.TYPES}/${file.split('.')[0]}`
-	return `import type {${type}} from '${path}'`
+	return `import type {${types.join(', ')}} from '${path}'\n`
+}
+
+function getConstExport(name: string, obj: unknown, type: string): string {
+	return `export const ${name} = ${stringify(obj)} as const satisfies ${type}`
 }
 
 async function tryWriteLogFile(log: LogEntry[]): Promise<Result> {

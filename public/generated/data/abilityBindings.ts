@@ -1,4 +1,5 @@
-export const ABILITY_BINDINGS = {
+import type {Ids, Binding} from '../../../src/types/clarityTypes'
+export const ABILITY_IDS = {
 	0: {key: "dota_base_ability", ext: 0},
 	82: {key: "bear_empty1", ext: 82},
 	83: {key: "bear_empty2", ext: 83},
@@ -3229,4 +3230,4 @@ export const ABILITY_BINDINGS = {
 	9997: {key: "roshan_halloween_shell", ext: 9997},
 	9998: {key: "roshan_halloween_apocalypse", ext: 9998},
 	9999: {key: "roshan_halloween_burn", ext: 9999}
-} as const
+} as const satisfies Ids<Binding>

@@ -1,15 +1,21 @@
 {
-  "name": "clarity",
-  "module": "index.ts",
-  "type": "module",
-  "private": true,
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
-  },
-  "dependencies": {
-    "axios": "^1.16.0"
-  }
+	"name": "clarity",
+	"module": "index.ts",
+	"type": "module",
+	"private": true,
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	},
+	"dependencies": {
+		"axios": "^1.16.0"
+	},
+	"scripts": {
+		"build:data": "bun run src/scripts/build.ts",
+		"build:templates": "bun run src/scripts/buildTemplates.ts",
+		"test": "bun run src/scripts/test.ts",
+		"dev": "bun run --hot clarity.ts"
+	}
 }

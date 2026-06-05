@@ -1,3 +1,4 @@
+import type {Item} from '../../../src/types/boundTypes'
 export const ITEMS = {
 	1: {
 		name: "Blink Dagger",
@@ -9585,4 +9586,4 @@ export const ITEMS = {
 		],
 		behavior: ["Point Target"]
 	}
-} as const
+} as const satisfies Record<number, Item>

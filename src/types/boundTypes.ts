@@ -1,4 +1,4 @@
-import type { Attribute } from "../modules/domainConstants"
+import type { AttributeId } from "../modules/domainConstants"
 import type { ItemAbility, ItemAttribute } from "./dotaConstantsTypes"
 
 export interface Hero {
@@ -13,7 +13,7 @@ export interface Hero {
 	baseMagicResist: number,
 	baseAttack: Attack,
 	attributes: {
-		primary: Attribute,
+		primary: AttributeId,
 		base: AttributeSet,
 		gain: AttributeSet
 	},

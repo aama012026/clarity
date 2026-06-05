@@ -1,23 +1,28 @@
+import { HERO_IDS } from "../../public/generated/data/heroBindings"
 import { HEROES } from "../../public/generated/data/heroes"
 import { ITEMS } from "../../public/generated/data/items"
-import type { Hero, Item } from "../types/boundTypes"
-import type { Binding, Ids } from "../types/clarityTypes"
+import { ITEM_IDS } from "../../public/generated/data/itemBindings"
+import { ABILITY_IDS } from "../../public/generated/data/abilityBindings"
+import { getIdMap } from "../types/clarityTypes"
+import { DAMAGE_TYPES, SIDE, SIDES, STRUCTURE_FLAGS, type GoldSource, type Lane, type LifeState, type Side, type StructureFlag, type Structure, type StructuresBitmask, type Unit, type XpSource, type Rune } from "./domainConstants"
+import { BARRACK_FLAGS, TOWER_FLAGS, type AccountId, type BarracksBitmask, type Cosmetic, type Distributions, type LeagueId, type LeaverStatus, type MatchForPlayer, type MatchId, type Objective, type OdotaParsedPlayer, type OdotaPlayer, type OdotaProfile, type OdotaSteamAlias, type OdotaUnparsedPlayer, type ParsedMatch, type PartyId, type Pause, type Percentile, type PlayerSlot, type RankBitmask, type SeriesId, type SteamId, type TowersBitmask, type UnparsedMatch } from "../types/openDotaTypes"
+import { isEmpty, logEntry, logError, logMessage, nullsToUndefined, type ISO8601TimeString, type LogEntry, type Result, type UnixTimestamp } from "./flow"
+import type { GameModeId, LobbyTypeId, PatchId, RegionId, UnitOrderId } from "../types/dotaConstantsTypes"
 
-const HERO_IDS = heroIds as Ids<Binding>
-const ITEMSS = ITEMS satisfies Record<number, Item>
-const HEROESS = HEROES satisfies Record<number, Hero>
-type HeroId = keyof typeof heroIds
-const HERO_ID = getIdMap(HERO_IDS, 'key')
-const ITEM_ID = getIdMap(itemIds, 'key')
-const ABILITY_ID = getIdMap(abilityIds, 'key')
-const SIDE = getIdMap(SIDES, 'key')
+export const HERO = getIdMap(HERO_IDS, 'key')
+export const HERO_BY_EXT = getIdMap(HERO_IDS, 'ext')
+export const ITEM = getIdMap(ITEM_IDS, 'key')
+export const ITEM_BY_EXT = getIdMap(ITEM_IDS, 'ext')
+export const ABILITY = getIdMap(ABILITY_IDS, 'key')
+export const ABILITY_BY_EXT = getIdMap(ABILITY_IDS, 'ext')
+
+type Hero = keyof typeof HERO_IDS
+type Item = keyof typeof ITEM_IDS
+type AbilityId = keyof typeof ABILITY_IDS
 const DAMAGE_TYPE = getIdMap(DAMAGE_TYPES, 'key')
-
 
 // This comes as a bool from opendota, so no need to freeze keys atm.
 export type Outcome = 'win' | 'loss'
-export type PermanentBuffId = Unique<number, 'permanentBuff'>
-
 function setStructureBitmask(
 	towers: TowersBitmask,
 	barracks: BarracksBitmask,
@@ -237,7 +242,7 @@ export function formatRankDistribution(distributions: Distributions) {
 // It is always an array of values for different percentiles.
 export interface Benchmark {
 	timestamp: ISO8601TimeString,
-	hero: HeroIdx,
+	hero: Hero,
 	gpm: Percentile[],
 	xpm: Percentile[],
 	kpm: Percentile[],
@@ -264,7 +269,7 @@ export interface MatchBase {
 	id: MatchId,
 	startTime?: UnixTimestamp,
 	lengthSeconds: number,
-	winningTeam: SideIdx,
+	winningTeam: Side,
 	gameMode: GameModeId,
 	lobbyType: LobbyTypeId,
 	parseVersion: number | null,
@@ -279,14 +284,21 @@ export interface PlayerMatchSummary {
 		partySize?: number,
 	}
 	hero: {
-		id: HeroIdx,
+		id: Hero,
 		facet?: number,
 		kda: {kills: number, deaths: number, assists: number}
 	}
 }
 
-export function bindMatchSummary(summary: MatchForPlayer, player: AccountId): PlayerMatchSummary {
-	return {
+export function bindMatchSummary(summary: MatchForPlayer, player: AccountId)
+:Result<PlayerMatchSummary> {
+	const res: Result<PlayerMatchSummary> = {ok: false, msg: []}
+	const heroId = HERO_BY_EXT[summary.hero_id]
+	if(!heroId) {
+		logError(`Could not bind match Summary: ${summary.hero_id} is not in HERO_BY_EXT`)
+		return res
+	}
+	res.data = {
 		match: {
 			id: summary.match_id,
 			fetchTime: new Date().getTime() as UnixTimestamp,
@@ -304,7 +316,7 @@ export function bindMatchSummary(summary: MatchForPlayer, player: AccountId): Pl
 			slot: summary.player_slot ?? undefined
 		},
 		hero: {
-			id: HERO_ID[summary.hero_id]!,
+			id: heroId,
 			kda: {
 				kills: summary.kills,
 				deaths: summary.deaths,
@@ -314,6 +326,9 @@ export function bindMatchSummary(summary: MatchForPlayer, player: AccountId): Pl
 	}
 	// TODO: check if facets are still deprecated through dotaconstants,
 	// and assign hero_variant if not
+	res.ok = true
+	logMessage(`Bound match summary ${summary.match_id}`, res.msg)
+	return res
 }
 
 export interface SparseMatch extends MatchBase {
@@ -381,7 +396,7 @@ export function formatSparseMatch(match: UnparsedMatch): SparseMatch {
 			structuresLeft: setStructureBitmask(
 				match.tower_status_radiant,
 				match.barracks_status_radiant,
-				'RADI',
+				SIDE.RADIANT,
 				// TODO: We need to handle case where radiant_win is null
 				match.radiant_win!
 			),
@@ -391,7 +406,7 @@ export function formatSparseMatch(match: UnparsedMatch): SparseMatch {
 			structuresLeft: setStructureBitmask(
 				match.tower_status_dire,
 				match.barracks_status_dire,
-				'DIRE',
+				SIDE.DIRE,
 				!match.radiant_win
 			),
 			kills: match.dire_score
@@ -451,7 +466,7 @@ export function formatFullMatch(match: ParsedMatch): FullMatch {
 			structuresLeft: setStructureBitmask(
 				match.tower_status_radiant,
 				match.barracks_status_radiant,
-				'RADI',
+				SIDE.RADIANT,
 				// TODO: We need to handle case where radiant_win is null
 				match.radiant_win!
 			),
@@ -461,7 +476,7 @@ export function formatFullMatch(match: ParsedMatch): FullMatch {
 			structuresLeft: setStructureBitmask(
 				match.tower_status_dire,
 				match.barracks_status_dire,
-				'DIRE',
+				SIDE.DIRE,
 				!match.radiant_win
 			),
 			kills: match.dire_score
@@ -492,10 +507,10 @@ export interface Teamfight {
 
 export interface TeamfightPlayerData {
 	deathPositionsByWhen: Record<number, {x: number, y: number}>,
-	abilityUses: Record<AbilityIdx, number>,
-	abilityTargets?: Record<AbilityIdx, Record<HeroIdx, number>>,
-	itemUses: Record<ItemIdx, number>,
-	killed: Record<HeroIdx, number>,
+	abilityUses: Record<AbilityId, number>,
+	abilityTargets?: Record<AbilityId, Record<Hero, number>>,
+	itemUses: Record<Item, number>,
+	killed: Record<Hero, number>,
 	deathCount: number,
 	buybacks?: number, // Can very theoretically be more than once... We don't need this if deaths are 0.
 	damage: number,
@@ -510,8 +525,8 @@ export interface TeamfightPlayerData {
 export interface NormalizedObjective {
 	whenSeconds: number,
 	what: Objective,
-	who: HeroIdx | UnitIdx,
-	target?: HeroIdx | StructureIdx, // not needed when objective can only be one target
+	who: Hero | Unit,
+	target?: Hero | Structure, // not needed when objective can only be one target
 	value?: number
 }
 
@@ -523,7 +538,7 @@ export interface ChatMsg {
 }
 
 // Old neutral system
-export interface NeutralToken { token: ItemIdx, receivedSeconds: number }
+export interface NeutralToken { token: Item, receivedSeconds: number }
 
 export interface OpenDotaMetadata {
 	engine: number,
@@ -553,13 +568,13 @@ export interface SparsePlayer {
 	// if total-spent != remaining, gold lost is not concidered spent by the API.
 	gold: {total: number, spent: number, remaining: number},
 	hero: {
-		id: HeroIdx,
+		id: Hero,
 		lvl: number,
-		abilityUpgrades: AbilityIdx[],
+		abilityUpgrades: AbilityId[],
 		permanentBuffs?: PermanentBuff[],
 		netWorth: number,
-		inventory: ItemIdx[], // 0-5 for main, 6-8 for backpack
-		neutralItem: {artifact: ItemIdx, enchantment: ItemIdx}
+		inventory: Item[], // 0-5 for main, 6-8 for backpack
+		neutralItem: {artifact: Item, enchantment: Item}
 	},
 	damage: {
 		toHeroes: number,
@@ -623,31 +638,31 @@ function formatSparsePlayer(player: OdotaUnparsedPlayer): SparsePlayer {
 			spent: player.gold_spent,
 			remaining: player.gold},
 		hero: {
-			id: HERO_ID[player.hero_id]!,
+			id: HERO_BY_EXT[player.hero_id],
 			lvl: player.level,
 			abilityUpgrades: player.ability_upgrades_arr.map(ability => {
-				return abilityKeysByExtKey[ability]!
+				return ABILITY_BY_EXT[ability]
 			}),
 			permanentBuffs: player.permanent_buffs ? player.permanent_buffs.map(buff => {
 				return {
-					id: buff.permanent_buff as PermanentBuffId,
+					id: buff.permanent_buff,
 					stackCount: buff.stack_count,
 					receivedSeconds: buff.grant_time
 				}
 			}) : undefined,
 			netWorth: player.net_worth,
 			inventory: [
-				ItemIdxByExtKey[player.item_0]!, ItemIdxByExtKey[player.item_1]!,
-				ItemIdxByExtKey[player.item_2]!, ItemIdxByExtKey[player.item_3]!,
-				ItemIdxByExtKey[player.item_4]!, ItemIdxByExtKey[player.item_5]!,
-				ItemIdxByExtKey[player.backpack_0]!,
-				ItemIdxByExtKey[player.backpack_1]!,
-				ItemIdxByExtKey[player.backpack_2]!,
+				ITEM_BY_EXT[player.item_0], ITEM_BY_EXT[player.item_1],
+				ITEM_BY_EXT[player.item_2], ITEM_BY_EXT[player.item_3],
+				ITEM_BY_EXT[player.item_4], ITEM_BY_EXT[player.item_5],
+				ITEM_BY_EXT[player.backpack_0],
+				ITEM_BY_EXT[player.backpack_1],
+				ITEM_BY_EXT[player.backpack_2],
 				
 			],
 			neutralItem: {
-				artifact: ItemIdxByExtKey[player.item_neutral]!,
-				enchantment: ItemIdxByExtKey[player.item_neutral2]!
+				artifact: ITEM_BY_EXT[player.item_neutral],
+				enchantment: ITEM_BY_EXT[player.item_neutral2]
 			}
 		},
 		damage: {toHeroes: player.hero_damage, toBuildings: player.tower_damage},
@@ -677,7 +692,7 @@ function formatSparsePlayer(player: OdotaUnparsedPlayer): SparsePlayer {
 export interface ParsedPlayer extends SparsePlayer {
 	stacked: {creeps: number, camps: number},
 	laning: {
-		lane: LaneIdx,
+		lane: Lane,
 		efficiencyRate: number,
 		weightedPosCoords: Record<number, Record<number, number>>,
 		roamed?: boolean,
@@ -688,8 +703,8 @@ export interface ParsedPlayer extends SparsePlayer {
 	gotFirstBlood: boolean,
 	teamfightParticipationRate: number,
 	wasStunnedSeconds: number,
-	xpSources: Record<XpSourceIdx, number>,
-	goldSources: Record<GoldSourceKey, number>,
+	xpSources: Record<XpSource, number>,
+	goldSources: Record<GoldSource, number>,
 	damage: {
 		toHeroes: number,
 		toBuildings: number,
@@ -699,40 +714,40 @@ export interface ParsedPlayer extends SparsePlayer {
 			by: Record<string, number>,
 			// src can at least be null (maybe rightclick dmg.) | ability | item.
 			// number is dmg.amt. Only includes heroes.
-			targetsBySource: Record<string, Record<HeroIdx, number>>
+			targetsBySource: Record<string, Record<Hero, number>>
 		},
 		received: {
 			from: Record<string, number>,
 			by: Record<string, number>,
 		},
-		hitCount: Record<HeroIdx, number>,
+		hitCount: Record<Hero, number>,
 		hardestHit: HardestHitDealt,
 	},
 	healing: {
 		amt: number,
 		bySource: Record<string, number>, // string should probably become id.
 	},
-	lifeState: Record<LifeStateIdx, number>,
+	lifeState: Record<LifeState, number>,
 	abilities: {
-		uses: Record<AbilityIdx, number>,
-		targets: Record<AbilityIdx, Record<HeroIdx, number>>,
+		uses: Record<AbilityId, number>,
+		targets: Record<AbilityId, Record<Hero, number>>,
 	}
 	items: {
-		uses: Record<ItemIdx, number>,
+		uses: Record<Item, number>,
 		// we don't neccessarily get recipe entries,
 		// so we need to watch item completions.
-		purchases: Array<{whenSeconds: number, item: ItemIdx}>,
+		purchases: Array<{whenSeconds: number, item: Item}>,
 	},
 	timings: MatchTimings,
 	logs: {
 		// should end up as combination of obs_log and obs_left_log.
 		observers: WardLogEntry[],
 		sentries: WardLogEntry[],
-		kills: Array<{whenSeconds: number, who: HeroIdx}>,
+		kills: Array<{whenSeconds: number, who: Hero}>,
 		buybackTimestamps: number[],
-		runes: Array<{whenSeconds: number, rune: RuneIdx}>,
+		runes: Array<{whenSeconds: number, rune: Rune}>,
 		neutralItems: NeutralItem[],
-		neutralTokensLog?: Array<{receivedSeconds: number, item: ItemIdx}>
+		neutralTokensLog?: Array<{receivedSeconds: number, item: Item}>
 		// TODO: bind events to ids -> need sample responses...
 		connection: Array<{whenSeconds: number, event: string}>,
 	},
@@ -800,12 +815,12 @@ export function formatFullInGamePlayer(player: OdotaParsedPlayer): ParsedPlayer 
 			remaining: player.gold
 		},
 		hero: {
-			id: player.hero_id,
+			id: HERO_BY_EXT[player.hero_id],
 			lvl: player.level,
 			abilityUpgrades: player.ability_upgrades_arr,
 			permanentBuffs: player.permanent_buffs ? player.permanent_buffs.map(buff => {
 				return {
-					id: buff.permanent_buff as PermanentBuffId,
+					id: buff.permanent_buff,
 					stackCount: buff.stack_count,
 					receivedSeconds: buff.grant_time
 				}
@@ -1002,7 +1017,7 @@ export interface HardestHitDealt {
 	whenSeconds: number,
 	// keep this in case hardest hit can come from other than hero.
 	unit?: string,
-	who: HeroIdx,
+	who: Hero,
 	// can be both items and abilities, so keep string and resolve on display.
 	what: string,
 	amount: number
@@ -1029,8 +1044,8 @@ export interface MinMax {min: number, max: number}
 export interface DraftStep {
 	order: number,
 	action: DraftAction,
-	team: SideIdx,
-	hero: HeroIdx,
+	team: Side,
+	hero: Hero,
 }
 
 export function parsePickBan(pickBan: PickBan): DraftStep {
@@ -1038,7 +1053,7 @@ export function parsePickBan(pickBan: PickBan): DraftStep {
 		order: pickBan.order,
 		action: pickBan.is_pick ? 'pick' : 'ban',
 		team: SideByExtKey[pickBan.team as SideExtKey],
-		hero: HERO_ID[pickBan.hero_id]!,
+		hero: HERO[pickBan.hero_id]!,
 	}
 }
 

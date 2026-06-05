@@ -1,3 +1,4 @@
+import type {Hero} from '../../../src/types/boundTypes'
 export const HEROES = {
 	1: {
 		name: {static: "antimage", localized: "Anti-Mage"},
@@ -3177,4 +3178,4 @@ export const HEROES = {
 		legs: 2,
 		isInCaptainsMode: true
 	}
-} as const
+} as const satisfies Record<number, Hero>

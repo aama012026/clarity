@@ -4,14 +4,11 @@ export type PatchId = Id<'patch'>
 export type RegionId = Id<'region'>
 export type ChatWheelId = Id<'chatWheel'>
 export type LobbyTypeId = Id<'lobby'>
-export type ItemId = Id<'item'>
-export type HeroId = Id<'hero'>
 export type UnitOrderId = Id<'unitOrder'>
 export type GameModeId = Id<'gameMode'>
-export type AbilityId = Id<'ability'>
 
 export interface DotaConstantsHero {
-	id: HeroId,
+	id: number,
 	name: string,
 	primary_attr: 'agi' | 'str' | 'int' | 'all',
 	attack_type: 'Melee' | 'Ranged',
@@ -92,13 +89,13 @@ export interface ItemAttribute {
 }
 
 export interface ItemAbility {
-	type: 'active' | 'passive' | 'use' | 'upgrade',
+	type: 'active' | 'passive' | 'use' | 'upgrade' | 'toggle',
 	title: string,
 	description: string
 }
 
 export interface DotaConstantsItem {
-	id: ItemId, // if starts with 'enhancement_', prob. a neutral item enhancement
+	id: number, // if starts with 'enhancement_', prob. a neutral item enhancement
 	dname: string,
 	cost: number | null,
 	lore: string,
@@ -133,5 +130,3 @@ export interface Country {
 	name: {common: string},
 	cca2: string
 }
-
-

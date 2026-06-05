@@ -1,4 +1,5 @@
-export const ITEM_BINDINGS = {
+import type {Ids, Binding} from '../../../src/types/clarityTypes'
+export const ITEM_IDS = {
 	1: {ext: 1, key: "blink"},
 	2: {ext: 2, key: "blades_of_attack"},
 	3: {ext: 3, key: "broadsword"},
@@ -500,4 +501,4 @@ export const ITEM_BINDINGS = {
 	4300: {ext: 4300, key: "ofrenda"},
 	4301: {ext: 4301, key: "ofrenda_shovel"},
 	4302: {ext: 4302, key: "ofrenda_pledge"}
-} as const
+} as const satisfies Ids<Binding>
