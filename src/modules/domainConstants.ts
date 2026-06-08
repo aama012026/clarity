@@ -7,6 +7,7 @@ export const SIDES = {
 } as const satisfies Ids<Binding>
 export type Side = keyof typeof SIDES
 export const SIDE = getIdMap(SIDES, 'key')
+export const SIDE_BY_EXT = getIdMap(SIDES, 'ext')
 
 export const LANES = {
 	0: {key:'SAF', name:'safelane', ext:1},

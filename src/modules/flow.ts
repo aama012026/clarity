@@ -78,7 +78,7 @@ export const RESPONSE_CODES: Record<number, string> = {
 
 type NullsAsUndefined<T> = {
 	[K in keyof T]: null extends T[K] ? Exclude<T[K], null> | undefined : T[K];
-}	
+}
 export function nullsToUndefined<T extends object>(obj: T): NullsAsUndefined<T> {
 	return Object.fromEntries(
 		Object.entries(obj).map(([k, v]) => [k, v ?? undefined])
@@ -135,7 +135,7 @@ export async function tryGetImg(url: URL, logName?: string):Promise<Result<Array
 		result.data = await response.arrayBuffer()
 		result.ok = true
 		return result
-	}	
+	}
 	catch (error) {
 		logError(error instanceof Error ? `tryGetImg failed for url: ${url}\n${error.message}` : `tryGetImg failed unexpectedly for url: ${url}`, result.msg)
 		return result
@@ -247,7 +247,7 @@ export function stringify(value: unknown, tabStops = 0, keyLength = 0): string {
 	// Format objects and arrays
 	if(Array.isArray(value)) {
 		if(value.length === 0) return '[]'
-		const items = value.map(i => 
+		const items = value.map(i =>
 			`${stringify(i, tabStops + 1)}`
 		)
 		return `[${formatCollection(items)}]`

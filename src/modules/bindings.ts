@@ -3,10 +3,10 @@ import { HEROES } from "../../public/generated/data/heroes"
 import { ITEMS } from "../../public/generated/data/items"
 import { ITEM_IDS } from "../../public/generated/data/itemBindings"
 import { ABILITY_IDS } from "../../public/generated/data/abilityBindings"
-import { getIdMap } from "../types/clarityTypes"
-import { DAMAGE_TYPES, SIDE, SIDES, STRUCTURE_FLAGS, type GoldSource, type Lane, type LifeState, type Side, type StructureFlag, type Structure, type StructuresBitmask, type Unit, type XpSource, type Rune } from "./domainConstants"
-import { BARRACK_FLAGS, TOWER_FLAGS, type AccountId, type BarracksBitmask, type Cosmetic, type Distributions, type LeagueId, type LeaverStatus, type MatchForPlayer, type MatchId, type Objective, type OdotaParsedPlayer, type OdotaPlayer, type OdotaProfile, type OdotaSteamAlias, type OdotaUnparsedPlayer, type ParsedMatch, type PartyId, type Pause, type Percentile, type PlayerSlot, type RankBitmask, type SeriesId, type SteamId, type TowersBitmask, type UnparsedMatch } from "../types/openDotaTypes"
-import { isEmpty, logEntry, logError, logMessage, nullsToUndefined, type ISO8601TimeString, type LogEntry, type Result, type UnixTimestamp } from "./flow"
+import { getIdMap, type Binding, type IdMap, type Ids } from "../types/clarityTypes"
+import { DAMAGE_TYPES, SIDE, SIDES, STRUCTURE_FLAGS, type GoldSource, type Lane, type LifeState, type Side, type StructureFlag, type Structure, type StructuresBitmask, type Unit, type XpSource, type Rune, RUNE_BY_EXT, LANE_BY_EXT, XP_SOURCE_BY_EXT, GOLD_SOURCE_BY_EXT, LIFE_STATE_BY_EXT, type DraftAction, DRAFT_ACTION, SIDE_BY_EXT, LIFE_STATES, LIFE_STATE } from "./domainConstants"
+import { BARRACK_FLAGS, TOWER_FLAGS, type AccountId, type BarracksBitmask, type Cosmetic, type Distributions, type GoldReasonId, type LeagueId, type LeaverStatus, type MatchForPlayer, type MatchId, type Objective, type OdotaParsedPlayer, type OdotaPlayer, type OdotaProfile, type OdotaSteamAlias, type OdotaUnparsedPlayer, type OdotaWardLogEntry, type ParsedMatch, type PartyId, type Pause, type Percentile, type PickBan, type PlayerSlot, type RankBitmask, type SeriesId, type SteamId, type TowersBitmask, type UnparsedMatch, type XpReasonId } from "../types/openDotaTypes"
+import { assert, isEmpty, logEntry, logError, logMessage, nullsToUndefined, type ISO8601TimeString, type Log, type LogEntry, type Result, type UnixTimestamp } from "./flow"
 import type { GameModeId, LobbyTypeId, PatchId, RegionId, UnitOrderId } from "../types/dotaConstantsTypes"
 
 export const HERO = getIdMap(HERO_IDS, 'key')
@@ -30,7 +30,7 @@ function setStructureBitmask(
 	won: boolean
 ) {
 	let standingStructures = 0
-	// These will convert absolute lanes (bot / top) to relative 
+	// These will convert absolute lanes (bot / top) to relative
 	// lanes (safe / off) by shifting left or right
 	let towerBitshift = 0
 	let raxBitshift = 0
@@ -560,7 +560,7 @@ export interface SparsePlayer {
 		oDota: {subscriber: boolean, contributor: boolean}
 	},
 	slot?: PlayerSlot,
-	partyId?: PartyId,
+	partyId?: number,
 	left: LeaverStatus,
 	performance: Performance,
 	kda: {kills: number, deaths: number, assists: number, ratio: number},
@@ -658,7 +658,7 @@ function formatSparsePlayer(player: OdotaUnparsedPlayer): SparsePlayer {
 				ITEM_BY_EXT[player.backpack_0],
 				ITEM_BY_EXT[player.backpack_1],
 				ITEM_BY_EXT[player.backpack_2],
-				
+
 			],
 			neutralItem: {
 				artifact: ITEM_BY_EXT[player.item_neutral],
@@ -766,11 +766,17 @@ export function formatFullInGamePlayer(player: OdotaParsedPlayer): ParsedPlayer 
 	const parsedPlayer: ParsedPlayer = {
 		account: {
 			id: player.account_id,
+			personaName: player.personaname ?? undefined,
+			name: player.name ?? undefined,
+			rank: player.rank_tier ?? undefined,
+			mmrGuess: player.computed_mmr ?? undefined,
 			oDota: {
 				subscriber: player.is_subscriber,
 				contributor: player.is_contributor
 			}
 		},
+		partyId: player.party_id ?? undefined,
+		slot: player.player_slot ?? undefined,
 		left: player.leaver_status,
 		performance: {
 			gpm: {
@@ -827,17 +833,17 @@ export function formatFullInGamePlayer(player: OdotaParsedPlayer): ParsedPlayer 
 			}) : undefined,
 			netWorth: player.net_worth,
 			inventory: [
-				ItemIdxByExtKey[player.item_0]!, ItemIdxByExtKey[player.item_1]!,
-				ItemIdxByExtKey[player.item_2]!, ItemIdxByExtKey[player.item_3]!,
-				ItemIdxByExtKey[player.item_4]!, ItemIdxByExtKey[player.item_5]!,
-				ItemIdxByExtKey[player.backpack_0]!,
-				ItemIdxByExtKey[player.backpack_1]!,
-				ItemIdxByExtKey[player.backpack_2]!,
-				
+				ITEM_BY_EXT[player.item_0], ITEM_BY_EXT[player.item_1],
+				ITEM_BY_EXT[player.item_2], ITEM_BY_EXT[player.item_3],
+				ITEM_BY_EXT[player.item_4], ITEM_BY_EXT[player.item_5],
+				ITEM_BY_EXT[player.backpack_0],
+				ITEM_BY_EXT[player.backpack_1],
+				ITEM_BY_EXT[player.backpack_2],
+
 			],
 			neutralItem: {
-				artifact: ItemIdxByExtKey[player.item_neutral]!,
-				enchantment: ItemIdxByExtKey[player.item_neutral2]!
+				artifact: ITEM_BY_EXT[player.item_neutral],
+				enchantment: ITEM_BY_EXT[player.item_neutral2]
 			}
 		},
 		damage: {
@@ -856,7 +862,7 @@ export function formatFullInGamePlayer(player: OdotaParsedPlayer): ParsedPlayer 
 			hardestHit: {
 				whenSeconds: player.max_hero_hit.time,
 				// TODO: who should be heroId - conversion needed.
-				who: heroIdxByKey[player.max_hero_hit.key]!,
+				who: HERO_BY_EXT[player.max_hero_hit.key],
 				what: player.max_hero_hit.inflictor,
 				amount: player.max_hero_hit.value
 			}
@@ -869,8 +875,9 @@ export function formatFullInGamePlayer(player: OdotaParsedPlayer): ParsedPlayer 
 			creeps: player.creeps_stacked, camps: player.camps_stacked
 		},
 		laning: {
-			lane: LaneIdxByExtKey[player.lane_role! as LaneExtKey],
+			lane: LANE_BY_EXT[player.lane_role],
 			efficiencyRate: player.lane_efficiency,
+			roamed: player.is_roaming ?? undefined,
 			weightedPosCoords: player.lane_pos,
 			kills: player.lane_kills
 		},
@@ -881,26 +888,20 @@ export function formatFullInGamePlayer(player: OdotaParsedPlayer): ParsedPlayer 
 		wasStunnedSeconds: player.stuns,
 		// TODO: external IDs should be validated; we can probably refactor
 		// into generic function.
-		xpSources: translateRecord<XpReasonId, XpSourceIdx, number>(
-			player.xp_reasons, XpSourceKeyByExtId
-		),
-		goldSources: translateRecord<GoldReasonId, GoldSourceKey, number>(
-			player.gold_reasons, GoldSrcKeysByExtId
-		),
-		lifeState: translateRecord<number, LifeStateIdx, number>(
-			player.life_state, LifeStateKeysByExtId
-		),
+		xpSources: translateRecord(player.xp_reasons, XP_SOURCE_BY_EXT),
+		goldSources: translateRecord(player.gold_reasons, GOLD_SOURCE_BY_EXT),
+		lifeState: translateRecord(player.life_state, LIFE_STATE_BY_EXT),
 		abilities: {
 			uses: Object.fromEntries(
 				Object.entries(player.ability_uses).map(([ability, useCount]) => {
-				 return [abilityIdxByKey[ability], useCount]})
+				 return [ABILITY_BY_EXT[ability], useCount]})
 			),
 			targets: player.ability_targets
 		},
 		items: {
 			uses: player.item_usage,
 			purchases: player.purchase_log.map(({time, key}) => {
-				return {whenSeconds: time, item: ItemIdxByKey[key]!}
+				return {whenSeconds: time, item: ITEM_BY_EXT[key]}
 			})
 		},
 		timings: {
@@ -914,19 +915,19 @@ export function formatFullInGamePlayer(player: OdotaParsedPlayer): ParsedPlayer 
 			observers: formatWardLog(player.obs_log, player.obs_left_log),
 			sentries: formatWardLog(player.sen_log, player.sen_left_log),
 			kills: player.kills_log.map(({time, key}) => {
-				return {whenSeconds: time, who: heroIdxByKey[key]!}
+				return {whenSeconds: time, who: HERO_BY_EXT[key]}
 			}),
 			buybackTimestamps: player.buyback_log.map(bb => bb.time),
 			runes: player.runes_log.map(({time, key}) => {
 				return {
 					whenSeconds: time,
-					rune: RuneKeysByExtId[parseInt(key) as RuneExtId]
+					rune: RUNE_BY_EXT[parseInt(key)]
 				}
 			}),
 			neutralItems: player.neutral_item_history.map((n => {
 				return {
-					artifact: ItemIdxByKey[n.item_neutral]!,
-					enchantment: ItemIdxByKey[n.item_neutral_enhancement]!,
+					artifact: ITEM_BY_EXT[n.item_neutral],
+					enchantment: ITEM_BY_EXT[n.item_neutral_enhancement],
 					craftedSeconds: n.time
 				}
 			})),
@@ -944,42 +945,18 @@ export function formatFullInGamePlayer(player: OdotaParsedPlayer): ParsedPlayer 
 		actions: player.actions,
 		apm: player.actions_per_min,
 		pingCount: player.pings,
-	}
-	if(player.personaname) {
-		parsedPlayer.account.personaName = player.personaname
-	}
-	if(player.name) {
-		parsedPlayer.account.name = player.name
-	}
-	if(player.rank_tier) {
-		parsedPlayer.account.rank = player.rank_tier
-	}
-	if(player.computed_mmr) {
-		parsedPlayer.account.mmrGuess = player.computed_mmr
-	}
-	if(player.player_slot) {
-		parsedPlayer.slot = player.player_slot
-	}
-	if(player.party_id) {
-		parsedPlayer.partyId = player.party_id as PartyId
-	}
-	if(player.is_roaming) {
-		parsedPlayer.laning.roamed = true
-	}
-	if(player.cosmetics) {
-		parsedPlayer.cosmetics = player.cosmetics
-	}
-	if(player.additional_units) {
-		parsedPlayer.additionalUnits
+		additionalUnits: player.additional_units ?? undefined,
+		cosmetics: player.cosmetics ?? undefined
 	}
 	return parsedPlayer
 }
 
-function translateRecord<inK extends number, outK extends number | string, valueT>
-(record: Record<inK, valueT>, lookup: Record<inK, outK>) {
+function translateRecord<T, K extends number | string>(
+	record: Record<K, T>, lookup: IdMap<Ids<Binding<K>>, 'ext'>
+) {
 	return Object.fromEntries(
-		Object.entries(record).map(([k, v]) => [lookup[parseInt(k) as inK], v])
-	) as Record<outK, valueT>
+		Object.entries(record).map(([k, v]) => [lookup[parseInt(k)], v])
+	) as Record<number, T>
 }
 
 function formatWardLog(enteredLog: OdotaWardLogEntry[], leftLog: OdotaWardLogEntry[]) {
@@ -1002,8 +979,8 @@ function formatWardLog(enteredLog: OdotaWardLogEntry[], leftLog: OdotaWardLogEnt
 
 export interface NeutralItem {
 	craftedSeconds: number,
-	artifact: ItemIdx,
-	enchantment: ItemIdx
+	artifact: Item,
+	enchantment: Item
 }
 
 export interface WardLogEntry {
@@ -1048,13 +1025,28 @@ export interface DraftStep {
 	hero: Hero,
 }
 
-export function parsePickBan(pickBan: PickBan): DraftStep {
-	return {
-		order: pickBan.order,
-		action: pickBan.is_pick ? 'pick' : 'ban',
-		team: SideByExtKey[pickBan.team as SideExtKey],
-		hero: HERO[pickBan.hero_id]!,
+export function parsePickBan(pickBan: PickBan): Result<DraftStep> {
+	const msg: LogEntry[] = []
+	const team = SIDE_BY_EXT[pickBan.team]
+	const hero = HERO_BY_EXT[pickBan.hero_id]
+	if (!(team && hero)) {
+		logError(`Could not parse pickBan: hero: ${hero}, team: ${team}`)
+		return {ok: false, msg}
 	}
+	const draftStep: DraftStep = {
+		order: pickBan.order,
+		action: pickBan.is_pick ? DRAFT_ACTION.PICK : DRAFT_ACTION.BAN,
+		team,
+		hero
+	}
+	return {data: draftStep, ok: true, msg}
+}
+
+function validate<T>(value: T, errKind: string): NonNullable<T> {
+	if (!value) {
+		throw new Error(errKind)
+	}
+	return value
 }
 
 export interface CaptainsModeDraftStep extends DraftStep {
@@ -1064,6 +1056,6 @@ export interface CaptainsModeDraftStep extends DraftStep {
 	}
 }
 
-export function getSecondsDead(lifeState: Record<LifeStateIdx, number>): number {
-	return (lifeState[LIFE_STATES[1].idx] || 0) + (lifeState[LIFE_STATES[2].idx] || 0)
+export function getSecondsDead(lifeState: Record<LifeState, number>): number {
+	return (lifeState[LIFE_STATE.UNKN] || 0) + (lifeState[LIFE_STATE.DEAD] || 0)
 }
