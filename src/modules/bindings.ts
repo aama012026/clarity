@@ -5,8 +5,8 @@ import { ITEM_IDS } from "../../public/generated/data/itemBindings"
 import { ABILITY_IDS } from "../../public/generated/data/abilityBindings"
 import { getIdMap, type Binding, type IdMap, type Ids } from "../types/clarityTypes"
 import { DAMAGE_TYPES, SIDE, SIDES, STRUCTURE_FLAGS, type GoldSource, type Lane, type LifeState, type Side, type StructureFlag, type Structure, type StructuresBitmask, type Unit, type XpSource, type Rune, RUNE_BY_EXT, LANE_BY_EXT, XP_SOURCE_BY_EXT, GOLD_SOURCE_BY_EXT, LIFE_STATE_BY_EXT, type DraftAction, DRAFT_ACTION, SIDE_BY_EXT, LIFE_STATES, LIFE_STATE } from "./domainConstants"
-import { BARRACK_FLAGS, TOWER_FLAGS, type AccountId, type BarracksBitmask, type Cosmetic, type Distributions, type GoldReasonId, type LeagueId, type LeaverStatus, type MatchForPlayer, type MatchId, type Objective, type OdotaParsedPlayer, type OdotaPlayer, type OdotaProfile, type OdotaSteamAlias, type OdotaUnparsedPlayer, type OdotaWardLogEntry, type ParsedMatch, type PartyId, type Pause, type Percentile, type PickBan, type PlayerSlot, type RankBitmask, type SeriesId, type SteamId, type TowersBitmask, type UnparsedMatch, type XpReasonId } from "../types/openDotaTypes"
-import { assert, isEmpty, logEntry, logError, logMessage, nullsToUndefined, type ISO8601TimeString, type Log, type LogEntry, type Result, type UnixTimestamp } from "./flow"
+import { BARRACK_FLAGS, TOWER_FLAGS, type AccountId, type BarracksBitmask, type Cosmetic, type Distributions, type GoldReasonId, type LeagueId, type LeaverStatus, type MatchForPlayer, type MatchId, type NeutralItemCrafted, type Objective, type OdotaParsedPlayer, type OdotaPlayer, type OdotaProfile, type OdotaSteamAlias, type OdotaUnparsedPlayer, type OdotaWardLogEntry, type ParsedMatch, type PartyId, type Pause, type Percentile, type PickBan, type PlayerSlot, type RankBitmask, type SeriesId, type SteamId, type Timing, type TowersBitmask, type UnparsedMatch, type XpReasonId } from "../types/openDotaTypes"
+import { assert, isEmpty, logEntry, logError, logMessage, nullsToUndefined, stringify, type ISO8601TimeString, type Log, type LogEntry, type Result, type UnixTimestamp } from "./flow"
 import type { GameModeId, LobbyTypeId, PatchId, RegionId, UnitOrderId } from "../types/dotaConstantsTypes"
 
 export const HERO = getIdMap(HERO_IDS, 'key')
@@ -736,18 +736,18 @@ export interface ParsedPlayer extends SparsePlayer {
 		uses: Record<Item, number>,
 		// we don't neccessarily get recipe entries,
 		// so we need to watch item completions.
-		purchases: Array<{whenSeconds: number, item: Item}>,
+		purchases: Timestamped<Item>[],
 	},
 	timings: MatchTimings,
 	logs: {
 		// should end up as combination of obs_log and obs_left_log.
 		observers: WardLogEntry[],
 		sentries: WardLogEntry[],
-		kills: Array<{whenSeconds: number, who: Hero}>,
+		kills: Timestamped<Hero>[],
 		buybackTimestamps: number[],
-		runes: Array<{whenSeconds: number, rune: Rune}>,
+		runes: Timestamped<Rune>[],
 		neutralItems: NeutralItem[],
-		neutralTokensLog?: Array<{receivedSeconds: number, item: Item}>
+		neutralTokensLog?: Timestamped<Item>[]
 		// TODO: bind events to ids -> need sample responses...
 		connection: Array<{whenSeconds: number, event: string}>,
 	},
@@ -761,8 +761,35 @@ export interface ParsedPlayer extends SparsePlayer {
 	cosmetics?: Cosmetic[],
 	additionalUnits?: object[]
 }
+export interface Timestamped<T extends number | string> {whenSeconds: number, id: T}
 
-export function formatFullInGamePlayer(player: OdotaParsedPlayer): ParsedPlayer {
+export function formatFullInGamePlayer(player: OdotaParsedPlayer): Result<ParsedPlayer> {
+	const result: Result<ParsedPlayer> = {ok: false, msg: []}
+
+	const neutralItems = bindNeutralItemsLog(player.neutral_item_history)
+	result.msg.push(...neutralItems.msg)
+	if(!(neutralItems.ok && neutralItems.data)) {
+		return result
+	}
+	
+	const runesLog = translateTimings(player.runes_log, RUNE_BY_EXT)
+	result.msg.push(...runesLog.msg)
+	if(!(runesLog.ok && runesLog.data)) {
+		return result
+	}
+	
+	const killsLog = translateTimings(player.kills_log, HERO_BY_EXT)
+	result.msg.push(...killsLog.msg)
+	if(!(killsLog.ok && killsLog.data)) {
+		return result
+	}
+	
+	const purchaseLog= translateTimings(player.purchase_log, ITEM_BY_EXT)
+	result.msg.push(...purchaseLog.msg)
+	if(!(purchaseLog.ok && purchaseLog.data)) {
+		return result
+	}
+	
 	const parsedPlayer: ParsedPlayer = {
 		account: {
 			id: player.account_id,
@@ -899,10 +926,8 @@ export function formatFullInGamePlayer(player: OdotaParsedPlayer): ParsedPlayer 
 			targets: player.ability_targets
 		},
 		items: {
-			uses: player.item_usage,
-			purchases: player.purchase_log.map(({time, key}) => {
-				return {whenSeconds: time, item: ITEM_BY_EXT[key]}
-			})
+			uses: translateRecord(player.item_uses, ITEM),
+			purchases: purchaseLog.data,
 		},
 		timings: {
 			timedSeconds: player.times,
@@ -914,23 +939,10 @@ export function formatFullInGamePlayer(player: OdotaParsedPlayer): ParsedPlayer 
 		logs: {
 			observers: formatWardLog(player.obs_log, player.obs_left_log),
 			sentries: formatWardLog(player.sen_log, player.sen_left_log),
-			kills: player.kills_log.map(({time, key}) => {
-				return {whenSeconds: time, who: HERO_BY_EXT[key]}
-			}),
+			kills: killsLog.data,
 			buybackTimestamps: player.buyback_log.map(bb => bb.time),
-			runes: player.runes_log.map(({time, key}) => {
-				return {
-					whenSeconds: time,
-					rune: RUNE_BY_EXT[parseInt(key)]
-				}
-			}),
-			neutralItems: player.neutral_item_history.map((n => {
-				return {
-					artifact: ITEM_BY_EXT[n.item_neutral],
-					enchantment: ITEM_BY_EXT[n.item_neutral_enhancement],
-					craftedSeconds: n.time
-				}
-			})),
+			runes: runesLog.data,
+			neutralItems: neutralItems.data,
 			// TODO: insert old neutral token log for old matches
 			// TODO: create id bindings for connection events.
 			connection: Object.entries(player.connection_log).map(([_, v]) => {
@@ -948,15 +960,57 @@ export function formatFullInGamePlayer(player: OdotaParsedPlayer): ParsedPlayer 
 		additionalUnits: player.additional_units ?? undefined,
 		cosmetics: player.cosmetics ?? undefined
 	}
-	return parsedPlayer
+	result.data = parsedPlayer
+	result.ok = true
+	return result
+}
+function bindNeutralItemsLog(itemLog: NeutralItemCrafted[]): Result<NeutralItem[]> {
+	const items: NeutralItem[] = []
+	const result: Result<NeutralItem[]> = {ok: false, msg: []}
+	itemLog.forEach((entry => {
+		const artifact = ITEM_BY_EXT[entry.item_neutral]
+		const enchantment = ITEM_BY_EXT[entry.item_neutral_enhancement]
+		if(!(artifact && enchantment)) {
+			logError(`Could not bind neutral item: ${stringify(entry)}`, result.msg)
+		}
+		else {
+			items.push({artifact, enchantment, craftedSeconds: entry.time})
+		}
+	}))
+	if(items.length === itemLog.length) {
+		result.data = items
+		result.ok = true
+	}
+	return result
 }
 
-function translateRecord<T, K extends number | string>(
-	record: Record<K, T>, lookup: IdMap<Ids<Binding<K>>, 'ext'>
-) {
+function translateTimings<T extends number | string>(
+	timings: Timing[], lookup: IdMap<Ids<Binding<T>>, 'ext'>
+): Result<Timestamped<T>[]> {
+	const data: Timestamped<T>[] = []
+	const result: Result<Timestamped<T>[]> = {ok: false, msg: []}
+	timings.forEach(({time, key}) => {
+		const id = lookup[key]
+		if(!id) {
+			logError(`Could not bind timing with key: ${key}`)
+		}
+		else {
+			data.push({whenSeconds: time, id})
+		}
+	})
+	if(data.length === timings.length) {
+		result.data = data
+		result.ok = true
+	}
+	return result
+}
+
+function translateRecord<K extends number | string, V, P extends 'key'|'ext'>(
+	record: Record<K, V>, lookup: IdMap<Ids<Binding<K>>, P>
+): Record<number, V> {
 	return Object.fromEntries(
 		Object.entries(record).map(([k, v]) => [lookup[parseInt(k)], v])
-	) as Record<number, T>
+	)
 }
 
 function formatWardLog(enteredLog: OdotaWardLogEntry[], leftLog: OdotaWardLogEntry[]) {
@@ -1040,13 +1094,6 @@ export function parsePickBan(pickBan: PickBan): Result<DraftStep> {
 		hero
 	}
 	return {data: draftStep, ok: true, msg}
-}
-
-function validate<T>(value: T, errKind: string): NonNullable<T> {
-	if (!value) {
-		throw new Error(errKind)
-	}
-	return value
 }
 
 export interface CaptainsModeDraftStep extends DraftStep {
