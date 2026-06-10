@@ -195,43 +195,7 @@ export function round(number: number, decimals?: number): number {
 	return Math.round(number * factor) / factor
 }
 
-export interface Result<T = undefined> {
-	data?: T ,
-	ok: boolean,
-	msg: LogEntry[]
-}
 
-export const LOG_LVL = {
-	DBG: 0,
-	MSG: 1,
-	WRN: 2,
-	ERR: 3
-} as const
-type LogLvl = typeof LOG_LVL[keyof typeof LOG_LVL]
-export interface LogEntry {timestamp: Date, msg: string, lvl: LogLvl}
-export interface Log {messages: LogEntry[], warnings: LogEntry[], errors: LogEntry[]}
-
-export function logEntry(msg: string, lvl: LogLvl ): LogEntry {
-	return {timestamp: new Date(), msg: msg, lvl: lvl}
-}
-export function getLogString(entry: LogEntry): string {
-	return `[${entry.timestamp.toUTCString()}]: ${entry.msg}`
-}
-export function logMessage(msg: string, log?: LogEntry[]): void {
-	const entry = logEntry(msg, LOG_LVL.MSG)
-	log?.push(entry)
-	console.log(getLogString(entry))
-}
-export function logWarning(msg: string, log?: LogEntry[]): void {
-	const entry = logEntry(msg, LOG_LVL.WRN)
-	log?.push(entry)
-	console.warn(getLogString(entry))
-}
-export function logError(msg: string, log?: LogEntry[]): void {
-	const entry = logEntry(msg, LOG_LVL.ERR)
-	log?.push(entry)
-	console.error(getLogString(entry))
-}
 
 export function stringify(value: unknown, tabStops = 0, keyLength = 0): string {
 	const MAX_COLUMNS = 80

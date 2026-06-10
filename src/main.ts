@@ -2,7 +2,7 @@ import axios from 'axios';
 import type {AxiosResponse} from 'axios';
 import {PATHS} from './modules/paths.js';
 import {getLocalOrInit, round, setLocal, tryGetElement, tryGetLocal, type NamedElement,
-	type Result, type UnixTimestamp 
+	type UnixTimestamp
 } from './modules/flow.js';
 import {bindPlayer, formatFullMatch, bindMatchSummary, formatRankDistribution,
 	formatSparseMatch, heroNames, RANK_NAMES, type FullMatch,
@@ -13,6 +13,7 @@ import {type Distributions, type AccountId, type OdotaPlayer, type OdotaSearchRe
 	type MatchForPlayer, leaverStatusByKey, LEAVER_STATUS, type RankBitmask,
 	type UnparsedMatch, type ParsedMatch, type MatchId
 } from './types/openDotaTypes.js'
+import type { Result } from './modules/log.js';
 
 axios.defaults.baseURL = 'https://api.opendota.com/api'
 axios.defaults.allowAbsoluteUrls = false
@@ -58,7 +59,7 @@ const LocalDataKey = {
 } as const
 
 // INIT
-// We need to make the function available in the DOM for datastar. 
+// We need to make the function available in the DOM for datastar.
 Object.assign(window, {
 	searchTypedAccount,
 	timerStringFromSeconds
@@ -168,7 +169,7 @@ async function searchTypedAccount(searchTerm: string | AccountId) {
 	}
 	const player = playerResult.data
 	const matchesResponse = await tryGetMatches(player.profile.account.id)
-	const matchHistory: PlayerMatchSummary[] = matchesResponse.data.map(match => 
+	const matchHistory: PlayerMatchSummary[] = matchesResponse.data.map(match =>
 		bindMatchSummary(match, player.profile.account.id)
 	)
 }
@@ -190,7 +191,7 @@ async function tryGetPlayer(idOrPersona: AccountId | string): Promise<Result<Pla
 	}
 	const response = await axios.get<OdotaPlayer>(`${ENDPOINT.PLAYERS}/${accountId}`)
 	updateCallsLeft()
-	return {ok: true, data: bindPlayer(response.data)}
+	return {data: bindPlayer(response.data), ok: true}
 }
 
 async function tryGetMatches(id: AccountId): Promise<AxiosResponse<MatchForPlayer[]>> {
@@ -210,7 +211,7 @@ async function tryGetMatch(matchId: number): Promise<SparseMatch | FullMatch | n
 		return null
 	}
 	const isParsed = response.data.od_data.has_parsed
-	const boundMatch = isParsed ? 
+	const boundMatch = isParsed ?
 		formatFullMatch(response.data as ParsedMatch) : formatSparseMatch(response.data)
 	setLocal(`match:${matchId}`, boundMatch)
 	return boundMatch
@@ -234,7 +235,7 @@ async function tryGetRankDistribution(): Promise<Result<RankDistribution>> {
 		rankDistribution = formatRankDistribution(result.data)
 		setLocal<RankDistribution>(LocalDataKey.RANK_DISTRIBUTION, rankDistribution)
 	}
-	return {ok: true, data: rankDistribution}
+	return {data: rankDistribution, ok: true}
 }
 
 function createRankDistributionBars(ranks: RankStats[]) {

@@ -1,6 +1,6 @@
 // Node part of user library
 import fs from 'node:fs/promises'
-import { logError, logMessage, type LogEntry, type Result } from './flow'
+import { logError, logMessage, type LogEntry, type Result } from './log'
 
 
 
@@ -9,13 +9,13 @@ export async function tryReadJSON<T>(filePath: string): Promise<Result<T>> {
 	try {
 		logMessage(`Reading ${filePath}...`, log)
 		const contents = await fs.readFile(filePath, {encoding: 'utf8'})
-		logMessage(`Read ${filePath} in ${Date.now() - log[0]!.timestamp.getTime()}`, log)
-		return {data: JSON.parse(contents) as T, ok: true, msg: log}
+		logMessage(`Read ${filePath} in ${Date.now() - log[0]!.timestamp}`, log)
+		return {data: JSON.parse(contents) as T, log, ok: true}
 	}
 	catch(e) {
 		const error = e as Error
 		logError(error.message, log)
-		return {ok: false, msg: log}
+		return {log, ok: false}
 	}
 }
 
@@ -24,12 +24,12 @@ export async function tryWrite(filePath: string, fileData: any): Promise<Result>
 	try {
 		logMessage(`Writing ${filePath}...`, log)
 		const bytesWritten = await Bun.write(filePath, fileData)
-		logMessage(`Wrote ${bytesWritten} bytes to ${filePath} in ${Date.now() - log[0]!.timestamp.getTime()}ms.`, log)
-		return {ok: true, msg: log}
+		logMessage(`Wrote ${bytesWritten} bytes to ${filePath} in ${Date.now() - log[0]!.timestamp}ms.`, log)
+		return {data: null, log, ok: true}
 	}
 	catch (error) {
 		logError(`Could not write ${filePath}: ${error}`, log)
-		return {ok: false, msg: log}
+		return {log, ok: false}
 	}
 }
 

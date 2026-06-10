@@ -32,7 +32,7 @@ const itemsPage = makeItemsPage(
 		generateItemGrid('WEAP') +
 		generateItemGrid('ARMA'),
 	),
-	makeItemsPanel('NEUTRAL ARTIFACTS',	
+	makeItemsPanel('NEUTRAL ARTIFACTS',
 		generateItemGrid('ARTI') +
 		generateItemGrid('ENCH')
 	)
@@ -80,9 +80,9 @@ const server = Bun.serve({
 	routes: {
 		'/heroes': heroesPage,
 		'/items': new Response(itemsPage, {headers: {'Content-Type': 'text/html'}}),
-		'/': homePage, 
+		'/': homePage,
 		'/account/:accountId': async (r, s) => {
-			s.timeout(r, 0) 
+			s.timeout(r, 0)
 			return sendAccountIdResponse(r.params.accountId)
 		},
 		'/*': (request) => {
@@ -131,8 +131,8 @@ function patchSignals(
 	data: Record<string, any>,
 	onlyIfMissing: boolean = false
 ): string {
-	const ssEvent = ( 
-		`event: datastar-patch-signals\n` + 
+	const ssEvent = (
+		`event: datastar-patch-signals\n` +
 		`data: onlyIfMissing ${onlyIfMissing}\n` +
 		`data: signals ${JSON.stringify(data)}\n\n`
 	)
@@ -257,7 +257,7 @@ function generateItemGrid(group: ITEMS.GroupName) {
 	return makeItemGrid(
 		ITEMS.GROUPS[group].label.toUpperCase(),
 		Object.entries(ITEMS.GROUP_BY_ITEM).reduce(
-			(itemElements, [itemLabel, groupKey]) => { 
+			(itemElements, [itemLabel, groupKey]) => {
 				if(groupKey === ITEMS.GROUPS[group].key) {
 					itemElements += makeItem(
 						(items[itemLabel]?.quality) ?? '',

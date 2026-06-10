@@ -2,9 +2,10 @@ import { type Ids, type Binding, type IdKey, getIdMap } from '../types/clarityTy
 import type { DotaConstantsHero, DotaConstantsItem } from '../types/dotaConstantsTypes'
 import type { Hero, Item, Targets } from '../types/boundTypes'
 import { DIR, FILES, PATHS } from '../modules/paths'
-import { tryGetImg, tryGetJson, logWarning, logMessage, logError, type LogEntry, LOG_LVL, getLogString, type Result, stringify } from '../modules/flow.js'
+import { tryGetImg, tryGetJson, stringify } from '../modules/flow.js'
 import { tryReadJSON, tryWrite } from '../modules/flowNode'
 import { ATTRIBUTE_BY_EXT } from '../modules/domainConstants'
+import { getLogString, logError, logMessage, logWarning, type LogEntry, type Result } from '../modules/log.js'
 
 const CDN_HOST = 'https://cdn.steamstatic.com/'
 const HEROES_URL = new URL('https://raw.githubusercontent.com/odota/dotaconstants/refs/heads/master/build/heroes.json')
@@ -37,7 +38,7 @@ async function tryUpdateHeroes() {
 		tryGetJson<Record<string, DotaConstantsHero>>(HEROES_URL),
 		tryReadJSON<Ids<Binding<number>>>(HERO_BINDINGS_PATH),
 	])
-	log.push(...heroesRes.msg, ...oldHeroBindingsRes.msg)
+	log.push(...heroesRes.log, ...oldHeroBindingsRes.log)
 	if(!(heroesRes.ok && heroesRes.data)) {
 		return
 	}
@@ -51,14 +52,14 @@ async function tryUpdateHeroes() {
 	if(!newHeroBindings) {
 		return
 	}
-	
+
 	// Write bindings
 	const bindingsString = (
 		getTypeImport(FILES.TYPES.CLARITY_TYPES, 'Ids', 'Binding') +
 		getConstExport('HERO_IDS', newHeroBindings, 'Ids<Binding>')
 	)
 	const bindingsWriteRes = await tryWrite(HERO_BINDINGS_PATH, bindingsString)
-	log.push(...bindingsWriteRes.msg)
+	log.push(...bindingsWriteRes.log)
 	if(!bindingsWriteRes.ok) {
 		return
 	}
@@ -73,19 +74,19 @@ async function tryUpdateHeroes() {
 		getConstExport('HEROES', boundHeroes, 'Record<number, Hero>')
 	)
 	await Promise.all([
-		
-		tryWrite(HERO_DATA_PATH, heroesString).then(r => log.push(...r.msg)),
+
+		tryWrite(HERO_DATA_PATH, heroesString).then(r => log.push(...r.log)),
 		// Get hero images
 		Promise.all(rawHeroes.map(async hero => {
 			const img = await tryGetImg(new URL(hero.img, CDN_HOST))
-			log.push(...img.msg)
+			log.push(...img.log)
 			if(!(img.ok && img.data)) {
 				return
 			}
 			const imgFolder = `${DIR.BUILD}/${PATHS.IMG.HEROES}`
 			const fileName = `${hero.name.replace('npc_dota_hero_','')}.png`
 			return tryWrite(`${imgFolder}/${fileName}`, Buffer.from(img.data)
-			).then(r => log.push(...r.msg))
+			).then(r => log.push(...r.log))
 		}))
 	])
 }
@@ -96,9 +97,9 @@ async function tryUpdateItems() {
 		tryGetJson<Record<string, DotaConstantsItem>>(ITEMS_URL),
 		tryReadJSON<Ids<Binding>>(ITEM_BINDINGS_PATH)
 	])
-	log.push(...itemsResult.msg, ...oldItemBindingsResult.msg)
+	log.push(...itemsResult.log, ...oldItemBindingsResult.log)
 	if(!(itemsResult.ok && itemsResult.data)) {
-		logError(`Could not get items from dotaconstants repo: ${itemsResult.msg}`, log)
+		logError(`Could not get items from dotaconstants repo: ${itemsResult.log}`, log)
 		return
 	}
 	const items = Object.entries(itemsResult.data)
@@ -118,31 +119,31 @@ async function tryUpdateItems() {
 		getConstExport('ITEM_IDS', newItemBindings, 'Ids<Binding>')
 	)
 	const bindingsWriteRes = await tryWrite(ITEM_BINDINGS_PATH, bindingsString)
-	log.push(...bindingsWriteRes.msg)
+	log.push(...bindingsWriteRes.log)
 	if(!bindingsWriteRes.ok) {
 		return
 	}
-	
+
 	const ItemByExtKey = getIdMap(newItemBindings, 'ext')
 	const boundItems: Record<number, Item> = Object.fromEntries(
 		items.map(([key, item]) => [ItemByExtKey[item.id], bindItem(item, key)])
 	)
-	
+
 	const itemsString = (
 		getTypeImport(FILES.TYPES.BOUND_TYPES, 'Item') +
 		getConstExport('ITEMS', boundItems, 'Record<number, Item>')
 	)
 	await Promise.all([
-		tryWrite(ITEMS_PATH, itemsString).then(r => log.push(...r.msg)),
+		tryWrite(ITEMS_PATH, itemsString).then(r => log.push(...r.log)),
 		// Get images
 		Promise.all(items.map(async ([label, item]) => {
 			const img = await tryGetImg(new URL(item.img, CDN_HOST))
-			log.push(...img.msg)
+			log.push(...img.log)
 			if(img.ok && img.data) {
 				return tryWrite(
 					`${DIR.BUILD}/${PATHS.IMG.ITEMS}/${label}.png`,
 					Buffer.from(img.data)
-				).then(r => log.push(...r.msg))
+				).then(r => log.push(...r.log))
 			}
 		}))
 	])
@@ -154,12 +155,12 @@ async function tryUpdateAbilities() {
 		tryGetJson<Record<number, string>>(ABILITY_IDS_URL),
 		tryGetJson<Record<string, any>>(ABILITIES_URL)
 	])
-	log.push(...abilityIdsResult.msg, ...abilitiesResult.msg)
-	const abilityIds = abilityIdsResult.data
-	const abilities = abilitiesResult.data
-	if(!(abilityIdsResult.ok && abilityIds && abilitiesResult.ok && abilities)) {
+	log.push(...abilityIdsResult.log, ...abilitiesResult.log)
+	if(!(abilityIdsResult.ok && abilitiesResult.ok)) {
 		return
 	}
+	const abilityIds = abilityIdsResult.data
+	const abilities = abilitiesResult.data
 	const newAbilityIds: ExtId[] = []
 	const imgResources: {url: URL, name: string}[] = []
 	Object.entries(abilityIds).forEach(([ext, key]) => {
@@ -176,12 +177,12 @@ async function tryUpdateAbilities() {
 	})
 	await Promise.all(imgResources.map(async (resource) => {
 		const img = await tryGetImg(new URL(resource.url, CDN_HOST))
-		log.push(...img.msg)
+		log.push(...img.log)
 		if(img.ok && img.data) {
 			return tryWrite(
 				`${DIR.BUILD}/${PATHS.IMG.ABILITIES}/${resource.name}.png`,
 				Buffer.from(img.data)
-			).then(r => log.push(...r.msg))
+			).then(r => log.push(...r.log))
 		}
 	}))
 	const oldAbilityBindings = (await tryReadJSON<Ids<Binding>>(ABILITY_BINDINGS_PATH)).data ?? {}
@@ -194,7 +195,7 @@ async function tryUpdateAbilities() {
 		getConstExport('ABILITY_IDS', newAbilityBindings, 'Ids<Binding>')
 	)
 	await tryWrite(ABILITY_BINDINGS_PATH, bindingsString).then(
-		r => log.push(...r.msg)
+		r => log.push(...r.log)
 	)
 }
 
@@ -255,12 +256,12 @@ function tryUpdateNumericIdBindings(newIds: ExtId[], oldIds: Ids<Binding>) {
 		const oldBindingByNewKey = existingByKey.get(binding.key)
 		const oldBindingByNewExtKey = existingByExtKey.get(binding.ext)
 		let idx
-		
+
 		// If key exist -> assign binding to existing <idx, key> pair.
 		if(oldBindingByNewKey) {
 			if(oldBindingByNewKey.ext != binding.ext) {
 				logWarning(`External id for key ${binding.key} changed from ${oldBindingByNewKey.ext} to ${binding.ext}.`, log)
-			}	
+			}
 			idx = oldBindingByNewKey.idx
 		}
 		// Else -> assign binding to new index, preferably equal to idx.
@@ -281,7 +282,7 @@ function tryUpdateNumericIdBindings(newIds: ExtId[], oldIds: Ids<Binding>) {
 	)
 	const newBindingsExtKeys = new Set<number>(newBindingsArray.map(binding => binding.ext))
 	const newBindingsIdx = new Set<number>(newBindingsArray.map(binding => binding.idx))
-	
+
 	oldBindings.forEach(binding => {
 		if(!newBindingsIdx.has(binding.idx)) {
 			const idx = binding.idx
@@ -439,7 +440,7 @@ async function tryWriteLogFile(log: LogEntry[]): Promise<Result> {
 	const warnings: string[] = ['\nWARNINGS:\n']
 	const all: string[] = ['\nFULL LOG:\n']
 
-	log.sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime())
+	log.sort((a, b) => a.timestamp - b.timestamp)
 	log.forEach(entry => {
 		const msgString = getLogString(entry)
 		if(entry.lvl === LOG_LVL.ERR) {
