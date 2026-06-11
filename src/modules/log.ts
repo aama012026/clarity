@@ -1,4 +1,3 @@
-import type { TupleType } from "typescript"
 import { lookup, type Id, type IdRecord } from "./id"
 
 interface Success<T = null> {ok: true, data: T}
@@ -16,18 +15,18 @@ export const LVLS = {
 } as const satisfies IdRecord<{name: string}>
 const LVL = lookup(LVLS, 'key')
 export const KINDS = {
-	0: {key:'PARSE', lookup:1, name:'parse', msg:},
+	1: {key:'PARSE', lookup:1, name:'parse'},
 } as const satisfies IdRecord<LogCode>
 const KIND = lookup(KINDS, 'key')
 export const BIND_TARGET = {
 	0: (matchId: number) => `match summary ${matchId}`,
 }
-export const PARSE_STRING = {
+export const TEMPLATES = {
 	[LVL.ERR]: (target: string) => `Could not parse ${target}`
 }
 
 export const ERR_CAUSE = {
-	PARSE
+	[KIND.PARSE]:
 	notIn: (lookup: string, key: number|string) => ` ${key} is not in ${lookup}`
 } as const
 export const BIND_MSG = {
