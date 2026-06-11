@@ -1,13 +1,13 @@
-import { getIdMap, type Binding, type IdData, type Ids } from "../types/clarityTypes";
 import type { Unique } from "./flow";
+import { lookup, type Id, type IdRecord } from "./id";
 
 export const SIDES = {
 	0: {key:'RADIANT', ext:0},
 	1: {key:'DIRE', ext:1}
-} as const satisfies Ids<Binding>
+} as const satisfies IdRecord<{ext: number}>
 export type Side = keyof typeof SIDES
-export const SIDE = getIdMap(SIDES, 'key')
-export const SIDE_BY_EXT = getIdMap(SIDES, 'ext')
+export const SIDE = lookup(SIDES, 'key')
+export const SIDE_BY_EXT = lookup(SIDES, 'ext')
 
 export const LANES = {
 	0: {key:'SAF', name:'safelane', ext:1},
@@ -17,10 +17,10 @@ export const LANES = {
 	3: {key:'RAJ', name:'radiant jungle', ext:4},
 	/** maybe not needed */
 	4: {key:'DIJ', name:'dire junle', ext:5}
-} as const satisfies Ids<Binding & IdData<'name'>>
+} as const satisfies IdRecord<{ext: number, name: string}>
 export type Lane = keyof typeof LANES
-export const LANE = getIdMap(LANES, 'key')
-export const LANE_BY_EXT = getIdMap(LANES, 'ext')
+export const LANE = lookup(LANES, 'key')
+export const LANE_BY_EXT = lookup(LANES, 'ext')
 
 export const ROLES = {
 	1: {key:'CARRY', name:'carry'},
@@ -28,15 +28,15 @@ export const ROLES = {
 	3: {key:'OFF', name:'offlaner'},
 	4: {key:'SUP_SOFT', name:'soft support'},
 	5: {key:'SUP_HARD', name:'hard support'}
-} as const satisfies Ids<IdData<'name'>>
-export const ROLE = getIdMap(ROLES, 'key')
+} as const satisfies IdRecord<{name: string}>
+export const ROLE = lookup(ROLES, 'key')
 
 export const DRAFT_ACTIONS = {
 	0: {key:'PICK'},
 	1: {key:'BAN'}
-} as const satisfies Ids
+} as const satisfies IdRecord
 export type DraftAction = keyof typeof DRAFT_ACTIONS
-export const DRAFT_ACTION = getIdMap(DRAFT_ACTIONS, 'key')
+export const DRAFT_ACTION = lookup(DRAFT_ACTIONS, 'key')
 
 export const STRUCTURE_FLAGS = {
 	SAFE: {
@@ -76,8 +76,8 @@ export const OBJECTIVES = {
 	3:{key:'TORM', name: 'tormentor'},
 	4:{key:'ROSH', name:'roshan'},
 	5:{key:'AEGIS', name: 'aegis'}
-} as const satisfies Ids<IdData<'name'>>
-export const OBJECTIVE = getIdMap(OBJECTIVES, 'key')
+} as const satisfies IdRecord<{name:string}>
+export const OBJECTIVE = lookup(OBJECTIVES, 'key')
 
 export const RUNES = {
 	0:{key:'BNTY', name:'bounty', ext:5},
@@ -90,10 +90,10 @@ export const RUNES = {
 	7:{key:'HAST', name:'haste', ext:1},
 	8:{key:'ILLU', name:'illusion', ext:2},
 	9:{key:'SHLD', name:'shield', ext:9}
-} as const satisfies Ids<Binding & IdData<'name'>>
+} as const satisfies IdRecord<{ext:number, name:string}>
 export type Rune = keyof typeof RUNES
-export const RUNE = getIdMap(RUNES, 'key')
-export const RUNE_BY_EXT = getIdMap(RUNES, 'ext')
+export const RUNE = lookup(RUNES, 'key')
+export const RUNE_BY_EXT = lookup(RUNES, 'ext')
 
 export const GOLD_SOURCES = {
 	0: {key:'OTHER', name:'other', ext:0},
@@ -108,30 +108,30 @@ export const GOLD_SOURCES = {
 	19:{key:'UNKN19', name:'unknown19', ext:19},
 	20:{key:'WARDS',name:'wards', ext:20},
 	21:{key:'UNKN21', name:'unknown21 (value 135)', ext:21}
-} as const satisfies Ids<Binding & IdData<'name'>>
+} as const satisfies IdRecord<{ext:number, name:string}>
 export type GoldSource = keyof typeof GOLD_SOURCES
-export const GOLD_SOURCE = getIdMap(GOLD_SOURCES, 'key')
-export const GOLD_SOURCE_BY_EXT = getIdMap(GOLD_SOURCES, 'ext')
+export const GOLD_SOURCE = lookup(GOLD_SOURCES, 'key')
+export const GOLD_SOURCE_BY_EXT = lookup(GOLD_SOURCES, 'ext')
 
 export const XP_SOURCES = {
 	0:{key:'OTHER', name:'other', ext:0},
 	1:{key:'HEROES', name:'heroes', ext:1},
 	2:{key:'CREEPS', name:'creeps', ext:2},
 	3:{key:'UNKN4', name:'unknown4', ext:4},
-} as const satisfies Ids<Binding & IdData<'name'>>
+} as const satisfies IdRecord<{ext:number, name:string}>
 export type XpSource = keyof typeof XP_SOURCES
-export const XP_SOURCE = getIdMap(XP_SOURCES, 'key')
-export const XP_SOURCE_BY_EXT = getIdMap(XP_SOURCES, 'ext')
+export const XP_SOURCE = lookup(XP_SOURCES, 'key')
+export const XP_SOURCE_BY_EXT = lookup(XP_SOURCES, 'ext')
 
 export const LIFE_STATES = {
 	0:{key:'ALIVE', name: 'alive', ext: 0},
 	1:{key:'UNKN', name:'unknown (pseudo-death?)', ext: 1},
 	2:{key:'DEAD', name:'dead', ext: 2}
 	// Potential unknown sources: respawning, reincarnation / pseudo-death (aegis, wraith king)
-} as const satisfies Ids<Binding & IdData<'name'>>
+} as const satisfies IdRecord<{ext: number, name:string}>
 export type LifeState = keyof typeof LIFE_STATES
-export const LIFE_STATE = getIdMap(LIFE_STATES, 'key')
-export const LIFE_STATE_BY_EXT = getIdMap(LIFE_STATES, 'ext')
+export const LIFE_STATE = lookup(LIFE_STATES, 'key')
+export const LIFE_STATE_BY_EXT = lookup(LIFE_STATES, 'ext')
 
 export const UNITS = {
 	0:{key:'RADI_MEELE', name:'radiant melee creep', ext:'npc_dota_creep_goodguys_melee'},
@@ -140,10 +140,10 @@ export const UNITS = {
 	3:{key:'DIRE_MELEE', name:'dire melee creep', ext:'npc_dota_creep_badguys_melee'},
 	4:{key:'DIRE_RANGE', name:'dire ranged creep', ext:'npc_dota_creep_badguys_ranged'},
 	5:{key:'DIRE_SIEGE', name:'dire siege creep', ext:'npc_dota_badguys_siege'}
-} as const satisfies Ids<Binding<string> & IdData<'name'>>
+} as const satisfies IdRecord<{ext: string, name:string}>
 export type Unit = keyof typeof UNITS
-export const UNIT = getIdMap(UNITS, 'key')
-export const UNIT_BY_EXT = getIdMap(UNITS, 'ext')
+export const UNIT = lookup(UNITS, 'key')
+export const UNIT_BY_EXT = lookup(UNITS, 'ext')
 
 export const STRUCTURES = {
 	0:{
@@ -316,10 +316,10 @@ export const STRUCTURES = {
 		name: 'dire ancient',
 		ext: 'npc_dota_badguys_fort'
 	},
-} as const satisfies Ids<Binding<string> & IdData<'name'>>
+} as const satisfies IdRecord<{ext:string, name:string}>
 export type Structure = keyof typeof STRUCTURES
-export const STRUCTURE = getIdMap(STRUCTURES, 'key')
-export const STRUCTURE_BY_EXT = getIdMap(STRUCTURES, 'ext')
+export const STRUCTURE = lookup(STRUCTURES, 'key')
+export const STRUCTURE_BY_EXT = lookup(STRUCTURES, 'ext')
 
 export const RANK_NAMES = {
 	1:{key: 'HERALD'},
@@ -330,26 +330,26 @@ export const RANK_NAMES = {
 	6:{key:'ANCIENT'},
 	7:{key:'DIVINE'},
 	8:{key:'IMMORTAL'}
-} as const satisfies Ids
-export const RANK = getIdMap(RANK_NAMES, 'key')
+} as const satisfies IdRecord
+export const RANK = lookup(RANK_NAMES, 'key')
 
 export const DAMAGE_TYPES = {
 	0: {key: 'PHYS', name: 'physical', ext: 'Physical'},
 	1: {key: 'MAGI', name: 'magical', ext: 'Magical'},
 	2: {key: 'PURE', name: 'pure', ext: 'Pure'},
 	3: {key: 'UNKN', name: 'other', ext: ''},
-} as const satisfies Ids<Binding<string> & IdData<'name'>>
-export const DMG_TYPE = getIdMap(DAMAGE_TYPES, 'key')
-export const DMG_TYPE_BY_EXT = getIdMap(DAMAGE_TYPES, 'ext')
+} as const satisfies IdRecord<{ext:string, name:string}>
+export const DMG_TYPE = lookup(DAMAGE_TYPES, 'key')
+export const DMG_TYPE_BY_EXT = lookup(DAMAGE_TYPES, 'ext')
 
 export const ATTRIBUTES = {
 	0: {key:'STR', name:'strength', ext:'str'},
 	1: {key:'AGI', name:'agility', ext:'agi'},
 	2: {key:'INT', name:'intelligence', ext: 'int'},
 	3: {key:'UNI', name:'universal', ext:'all'}
-} as const satisfies Ids<Binding<string> & IdData<'name'>>
+} as const satisfies IdRecord<{ext:string, name:string}>
 export type AttributeId = keyof typeof ATTRIBUTES
 export type AttributeName = typeof ATTRIBUTES[AttributeId]['name']
 export type AttributeBinding = typeof ATTRIBUTES[AttributeId]['ext']
-export const ATTRIBUTE = getIdMap(ATTRIBUTES, 'key')
-export const ATTRIBUTE_BY_EXT = getIdMap(ATTRIBUTES, 'ext')
+export const ATTRIBUTE = lookup(ATTRIBUTES, 'key')
+export const ATTRIBUTE_BY_EXT = lookup(ATTRIBUTES, 'ext')

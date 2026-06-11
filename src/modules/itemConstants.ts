@@ -1,5 +1,5 @@
-import { getIdMap, type IdData, type Ids } from "../types/clarityTypes"
-import { ATTRIBUTE } from "./bindings"
+import { ATTRIBUTE, type AttributeId } from "./domainConstants"
+import { lookup, type IdRecord } from "./id"
 
 export const GROUPS = {
 	0: {key:'CONS', name: 'consumables'},
@@ -18,10 +18,10 @@ export const GROUPS = {
 	13:{key:'UNIT', name: 'unit specific'},
 	14:{key:'OUT', name: 'retired'},
 	15:{key:'WIP', name: 'not implemented'},
-} as const satisfies Ids<IdData<'name'>>
+} as const satisfies IdRecord<{name: string}>
 
 type GroupIdx = keyof typeof GROUPS
-export const GROUP = getIdMap(GROUPS, 'key')
+export const GROUP = lookup(GROUPS, 'key')
 const {
 	CONS, ATTR, EQUI, MISC, SECR, ACCE, SUPP, MAGI, ARMO, WEAP, ARMA, ARTI, ENCH
 } = GROUP
@@ -301,7 +301,7 @@ export const GROUP_BY_ITEM = {
 type NeutralItemTier = 1 | 2 | 3 | 4 | 5
 type EnhancementAvailability = {
 	tiers: [NeutralItemTier, NeutralItemTier?],
-	heroTypes: AttributeIdx[]
+	heroTypes: AttributeId[]
 }
 
 const {STR, AGI, INT, UNI} = ATTRIBUTE

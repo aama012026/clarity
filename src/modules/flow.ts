@@ -1,3 +1,5 @@
+import { logError, logMessage, type LogEntry, type Result } from "./log"
+
 // USER LIBRARY WITH UNIQUE NAME TO AVOID STANDARD COLLISIONS
 export declare const _brand: unique symbol
 export type Unique<T, B> = T & {readonly [_brand]: B}
@@ -101,44 +103,42 @@ export function setLocal<T>(key: string, value: T) {
 }
 
 export async function tryGetJson<T>(url: URL, requestInit?: RequestInit): Promise<Result<T>> {
-	const result: Result<T> = {ok: false, msg: []}
+	const log: LogEntry[] = []
 	try {
-		logMessage(`Fetching ${url}...`, result.msg)
+		logMessage(`Fetching ${url}...`, log)
 		const response = requestInit? await fetch(url, requestInit) : await fetch(url)
 		const msg = getResponseMsg(url, response.status)
 		if(!response.ok) {
-			logError(msg, result.msg)
-			return result
+			logError(msg, log)
+			return {log, ok:false}
 		}
-		logMessage(msg, result.msg)
-		result.data = await response.json() as T
-		result.ok = true
-		return result
+		logMessage(msg, log)
+		const data = await response.json() as T
+		return {data, log, ok:true}
 	}
 	catch (error) {
-		logError(error instanceof Error ? `tryGetJson failed for url: ${url}\n${error.message}` : `tryGetJson failed unexpectedly for url: ${url}`, result.msg)
-		return result
+		logError(error instanceof Error ? `tryGetJson failed for url: ${url}\n${error.message}` : `tryGetJson failed unexpectedly for url: ${url}`, log)
+		return {log, ok:false}
 	}
 }
 
 export async function tryGetImg(url: URL, logName?: string):Promise<Result<ArrayBuffer>> {
-	const result: Result<ArrayBuffer> = {ok: false, msg: []}
+	const log: LogEntry[] = []
 	try {
-		logMessage(`Fetching ${logName ?? url}`, result.msg)
+		logMessage(`Fetching ${logName ?? url}`, log)
 		const response = await fetch(url)
 		const msg = getResponseMsg(url, response.status)
 		if (!response.ok) {
-			logError(msg, result.msg)
-			return result
+			logError(msg, log)
+			return {log, ok:false}
 		}
-		logMessage(`Got ${logName ? logName + ': ' + url : url}`, result.msg)
-		result.data = await response.arrayBuffer()
-		result.ok = true
-		return result
+		logMessage(`Got ${logName ? logName + ': ' + url : url}`, log)
+		const data = await response.arrayBuffer()
+		return {data, log, ok:true}
 	}
 	catch (error) {
-		logError(error instanceof Error ? `tryGetImg failed for url: ${url}\n${error.message}` : `tryGetImg failed unexpectedly for url: ${url}`, result.msg)
-		return result
+		logError(error instanceof Error ? `tryGetImg failed for url: ${url}\n${error.message}` : `tryGetImg failed unexpectedly for url: ${url}`, log)
+		return {log, ok:false}
 	}
 }
 
