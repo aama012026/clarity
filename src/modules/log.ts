@@ -15,9 +15,10 @@ export const LVLS = {
 	4: {key:'TIP', name:'hint'}
 } as const satisfies IdRecord<{name: string}>
 const LVL = lookup(LVLS, 'key')
-export const KIND = {
-	0: {key:'PARSE', lookup:1, name:'parse'},
+export const KINDS = {
+	0: {key:'PARSE', lookup:1, name:'parse', msg:},
 } as const satisfies IdRecord<LogCode>
+const KIND = lookup(KINDS, 'key')
 export const BIND_TARGET = {
 	0: (matchId: number) => `match summary ${matchId}`,
 }
@@ -25,11 +26,12 @@ export const PARSE_STRING = {
 	[LVL.ERR]: (target: string) => `Could not parse ${target}`
 }
 
-export const VALIDATION_ERR_CAUSE = {
-	notIn: (key: number | string, lookup: string) => ` ${key} is not in ${lookup}`
-}
+export const ERR_CAUSE = {
+	PARSE
+	notIn: (lookup: string, key: number|string) => ` ${key} is not in ${lookup}`
+} as const
 export const BIND_MSG = {
-	HERO_ID: (kind: string, cause: number, target) => `${kind}: ${cause}`
+	HERO_ID: (kind: string, cause: number) => `${kind}: ${cause}`
 } as const
 
 export interface LogEntry {timestamp: number, msg: string, kind: number}
@@ -41,7 +43,7 @@ export function logEntry(msg: string, kind: number): LogEntry {
 export function getLogString(entry: LogEntry): string {
 	return `[${new Date(entry.timestamp).toUTCString()}]: ${entry.msg}`
 }
-export function logMessage(msg: string, log?: LogEntry[]): void {
+export function logMessage(msg: string, kind:number, log?: LogEntry[]): void {
 	const entry = logEntry(msg, LVL.MSG)
 	log?.push(entry)
 	console.log(getLogString(entry))
