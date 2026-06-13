@@ -6,6 +6,9 @@ export type Result<T = null> = { log: LogEntry[] } & (Success<T> | Failure)
 
 // :bind:matchsummary:err
 type LogCode = {lookup:number, name:string}
+const TABLES = {
+	LVLS: 0
+} as const satisfies Record<number, string>
 export const LVLS = {
 	0: {key:'MSG', name:'message'},
 	1: {key:'WRN', name:'warning'},
@@ -14,45 +17,65 @@ export const LVLS = {
 	4: {key:'TIP', name:'hint'}
 } as const satisfies IdRecord<{name: string}>
 const LVL = lookup(LVLS, 'key')
+
 export const KINDS = {
-	1: {key:'PARSE', lookup:1, name:'parse'},
-} as const satisfies IdRecord<LogCode>
+	1: {key:'PARSE', name:'parse'},
+	2: {key:'LOG', name: 'log'},
+	3: {key:'BUILD', name:'build'},
+} as const satisfies IdRecord<{name:string}>
 const KIND = lookup(KINDS, 'key')
-export const BIND_TARGET = {
-	0: (matchId: number) => `match summary ${matchId}`,
+export const CALLSITES = {
+	0: {key:'SERVER', name:'server'},
+	1: {key:''}
 }
+
+
+export const PARSE_TARGET = {
+	[KIND.PARSE]: {key:'MATCH_SUM', set:(matchId: number) => `match summary ${matchId}`},
+} as const
 export const TEMPLATES = {
-	[LVL.ERR]: (target: string) => `Could not parse ${target}`
+	[LVL.ERR]: (target:string) => `Could not parse ${target}`
+} as const
+
+export const CAUSE = {
+	[KIND.PARSE]: {
+		0: {key:'NOT_IN', set:(lookup: string, key: number|string) => ` ${key} is not in ${lookup}`}
+	} as const,
+	[KIND.LOG]: {
+		0: {key:'NO_CODE', set:() => ``}
+	} as const
+} as const satisfies Record<number, IdRecord<{set: Function}>>
+export function setErrorMsg(kind:string, cause:string) : string {
+	return `${kind}: ${cause}`
 }
 
-export const ERR_CAUSE = {
-	[KIND.PARSE]:
-	notIn: (lookup: string, key: number|string) => ` ${key} is not in ${lookup}`
-} as const
-export const BIND_MSG = {
-	HERO_ID: (kind: string, cause: number) => `${kind}: ${cause}`
-} as const
-
-export interface LogEntry {timestamp: number, msg: string, kind: number}
+export interface LogEntry {timestamp:number, code:number[], msg:string}
 
 export function logEntry(msg: string, kind: number): LogEntry {
-	return {timestamp: Date.now(), msg: msg, kind: kind}
+	return {timestamp: Date.now(), msg, code:[kind]}
 }
 // TODO: update to parse kind
 export function getLogString(entry: LogEntry): string {
-	return `[${new Date(entry.timestamp).toUTCString()}]: ${entry.msg}`
+	const when = new Date(entry.timestamp).toUTCString()
+	const lvlCode = entry.code.shift()
+	const where = entry.code.reduce((txt, code)=>{}, '')
+	if (lvlCode === undefined) {
+		return {ok: false, log: [logError(setErrorMsg(KINDS[KIND.LOG].name, CAUSE[KIND.LOG][0].set()), )]}
+	}
+	const lvl = LVLS[lvlCode as keyof typeof LVLS].name.toUpperCase().padEnd(7, '-')
+	return `${when} ${lvl} [] ${entry.msg}`
 }
-export function logMessage(msg: string, kind:number, log?: LogEntry[]): void {
+export function logMessage(msg: string, kind:number, log?:LogEntry[]): void {
 	const entry = logEntry(msg, LVL.MSG)
 	log?.push(entry)
 	console.log(getLogString(entry))
 }
-export function logWarning(msg: string, log?: LogEntry[]): void {
+export function logWarning(msg:string, kind:number, log?:LogEntry[]): void {
 	const entry = logEntry(msg, LVL.WRN)
 	log?.push(entry)
 	console.warn(getLogString(entry))
 }
-export function logError(msg: string, log?: LogEntry[]): void {
+export function logError(msg:string, kind:number, log?:LogEntry[]): void {
 	const entry = logEntry(msg, LVL.ERR)
 	log?.push(entry)
 	console.error(getLogString(entry))
