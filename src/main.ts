@@ -9,9 +9,9 @@ import {bindPlayer, formatFullMatch, bindMatchSummary, formatRankDistribution,
 	type Player, type PlayerMatchSummary, type RankDistribution, type RankStats,
 	type SparseMatch
 } from './modules/bindings.js';
-import {type Distributions, type AccountId, type OdotaPlayer, type OdotaSearchResult,
-	type MatchForPlayer, leaverStatusByKey, LEAVER_STATUS, type RankBitmask,
-	type UnparsedMatch, type ParsedMatch, type MatchId
+import {type DistributionsDTO, type AccountId, type PlayerDTO, type SearchResDTO,
+	type MatchForPlayerDTO, leaverStatusByKey, LEAVER_STATUS, type RankBitmask,
+	type SparseMatchDTO, type ParsedMatchDTO, type MatchId
 } from './types/openDotaTypes.js'
 import type { Result } from './modules/log.js';
 
@@ -179,7 +179,7 @@ async function tryGetPlayer(idOrPersona: AccountId | string): Promise<Result<Pla
 	let accountId: number
 	if(typeof idOrPersona === 'string') {
 		// url.search = `?q=${idOrPersona}`
-		const response = await axios.get<OdotaSearchResult[]>(ENDPOINT.SEARCH, {params: {q: idOrPersona}})
+		const response = await axios.get<SearchResDTO[]>(ENDPOINT.SEARCH, {params: {q: idOrPersona}})
 		updateCallsLeft()
 		if(!response.data[0]?.account_id) {
 			return {ok: false}
@@ -189,13 +189,13 @@ async function tryGetPlayer(idOrPersona: AccountId | string): Promise<Result<Pla
 	else {
 		accountId = idOrPersona
 	}
-	const response = await axios.get<OdotaPlayer>(`${ENDPOINT.PLAYERS}/${accountId}`)
+	const response = await axios.get<PlayerDTO>(`${ENDPOINT.PLAYERS}/${accountId}`)
 	updateCallsLeft()
 	return {data: bindPlayer(response.data), ok: true}
 }
 
-async function tryGetMatches(id: AccountId): Promise<AxiosResponse<MatchForPlayer[]>> {
-	const response = await axios.get<MatchForPlayer[]>(`${ENDPOINT.PLAYERS}/${id}/matches`)
+async function tryGetMatches(id: AccountId): Promise<AxiosResponse<MatchForPlayerDTO[]>> {
+	const response = await axios.get<MatchForPlayerDTO[]>(`${ENDPOINT.PLAYERS}/${id}/matches`)
 	updateCallsLeft()
 	return response
 }
@@ -205,14 +205,14 @@ async function tryGetMatch(matchId: number): Promise<SparseMatch | FullMatch | n
 	if(match) {
 		return match
 	}
-	const response = await axios.get<UnparsedMatch | ParsedMatch>(`${ENDPOINT.MATCHES}/${matchId}`)
+	const response = await axios.get<SparseMatchDTO | ParsedMatchDTO>(`${ENDPOINT.MATCHES}/${matchId}`)
 	updateCallsLeft()
 	if(response.status != 200) {
 		return null
 	}
 	const isParsed = response.data.od_data.has_parsed
 	const boundMatch = isParsed ?
-		formatFullMatch(response.data as ParsedMatch) : formatSparseMatch(response.data)
+		formatFullMatch(response.data as ParsedMatchDTO) : formatSparseMatch(response.data)
 	setLocal(`match:${matchId}`, boundMatch)
 	return boundMatch
 }
@@ -227,7 +227,7 @@ async function tryGetRankDistribution(): Promise<Result<RankDistribution>> {
 	let rankDistribution = tryGetLocal<RankDistribution>(LocalDataKey.RANK_DISTRIBUTION)
 	// Try to get from localstorage first, fetch if not present or stale (here 24H shelf life).
 	if(!(rankDistribution && new Date().getHours() - new Date(rankDistribution.timestamp).getHours() <= 24)) {
-		const result = await axios.get<Distributions>(`${ENDPOINT.DISTRIBUTIONS}`)
+		const result = await axios.get<DistributionsDTO>(`${ENDPOINT.DISTRIBUTIONS}`)
 		updateCallsLeft()
 		if(result.status != 200) {
 			return {ok: false}

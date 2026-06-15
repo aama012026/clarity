@@ -41,7 +41,7 @@ const itemsPage = makeItemsPage(
 import { makeHead, makeHeader, makeItem, makeItemGrid, makeItemsPage, makeItemsPanel, makeMatchHistorySection, makeMatchSummary } from './transpiled/templates';
 import { PATHS } from './src/modules/paths';
 import { bindPlayer, bindMatchSummary, heroNames, RANK_NAMES, type Player, type PlayerMatchSummary, type ItemKey } from './src/modules/bindings';
-import { LEAVER_STATUS, leaverStatusByKey, type AccountId, type MatchForPlayer, type OdotaPlayer, type RankBitmask } from './src/types/openDotaTypes';
+import { LEAVER_STATUS, leaverStatusByKey, type AccountId, type MatchForPlayerDTO, type PlayerDTO, type RankBitmask } from './src/types/openDotaTypes';
 
 import axios from 'axios';
 import type { Item } from './src/types/boundTypes'
@@ -102,13 +102,13 @@ function sendAccountIdResponse(accountId: string) {
 	const id = parseInt(accountId) as AccountId
 	const stream = new ReadableStream({
 		start(c) {Promise.all([
-			axios.get<OdotaPlayer>(`${ENDPOINT.PLAYERS}/${id}`).then(
+			axios.get<PlayerDTO>(`${ENDPOINT.PLAYERS}/${id}`).then(
 				r => {
 					log(LOG.OPENDOTA, 1, `Fetched player from odota: ${id}\n`)
 					log(LOG.OPENDOTA, 2, JSON.stringify(r.data, null, '\t'))
 					c.enqueue(patchProfileSignals(bindPlayer(r.data)))}
 			),
-			axios.get<MatchForPlayer[]>(`${ENDPOINT.PLAYERS}/${id}/matches`).then(
+			axios.get<MatchForPlayerDTO[]>(`${ENDPOINT.PLAYERS}/${id}/matches`).then(
 				r => {
 					c.enqueue(patchElements(makeMatchHistorySection().split('\n')))
 					r.data.forEach(match => {

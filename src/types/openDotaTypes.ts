@@ -1,4 +1,4 @@
-import type { ISO8601TimeString, Unique, UnixTimestamp 
+import type { ISO8601TimeString, Unique, UnixTimestamp
 } from "../modules/flow.js"
 import type { GameModeId, LobbyTypeId, PatchId, RegionId, UnitOrderId
 } from "./dotaConstantsTypes.js"
@@ -20,21 +20,21 @@ export type XpReasonId = number
 export type xPos = number
 export type yPos = number
 
-export interface OdotaPlayer {
-	profile: OdotaProfile,
+export interface PlayerDTO {
+	profile: ProfileDTO,
 	rank_tier: RankBitmask | null,
 	leaderboard_rank: number | null,
 	computed_mmr?: number | null, // computed_mmr_turbo is not present in normal ranked. The opposite will prob. be true
 	computed_mmr_turbo?: number | null,
-	aliases: OdotaSteamAlias[],
+	aliases: AliasDTO[],
 }
 
-export interface OdotaSteamAlias {
+export interface AliasDTO {
 	personaname: string,
 	name_since: ISO8601TimeString
 }
 
-export interface OdotaSearchResult {
+export interface SearchResDTO {
 	account_id: AccountId,
 	avatarfull: string,
 	personaname: string,
@@ -42,7 +42,7 @@ export interface OdotaSearchResult {
 	similarity: number
 }
 
-export interface OdotaPartialProfile {
+export interface PartialProfileDTO {
 	account_id: AccountId,
 	personaname: string | null,
 	name: string | null,
@@ -50,7 +50,7 @@ export interface OdotaPartialProfile {
 	is_subscriber: boolean // to opendota
 }
 
-export interface OdotaProfile extends OdotaPartialProfile {
+export interface ProfileDTO extends PartialProfileDTO {
 	plus: boolean, //current Dota Plus status
 	cheese: number | null, // number is int
 	steamId: SteamId | null, //16-digit string or null
@@ -64,9 +64,9 @@ export interface OdotaProfile extends OdotaPartialProfile {
 	fh_unavailable: boolean,
 }
 
-export interface PlayerMatchCount {win: number, lose: number}
+export interface MatchCountDTO {win: number, lose: number}
 
-export interface MatchSummary {
+export interface MatchSummaryDTO {
 	match_id: MatchId,
 	radiant_win: boolean | null,
 	duration: number, // seconds
@@ -78,8 +78,8 @@ export interface MatchSummary {
 	skill?: number | null // not seen in response but present in docs.
 }
 
-export interface UnparsedMatch extends Omit<MatchSummary, 'average_rank'> {
-	players: OdotaUnparsedPlayer[],
+export interface SparseMatchDTO extends Omit<MatchSummaryDTO, 'average_rank'> {
+	players: SparsePlayerDTO[],
 	series_id?: SeriesId,
 	series_type?: number,
 	cluster: number, // seen in dota constants
@@ -97,24 +97,24 @@ export interface UnparsedMatch extends Omit<MatchSummary, 'average_rank'> {
 	engine: number,
 	radiant_score: number, // kills by radiant at match end
 	dire_score: number, // kills by dire at match end
-	picks_bans: PickBan[], // duplicate info from draft_timings?
-	od_data: OdotaData, // not present in documentation
+	picks_bans: PickBanDTO[], // duplicate info from draft_timings?
+	od_data: OdDataDTO, // not present in documentation
 	metadata: any, // not present in documentation
 	replay_url?: string,
 	patch: PatchId, // patch ID from dotaconstants
 	region: RegionId, // region id from dotaconstants
 }
 
-export interface ParsedMatch extends UnparsedMatch {
-	players: OdotaParsedPlayer[],
-	teamfights?: OdotaTeamfight[] | null,
-	pauses?: Pause[], // unverified - empty in seen parsed matches
-	objectives?: Objective[],
-	chat?: OdotaChatMsg[],
+export interface ParsedMatchDTO extends SparseMatchDTO {
+	players: ParsedPlayerDTO[],
+	teamfights?: TeamfightDTO[] | null,
+	pauses?: PauseDTO[], // unverified - empty in seen parsed matches
+	objectives?: ObjectiveDTO[],
+	chat?: ChatMsgDTO[],
 	radiant_gold_adv?: number[], // i=minute. Negative for disadvantage
 	radiant_xp_adv?: number[], // i=minute. Negative for disadvantage
 	cosmetics?: object,
-	draft_timings?: DraftTiming[], // present but empty in parsed match. Maybe only for captains mode.
+	draft_timings?: DraftTimingDTO[], // present but empty in parsed match. Maybe only for captains mode.
 	all_word_counts?: object, // seen, but only empty
 	my_word_counts?: object, // seen, but only empty
 	comeback?: number, // max gold disadv. on winning team
@@ -132,15 +132,15 @@ export interface ParsedMatch extends UnparsedMatch {
 }
 
 // only present on parsed matches ----------------------------------------------
-export interface OdotaTeamfight {
+export interface TeamfightDTO {
 	start: number,
 	end: number,
 	last_death: number,
 	deaths: number,
-	players: TeamfightPlayer[],
+	players: TeamfightPlayerDTO[],
 }
 
-export interface TeamfightPlayer {
+export interface TeamfightPlayerDTO {
 	deaths_pos: Record<number, Record<number, number>>, // ???
 	ability_uses: Record<string, number>, // convert to AbilityId, number on bind
 	ability_targets: object | null // seems unused in responses although present as empty object
@@ -157,7 +157,7 @@ export interface TeamfightPlayer {
 }
 
 // Probably take the approach of only parsing type if composition is well known.
-export interface Objective {
+export interface ObjectiveDTO {
 	time: number,
 	type: string, // ex. "CHAT_MESSAGE_COURIER_LOST" | "building_kill"
 	key?: string, // maybe target of type (ex. "npc_dota_badguys_tower1_top")
@@ -170,14 +170,14 @@ export interface Objective {
 }
 // -----------------------------------------------------------------------------
 
-export interface OdotaData {
+export interface OdDataDTO {
 	has_api: boolean,
 	has_gcdata: boolean,
 	has_parsed: boolean,
 	has_archived: boolean
 }
 
-export interface OdotaChatMsg {
+export interface ChatMsgDTO {
 	time: number,
 	type: string,
 	key: string,
@@ -186,7 +186,7 @@ export interface OdotaChatMsg {
 }
 
 // Prob. only present for captains mode
-export interface DraftTiming {
+export interface DraftTimingDTO {
 	order: number,
 	pick: boolean,
 	active_team: number,
@@ -196,14 +196,14 @@ export interface DraftTiming {
 	total_time_taken: number
 }
 
-export interface PickBan {
+export interface PickBanDTO {
 	is_pick: boolean,
 	hero_id: number,
 	team: number,
 	order: number
 }
 
-export interface InGamePlayerSummary {
+export interface PlayerSummaryDTO {
 	player_slot: PlayerSlot | null,
 	kills: number,
 	deaths: number,
@@ -214,13 +214,13 @@ export interface InGamePlayerSummary {
 	hero_variant?: number
 }
 
-export type MatchForPlayer = MatchSummary & InGamePlayerSummary
-export interface OdotaUnparsedPlayer extends InGamePlayerSummary {
+export type MatchForPlayerDTO = MatchSummaryDTO & PlayerSummaryDTO
+export interface SparsePlayerDTO extends PlayerSummaryDTO {
 	account_id: AccountId,
 	party_id?: number | null,
 	team_number: number, // undocumented, prob unneeded - 0 for radiant and 1 for dire
 	team_slot: number, // undocumented, prob unneeded (0-4)
-	permanent_buffs?: OdotaPermanentBuff[],
+	permanent_buffs?: PermaBuffDTO[],
 	item_0: number,
 	item_1: number,
 	item_2: number,
@@ -271,10 +271,10 @@ export interface OdotaUnparsedPlayer extends InGamePlayerSummary {
 	kills_per_min: number,
 	kda: number,
 	abandons: number,
-	benchmarks: PlayerHeroPerformance,
+	benchmarks: PlayerHeroPerformanceDTO,
 }
 
-export interface OdotaParsedPlayer extends OdotaUnparsedPlayer {
+export interface ParsedPlayerDTO extends SparsePlayerDTO {
 	obs_placed: number,
 	sen_placed: number,
 	creeps_stacked: number,
@@ -286,21 +286,21 @@ export interface OdotaParsedPlayer extends OdotaUnparsedPlayer {
 	roshans_killed: number,
 	observers_placed: number, // duplicate of obs_placed?
 	stuns: number, // seconds of all stuns for all players? (according to doc)
-	max_hero_hit: OdotaHardestHitDealt, // highest dmg. instance player inflicted
+	max_hero_hit: MaxHeroHitDTO, // highest dmg. instance player inflicted
 	times: number[], // moment in seconds other arrays' entries represent
 	gold_t: number[], // gold @ different timings
 	lh_t: number[], // @ each min. of game
 	dn_t: number[], // denies @ different times of the match
 	xp_t: number[], // xp @ min.i
-	obs_log: OdotaWardLogEntry[],
-	obs_left_log: OdotaWardLogEntry[], // When observer left - either killed or timed out
-	sen_log: OdotaWardLogEntry[],
-	sen_left_log: OdotaWardLogEntry[],
-	purchase_log: OdotaPurchase[],
-	kills_log: Timing[],
-	buyback_log: Buyback[],
-	runes_log: Timing[],
-	connection_log: ConnectionEvent[],
+	obs_log: WardLogEntryDTO[],
+	obs_left_log: WardLogEntryDTO[], // When observer left - either killed or timed out
+	sen_log: WardLogEntryDTO[],
+	sen_left_log: WardLogEntryDTO[],
+	purchase_log: PurchaseDTO[],
+	kills_log: TimingDTO[],
+	buyback_log: BuybackDTO[],
+	runes_log: TimingDTO[],
+	connection_log: ConnectionEventDTO[],
 	lane_pos: Record<xPos, Record<yPos, number>>, //outer record key is x, inner y (or other way around), and value of inner is presumably weight.
 	obs: Record<xPos, Record<yPos, number>>
 	sen: Record<xPos, Record<yPos, number>>,
@@ -327,8 +327,8 @@ export interface OdotaParsedPlayer extends OdotaUnparsedPlayer {
 	healing: Record<string, number>,
 	randomed: boolean,
 	pred_vict: boolean,
-	neutral_tokens_log: Timing[], //prob. deprecated since replaced by madstones
-	neutral_item_history: NeutralItemCrafted[]
+	neutral_tokens_log: TimingDTO[], //prob. deprecated since replaced by madstones
+	neutral_item_history: NeutralItemHistoryDTO[]
 	neutral_kills: number,
 	tower_kills: number,
 	courier_kills: number,
@@ -354,46 +354,46 @@ export interface OdotaParsedPlayer extends OdotaUnparsedPlayer {
 	purchase_tpscroll: number, // prob. count.
 	actions_per_min: number,
 	life_state_dead: number, // !! seconds spent dead !!
-	cosmetics: Cosmetic[],
+	cosmetics: CosmeticDTO[],
 	// Not present ---------------------------------------------------------
 	// match_id: MatchId, // never seen, is present in match data.
 	additional_units?: object[] | null, // never seen, might be included when needed
 }
 
-export interface OdotaPermanentBuff {
+export interface PermaBuffDTO {
 	permanent_buff: number,
 	stack_count: number, // 0 for buffs without stacks
 	grant_time: number
 }
 
-export interface Percentile {percentile: number, value: number | null}
+export interface PercentileDTO {percentile: number, value: number | null}
 
 export interface HeroBenchmark {
 	hero_id: number,
 	result: {
-		gold_per_min: Percentile[],
-		xp_per_min: Percentile[],
-		kills_per_min: Percentile[],
-		last_hits_per_min: Percentile[],
-		hero_damage_per_min: Percentile[],
-		hero_healing_per_min: Percentile[],
-		tower_damage: Percentile[],
+		gold_per_min: PercentileDTO[],
+		xp_per_min: PercentileDTO[],
+		kills_per_min: PercentileDTO[],
+		last_hits_per_min: PercentileDTO[],
+		hero_damage_per_min: PercentileDTO[],
+		hero_healing_per_min: PercentileDTO[],
+		tower_damage: PercentileDTO[],
 	}
 }
 
-export interface BenchmarkPerformance {raw: number, pct: number}
+export interface BenchmarkPerformanceDTO {raw: number, pct: number}
 
-export interface PlayerHeroPerformance {
-	gold_per_min: BenchmarkPerformance,
-	xp_per_min: BenchmarkPerformance,
-	kills_per_min: BenchmarkPerformance,
-	last_hits_per_min: BenchmarkPerformance,
-	hero_damage_per_min: BenchmarkPerformance,
-	hero_healing_per_min: BenchmarkPerformance,
-	tower_damage: BenchmarkPerformance
+export interface PlayerHeroPerformanceDTO {
+	gold_per_min: BenchmarkPerformanceDTO,
+	xp_per_min: BenchmarkPerformanceDTO,
+	kills_per_min: BenchmarkPerformanceDTO,
+	last_hits_per_min: BenchmarkPerformanceDTO,
+	hero_damage_per_min: BenchmarkPerformanceDTO,
+	hero_healing_per_min: BenchmarkPerformanceDTO,
+	tower_damage: BenchmarkPerformanceDTO
 }
 
-export interface OdotaHardestHitDealt {
+export interface MaxHeroHitDTO {
 	time: number,
 	type: string, // redundant
 	unit: string, // redundant unless other than hero (maybe summon etc.)
@@ -405,7 +405,7 @@ export interface OdotaHardestHitDealt {
 	max: boolean // unneccesary
 }
 
-export interface OdotaWardLogEntry {
+export interface WardLogEntryDTO {
 	time: number,
 	type: string,
 	key: string, // "[124,157]" - representing x,y coordinate where ward was placed.
@@ -419,19 +419,19 @@ export interface OdotaWardLogEntry {
 	ehandle: number // same for corresponding wards in log and left_log arrays, might be useful if order of wards placed and wards left is different.
 }
 
-export interface Buyback {time: number, slot: number, player_slot: PlayerSlot}
+export interface BuybackDTO {time: number, slot: number, player_slot: PlayerSlot}
 
-export interface ConnectionEvent {
+export interface ConnectionEventDTO {
 	time: number,
 	event: string,
 	player_slot: PlayerSlot | null
 }
 
-export interface Timing {time: number, key: string}
+export interface TimingDTO {time: number, key: string}
 
-export interface OdotaPurchase {time: number, key: string, charges: number}
+export interface PurchaseDTO {time: number, key: string, charges: number}
 
-export interface Cosmetic {
+export interface CosmeticDTO {
 	item_id: number, // unsure if this is ingame item id or id for cosmetic.
 	name: string | null,
 	prefab: string,
@@ -445,19 +445,19 @@ export interface Cosmetic {
 	used_by_heroes: string | null
 }
 
-export interface NeutralItemCrafted {
+export interface NeutralItemHistoryDTO {
 	item_neutral: string, // check dotaconstants
 	time: number,
 	item_neutral_enhancement: string // check dotaconstants
 }
 
 // TODO: verify pause shape.
-export interface Pause {
+export interface PauseDTO {
 	time: number, // paused @ second
 	duration: number // in seconds
 }
 
-export interface HeroPlayerStats {
+export interface HeroPlayerStatsDTO {
 	hero_id: number,
 	last_played: number, // maybe a match id?
 	games: number,
@@ -468,7 +468,7 @@ export interface HeroPlayerStats {
 	against_win: number
 }
 
-export interface Peer {
+export interface PeerDTO {
 	account_id: AccountId,
 	last_played: number,
 	win: number,
@@ -488,7 +488,7 @@ export interface Peer {
 	avatarfull: string | null
 }
 
-export interface RelationalProPlayer {
+export interface RelationalProPlayerDTO {
 	account_id: AccountId,
 	name: string | null,
 	country_code: string,
@@ -519,7 +519,21 @@ export interface RelationalProPlayer {
 	with_xpm_sum: number | null
 }
 
-export interface Stat { field: string, n: number, sum: number,}
+export interface StatDTO { field: string, n: number, sum: number,}
+
+export interface DistributionsDTO {
+	ranks: {
+		rows: RankRowDTO[],
+		sum: {count: number}
+	}
+}
+
+export interface RankRowDTO {
+	bin: RankBitmask,
+	bin_name: RankBitmask, // duplicate info? (16.4.26)
+	count: number,
+	cumulative_sum: number
+}
 
 // Manual IDs ------------------------------------------------------------------
 // Taken and reworked from odota repo core/proto/dota_shared_enums.proto
@@ -667,16 +681,3 @@ export const RADIANT_SLOTS = [0, 1, 2, 3, 4] as const
 export const DIRE_SLOTS = [128, 129, 130, 131, 132] as const
 export type PlayerSlot = typeof RADIANT_SLOTS[number] | typeof DIRE_SLOTS[number]
 
-export interface Distributions {
-	ranks: {
-		rows: RankRow[],
-		sum: {count: number}
-	}
-}
-
-export interface RankRow {
-	bin: RankBitmask,
-	bin_name: RankBitmask, // duplicate info? (16.4.26)
-	count: number,
-	cumulative_sum: number
-}

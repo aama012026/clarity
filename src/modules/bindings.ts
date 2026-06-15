@@ -15,13 +15,13 @@ import {
 } from "./domainConstants"
 import {
 	BARRACK_FLAGS, TOWER_FLAGS, type AccountId, type BarracksBitmask,
-	type Cosmetic, type Distributions, type LeagueId, type LeaverStatus,
-	type MatchForPlayer, type MatchId, type NeutralItemCrafted, type Objective,
-	type OdotaParsedPlayer, type OdotaPlayer, type OdotaProfile,
-	type OdotaSteamAlias, type OdotaUnparsedPlayer, type OdotaWardLogEntry,
-	type ParsedMatch, type PartyId, type Pause, type Percentile, type PickBan,
-	type PlayerSlot, type RankBitmask, type SeriesId, type SteamId, type Timing,
-	type TowersBitmask, type UnparsedMatch
+	type CosmeticDTO, type DistributionsDTO, type LeagueId, type LeaverStatus,
+	type MatchForPlayerDTO, type MatchId, type NeutralItemHistoryDTO, type ObjectiveDTO,
+	type ParsedPlayerDTO, type PlayerDTO, type ProfileDTO,
+	type AliasDTO, type SparsePlayerDTO, type WardLogEntryDTO,
+	type ParsedMatchDTO, type PartyId, type PauseDTO, type PercentileDTO, type PickBanDTO,
+	type PlayerSlot, type RankBitmask, type SeriesId, type SteamId, type TimingDTO,
+	type TowersBitmask, type SparseMatchDTO
 } from "../types/openDotaTypes"
 import {
 	isEmpty, nullsToUndefined, stringify, type ISO8601TimeString, type UnixTimestamp
@@ -145,7 +145,7 @@ export interface SteamAlias {
 	since: ISO8601TimeString
 }
 
-function mapSteamAliases(aliases: OdotaSteamAlias[]): SteamAlias[] {
+function mapSteamAliases(aliases: AliasDTO[]): SteamAlias[] {
 	return aliases.map(({personaname, name_since}) => {
 		return {personaName: personaname, since: name_since}
 	})
@@ -189,7 +189,7 @@ export interface Player {
 	aliases: SteamAlias[]
 }
 
-export function bindPlayer(player: OdotaPlayer): Player {
+export function bindPlayer(player: PlayerDTO): Player {
 	return {
 		profile: bindProfile(player.profile),
 		rank: player.rank_tier ?? undefined,
@@ -202,7 +202,7 @@ export function bindPlayer(player: OdotaPlayer): Player {
 	}
 }
 
-function bindProfile(profile: OdotaProfile): Profile {
+function bindProfile(profile: ProfileDTO): Profile {
 	return {
 		account: nullsToUndefined({
 			id: profile.account_id,
@@ -217,7 +217,7 @@ function bindProfile(profile: OdotaProfile): Profile {
 		isDotaPlusSub: profile.plus ? true : undefined
 	}
 }
-function bindSteamDetails(profile: OdotaProfile): SteamDetails | undefined {
+function bindSteamDetails(profile: ProfileDTO): SteamDetails | undefined {
 	const details: SteamDetails = nullsToUndefined({
 		id: profile.steamId,
 		avatar: (obj => isEmpty(obj) ? undefined : obj)(nullsToUndefined({
@@ -236,7 +236,7 @@ function bindSteamDetails(profile: OdotaProfile): SteamDetails | undefined {
 
 // We discard the derived data as it is trivial to calculate and would
 // double the size.
-export function formatRankDistribution(distributions: Distributions) {
+export function formatRankDistribution(distributions: DistributionsDTO) {
 	const DIVISIONS = 4
 	const TOP1 = 1 * DIVISIONS
 	const TOP10 = 10 * DIVISIONS - TOP1
@@ -265,25 +265,25 @@ export function formatRankDistribution(distributions: Distributions) {
 export interface Benchmark {
 	timestamp: ISO8601TimeString,
 	hero: Hero,
-	gpm: Percentile[],
-	xpm: Percentile[],
-	kpm: Percentile[],
-	lhpm: Percentile[],
-	dmgpm: Percentile[],
-	healpm: Percentile[],
-	towerDmg: Percentile[]
+	gpm: PercentileDTO[],
+	xpm: PercentileDTO[],
+	kpm: PercentileDTO[],
+	lhpm: PercentileDTO[],
+	dmgpm: PercentileDTO[],
+	healpm: PercentileDTO[],
+	towerDmg: PercentileDTO[]
 }
 
 // Performance represents a hero's peformance in a particular match.
 // It is always a single tuple of the raw value and the percentile.
 export interface Performance {
-	gpm: Percentile,
-	xpm: Percentile,
-	kpm: Percentile,
-	lhpm: Percentile,
-	dmgpm: Percentile,
-	healpm: Percentile,
-	towerDmg: Percentile
+	gpm: PercentileDTO,
+	xpm: PercentileDTO,
+	kpm: PercentileDTO,
+	lhpm: PercentileDTO,
+	dmgpm: PercentileDTO,
+	healpm: PercentileDTO,
+	towerDmg: PercentileDTO
 }
 
 export interface MatchBase {
@@ -312,7 +312,7 @@ export interface PlayerMatchSummary {
 	}
 }
 
-export function bindMatchSummary(summary: MatchForPlayer, player: AccountId)
+export function bindMatchSummary(summary: MatchForPlayerDTO, player: AccountId)
 	: Result<PlayerMatchSummary> {
 	const log: LogEntry[] = []
 	const heroId = HERO_BY_EXT[summary.hero_id]
@@ -379,7 +379,7 @@ export interface SparseMatch extends MatchBase {
 	preGameLengthSeconds: number
 }
 
-export function formatSparseMatch(match: UnparsedMatch): SparseMatch {
+export function formatSparseMatch(match: SparseMatchDTO): SparseMatch {
 	return {
 		id: match.match_id,
 		fetchTime: new Date().getTime() as UnixTimestamp,
@@ -445,7 +445,7 @@ export interface FullMatch extends SparseMatch {
 	players: ParsedPlayer[],
 	// TODO: we make this optional for now as it requires a big format function.
 	teamfights?: Teamfight[],
-	pauses?: Pause[]
+	pauses?: PauseDTO[]
 	objectives?: NormalizedObjective[],
 	chat?: ChatMsg[],
 	allChatWordCounts?: {total: object, player: object},
@@ -454,7 +454,7 @@ export interface FullMatch extends SparseMatch {
 	draft: DraftStep[] | CaptainsModeDraftStep[],
 }
 
-export function formatFullMatch(match: ParsedMatch): FullMatch {
+export function formatFullMatch(match: ParsedMatchDTO): FullMatch {
 	const formattedMatch: FullMatch = {
 		id: match.match_id,
 		fetchTime : new Date().getTime() as UnixTimestamp,
@@ -545,7 +545,7 @@ export interface TeamfightPlayerData {
 
 export interface NormalizedObjective {
 	whenSeconds: number,
-	what: Objective,
+	what: ObjectiveDTO,
 	who: Hero | Unit,
 	target?: Hero | Structure, // not needed when objective can only be one target
 	value?: number
@@ -606,7 +606,7 @@ export interface SparsePlayer {
 	}
 }
 
-function formatSparsePlayer(player: OdotaUnparsedPlayer): SparsePlayer {
+function formatSparsePlayer(player: SparsePlayerDTO): SparsePlayer {
 	const sparsePlayer: SparsePlayer = {
 		account: {
 			id: player.account_id,
@@ -779,12 +779,12 @@ export interface ParsedPlayer extends SparsePlayer {
 	actions: Record<UnitOrderId, number>,
 	apm: number, //not strictly needed as we can divide above with match length
 	pingCount: number,
-	cosmetics?: Cosmetic[],
+	cosmetics?: CosmeticDTO[],
 	additionalUnits?: object[]
 }
 export interface Timestamped<T extends number | string> {whenSeconds: number, id: T}
 
-export function formatFullInGamePlayer(player: OdotaParsedPlayer): Result<ParsedPlayer> {
+export function formatFullInGamePlayer(player: ParsedPlayerDTO): Result<ParsedPlayer> {
 	const log: LogEntry[] = []
 
 	const neutralItems = bindNeutralItemsLog(player.neutral_item_history)
@@ -983,7 +983,7 @@ export function formatFullInGamePlayer(player: OdotaParsedPlayer): Result<Parsed
 	}
 	return {data: parsedPlayer, log, ok: true}
 }
-function bindNeutralItemsLog(itemLog: NeutralItemCrafted[]): Result<NeutralItem[]> {
+function bindNeutralItemsLog(itemLog: NeutralItemHistoryDTO[]): Result<NeutralItem[]> {
 	const log: LogEntry[] = []
 	const items: NeutralItem[] = []
 	itemLog.forEach((entry => {
@@ -1003,7 +1003,7 @@ function bindNeutralItemsLog(itemLog: NeutralItemCrafted[]): Result<NeutralItem[
 }
 
 function translateTimings<T extends number | string>(
-	timings: Timing[], lookup: IdMap<Ids<Binding<T>>, 'ext'>
+	timings: TimingDTO[], lookup: IdMap<Ids<Binding<T>>, 'ext'>
 ): Result<Timestamped<T>[]> {
 	const log: LogEntry[] = []
 	const data: Timestamped<T>[] = []
@@ -1030,7 +1030,7 @@ function translateRecord<K extends number | string, V, P extends 'key'|'ext'>(
 	)
 }
 
-function formatWardLog(enteredLog: OdotaWardLogEntry[], leftLog: OdotaWardLogEntry[]) {
+function formatWardLog(enteredLog: WardLogEntryDTO[], leftLog: WardLogEntryDTO[]) {
 	enteredLog.sort((a, b) => a.ehandle - b.ehandle);
 	leftLog.sort((a, b) => a.ehandle - b.ehandle);
 	const wardLog: WardLogEntry[] = []
@@ -1096,7 +1096,7 @@ export interface DraftStep {
 	hero: Hero,
 }
 
-export function parsePickBan(pickBan: PickBan): Result<DraftStep> {
+export function parsePickBan(pickBan: PickBanDTO): Result<DraftStep> {
 	const log: LogEntry[] = []
 	const team = SIDE_BY_EXT[pickBan.team]
 	const hero = HERO_BY_EXT[pickBan.hero_id]
