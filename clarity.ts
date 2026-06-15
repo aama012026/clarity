@@ -41,7 +41,7 @@ const itemsPage = makeItemsPage(
 import { makeHead, makeHeader, makeItem, makeItemGrid, makeItemsPage, makeItemsPanel, makeMatchHistorySection, makeMatchSummary } from './transpiled/templates';
 import { PATHS } from './src/modules/paths';
 import { bindPlayer, bindMatchSummary, heroNames, RANK_NAMES, type Player, type PlayerMatchSummary, type ItemKey } from './src/modules/bindings';
-import { LEAVER_STATUS, leaverStatusByKey, type AccountId, type MatchForPlayerDTO, type PlayerDTO, type RankBitmask } from './src/types/openDotaTypes';
+import { LEAVER_STATUS, leaverStatusByKey, type AccountId, type PlayerMatchDTO, type PlayerDTO, type RankBitmask } from './src/types/openDotaTypes';
 
 import axios from 'axios';
 import type { Item } from './src/types/boundTypes'
@@ -108,7 +108,7 @@ function sendAccountIdResponse(accountId: string) {
 					log(LOG.OPENDOTA, 2, JSON.stringify(r.data, null, '\t'))
 					c.enqueue(patchProfileSignals(bindPlayer(r.data)))}
 			),
-			axios.get<MatchForPlayerDTO[]>(`${ENDPOINT.PLAYERS}/${id}/matches`).then(
+			axios.get<PlayerMatchDTO[]>(`${ENDPOINT.PLAYERS}/${id}/matches`).then(
 				r => {
 					c.enqueue(patchElements(makeMatchHistorySection().split('\n')))
 					r.data.forEach(match => {

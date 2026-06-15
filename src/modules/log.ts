@@ -6,9 +6,6 @@ export type Result<T = null> = { log: LogEntry[] } & (Success<T> | Failure)
 
 // :bind:matchsummary:err
 type LogCode = {lookup:number, name:string}
-const TABLES = {
-	LVLS: 0
-} as const satisfies Record<number, string>
 export const LVLS = {
 	0: {key:'MSG', name:'message'},
 	1: {key:'WRN', name:'warning'},
@@ -18,21 +15,41 @@ export const LVLS = {
 } as const satisfies IdRecord<{name: string}>
 const LVL = lookup(LVLS, 'key')
 
-export const KINDS = {
+// Add an entry for each module.
+export const LOCATIONS = {
+	0: {key:'SERVER', name:'server'},
+	1: {key:'BUILD', name:'build'},
+	2: {key:'SSE', name:'sse'},
+	3: {key:'TMP', name:'html templates'},
+} as const
+const WHERE = lookup(LOCATIONS, 'key')
+// Add an entry for each group of processes.
+export const KIND = {
 	1: {key:'PARSE', name:'parse'},
 	2: {key:'LOG', name: 'log'},
 	3: {key:'BUILD', name:'build'},
+	4: {key:'ROUT', name:'routing'},
+	5: {key:'FILE', name:'file'}
 } as const satisfies IdRecord<{name:string}>
-const KIND = lookup(KINDS, 'key')
-export const CALLSITES = {
-	0: {key:'SERVER', name:'server'},
-	1: {key:''}
+const WHAT = lookup(KIND, 'key')
+export const PARSE = {
+	0:{key:'MATCH_SUM', name:'match summary'},
+	1:{key:'PLAYER', name:'player'},
+	2:{key:'PROFILE', name:'profile'},
+	3:{key:'STEAM', name:'steam details'}
 }
-
-
 export const PARSE_TARGET = {
 	[KIND.PARSE]: {key:'MATCH_SUM', set:(matchId: number) => `match summary ${matchId}`},
 } as const
+const TABLE = {
+	[WHERE.SERVER]: {
+		[WHAT.PARSE]: {
+			[]
+		}
+	},
+}
+
+
 export const TEMPLATES = {
 	[LVL.ERR]: (target:string) => `Could not parse ${target}`
 } as const
@@ -60,7 +77,7 @@ export function getLogString(entry: LogEntry): string {
 	const lvlCode = entry.code.shift()
 	const where = entry.code.reduce((txt, code)=>{}, '')
 	if (lvlCode === undefined) {
-		return {ok: false, log: [logError(setErrorMsg(KINDS[KIND.LOG].name, CAUSE[KIND.LOG][0].set()), )]}
+		return {ok: false, log: [logError(setErrorMsg(WHAT[KIND.LOG].name, CAUSE[KIND.LOG][0].set()), )]}
 	}
 	const lvl = LVLS[lvlCode as keyof typeof LVLS].name.toUpperCase().padEnd(7, '-')
 	return `${when} ${lvl} [] ${entry.msg}`

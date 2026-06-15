@@ -9,8 +9,8 @@ import {bindPlayer, formatFullMatch, bindMatchSummary, formatRankDistribution,
 	type Player, type PlayerMatchSummary, type RankDistribution, type RankStats,
 	type SparseMatch
 } from './modules/bindings.js';
-import {type DistributionsDTO, type AccountId, type PlayerDTO, type SearchResDTO,
-	type MatchForPlayerDTO, leaverStatusByKey, LEAVER_STATUS, type RankBitmask,
+import {type RankDistDTO, type AccountId, type PlayerDTO, type SearchResDTO,
+	type PlayerMatchDTO, leaverStatusByKey, LEAVER_STATUS, type RankBitmask,
 	type SparseMatchDTO, type ParsedMatchDTO, type MatchId
 } from './types/openDotaTypes.js'
 import type { Result } from './modules/log.js';
@@ -194,8 +194,8 @@ async function tryGetPlayer(idOrPersona: AccountId | string): Promise<Result<Pla
 	return {data: bindPlayer(response.data), ok: true}
 }
 
-async function tryGetMatches(id: AccountId): Promise<AxiosResponse<MatchForPlayerDTO[]>> {
-	const response = await axios.get<MatchForPlayerDTO[]>(`${ENDPOINT.PLAYERS}/${id}/matches`)
+async function tryGetMatches(id: AccountId): Promise<AxiosResponse<PlayerMatchDTO[]>> {
+	const response = await axios.get<PlayerMatchDTO[]>(`${ENDPOINT.PLAYERS}/${id}/matches`)
 	updateCallsLeft()
 	return response
 }
@@ -227,7 +227,7 @@ async function tryGetRankDistribution(): Promise<Result<RankDistribution>> {
 	let rankDistribution = tryGetLocal<RankDistribution>(LocalDataKey.RANK_DISTRIBUTION)
 	// Try to get from localstorage first, fetch if not present or stale (here 24H shelf life).
 	if(!(rankDistribution && new Date().getHours() - new Date(rankDistribution.timestamp).getHours() <= 24)) {
-		const result = await axios.get<DistributionsDTO>(`${ENDPOINT.DISTRIBUTIONS}`)
+		const result = await axios.get<RankDistDTO>(`${ENDPOINT.DISTRIBUTIONS}`)
 		updateCallsLeft()
 		if(result.status != 200) {
 			return {ok: false}

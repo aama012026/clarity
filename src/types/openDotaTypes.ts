@@ -13,72 +13,206 @@ export type PartyId = Unique<number, 'party'>
 export type BarracksBitmask = Unique<number, 'barracksBitmask'>
 export type TowersBitmask = Unique<number, 'towersBitmask'>
 export type RankBitmask = Unique<number, 'rankBitmask'>
-export type GoldReasonId = number
-export type XpReasonId = number
 
 // Self documentation
+export type GoldReasonId = number
+export type XpReasonId = number
 export type xPos = number
 export type yPos = number
 
+// Response interfaces -----------------------------------------------
+
+// GET /players
+// /:accountId
 export interface PlayerDTO {
-	profile: ProfileDTO,
 	rank_tier: RankBitmask | null,
 	leaderboard_rank: number | null,
 	computed_mmr?: number | null, // computed_mmr_turbo is not present in normal ranked. The opposite will prob. be true
 	computed_mmr_turbo?: number | null,
+	profile: ProfileDTO,
 	aliases: AliasDTO[],
 }
 
-export interface AliasDTO {
-	personaname: string,
-	name_since: ISO8601TimeString
-}
-
-export interface SearchResDTO {
+export interface ProfileDTOBase {
 	account_id: AccountId,
-	avatarfull: string,
-	personaname: string,
-	last_match_time: string,
-	similarity: number
+	steamid: SteamId,
+	avatar:string|null,
+	avatarmedium:string|null,
+	avatarfull:string|null,
+	profileurl:string|null,
+	personaname:string|null,
+	last_login:string|null, //<date-time>
+	cheese:number|null,
+	fh_unavailable:boolean|null,
+	loccountrycode:string|null,
 }
-
-export interface PartialProfileDTO {
-	account_id: AccountId,
-	personaname: string | null,
+export interface ProfileDTO extends ProfileDTOBase{
 	name: string | null,
+	status: unknown | null
 	is_contributor: boolean, // to opendota
 	is_subscriber: boolean // to opendota
 }
 
-export interface ProfileDTO extends PartialProfileDTO {
-	plus: boolean, //current Dota Plus status
-	cheese: number | null, // number is int
-	steamId: SteamId | null, //16-digit string or null
+export interface AliasDTO {
+	personaname: string,
+	/** YYYY-MM-DDTHH:MM:SS.XXXZ */
+	name_since: ISO8601TimeString
+}
+// /:accountId/wl
+export interface MatchCountDTO {win: number, lose: number}
+// /:accountId/matches
+export interface PlayerMatchDTO extends MatchSummaryDTO,PlayerSummaryDTO {
+	average_rank:RankBitmask|null
+}
+export interface PlayerSummaryDTO {
+	player_slot: PlayerSlot | null,
+	kills: number,
+	deaths: number,
+	assists: number,
+	hero_id: number,
+	leaver_status: LeaverStatus,
+	party_size: number | null,
+	hero_variant?: number
+}
+// /:accountId/heroes
+export interface PlayerHeroStatsDTO {
+	hero_id: number,
+	last_played: number, // maybe a match id?
+	games: number,
+	win: number,
+	with_games: number,
+	with_wins: number,
+	against_games: number,
+	against_win: number
+}
+// /:accountId/peers
+export interface PeerDTO {
+	account_id: AccountId,
+	last_played: number,
+	win: number,
+	games: number,
+	with_win: number,
+	with_games: number,
+	against_win: number,
+	against_games: number,
+	with_gpm_sum: number,
+	with_xpm_sum: number,
+	personaname: string | null,
+	name: string | null,
+	is_contributor: boolean,
+	is_subscriber: boolean,
+	last_login: string | null,
+	avatar: string | null,
+	avatarfull: string | null
+}
+// /:accountId/pros
+export interface RelationalProPlayerDTO {
+	account_id: AccountId,
+	name: string | null,
+	country_code: string,
+	fantasy_role: number, // prob. 1-5 for carry-hard support.
+	team_id: number,
+	team_name: string | null,
+	team_tag: string | null,
+	is_locked: boolean,
+	is_pro: boolean,
+	locked_until: number | null,
+	steamid: SteamId | null,
 	avatar: string | null,
 	avatarmedium: string | null,
 	avatarfull: string | null,
-	profileurl: string | null,
-	last_login: string | null,
+	last_login: string | null, //<date-time>
+	full_history_time: string | null //<date-time>
+	cheese: number | null,
+	fh_unavailable: boolean | null,
 	loccountrycode: string | null,
-	status: unknown | null
-	fh_unavailable: boolean,
+	last_played: number | null,
+	win: number,
+	games: number,
+	with_win: number,
+	with_games: number,
+	against_win: number,
+	against_games: number,
+	with_gpm_sum: number | null,
+	with_xpm_sum: number | null
+}
+// /:accountId/totals
+export interface StatDTO { field: string, n: number, sum: number,}
+// /:accountId/ratings
+export interface PlayerRatingsDTO {
+	account_id: AccountId,
+	match_id: MatchId,
+	rank_tier: RankBitmask,
+	time: number
+}
+// /:accountId/rankings
+export interface PlayerHeroRankings {
+	hero_id: number,
+	score: number,
+	percent_rank: number,
+	card: number
 }
 
-export interface MatchCountDTO {win: number, lose: number}
-
-export interface MatchSummaryDTO {
-	match_id: MatchId,
-	radiant_win: boolean | null,
-	duration: number, // seconds
+export interface MatchDTOBase {
+	match_id:MatchId,
+	start_time:UnixTimestamp|null,
+	duration:number,
+	radiant_win:boolean|null
+}
+export interface MatchSummaryDTO extends MatchDTOBase {
 	game_mode: GameModeId,
 	lobby_type: LobbyTypeId,
-	start_time: UnixTimestamp | null,
 	version: number | null,
-	average_rank: RankBitmask | null,
 	skill?: number | null // not seen in response but present in docs.
 }
-
-export interface SparseMatchDTO extends Omit<MatchSummaryDTO, 'average_rank'> {
+// GET /leagues/:leagueId/matches
+export interface LeagueMatchDTO extends MatchDTOBase {
+	leagueid:number,
+	radiant_score:number,
+	dire_score:number,
+	radiant_team_id:number|null,
+	radiant_team_name:string|null,
+	dire_team_id:number|null,
+	dire_team_name:string|null,
+	series_id:number,
+	series_type:number
+}
+// GET /proMatches
+export interface ProMatchDTO extends LeagueMatchDTO {version:number|null}
+// GET /publicMatches
+export interface PublicMatchDTO extends MatchDTOBase {
+	match_seq_num:number,
+	lobby_type:LobbyTypeId,
+	game_mode:GameModeId,
+	avg_rank_tier:RankBitmask,
+	num_rank_tier:number,
+	cluster:number,
+	radiant_team:[number,number,number,number,number],
+	dire_team:[number,number,number,number,number]
+}
+// GET /teams/:teamId/matches
+export interface TeamMatchDTO extends MatchDTOBase {
+	radiant_score:number,
+	dire_score:number,
+	radiant:boolean,
+	leagueid:LeagueId,
+	league_name:string,
+	cluster:number,
+	opposing_team_id:number,
+	opposing_team_name:string,
+	opposing_team_logo:string
+}
+// GET /heroes/:heroId/matches
+export interface HeroMatchDTO extends MatchDTOBase {
+	leagueid:LeagueId,
+	league_name:string,
+	radiant:boolean,
+	kills:number,
+	deaths:number,
+	assists:number
+}
+// GET /matches/:MatchId
+export interface SparseMatchDTO extends MatchSummaryDTO {
 	players: SparsePlayerDTO[],
 	series_id?: SeriesId,
 	series_type?: number,
@@ -203,18 +337,6 @@ export interface PickBanDTO {
 	order: number
 }
 
-export interface PlayerSummaryDTO {
-	player_slot: PlayerSlot | null,
-	kills: number,
-	deaths: number,
-	assists: number,
-	hero_id: number,
-	leaver_status: LeaverStatus,
-	party_size: number | null,
-	hero_variant?: number
-}
-
-export type MatchForPlayerDTO = MatchSummaryDTO & PlayerSummaryDTO
 export interface SparsePlayerDTO extends PlayerSummaryDTO {
 	account_id: AccountId,
 	party_id?: number | null,
@@ -366,21 +488,6 @@ export interface PermaBuffDTO {
 	grant_time: number
 }
 
-export interface PercentileDTO {percentile: number, value: number | null}
-
-export interface HeroBenchmark {
-	hero_id: number,
-	result: {
-		gold_per_min: PercentileDTO[],
-		xp_per_min: PercentileDTO[],
-		kills_per_min: PercentileDTO[],
-		last_hits_per_min: PercentileDTO[],
-		hero_damage_per_min: PercentileDTO[],
-		hero_healing_per_min: PercentileDTO[],
-		tower_damage: PercentileDTO[],
-	}
-}
-
 export interface BenchmarkPerformanceDTO {raw: number, pct: number}
 
 export interface PlayerHeroPerformanceDTO {
@@ -457,71 +564,8 @@ export interface PauseDTO {
 	duration: number // in seconds
 }
 
-export interface HeroPlayerStatsDTO {
-	hero_id: number,
-	last_played: number, // maybe a match id?
-	games: number,
-	win: number,
-	with_games: number,
-	with_wins: number,
-	against_games: number,
-	against_win: number
-}
-
-export interface PeerDTO {
-	account_id: AccountId,
-	last_played: number,
-	win: number,
-	games: number,
-	with_win: number,
-	with_games: number,
-	against_win: number,
-	against_games: number,
-	with_gpm_sum: number,
-	with_xpm_sum: number,
-	personaname: string | null,
-	name: string | null,
-	is_contributor: boolean,
-	is_subscriber: boolean,
-	last_login: string | null,
-	avatar: string | null,
-	avatarfull: string | null
-}
-
-export interface RelationalProPlayerDTO {
-	account_id: AccountId,
-	name: string | null,
-	country_code: string,
-	fantasy_role: number, // prob. 1-5 for carry-hard support.
-	team_id: number,
-	team_name: string | null,
-	team_tag: string | null,
-	is_locked: boolean,
-	is_pro: boolean,
-	locked_until: number | null,
-	steamid: SteamId | null,
-	avatar: string | null,
-	avatarmedium: string | null,
-	avatarfull: string | null,
-	last_login: string | null, //<date-time>
-	full_history_time: string | null //<date-time>
-	cheese: number | null,
-	fh_unavailable: boolean | null,
-	loccountrycode: string | null,
-	last_played: number | null,
-	win: number,
-	games: number,
-	with_win: number,
-	with_games: number,
-	against_win: number,
-	against_games: number,
-	with_gpm_sum: number | null,
-	with_xpm_sum: number | null
-}
-
-export interface StatDTO { field: string, n: number, sum: number,}
-
-export interface DistributionsDTO {
+// GET /distributions
+export interface RankDistDTO {
 	ranks: {
 		rows: RankRowDTO[],
 		sum: {count: number}
@@ -534,7 +578,95 @@ export interface RankRowDTO {
 	count: number,
 	cumulative_sum: number
 }
+// GET /search
+export interface SearchResDTO {
+	account_id: AccountId,
+	avatarfull: string,
+	personaname: string,
+	last_match_time: string,
+	similarity: number
+}
+// GET /rankings
+export interface HeroRankingsDTO {
+	hero_id: number,
+	rankings: RankingDTO[]
+}
+export interface RankingDTO extends ProfileDTOBase {
+	score: number,
+	full_history_time:string, // <date-time>
+	rank_tier: RankBitmask|null
+}
+// GET /benchmarks?hero_id=ID
+export interface HeroBenchmark {
+	hero_id: number,
+	result: {
+		gold_per_min: PercentileDTO[],
+		xp_per_min: PercentileDTO[],
+		kills_per_min: PercentileDTO[],
+		last_hits_per_min: PercentileDTO[],
+		hero_damage_per_min: PercentileDTO[],
+		hero_healing_per_min: PercentileDTO[],
+		tower_damage: PercentileDTO[],
+	}
+}
+export interface PercentileDTO {percentile: number, value: number|null}
 
+// GET /heroes
+
+// /heroes/:heroId/matchups
+export interface MatchupDTO extends WinrateDTO {hero_id: number}
+// /heroes/:heroId/durations
+export interface HeroPerformanceByDurationDTO extends WinrateDTO {duration_bin:string}
+// /heroes/:heroId/players
+export interface HeroPlayerDTO extends WinrateDTO {account_id:AccountId}
+export interface WinrateDTO {games_played:number, wins:number}
+// /heroes/:heroId/itemPopularity
+export interface ItemPopularityDTO {
+	//Record<itemId, count>
+	start_game_items: Record<number, number>,
+	early_game_items: Record<number, number>, // Before 10min @cost >= 700
+	mid_game_items: Record<number, number>, // Between 10 and 25min @cost >= 2000
+	late_game_items: Record<number, number> // At or after 25min @cost >= 4000
+}
+// GET /leagues | /leagues/:leagueId
+export interface LeagueDTO {
+	leagueid:LeagueId,
+	ticket:string|null,
+	banner:string|null,
+	tier:string,
+	name:string
+}
+
+// GET /teams | /teams/:teamId
+export type TeamDTO = TeamInfoDTO & TeamStatsDTO
+export interface TeamInfoDTO {
+	team_id:number,
+	name:string,
+	tag:string,
+	logo_url:string
+}
+export interface TeamStatsDTO extends TeamInfoDTO {
+	rating:number, //ELO rating.
+	delta:number|null, // Maybe ELO delta over a period?
+	wins:number,
+	losses:number,
+	last_match_time:UnixTimestamp,
+	match_id:number|null, // Maybe id of last played match?
+}
+
+// /teams/:teamId/players
+export interface TeamPlayerDTO {
+	account_id:AccountId,
+	name:string|null,
+	games_played:number,
+	wins:number,
+	is_current_team_member:boolean|null
+}
+// /teams/:teamId/heroes
+export interface TeamHeroWinrateDTO extends WinrateDTO {
+	hero_id:number,
+	localized_name:string
+}
 // Manual IDs ------------------------------------------------------------------
 // Taken and reworked from odota repo core/proto/dota_shared_enums.proto
 export const HISTOGRAM_COLUMNS = {

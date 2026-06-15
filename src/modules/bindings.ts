@@ -15,8 +15,8 @@ import {
 } from "./domainConstants"
 import {
 	BARRACK_FLAGS, TOWER_FLAGS, type AccountId, type BarracksBitmask,
-	type CosmeticDTO, type DistributionsDTO, type LeagueId, type LeaverStatus,
-	type MatchForPlayerDTO, type MatchId, type NeutralItemHistoryDTO, type ObjectiveDTO,
+	type CosmeticDTO, type RankDistDTO, type LeagueId, type LeaverStatus,
+	type PlayerMatchDTO, type MatchId, type NeutralItemHistoryDTO, type ObjectiveDTO,
 	type ParsedPlayerDTO, type PlayerDTO, type ProfileDTO,
 	type AliasDTO, type SparsePlayerDTO, type WardLogEntryDTO,
 	type ParsedMatchDTO, type PartyId, type PauseDTO, type PercentileDTO, type PickBanDTO,
@@ -219,7 +219,7 @@ function bindProfile(profile: ProfileDTO): Profile {
 }
 function bindSteamDetails(profile: ProfileDTO): SteamDetails | undefined {
 	const details: SteamDetails = nullsToUndefined({
-		id: profile.steamId,
+		id: profile.steamid,
 		avatar: (obj => isEmpty(obj) ? undefined : obj)(nullsToUndefined({
 			small: profile.avatar,
 			medium: profile.avatarmedium,
@@ -236,7 +236,7 @@ function bindSteamDetails(profile: ProfileDTO): SteamDetails | undefined {
 
 // We discard the derived data as it is trivial to calculate and would
 // double the size.
-export function formatRankDistribution(distributions: DistributionsDTO) {
+export function formatRankDistribution(distributions: RankDistDTO) {
 	const DIVISIONS = 4
 	const TOP1 = 1 * DIVISIONS
 	const TOP10 = 10 * DIVISIONS - TOP1
@@ -312,7 +312,7 @@ export interface PlayerMatchSummary {
 	}
 }
 
-export function bindMatchSummary(summary: MatchForPlayerDTO, player: AccountId)
+export function bindMatchSummary(summary: PlayerMatchDTO, player: AccountId)
 	: Result<PlayerMatchSummary> {
 	const log: LogEntry[] = []
 	const heroId = HERO_BY_EXT[summary.hero_id]
