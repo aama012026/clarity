@@ -33,10 +33,19 @@ export const KIND = {
 } as const satisfies IdRecord<{name:string}>
 const WHAT = lookup(KIND, 'key')
 export const PARSE = {
-	0:{key:'MATCH_SUM', name:'match summary'},
-	1:{key:'PLAYER', name:'player'},
-	2:{key:'PROFILE', name:'profile'},
-	3:{key:'STEAM', name:'steam details'}
+	0:{key:'MATCH', next:{
+		0:{key:'SUM', name:'match summary'},
+		1:{key:'SPARSE', name:'sparse match'},
+		2:{key:'FULL', name:'full match'}
+	}},
+	1:{key:'PLAYER', next:{
+		0:{key:'PROFILE', name:'player profile'},
+		1:{key:'SPARSE', name:'sparse player'},
+		2:{key:'FULL', name:'full player'}
+	}},
+	3:{key:'STEAM', name:'steam details'},
+	4:{key:'RNKS', name:'rank distribution'},
+	5:
 }
 export const PARSE_TARGET = {
 	[KIND.PARSE]: {key:'MATCH_SUM', set:(matchId: number) => `match summary ${matchId}`},

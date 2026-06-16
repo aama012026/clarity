@@ -22,36 +22,44 @@ export type yPos = number
 
 export interface KDAProps {kills:number,deaths:number,assists:number}
 // Response interfaces -----------------------------------------------
-
 // GET /players
 // /:accountId
-export interface PlayerDTO {
-	rank_tier: RankBitmask | null,
-	leaderboard_rank: number | null,
-	computed_mmr?: number | null, // computed_mmr_turbo is not present in normal ranked. The opposite will prob. be true
-	computed_mmr_turbo?: number | null,
+export interface PlayerRankDTO {
+	rank_tier:RankBitmask|null,
+	leaderboard_rank?:number|null,
+	computed_mmr?:number|null,
+	computed_mmr_turbo?:number|null
+}
+
+export interface PlayerDTO extends PlayerRankDTO {
 	profile: ProfileDTO,
 	aliases: AliasDTO[],
 }
 
-export interface ProfileBaseDTO {
-	account_id: AccountId,
-	steamid: SteamId,
+export interface AvatarDTO {
 	avatar:string|null,
 	avatarmedium:string|null,
-	avatarfull:string|null,
-	profileurl:string|null,
+	avatarfull:string|null
+}
+export interface AccountBaseDTO {
+	account_id:AccountId,
 	personaname:string|null,
+	last_login:string|null //<date-time>
+}
+export interface ProfileBaseDTO extends AvatarDTO {
+	account_id:AccountId,
+	steamid:SteamId,
+	personaname:string|null,
+	profileurl:string|null,
 	last_login:string|null, //<date-time>
 	cheese:number|null,
 	fh_unavailable:boolean|null,
 	loccountrycode:string|null,
 }
-export interface ProfileDTO extends ProfileBaseDTO{
-	name: string | null,
-	status: unknown | null
-	is_contributor: boolean, // to opendota
-	is_subscriber: boolean // to opendota
+export interface OdRelation {is_contributor:boolean, is_subscriber:boolean}
+export interface ProfileDTO extends ProfileBaseDTO, OdRelation {
+	name:string|null,
+	status:unknown|null
 }
 
 export interface AliasDTO {
@@ -66,10 +74,10 @@ export interface PlayerMatchDTO extends MatchSummaryDTO, PlayerSummaryDTO {
 	average_rank:RankBitmask|null
 }
 export interface PlayerSummaryDTO extends KDAProps {
-	player_slot: PlayerSlot|null,
-	hero_id:number,
 	leaver_status:LeaverStatus,
+	player_slot: PlayerSlot|null,
 	party_size:number|null,
+	hero_id:number,
 	hero_variant?:number
 }
 // /:accountId/heroes
@@ -99,7 +107,9 @@ export interface PeerDTO extends PeerBaseDTO {
 	avatarfull:string|null
 }
 // /:accountId/pros
-export interface RelationalProPlayerDTO extends Omit<PeerBaseDTO, 'is_contributor'|'is_subscriber'> {
+export interface RelationalProPlayerDTO extends Omit<
+	PeerBaseDTO, 'is_contributor'|'is_subscriber'
+> {
 	country_code: string,
 	fantasy_role: number, // prob. 1-5 for carry-hard support.
 	team_id: number,
@@ -146,7 +156,7 @@ export interface MatchSummaryDTO extends MatchBaseDTO, GameFormatDTO {
 	skill?: number | null // not seen in response but present in docs.
 }
 interface MatchScoreDTO {radiant_score:number, dire_score:number}
-interface MatchSeriesDTO {series_id:number,	series_type:number}
+interface MatchSeriesDTO {series_id?:number, series_type?:number}
 // GET /leagues/:leagueId/matches
 export interface LeagueMatchDTO extends MatchBaseDTO, MatchScoreDTO, MatchSeriesDTO {
 	leagueid:number,
@@ -167,26 +177,22 @@ export interface PublicMatchDTO extends MatchBaseDTO, GameFormatDTO {
 	dire_team:[number,number,number,number,number]
 }
 // GET /teams/:teamId/matches
-export interface TeamMatchDTO extends MatchBaseDTO, MatchScoreDTO {
-	radiant:boolean,
+export interface TeamMatchDetailsDTO {
 	leagueid:LeagueId,
 	league_name:string,
+	radiant:boolean
+}
+export interface TeamMatchDTO extends MatchBaseDTO, MatchScoreDTO, TeamMatchDetailsDTO {
 	cluster:number,
 	opposing_team_id:number,
 	opposing_team_name:string,
 	opposing_team_logo:string
 }
 // GET /heroes/:heroId/matches
-export interface HeroMatchDTO extends MatchBaseDTO, KDAProps {
-	leagueid:LeagueId,
-	league_name:string,
-	radiant:boolean,
-}
+export type HeroMatchDTO = MatchBaseDTO & KDAProps & TeamMatchDetailsDTO
 // GET /matches/:MatchId
-export interface SparseMatchDTO extends MatchSummaryDTO {
+export interface SparseMatchDTO extends MatchSummaryDTO, MatchScoreDTO, MatchSeriesDTO {
 	players: SparsePlayerDTO[],
-	series_id?: SeriesId,
-	series_type?: number,
 	cluster: number, // seen in dota constants
 	replay_salt?: number,
 	pre_game_duration: number, // not present in documentation.
@@ -200,14 +206,12 @@ export interface SparseMatchDTO extends MatchSummaryDTO {
 	leagueid?: LeagueId,
 	flags: number, // not present in documentation
 	engine: number,
-	radiant_score: number, // kills by radiant at match end
-	dire_score: number, // kills by dire at match end
 	picks_bans: PickBanDTO[], // duplicate info from draft_timings?
 	od_data: OdDataDTO, // not present in documentation
 	metadata: any, // not present in documentation
 	replay_url?: string,
-	patch: PatchId, // patch ID from dotaconstants
-	region: RegionId, // region id from dotaconstants
+	patch:PatchId, // patch ID from dotaconstants
+	region:RegionId, // region ID from dotaconstants
 }
 
 export interface ParsedMatchDTO extends SparseMatchDTO {
@@ -219,23 +223,34 @@ export interface ParsedMatchDTO extends SparseMatchDTO {
 	radiant_gold_adv?: number[], // i=minute. Negative for disadvantage
 	radiant_xp_adv?: number[], // i=minute. Negative for disadvantage
 	cosmetics?: object,
-	draft_timings?: DraftTimingDTO[], // present but empty in parsed match. Maybe only for captains mode.
-	all_word_counts?: object, // seen, but only empty
-	my_word_counts?: object, // seen, but only empty
+	draft_timings?: DraftTimingDTO[], // present but empty in parsed matches. Prob deprecated.
+	all_word_counts?: Record<string, number>, // seen, but only empty
+	my_word_counts?: Record<string, number>, // seen, but only empty
 	comeback?: number, // max gold disadv. on winning team
 	stomp?: number,  // undocumented, prob max gold adv. on winning team (see win).
+	// Present on league matches
+	radiant_team: TeamInfoDTO, //Only need to keep id.
+	dire_team: TeamInfoDTO, // Only need to keep id.
+	league: LeagueDTO, // Only need to keep id.
+	// Prob present when captains mode
+	radiant_captain?:AccountId,
+	dire_captain?:AccountId
 	// Unseen in responses but present in documentation
 	// negative_votes: number,
 	// positive_votes: number[],
-	// radiant_team: object,
-	// dire_team: object,
-	// league: object,
 	// skill: number | null, // bracket assigned by Valve (Normal, High, Very High)
 	// throw: number, // max gold adv. on losing team
 	// loss: number, // max gold disadvantage on losing team
 	// win: number, // max gold advantage on winning team
 }
 
+export interface ChatMsgDTO {
+	time:number,
+	type:string,
+	key:string|null,
+	slot:number|null,
+	player_slot:PlayerSlot|null
+}
 // only present on parsed matches ----------------------------------------------
 export interface TeamfightDTO {
 	start: number,
@@ -262,12 +277,7 @@ export interface TeamfightPlayerDTO {
 }
 
 // Probably take the approach of only parsing type if composition is well known.
-export interface ObjectiveDTO {
-	time: number,
-	type: string, // ex. "CHAT_MESSAGE_COURIER_LOST" | "building_kill"
-	key?: string, // maybe target of type (ex. "npc_dota_badguys_tower1_top")
-	slot?: number, // i for players[i] (0-9).
-	player_slot?: PlayerSlot,
+export interface ObjectiveDTO extends ChatMsgDTO {
 	unit?: string, // maybe subject (ex. "npc_dota_hero_viper")
 	team?: number,
 	value?: number, // probably present on courier kills
@@ -280,14 +290,6 @@ export interface OdDataDTO {
 	has_gcdata: boolean,
 	has_parsed: boolean,
 	has_archived: boolean
-}
-
-export interface ChatMsgDTO {
-	time: number,
-	type: string,
-	key: string,
-	slot: number,
-	player_slot: number
 }
 
 // Prob. only present for captains mode
@@ -308,63 +310,55 @@ export interface PickBanDTO {
 	order: number
 }
 
-export interface SparsePlayerDTO extends PlayerSummaryDTO {
-	account_id: AccountId,
-	party_id?: number | null,
-	team_number: number, // undocumented, prob unneeded - 0 for radiant and 1 for dire
-	team_slot: number, // undocumented, prob unneeded (0-4)
-	permanent_buffs?: PermaBuffDTO[],
-	item_0: number,
-	item_1: number,
-	item_2: number,
-	item_3: number,
-	item_4: number,
-	item_5: number,
-	backpack_0: number, // prob. id for item
-	backpack_1: number,
-	backpack_2: number,
-	item_neutral: number, // artifact
-	item_neutral2: number, // enchantment
-	last_hits: number,
-	denies: number,
-	gold_per_min: number,
-	xp_per_min: number,
-	level: number, // @ match conclusion
-	net_worth: number, // undocumented
-	aghanims_scepter: number, // undocumented. Can presumably be mapped to bool
-	aghanims_shard: number, // undocumented. Can presumably be mapped to bool
-	moonshard: number, // undocumented. Can presumably be mapped to bool
-	hero_damage: number,
-	tower_damage: number,
-	hero_healing: number,
-	gold: number, // @ match conclusion
-	gold_spent: number,
-	ability_upgrades_arr: number[],
+export interface SparsePlayerDTO extends PlayerSummaryDTO, GameFormatDTO, OdRelation, PlayerRankDTO, MatchCountDTO {
+	party_id?:number|null,
+	team_number:number, // undocumented, prob unneeded - 0 for radiant and 1 for dire
+	team_slot:number, // undocumented, prob unneeded (0-4)
+	item_0:number,
+	item_1:number,
+	item_2:number,
+	item_3:number,
+	item_4:number,
+	item_5:number,
+	backpack_0:number, // prob. id for item
+	backpack_1:number,
+	backpack_2:number,
+	item_neutral:number, // artifact
+	item_neutral2:number, // enchantment
+	permanent_buffs?:PermaBuffDTO[],
+	last_hits:number,
+	denies:number,
+	gold_per_min:number,
+	xp_per_min:number,
+	level:number, // @ match conclusion
+	net_worth:number, // undocumented
+	aghanims_scepter:number, // undocumented. Can presumably be mapped to bool
+	aghanims_shard:number, // undocumented. Can presumably be mapped to bool
+	moonshard:number, // undocumented. Can presumably be mapped to bool
+	hero_damage:number,
+	tower_damage:number,
+	hero_healing:number,
+	gold:number, // @ match conclusion
+	gold_spent:number,
+	ability_upgrades_arr:number[],
 	// Composed from profile?
-	personaname: string | null,
-	name: string | null,
-	last_login: string | null, //<date-time>
-	rank_tier: RankBitmask | null, // most significant digit -> medal, least significant digit -> stars
-	computed_mmr: number | null, // undocumented -> possibly null only assumed because of unranked players
-	is_subscriber: boolean,
-	radiant_win: boolean | null,
-	start_time: UnixTimestamp,
-	duration: number,
-	cluster: number,
-	lobby_type: number,
-	game_mode: number,
-	is_contributor: boolean,
-	patch: number,
-	region: number,
-	isRadiant: boolean,
-	win: number,
-	lose: number,
-	total_gold: number,
-	total_xp: number,
-	kills_per_min: number,
-	kda: number,
-	abandons: number,
-	benchmarks: PlayerHeroPerformanceDTO,
+	account_id?:AccountId,
+	personaname:string|null,
+	last_login:string|null, //<date-time>
+	name:string|null,
+	radiant_win:boolean|null,
+	start_time:UnixTimestamp,
+	duration:number,
+	cluster:number,
+	patch:number,
+	region:number,
+	isRadiant:boolean,
+	total_gold:number,
+	total_xp:number,
+	kills_per_min:number,
+	kda:number,
+	abandons:number,
+	benchmarks:PlayerHeroPerformanceDTO,
 }
 
 export interface ParsedPlayerDTO extends SparsePlayerDTO {
@@ -471,24 +465,14 @@ export interface PlayerHeroPerformanceDTO {
 	tower_damage: BenchmarkPerformanceDTO
 }
 
-export interface MaxHeroHitDTO {
-	time: number,
-	type: string, // redundant
+export interface MaxHeroHitDTO extends ChatMsgDTO {
 	unit: string, // redundant unless other than hero (maybe summon etc.)
-	key: string,
 	value: number,
-	slot: number, // redundant
-	player_slot: PlayerSlot, // can be inferred if connected to player object
 	inflictor: string, // can prob be right-click, ability, item, etc.
 	max: boolean // unneccesary
 }
 
-export interface WardLogEntryDTO {
-	time: number,
-	type: string,
-	key: string, // "[124,157]" - representing x,y coordinate where ward was placed.
-	slot: number,
-	player_slot: PlayerSlot,
+export interface WardLogEntryDTO extends ChatMsgDTO {
 	attackername?: string,
 	x: number,
 	y: number,
@@ -497,7 +481,7 @@ export interface WardLogEntryDTO {
 	ehandle: number // same for corresponding wards in log and left_log arrays, might be useful if order of wards placed and wards left is different.
 }
 
-export interface BuybackDTO {time: number, slot: number, player_slot: PlayerSlot}
+export interface BuybackDTO {time:number, slot:number, player_slot:PlayerSlot}
 
 export interface ConnectionEventDTO {
 	time: number,
@@ -507,7 +491,7 @@ export interface ConnectionEventDTO {
 
 export interface TimingDTO {time: number, key: string}
 
-export interface PurchaseDTO {time: number, key: string, charges: number}
+export interface PurchaseDTO extends TimingDTO {charges: number}
 
 export interface CosmeticDTO {
 	item_id: number, // unsure if this is ingame item id or id for cosmetic.
@@ -626,11 +610,9 @@ export interface TeamStatsDTO extends TeamInfoDTO {
 }
 
 // /teams/:teamId/players
-export interface TeamPlayerDTO {
+export interface TeamPlayerDTO extends WinrateDTO {
 	account_id:AccountId,
 	name:string|null,
-	games_played:number,
-	wins:number,
 	is_current_team_member:boolean|null
 }
 // /teams/:teamId/heroes
