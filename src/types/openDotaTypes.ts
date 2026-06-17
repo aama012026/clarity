@@ -81,10 +81,8 @@ export interface PlayerSummaryDTO extends KDAProps {
 	hero_variant?:number
 }
 // /:accountId/heroes
-export interface PeerBaseDTO {
+export interface PeerBaseDTO extends WinrateShortDTO {
 	last_played:number|null, // maybe a match id?
-	games:number,
-	win:number,
 	with_games:number,
 	with_wins:number,
 	against_games:number,
@@ -127,7 +125,17 @@ export interface RelationalProPlayerDTO extends Omit<
 	loccountrycode: string|null,
 }
 // /:accountId/totals
-export interface StatDTO { field: string, n: number, sum: number,}
+export interface StatDTO { field: string, n: number, sum: number}
+// /:accountId/counts
+export interface CountsDTO {
+	leaver_status:Record<number, WinrateShortDTO>,
+	game_mode:Record<number, WinrateShortDTO>,
+	lobby_type:Record<number, WinrateShortDTO>,
+	lane_role:Record<number, WinrateShortDTO>,
+	region:Record<number, WinrateShortDTO>,
+	patch:Record<number, WinrateShortDTO>,
+	is_radiant:Record<number, WinrateShortDTO>
+}
 // /:accountId/ratings
 export interface PlayerRatingsDTO {
 	account_id: AccountId,
@@ -569,12 +577,13 @@ export interface PercentileDTO {percentile: number, value: number|null}
 // GET /heroes
 
 // /heroes/:heroId/matchups
-export interface MatchupDTO extends WinrateDTO {hero_id: number}
+export interface MatchupDTO extends WinrateLongDTO {hero_id: number}
 // /heroes/:heroId/durations
-export interface HeroPerformanceByDurationDTO extends WinrateDTO {duration_bin:string}
+export interface HeroPerformanceByDurationDTO extends WinrateLongDTO {duration_bin:string}
 // /heroes/:heroId/players
-export interface HeroPlayerDTO extends WinrateDTO {account_id:AccountId}
-export interface WinrateDTO {games_played:number, wins:number}
+export interface HeroPlayerDTO extends WinrateLongDTO {account_id:AccountId}
+export interface WinrateShortDTO {games:number, win:number}
+export interface WinrateLongDTO {games_played:number, wins:number}
 // /heroes/:heroId/itemPopularity
 export interface ItemPopularityDTO {
 	//Record<itemId, count>
@@ -610,13 +619,13 @@ export interface TeamStatsDTO extends TeamInfoDTO {
 }
 
 // /teams/:teamId/players
-export interface TeamPlayerDTO extends WinrateDTO {
+export interface TeamPlayerDTO extends WinrateLongDTO {
 	account_id:AccountId,
 	name:string|null,
 	is_current_team_member:boolean|null
 }
 // /teams/:teamId/heroes
-export interface TeamHeroWinrateDTO extends WinrateDTO {
+export interface TeamHeroWinrateDTO extends WinrateLongDTO {
 	hero_id:number,
 	localized_name:string
 }
