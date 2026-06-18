@@ -20,7 +20,7 @@ export const LOCATIONS = {
 	0: {key:'SERVER', name:'server'},
 	1: {key:'BUILD', name:'build'},
 	2: {key:'SSE', name:'sse'},
-	3: {key:'TMP', name:'html templates'},
+	3: {key:'TEMPLATES', name:'html templates'},
 } as const
 const WHERE = lookup(LOCATIONS, 'key')
 // Add an entry for each group of processes.
@@ -28,7 +28,7 @@ export const KIND = {
 	1: {key:'PARSE', name:'parse'},
 	2: {key:'LOG', name: 'log'},
 	3: {key:'BUILD', name:'build'},
-	4: {key:'ROUT', name:'routing'},
+	4: {key:'ROUTE', name:'routing'},
 	5: {key:'FILE', name:'file'}
 } as const satisfies IdRecord<{name:string}>
 const WHAT = lookup(KIND, 'key')
@@ -36,7 +36,7 @@ export const PARSE = {
 	0:{key:'MATCH', next:{
 		0:{key:'SUM', name:'match summary'},
 		1:{key:'SPARSE', name:'sparse match'},
-		2:{key:'FULL', name:'full match'}
+		2:{key:'FULL', name:'parsed match'}
 	}},
 	1:{key:'PLAYER', next:{
 		0:{key:'PROFILE', name:'player profile'},
@@ -45,7 +45,70 @@ export const PARSE = {
 	}},
 	3:{key:'STEAM', name:'steam details'},
 	4:{key:'RNKS', name:'rank distribution'},
-	5:
+}
+export const ODOTA = {
+	0:{key:'MATCH', name:'match', next:{
+		1:{key:'PRO', name:'pro match'},
+		2:{key:'PUB', name:'public match'},
+		3:{key:'PRS', name:'parsed matches'}
+	}},
+	1:{key:'PLAYERS', name:'players', next:{
+		0:{key:'PLR', name:'player', next:{
+			0:{key:'WLC', name:'win/loss count'},
+			1:{key:'RGM', name:'recent matches'},
+			2:{key:'AGM', name:'matches'},
+			3:{key:'HRS', name:'heroes'},
+			4:{key:'PRS', name:'peers'},
+			5:{key:'PRO', name:'pros'},
+			6:{key:'TOT', name:'totals'},
+			7:{key:'CNT', name:'counts'},
+			8:{key:'HST', name:'histograms'},
+			9:{key:'WRD', name:'wardmap'},
+			10:{key:'CLD', name:'wordcloud'},
+			11:{key:'RAT', name:'ratings'},
+			12:{key:'RNK', name:'rankings'},
+			13:{key:'RFS', name:'refresh'}
+		}},
+	}},
+	2:{key:'TOP', name:'top players'},
+	3:{key:'PROS', name:'pro players'},
+	4:{key:'EXPLORER', name:'explorer'},
+	5:{key:'META', name:'metadata'},
+	6:{key:'DIST', name:'distributions'},
+	7:{key:'SEARCH', name:'search'},
+	8:{key:'RANKS', name:'rankings'},
+	9:{key:'BENCH', name:'benchmarks'},
+	10:{key:'HEALTH', name:'health'},
+	11:{key:'REQU', name:'request'},
+	12:{key:'FIND', name:'find matches'},
+	13:{key:'HERO', name:'hero', next:{
+		0:{key:'MATCHES', name:'matches'},
+		1:{key:'MATCHUPS', name:'matchups'},
+		2:{key:'LENGTH', name:'durations'},
+		3:{key:'PLAYERS', name:'players'},
+		4:{key:'ITEMS', name:'item popularity'},
+		5:{key:'STATS', name:'stats'},
+	}},
+	14:{key:'LGS', name:'leagues', next:{
+		0:{key:'LEAGUE', name:'league'},
+		1:{key:'MATCHES', name:'league matches'},
+		2:{key:'MATCH_IDS', name:'league match ids'},
+		3:{key:'TEAMS', name:'league teams'}
+	}},
+	15:{key:'TEAM', name:'team', next:{
+		0:{key:'MATCHES', name:'matches'},
+		1:{key:'PLAYERS', name:'players'},
+		2:{key:'HEROES', name:'heroes'},
+	}},
+	16:{key:'RCD', name:'records'},
+	17:{key:'LIVE', name:'live'},
+	18:{key:'SCN', name:'scenarios', next:{
+		0:{key:'ITEM', name:'item timings'},
+		1:{key:'ROLE', name:'lane roles'},
+		2:{key:'MISC', name:'misc scenarios'},
+	},
+	19:{key:'SCHEMA', name:'schema'}},
+	20:{key:'CNST', name:'constants'}
 }
 export const PARSE_TARGET = {
 	[KIND.PARSE]: {key:'MATCH_SUM', set:(matchId: number) => `match summary ${matchId}`},
