@@ -1,11 +1,13 @@
+import { nanoseconds } from "bun"
 import { lookup, type Id, type IdRecord } from "./id"
 
-interface Success<T = null> {ok: true, data: T}
-interface Failure {ok: false}
-export type Result<T = null> = { log: LogEntry[] } & (Success<T> | Failure)
+// Self documentation types
+type UnixTimestamp = number
+type Nanoseconds = number
+interface Success<T = null> {ok:true, data:T}
+interface Failure {ok:false}
+export type Result<T = null> = {log:LogEntry} & (Success<T> | Failure)
 
-// :bind:matchsummary:err
-type LogCode = {lookup:number, name:string}
 export const LVLS = {
 	0: {key:'MSG', name:'message'},
 	1: {key:'WRN', name:'warning'},
@@ -14,24 +16,46 @@ export const LVLS = {
 	4: {key:'TIP', name:'hint'}
 } as const satisfies IdRecord<{name: string}>
 const LVL = lookup(LVLS, 'key')
-
-// Add an entry for each module.
-export const LOCATIONS = {
-	0: {key:'SERVER', name:'server'},
-	1: {key:'BUILD', name:'build'},
-	2: {key:'SSE', name:'sse'},
-	3: {key:'TEMPLATES', name:'html templates'},
+type LogLvl = keyof typeof LVLS
+// Add an entry for each module / subprocess.
+export const SOURCES = {
+	0:{key:'SERVER', name:'server'},
+	1:{key:'BUILD', name:'build'},
+	2:{key:'SSE', name:'sse'},
+	3:{key:'TEMPLATES', name:'html templates'},
+	4:{key:'PARSE', name:'parse', targets:{
+		0:{key:'MATCH_SUM', name:'match summary', events:{
+			0: {key:'NOT_IN', level:LVL.ERR, format:(e:{matchId:number, lookup: string, key: number|string}) => `Could not parse match summary for ${e.matchId}: ${e.key} is not in ${e.lookup}`}
+		}}
+	}},
+	5:{key:'LOG', name:'log'},
+	6:{key:'ROUTE', name:'router'},
+	7:{key:'FILE', name:'file'}
 } as const
-const WHERE = lookup(LOCATIONS, 'key')
-// Add an entry for each group of processes.
-export const KIND = {
-	1: {key:'PARSE', name:'parse'},
-	2: {key:'LOG', name: 'log'},
-	3: {key:'BUILD', name:'build'},
-	4: {key:'ROUTE', name:'routing'},
-	5: {key:'FILE', name:'file'}
-} as const satisfies IdRecord<{name:string}>
-const WHAT = lookup(KIND, 'key')
+
+type Sources = typeof SOURCES
+type Source = keyof Sources
+// Filters to only sources that have targets prop.
+type EventSource = {
+	[K in Source]:Sources[K] extends {targets:any} ? K : never
+}[Source]
+// Union of keys in targets for a given EventSource.
+type EventTarget<Src extends EventSource
+> = Sources[Src] extends {targets:infer E} ? E : never
+// Union of keys in events for a given EventTarget.
+type EventKind<S extends EventSource, T extends keyof EventTarget<S>
+> = EventTarget<S>[T] extends {events:infer K} ? K : never
+// typeof signature for a given event format function
+type EventData<
+	S extends EventSource,
+	T extends keyof EventTarget<S>,
+	K extends keyof EventKind<S, T>
+> = (
+	// typeof format function or never if not present
+	EventKind<S, T>[K] extends {format: infer F} ? F : never
+) extends (e: infer P) => any ? P : never
+const WHERE = lookup(SOURCES, 'key')
+
 export const PARSE = {
 	0:{key:'MATCH', next:{
 		0:{key:'SUM', name:'match summary'},
@@ -110,62 +134,61 @@ export const ODOTA = {
 	19:{key:'SCHEMA', name:'schema'}},
 	20:{key:'CNST', name:'constants'}
 }
-export const PARSE_TARGET = {
-	[KIND.PARSE]: {key:'MATCH_SUM', set:(matchId: number) => `match summary ${matchId}`},
-} as const
-const TABLE = {
-	[WHERE.SERVER]: {
-		[WHAT.PARSE]: {
-			[]
-		}
-	},
+interface BaseLogEvent {
+	time:UnixTimestamp, trace:TracePoint[], target:number, kind:number, data:object, children:BaseLogEvent[]
 }
+interface LogEvent<
+	S extends EventSource,
+	T extends keyof EventTarget<S>,
+	K extends keyof EventKind<S, T>
+> {
+	time:UnixTimestamp,
+	trace:TracePoint[],
+	target:T,
+	kind:K,
+	data:EventData<S, T, K>,
+	children:BaseLogEvent[]
+}
+export function logEvent<
+	S extends EventSource,
+	T extends keyof EventTarget<S>,
+	K extends keyof EventKind<S, T>
+> (target:T, kind:K, data:EventData<S, T, K>, ...children:BaseLogEvent[])
+: LogEvent<S, T, K> {
+	return {time:Date.now(), trace:[], target, kind, data, children}
+}
+interface TracePoint {where:Source, took:Nanoseconds}
+function startTracing():Nanoseconds {return nanoseconds()}
+function getTrace(where:Source, startTime:Nanoseconds):TracePoint {
+	return {where, took:nanoseconds() - startTime}
+}
+export interface LogEntry{trace:TracePoint[], events:BaseLogEvent[]}
+const startTime = startTracing()
+const e:LogEntry = {trace:[getTrace(WHERE.PARSE, startTime)], events:[]}
+e.events.push(logEvent(0, 0, {matchId:24870334, lookup:'HEROES', key:0}))
 
+function formatLogEvent(evt: BaseLogEvent, depth = 0): string {
+    const src = SOURCES[evt.trace[0]?.where as EventSource] as any
+    const targetInfo = src?.targets?.[evt.target]
+    const kindInfo = targetInfo?.events?.[evt.kind]
+    const logLevel = (
+    	LVLS[(kindInfo?.level ?? 0) as LogLvl]?.name ?? 'unknown'
+    ).toUpperCase()
 
-export const TEMPLATES = {
-	[LVL.ERR]: (target:string) => `Could not parse ${target}`
-} as const
+    const tracePath = evt.trace.toReversed().map(
+    	tp => SOURCES[tp.where as Source].name
+    ).join(':')
+    const where = `[${tracePath} > ${targetInfo?.name ?? evt.target}]`
+    const what = kindInfo?.format(evt.data) ?? `[unknown event]`
 
-export const CAUSE = {
-	[KIND.PARSE]: {
-		0: {key:'NOT_IN', set:(lookup: string, key: number|string) => ` ${key} is not in ${lookup}`}
-	} as const,
-	[KIND.LOG]: {
-		0: {key:'NO_CODE', set:() => ``}
-	} as const
-} as const satisfies Record<number, IdRecord<{set: Function}>>
-export function setErrorMsg(kind:string, cause:string) : string {
-	return `${kind}: ${cause}`
-}
+    const indent = '\t'.repeat(depth * 2)
+    const timeStr = depth === 0
+        ? new Date(evt.time).toUTCString()
+        : new Date(evt.time).toUTCString().split(' ').slice(4).join(' ')
 
-export interface LogEntry {timestamp:number, code:number[], msg:string}
-
-export function logEntry(msg: string, kind: number): LogEntry {
-	return {timestamp: Date.now(), msg, code:[kind]}
-}
-// TODO: update to parse kind
-export function getLogString(entry: LogEntry): string {
-	const when = new Date(entry.timestamp).toUTCString()
-	const lvlCode = entry.code.shift()
-	const where = entry.code.reduce((txt, code)=>{}, '')
-	if (lvlCode === undefined) {
-		return {ok: false, log: [logError(setErrorMsg(WHAT[KIND.LOG].name, CAUSE[KIND.LOG][0].set()), )]}
-	}
-	const lvl = LVLS[lvlCode as keyof typeof LVLS].name.toUpperCase().padEnd(7, '-')
-	return `${when} ${lvl} [] ${entry.msg}`
-}
-export function logMessage(msg: string, kind:number, log?:LogEntry[]): void {
-	const entry = logEntry(msg, LVL.MSG)
-	log?.push(entry)
-	console.log(getLogString(entry))
-}
-export function logWarning(msg:string, kind:number, log?:LogEntry[]): void {
-	const entry = logEntry(msg, LVL.WRN)
-	log?.push(entry)
-	console.warn(getLogString(entry))
-}
-export function logError(msg:string, kind:number, log?:LogEntry[]): void {
-	const entry = logEntry(msg, LVL.ERR)
-	log?.push(entry)
-	console.error(getLogString(entry))
+    return [
+        `${indent}${timeStr} ${logLevel}: ${where}`,
+        `${indent}\t${what}`,
+        ...evt.children.map(c => formatLogEvent(c, depth + 1))
+    ].join('\n')
 }

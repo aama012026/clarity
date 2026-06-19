@@ -9,7 +9,7 @@ export async function tryReadJSON<T>(filePath: string): Promise<Result<T>> {
 	try {
 		logMessage(`Reading ${filePath}...`, log)
 		const contents = await fs.readFile(filePath, {encoding: 'utf8'})
-		logMessage(`Read ${filePath} in ${Date.now() - log[0]!.timestamp}`, log)
+		logMessage(`Read ${filePath} in ${Date.now() - log[0]!.when}`, log)
 		return {data: JSON.parse(contents) as T, log, ok: true}
 	}
 	catch(e) {
@@ -24,7 +24,7 @@ export async function tryWrite(filePath: string, fileData: any): Promise<Result>
 	try {
 		logMessage(`Writing ${filePath}...`, log)
 		const bytesWritten = await Bun.write(filePath, fileData)
-		logMessage(`Wrote ${bytesWritten} bytes to ${filePath} in ${Date.now() - log[0]!.timestamp}ms.`, log)
+		logMessage(`Wrote ${bytesWritten} bytes to ${filePath} in ${Date.now() - log[0]!.when}ms.`, log)
 		return {data: null, log, ok: true}
 	}
 	catch (error) {

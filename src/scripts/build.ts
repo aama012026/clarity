@@ -440,7 +440,7 @@ async function tryWriteLogFile(log: LogEntry[]): Promise<Result> {
 	const warnings: string[] = ['\nWARNINGS:\n']
 	const all: string[] = ['\nFULL LOG:\n']
 
-	log.sort((a, b) => a.timestamp - b.timestamp)
+	log.sort((a, b) => a.when - b.when)
 	log.forEach(entry => {
 		const msgString = getLogString(entry)
 		if(entry.lvl === LOG_LVL.ERR) {
