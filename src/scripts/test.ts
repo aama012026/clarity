@@ -1,6 +1,7 @@
 import { ITEM } from '#src/modules/bindings'
 import * as ITEM_CONST from '../modules/itemConstants'
-import type { Item } from '../types/boundTypes'
+
+checkItemConstants()
 
 function checkItemConstants() {
 	Object.entries(ITEM_CONST.GROUP_BY_ITEM).forEach(([label, _]) => {
@@ -12,5 +13,5 @@ function checkItemConstants() {
 		if(ok) {
 			console.log('GROUP_BY_ITEM in itemConstants.ts - OK')
 		}
-		})
+	})
 }
