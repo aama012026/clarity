@@ -11,6 +11,10 @@
 
     // Bundler mode
     "moduleResolution": "bundler",
+    "paths": {
+    	"#src/*":["./src/*"],
+     	"#generated/*":["./public/generated/*"]
+    },
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "noEmit": true,
