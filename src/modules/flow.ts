@@ -1,4 +1,4 @@
-import { logError, logMessage, type LogEntry, type Result } from "./log"
+import {getTraceDom, LOG_EVENT, logDomEvent, startTracingDom, WHERE, type Result} from "./log"
 
 // USER LIBRARY WITH UNIQUE NAME TO AVOID STANDARD COLLISIONS
 export declare const _brand: unique symbol
@@ -7,6 +7,7 @@ export type Id<B> = Unique<number, B>
 
 export type UnixTimestamp = Unique<number, 'unix_timestamp'>
 export type ISO8601TimeString = Unique<string, 'ISO8601_timestamp'>
+
 export const RESPONSE_CODES: Record<number, string> = {
 	// Informational responses
 	100: 'Continue',
@@ -78,6 +79,8 @@ export const RESPONSE_CODES: Record<number, string> = {
 	511: 'Network Authentication Required'
 }
 
+const EVENT = LOG_EVENT.FLOW
+
 type NullsAsUndefined<T> = {
 	[K in keyof T]: null extends T[K] ? Exclude<T[K], null> | undefined : T[K];
 }
@@ -102,92 +105,94 @@ export function setLocal<T>(key: string, value: T) {
 	localStorage.setItem(key, JSON.stringify(value))
 }
 
-export async function tryGetJson<T>(url: URL, requestInit?: RequestInit): Promise<Result<T>> {
-	const log: LogEntry[] = []
+export async function tryFetchJson<T>(url: URL, requestInit: RequestInit = {}): Promise<Result<T>> {
+	const startTime = startTracingDom()
 	try {
-		logMessage(`Fetching ${url}...`, log)
-		const response = requestInit? await fetch(url, requestInit) : await fetch(url)
-		const msg = getResponseMsg(url, response.status)
+		const response = await fetch(url, requestInit)
+		const status = `${response.status}: ${response.statusText}`
 		if(!response.ok) {
-			logError(msg, log)
+			const log = logDomEvent(EVENT.FETCH.BAD_RES, {url, status})
+			log.trace.points.push(getTraceDom(WHERE.FLOW, startTime))
 			return {log, ok:false}
 		}
-		logMessage(msg, log)
 		const data = await response.json() as T
-		return {data, log, ok:true}
+		const log = logDomEvent(EVENT.FETCH.OK, {url, status})
+		log.trace.points.push(getTraceDom(WHERE.FLOW, startTime))
+		return {data, ok:true, log}
 	}
 	catch (error) {
-		logError(error instanceof Error ? `tryGetJson failed for url: ${url}\n${error.message}` : `tryGetJson failed unexpectedly for url: ${url}`, log)
+		const msg = error instanceof Error ? error.message : 'error not instance of Error'
+		const log = logDomEvent(EVENT.FETCH.ERROR, {url, msg})
+		log.trace.points.push(getTraceDom(WHERE.FLOW, startTime))
 		return {log, ok:false}
 	}
 }
 
-export async function tryGetImg(url: URL, logName?: string):Promise<Result<ArrayBuffer>> {
-	const log: LogEntry[] = []
+export async function tryGetImg(url: URL):Promise<Result<ArrayBuffer>> {
+	const startTime = startTracingDom()
 	try {
-		logMessage(`Fetching ${logName ?? url}`, log)
 		const response = await fetch(url)
-		const msg = getResponseMsg(url, response.status)
+		const status = `${response.status}: ${response.statusText}`
 		if (!response.ok) {
-			logError(msg, log)
+			const log = logDomEvent(EVENT.FETCH.BAD_RES, {url, status})
+			log.trace.points.push(getTraceDom(WHERE.FLOW, startTime))
 			return {log, ok:false}
 		}
-		logMessage(`Got ${logName ? logName + ': ' + url : url}`, log)
 		const data = await response.arrayBuffer()
-		return {data, log, ok:true}
+		const log = logDomEvent(EVENT.FETCH.OK, {url, status})
+		log.trace.points.push(getTraceDom(WHERE.FLOW, startTime))
+		return {data, ok:true, log}
 	}
 	catch (error) {
-		logError(error instanceof Error ? `tryGetImg failed for url: ${url}\n${error.message}` : `tryGetImg failed unexpectedly for url: ${url}`, log)
+		const msg = error instanceof Error ? error.message : 'error not instance of Error'
+		const log = logDomEvent(EVENT.FETCH.ERROR, {url, msg})
+		log.trace.points.push(getTraceDom(WHERE.FLOW, startTime))
 		return {log, ok:false}
 	}
-}
-
-export function getResponseMsg(request: URL, responseCode: number): string {
-	let responseCategory: string
-	switch(true) {
-		case responseCode < 200:
-			responseCategory = 'an informational response'
-			break
-		case responseCode < 300:
-			responseCategory = 'a success response'
-			break
-		case responseCode < 400:
-			responseCategory = 'a redirect response'
-			break
-		case responseCode < 500:
-			responseCategory = 'a client error'
-			break
-		case responseCode < 600:
-			responseCategory = 'a server error'
-			break
-		default:
-			throw new Error(`getResponseString defaulted in switch on response code ${responseCode}`);
-	}
-	return `request: ${request}\nGot ${responseCategory}: ${responseCode} - ${RESPONSE_CODES[responseCode]}.`
 }
 
 // HTML
 export interface NamedElement {node: Element | DocumentFragment, name: string}
 
-export function tryGetElement<T extends Element>(selector: string, root?: NamedElement): T {
+export function tryGetElement<T extends Element>(selector: string, root?: NamedElement): Result<T> {
+	const startTime = startTracingDom()
 	const rootNode = root? root.node : document;
 	const fullSelector = `${root? root.name : 'document'} selector`;
-	return assert(rootNode.querySelector(selector), fullSelector, 'Could not get element') as T;
+	const element = rootNode.querySelector(selector)
+	if(!element) {
+		const log = logDomEvent(EVENT.GET_ELEMENT.NULL, {
+			selector:fullSelector
+		})
+		log.trace.points.push(getTraceDom(WHERE.FLOW, startTime))
+		return {log, ok:false}
+	}
+	const log = logDomEvent(EVENT.GET_ELEMENT.OK, {
+		selector:fullSelector, all:false
+	})
+	log.trace.points.push(getTraceDom(WHERE.FLOW, startTime))
+	return {log, data:element as T, ok:true}
 }
 
-export function tryGetElements(selector: string, root?: NamedElement): NodeListOf<Element> {
+export function tryGetElements(selector: string, root?: NamedElement): Result<NodeListOf<Element>> {
+	const startTime = startTracingDom()
 	const rootNode = root ? root.node : document;
 	const fullSelector = `${root? root.name : 'document'} selector`;
-	return assert(rootNode.querySelectorAll(selector), fullSelector, 'Could not get any elements.');
-}
-
-// ERROR HANDLING
-export function assert<T>(object: T, objectName: string, partialErrorMsg: string): NonNullable<T> {
-	if(!object) {
-		logError(`${partialErrorMsg}: ${objectName} is nullish!`)
-		throw new Error()
+	try {
+		const elements = rootNode.querySelectorAll(selector)
+		const log = logDomEvent(EVENT.GET_ELEMENT.OK, {
+			selector: fullSelector, all:true
+		})
+		log.trace.points.push(getTraceDom(WHERE.FLOW, startTime))
+		return {log, data: elements, ok:true}
 	}
-	return object;
+	catch(error) {
+		const log = logDomEvent(EVENT.GET_ELEMENT.ERROR, {
+			selector: fullSelector, all:true,
+			msg:error instanceof Error ? error.message : 'error not instance of Error'
+		})
+		log.trace.points.push(getTraceDom(WHERE.FLOW, startTime))
+		return {log, ok:false}
+	}
 }
 
 export function round(number: number, decimals?: number): number {
