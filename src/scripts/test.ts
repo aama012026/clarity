@@ -1,13 +1,11 @@
-import * as ITEMS from '../modules/itemConstants'
-import itemJson from '../../public/generated/data/items.json'
+import { ITEM } from '#src/modules/bindings'
+import * as ITEM_CONST from '../modules/itemConstants'
 import type { Item } from '../types/boundTypes'
-import type { ItemKey } from '../modules/bindings'
-const items = itemJson as Record<ItemKey, Item>
 
 function checkItemConstants() {
-	Object.entries(ITEMS.GROUP_BY_ITEM).forEach(([label, _]) => {
+	Object.entries(ITEM_CONST.GROUP_BY_ITEM).forEach(([label, _]) => {
 		let ok = true
-		if(!items[label]) {
+		if(!ITEM[label]) {
 			console.error(`${label} does not exist in items!`)
 			ok = false
 		}

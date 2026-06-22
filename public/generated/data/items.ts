@@ -1,4 +1,4 @@
-import type {Item} from '../../../src/types/boundTypes'
+import type {Item} from '#src/types/boundTypes'
 export const ITEMS = {
 	1: {
 		name: "Blink Dagger",
