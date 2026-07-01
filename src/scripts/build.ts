@@ -1,11 +1,12 @@
-import { type Ids, type Binding, type IdKey, getIdMap } from '../types/clarityTypes'
 import type { DotaConstantsHero, DotaConstantsItem } from '../types/dotaConstantsTypes'
 import type { Hero, Item, Targets } from '../types/boundTypes'
 import { DIR, FILES, PATHS } from '../modules/paths'
-import { tryGetImg, tryGetJson, stringify } from '../modules/flow.js'
-import { tryReadJSON, tryWrite } from '../modules/flowNode'
+import { tryGetImg, tryFetchJson, stringify } from '../modules/flow.js'
+import { tryReadJSON, tryWrite } from '../modules/flowBun.js'
 import { ATTRIBUTE_BY_EXT } from '../modules/domainConstants'
-import { getLogString, logError, logMessage, logWarning, type LogEntry, type Result } from '../modules/log.js'
+import { lookup, type Id, type IdRecord } from '#src/modules/id.js'
+import { TARGET, traceBun, type Result, type TraceInfo, type TracePoint, traceEvent, EVENT, type Status, type TraceEvent, traceEventBun } from '#src/modules/log.js'
+import type { inspect } from 'bun'
 
 const CDN_HOST = 'https://cdn.steamstatic.com/'
 const HEROES_URL = new URL('https://raw.githubusercontent.com/odota/dotaconstants/refs/heads/master/build/heroes.json')
@@ -21,50 +22,52 @@ const ITEMS_PATH = `${DATA_PATH}/${FILES.DATA.ITEMS}`
 const ABILITY_BINDINGS_PATH = `${DATA_PATH}/${FILES.BINDINGS.ABILITIES}`
 const ROOT_FROM_DATA_PATH = `../../..`
 
-type ExtId = Binding & IdKey
+type ExtId = Id<{ext:number}>
 type IdBinding = {idx: number} & ExtId
-const log: LogEntry[] = []
 
 // FETCH REQUIRED DOTACONSTANTS RESOURCES -> MAP TO CUSTOM DATASTRUCTURES -> WRITE TO ASSETS
-await Promise.all([
-	tryUpdateHeroes(),
-	tryUpdateItems(),
-	tryUpdateAbilities()
+const [heroesStatus, itemsStatus, abilitiesStatus] = await Promise.all([
+	tryUpdateHeroes(), tryUpdateItems(), tryUpdateAbilities()
 ])
-await tryWriteLogFile(log)
+// await tryWriteLogFile(log)
 // Heroes
-async function tryUpdateHeroes() {
-	const [heroesRes, oldHeroBindingsRes] = await Promise.all([
-		tryGetJson<Record<string, DotaConstantsHero>>(HEROES_URL),
-		tryReadJSON<Ids<Binding<number>>>(HERO_BINDINGS_PATH),
+async function tryUpdateHeroes(): Promise<Status> {
+	const trace = {
+		where:TARGET.HEROES,
+		what:{children:[] as TracePoint[]}
+	} satisfies Omit<TracePoint, 'when'>
+
+	const [heroes, oldHeroBinds] = await Promise.all([
+		tryFetchJson<Record<string, DotaConstantsHero>>(HEROES_URL),
+		tryReadJSON<IdRecord<{ext:number}>>(HERO_BINDINGS_PATH),
 	])
-	log.push(...heroesRes.log, ...oldHeroBindingsRes.log)
-	if(!(heroesRes.ok && heroesRes.data)) {
-		return
+	trace.what.children.push(heroes.trace, oldHeroBinds.trace)
+	if(!heroes.ok) {
+		return {trace:traceBun(trace), ok:false}
 	}
 	// Update bindings
-	const rawHeroes = Object.values(heroesRes.data)
+	const rawHeroes = Object.values(heroes.data)
 	const newHeroIds: ExtId[] = rawHeroes.map(({id, name}) => {
 		return {key: name.replace('npc_dota_hero_', ''), ext: id}
 	})
-	const oldHeroBindings = oldHeroBindingsRes.data ?? {}
-	const newHeroBindings = tryUpdateNumericIdBindings(newHeroIds, oldHeroBindings)
-	if(!newHeroBindings) {
-		return
+	const newHeroBinds = tryUpdateNumericIdBindings(newHeroIds, oldHeroBinds.data ?? {})
+	trace.what.children.push(newHeroBinds.trace)
+	if(!newHeroBinds.ok) {
+		return {trace:traceBun(trace), ok:false}
 	}
 
 	// Write bindings
 	const bindingsString = (
 		getTypeImport(FILES.TYPES.CLARITY_TYPES, 'Ids', 'Binding') +
-		getConstExport('HERO_IDS', newHeroBindings, 'Ids<Binding>')
+		getConstExport('HERO_IDS', newHeroBinds, 'Ids<Binding>')
 	)
-	const bindingsWriteRes = await tryWrite(HERO_BINDINGS_PATH, bindingsString)
-	log.push(...bindingsWriteRes.log)
-	if(!bindingsWriteRes.ok) {
-		return
+	const bindsWriteRes = await tryWrite(HERO_BINDINGS_PATH, bindingsString)
+	trace.what.children.push(bindsWriteRes.trace)
+	if(!bindsWriteRes.ok) {
+		return {trace:traceBun(trace), ok:false}
 	}
 	// bind heroes to our shape.
-	const HeroIdByExt  = getIdMap(newHeroBindings, 'ext')
+	const HeroIdByExt  = lookup(newHeroBinds.data, 'ext')
 	const boundHeroes: Record<number, Hero> = Object.fromEntries(
 		rawHeroes.map(hero => [HeroIdByExt[hero.id], bindHero(hero)])
 	)
@@ -74,57 +77,62 @@ async function tryUpdateHeroes() {
 		getConstExport('HEROES', boundHeroes, 'Record<number, Hero>')
 	)
 	await Promise.all([
-
-		tryWrite(HERO_DATA_PATH, heroesString).then(r => log.push(...r.log)),
+		tryWrite(HERO_DATA_PATH, heroesString).then(
+			r => trace.what.children.push(r.trace)
+		),
 		// Get hero images
-		Promise.all(rawHeroes.map(async hero => {
+		...rawHeroes.map(async hero => {
 			const img = await tryGetImg(new URL(hero.img, CDN_HOST))
-			log.push(...img.log)
+			trace.what.children.push(img.trace)
 			if(!(img.ok && img.data)) {
 				return
 			}
 			const imgFolder = `${DIR.BUILD}/${PATHS.IMG.HEROES}`
 			const fileName = `${hero.name.replace('npc_dota_hero_','')}.png`
 			return tryWrite(`${imgFolder}/${fileName}`, Buffer.from(img.data)
-			).then(r => log.push(...r.log))
-		}))
+			).then(r => trace.what.children.push(r.trace))
+		})
 	])
+	return {trace:traceBun(trace), ok:true}
 }
 
 // Items
-async function tryUpdateItems() {
-	const [itemsResult, oldItemBindingsResult] = await Promise.all([
-		tryGetJson<Record<string, DotaConstantsItem>>(ITEMS_URL),
-		tryReadJSON<Ids<Binding>>(ITEM_BINDINGS_PATH)
+async function tryUpdateItems(): Promise<Status> {
+	const trace = {
+		where:TARGET.ITEMS,
+		what:{children:[] as TracePoint[]}
+	} satisfies Omit<TracePoint, 'when'>
+	const [itemsRes, oldBindsResult] = await Promise.all([
+		tryFetchJson<Record<string, DotaConstantsItem>>(ITEMS_URL),
+		tryReadJSON<IdRecord<{ext:number}>>(ITEM_BINDINGS_PATH)
 	])
-	log.push(...itemsResult.log, ...oldItemBindingsResult.log)
-	if(!(itemsResult.ok && itemsResult.data)) {
-		logError(`Could not get items from dotaconstants repo: ${itemsResult.log}`, log)
-		return
+	trace.what.children.push(itemsRes.trace, oldBindsResult.trace)
+	if(!itemsRes.ok) {
+		return {trace:traceBun(trace), ok:false}
 	}
-	const items = Object.entries(itemsResult.data)
+	const items = Object.entries(itemsRes.data)
 	const newItemIds: ExtId[] = items.map(([dataName, item]) => {
 		return {
 			ext: item.id,
 			key: dataName
 		}
 	})
-	const oldItemBindings = oldItemBindingsResult.data ?? {}
-	const newItemBindings = tryUpdateNumericIdBindings(newItemIds, oldItemBindings)
-	if(!newItemBindings) {
-		return
+	const newItemBinds = tryUpdateNumericIdBindings(newItemIds, oldBindsResult.data ?? {})
+	trace.what.children.push(newItemBinds.trace)
+	if(!newItemBinds.ok) {
+		return {trace:traceBun(trace), ok:false}
 	}
 	const bindingsString = (
 		getTypeImport(FILES.TYPES.CLARITY_TYPES, 'Ids', 'Binding') +
-		getConstExport('ITEM_IDS', newItemBindings, 'Ids<Binding>')
+		getConstExport('ITEM_IDS', newItemBinds, 'Ids<Binding>')
 	)
-	const bindingsWriteRes = await tryWrite(ITEM_BINDINGS_PATH, bindingsString)
-	log.push(...bindingsWriteRes.log)
-	if(!bindingsWriteRes.ok) {
-		return
+	const bindsWriteRes = await tryWrite(ITEM_BINDINGS_PATH, bindingsString)
+	trace.what.children.push(bindsWriteRes.trace)
+	if(!bindsWriteRes.ok) {
+		return {trace:traceBun(trace), ok:false}
 	}
 
-	const ItemByExtKey = getIdMap(newItemBindings, 'ext')
+	const ItemByExtKey = lookup(newItemBinds.data, 'ext')
 	const boundItems: Record<number, Item> = Object.fromEntries(
 		items.map(([key, item]) => [ItemByExtKey[item.id], bindItem(item, key)])
 	)
@@ -134,78 +142,92 @@ async function tryUpdateItems() {
 		getConstExport('ITEMS', boundItems, 'Record<number, Item>')
 	)
 	await Promise.all([
-		tryWrite(ITEMS_PATH, itemsString).then(r => log.push(...r.log)),
+		tryWrite(ITEMS_PATH, itemsString).then(
+			r => trace.what.children.push(r.trace)),
 		// Get images
-		Promise.all(items.map(async ([label, item]) => {
+		...items.map(async ([label, item]) => {
 			const img = await tryGetImg(new URL(item.img, CDN_HOST))
-			log.push(...img.log)
+			trace.what.children.push(img.trace)
 			if(img.ok && img.data) {
 				return tryWrite(
 					`${DIR.BUILD}/${PATHS.IMG.ITEMS}/${label}.png`,
 					Buffer.from(img.data)
-				).then(r => log.push(...r.log))
+				).then(r => trace.what.children.push(r.trace))
 			}
-		}))
+		})
 	])
+	return {trace:traceBun(trace), ok:true}
 }
 
 // Abilities
-async function tryUpdateAbilities() {
-	const [abilityIdsResult, abilitiesResult] = await Promise.all([
-		tryGetJson<Record<number, string>>(ABILITY_IDS_URL),
-		tryGetJson<Record<string, any>>(ABILITIES_URL)
+async function tryUpdateAbilities(): Promise<Status> {
+	const trace = {
+		where:TARGET.ABILITIES,
+		what:{children:[] as TracePoint[], events:[] as TraceEvent<any>[]}
+	} satisfies Omit<TracePoint, 'when'>
+	const [abilityIds, abilities] = await Promise.all([
+		tryFetchJson<Record<number, string>>(ABILITY_IDS_URL),
+		tryFetchJson<Record<string, any>>(ABILITIES_URL)
 	])
-	log.push(...abilityIdsResult.log, ...abilitiesResult.log)
-	if(!(abilityIdsResult.ok && abilitiesResult.ok)) {
-		return
+	trace.what.children.push(abilityIds.trace, abilities.trace)
+	if(!(abilityIds.ok && abilities.ok)) {
+		return {trace:traceBun(trace), ok:false}
 	}
-	const abilityIds = abilityIdsResult.data
-	const abilities = abilitiesResult.data
 	const newAbilityIds: ExtId[] = []
 	const imgResources: {url: URL, name: string}[] = []
-	Object.entries(abilityIds).forEach(([ext, key]) => {
-		const ability = abilities[key]
+	Object.entries(abilityIds.data).forEach(([ext, key]) => {
+		const ability = abilities.data[key]
 		if(!ability){
-			logError(`Could not get ability for key ${key}.`, log)
+			trace.what.events.push(
+				traceEventBun(EVENT.NOT_IN, {key, lookup:'abilities.data'})
+			)
 		}
 		else {
-			newAbilityIds.push({key: key, ext: parseInt(ext)})
+			newAbilityIds.push({key:key, ext:parseInt(ext)})
 			if(ability.img) {
-				imgResources.push({url: new URL(ability.img, CDN_HOST), name: key})
+				imgResources.push({url:new URL(ability.img, CDN_HOST), name:key})
 			}
 		}
 	})
 	await Promise.all(imgResources.map(async (resource) => {
 		const img = await tryGetImg(new URL(resource.url, CDN_HOST))
-		log.push(...img.log)
+		trace.what.children.push(img.trace)
 		if(img.ok && img.data) {
 			return tryWrite(
 				`${DIR.BUILD}/${PATHS.IMG.ABILITIES}/${resource.name}.png`,
 				Buffer.from(img.data)
-			).then(r => log.push(...r.log))
+			).then(r => trace.what.children.push(r.trace))
 		}
 	}))
-	const oldAbilityBindings = (await tryReadJSON<Ids<Binding>>(ABILITY_BINDINGS_PATH)).data ?? {}
-	const newAbilityBindings = tryUpdateNumericIdBindings(newAbilityIds, oldAbilityBindings)
-	if(!newAbilityBindings) {
-		return
+	const oldAbilityBinds = (await tryReadJSON<IdRecord<{ext:number}>>(ABILITY_BINDINGS_PATH)).data ?? {}
+	const newAbilityBinds = tryUpdateNumericIdBindings(newAbilityIds, oldAbilityBinds)
+	if(!newAbilityBinds.ok) {
+		return {trace:traceBun(trace), ok:false}
 	}
 	const bindingsString = (
 		getTypeImport(FILES.TYPES.CLARITY_TYPES, 'Ids', 'Binding') +
-		getConstExport('ABILITY_IDS', newAbilityBindings, 'Ids<Binding>')
+		getConstExport('ABILITY_IDS', newAbilityBinds.data, 'Ids<Binding>')
 	)
 	await tryWrite(ABILITY_BINDINGS_PATH, bindingsString).then(
-		r => log.push(...r.log)
+		r => trace.what.children.push(r.trace)
 	)
+	return {trace:traceBun(trace), ok:true}
 }
 
-function tryUpdateNumericIdBindings(newIds: ExtId[], oldIds: Ids<Binding>) {
-	const oldBindings: IdBinding[] = Object.entries(
+function tryUpdateNumericIdBindings(
+	newIds:ExtId[],
+	oldIds:IdRecord<{ext:number}>
+):Result<IdRecord<{ext:number}>> {
+	const trace = {
+		where:TARGET.ID_BINDS,
+		what:{events:[] as TraceEvent<any>[]}
+	} satisfies Omit<TracePoint, 'when'>
+	const oldBinds: IdBinding[] = Object.entries(
 		oldIds).map(([i, {key, ext}]) => {
 			return {idx: parseInt(i), key: key, ext: ext}
 		}
 	)
-	const newBindings: Ids<Binding> = {}
+	const newBinds: IdRecord<{ext:number}> = {}
 	let nextIndex = 0
 	const assignedIndices = new Set<number>()
 	const reservedIndices = new Set<number>(newIds.map(id => id.ext))
@@ -222,24 +244,19 @@ function tryUpdateNumericIdBindings(newIds: ExtId[], oldIds: Ids<Binding>) {
 	const existingByExtKey = new Map<number, IdBinding>()
 	const existingByKey = new Map<string, IdBinding>()
 	// Analyze and error check old bindings
-	oldBindings.forEach((b) => {
-		let error = false
-		let errorMsg = `Existing bindings have duplicate entries:`
+	let dupeEntriesMsgs:string[] = []
+	oldBinds.forEach((b) => {
 		if(existingByKey.has(b.key)) {
-			error = true
-			errorMsg += `\n${b.key} in ${JSON.stringify(b)} and ${JSON.stringify(existingByKey.get(b.key))}`
+			dupeEntriesMsgs.push(`\n${b.key} in ${JSON.stringify(b)} and ${JSON.stringify(existingByKey.get(b.key))}`)
 		}
 		if(existingByExtKey.has(b.ext) && b.ext !== -1) {
-			error = true
-			errorMsg += `\n${b.ext} in ${JSON.stringify(b)} and ${JSON.stringify(existingByExtKey.get(b.ext))}}`
+			dupeEntriesMsgs.push(`\n${b.ext} in ${JSON.stringify(b)} and ${JSON.stringify(existingByExtKey.get(b.ext))}}`)
 		}
 		if(assignedIndices.has(b.idx)) {
-			error = true
-			errorMsg += `\n${b.idx} in ${JSON.stringify(b)}`
+			dupeEntriesMsgs.push(`\n${b.idx} in ${JSON.stringify(b)}`)
 		}
-		if(error) {
+		if(dupeEntriesMsgs.length > 0) {
 			hasDuplicateEntries = true
-			logError(errorMsg, log)
 		}
 		else {
 			existingByExtKey.set(b.ext, b)
@@ -248,53 +265,63 @@ function tryUpdateNumericIdBindings(newIds: ExtId[], oldIds: Ids<Binding>) {
 		}
 	})
 	if(hasDuplicateEntries) {
-		logError('Duplicate entries in old bindings. Cancelling binding update.', log)
-		return
+		trace.what.events.push(traceEventBun(EVENT.DUPE_KEYS, {msgs:dupeEntriesMsgs}))
+		return {trace:traceBun(trace), ok:false}
 	}
 
 	newIds.forEach(binding => {
-		const oldBindingByNewKey = existingByKey.get(binding.key)
-		const oldBindingByNewExtKey = existingByExtKey.get(binding.ext)
+		const oldBindByNewKey = existingByKey.get(binding.key)
+		const oldBindByNewExtKey = existingByExtKey.get(binding.ext)
 		let idx
-
 		// If key exist -> assign binding to existing <idx, key> pair.
-		if(oldBindingByNewKey) {
-			if(oldBindingByNewKey.ext != binding.ext) {
-				logWarning(`External id for key ${binding.key} changed from ${oldBindingByNewKey.ext} to ${binding.ext}.`, log)
+		if(oldBindByNewKey) {
+			if(oldBindByNewKey.ext != binding.ext) {
+				trace.what.events.push(traceEventBun(EVENT.KEY_REBIND, {
+					key:binding.key,
+					oldExt:oldBindByNewKey.ext,
+					newExt:binding.ext
+				}))
 			}
-			idx = oldBindingByNewKey.idx
+			idx = oldBindByNewKey.idx
 		}
 		// Else -> assign binding to new index, preferably equal to idx.
 		else {
 			idx = assignedIndices.has(binding.ext) ? getNextAvailableKey() : binding.ext
-			if(oldBindingByNewExtKey) {
-				logWarning(`External id for new key ${binding.key} was already bound: ${JSON.stringify(oldBindingByNewExtKey)}.`, log)
+			if(oldBindByNewExtKey) {
+				trace.what.events.push(traceEventBun(EVENT.EXT_REBIND, {
+					key:binding.key,
+					oldBinding:Bun.inspect(oldBindByNewExtKey)
+				}))
 			}
 			else {
-				logMessage(`added new binding ${JSON.stringify(binding)}`, log)
+				trace.what.events.push(traceEventBun(EVENT.NEW_BIND, {
+					binding: Bun.inspect(binding)
+				}))
 			}
 		}
-		newBindings[idx] = binding
+		newBinds[idx] = binding
 		assignedIndices.add(idx)
 	})
-	const newBindingsArray: IdBinding[] = Object.entries(newBindings).map(
+	const newBindsArray: IdBinding[] = Object.entries(newBinds).map(
 		([idx, {key, ext}])=> {return{idx:parseInt(idx), key:key, ext:ext}}
 	)
-	const newBindingsExtKeys = new Set<number>(newBindingsArray.map(binding => binding.ext))
-	const newBindingsIdx = new Set<number>(newBindingsArray.map(binding => binding.idx))
+	const newBindsExtKeys = new Set<number>(newBindsArray.map(binding => binding.ext))
+	const newBindsIdx = new Set<number>(newBindsArray.map(binding => binding.idx))
 
-	oldBindings.forEach(binding => {
-		if(!newBindingsIdx.has(binding.idx)) {
+	oldBinds.forEach(binding => {
+		if(!newBindsIdx.has(binding.idx)) {
 			const idx = binding.idx
-			const deprecatedBinding: ExtId = {
+			const deprecatedBinds:ExtId = {
 				key: binding.key,
-				ext: newBindingsExtKeys.has(binding.ext) ? -1 : binding.ext
+				ext: newBindsExtKeys.has(binding.ext) ? -1 : binding.ext
 			}
-			newBindings[idx] = deprecatedBinding
-			logWarning(`Transferred old binding ${JSON.stringify(deprecatedBinding)}, which was not present in new dataset.`, log)
+			newBinds[idx] = deprecatedBinds
+			trace.what.events.push(traceEventBun(EVENT.RETIRE_BIND, {
+				binding:Bun.inspect(binding)
+			}))
 		}
 	})
-	return newBindings
+	return {data:newBinds, ok:true, trace:traceBun(trace)}
 }
 
 function bindHero(hero: DotaConstantsHero): Hero {
@@ -351,21 +378,21 @@ function bindHero(hero: DotaConstantsHero): Hero {
 	}
 }
 
-function bindItem(item: DotaConstantsItem, dataName: string): Item {
-	let name = item.dname
-	if(!name) {
-		logWarning(`${dataName} does not have property dname. Attempting to generate name`, log)
-		name = generateMissingItemName(dataName)
-	}
+function bindItem(item: DotaConstantsItem, dataName: string): Result<Item> {
+	const trace = {
+		where:TARGET.BIND_ITEM,
+		what:{events:[] as TraceEvent<any>[]}
+	} satisfies Omit<TracePoint, 'when'>
+
 	const boundItem: Item = {
-		name: name,
+		name: item.dname ?? generateMissingItemName(dataName),
 		lore: item.lore,
 		goldPrice: item.cost ?? undefined,
 		quality: item.qual ?? undefined,
 		notes: (n => n === '' ? undefined : n)(item.notes ?? undefined),
 		dispellable: item.dispellable ?? undefined,
 		dmgType: item.dmg_type ?? undefined,
-		tier: item.tier ?? undefined
+		tier: item.tier ?? undefined,
 	}
 	if(typeof item.charges === 'number' && item.charges > 0) {
 		boundItem.charges = item.charges
@@ -411,7 +438,15 @@ function bindItem(item: DotaConstantsItem, dataName: string): Item {
 	if(item.bkbpierce) {
 		boundItem.piercesBkb = item.bkbpierce === 'Yes' ? true : false
 	}
-	return boundItem
+	if(!item.dname) {
+		trace.what.events.push(traceEventBun(EVENT.MISSING_ITEM_NAME, {
+			dataName, generatedName:boundItem.name
+		}))
+		return {
+			data:boundItem, ok:true, trace:traceBun(trace)
+		}
+	}
+	return {data:boundItem, ok:true, trace:traceBun({where:TARGET.BIND_ITEM})}
 }
 
 function generateMissingItemName(label: string): string {
@@ -434,7 +469,7 @@ function getTypeImport(file: string, type: string, ...types: string[]): string {
 function getConstExport(name: string, obj: unknown, type: string): string {
 	return `export const ${name} = ${stringify(obj)} as const satisfies ${type}`
 }
-
+/*
 async function tryWriteLogFile(log: LogEntry[]): Promise<Result> {
 	const errors: string[] = ['\nERRORS:\n']
 	const warnings: string[] = ['\nWARNINGS:\n']
@@ -456,3 +491,4 @@ async function tryWriteLogFile(log: LogEntry[]): Promise<Result> {
 		`${PATHS.LOGS.BUILD + new Date().toISOString().replace(/:/g,'.')}.txt`, logString
 	)
 }
+	*/

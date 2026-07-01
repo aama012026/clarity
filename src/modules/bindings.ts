@@ -4,9 +4,6 @@ import { ITEMS } from "../../public/generated/data/items"
 import { ITEM_IDS } from "../../public/generated/data/itemBindings"
 import { ABILITY_IDS } from "../../public/generated/data/abilityBindings"
 import {
-	getIdMap, type Binding, type IdMap, type Ids
-} from "../types/clarityTypes"
-import {
 	DAMAGE_TYPES, SIDE, STRUCTURE_FLAGS, RUNE_BY_EXT, LANE_BY_EXT,
 	XP_SOURCE_BY_EXT, GOLD_SOURCE_BY_EXT, LIFE_STATE_BY_EXT, DRAFT_ACTION,
 	SIDE_BY_EXT, LIFE_STATE, type GoldSource, type Lane, type LifeState,
@@ -18,10 +15,10 @@ import {
 	type CosmeticDTO, type RankDistDTO, type LeagueId, type LeaverStatus,
 	type PlayerMatchDTO, type MatchId, type NeutralItemHistoryDTO, type ObjectiveDTO,
 	type ParsedPlayerDTO, type PlayerDTO, type ProfileDTO,
-	type AliasDTO, type SparsePlayerDTO, type WardLogEntryDTO,
+	type AliasDTO, type UnparsedPlayerDTO, type WardLogEntryDTO,
 	type ParsedMatchDTO, type PartyId, type PauseDTO, type PercentileDTO, type PickBanDTO,
 	type PlayerSlot, type RankBitmask, type SeriesId, type SteamId, type TimingDTO,
-	type TowersBitmask, type SparseMatchDTO
+	type TowersBitmask, type UnparsedMatchDTO
 } from "../types/openDotaTypes"
 import {
 	isEmpty, nullsToUndefined, stringify, type ISO8601TimeString, type UnixTimestamp
@@ -29,19 +26,20 @@ import {
 import type {
 	GameModeId, LobbyTypeId, PatchId, RegionId, UnitOrderId
 } from "../types/dotaConstantsTypes"
-import { logError, logMessage, type LogEntry, type Result } from "./log"
+import { lookup, type Id, type IdRecord, type Lookup } from "./id"
+import { EVENT, TARGET, traceBun, traceEvent, traceEventBun, type Result, type TraceEvent, type TracePoint } from "./log"
 
-export const HERO = getIdMap(HERO_IDS, 'key')
-export const HERO_BY_EXT = getIdMap(HERO_IDS, 'ext')
-export const ITEM = getIdMap(ITEM_IDS, 'key')
-export const ITEM_BY_EXT = getIdMap(ITEM_IDS, 'ext')
-export const ABILITY = getIdMap(ABILITY_IDS, 'key')
-export const ABILITY_BY_EXT = getIdMap(ABILITY_IDS, 'ext')
+export const HERO = lookup(HERO_IDS, 'key')
+export const HERO_BY_EXT = lookup(HERO_IDS, 'ext')
+export const ITEM = lookup(ITEM_IDS, 'key')
+export const ITEM_BY_EXT = lookup(ITEM_IDS, 'ext')
+export const ABILITY = lookup(ABILITY_IDS, 'key')
+export const ABILITY_BY_EXT = lookup(ABILITY_IDS, 'ext')
 
 type Hero = keyof typeof HERO_IDS
 type Item = keyof typeof ITEM_IDS
 type AbilityId = keyof typeof ABILITY_IDS
-const DAMAGE_TYPE = getIdMap(DAMAGE_TYPES, 'key')
+const DAMAGE_TYPE = lookup(DAMAGE_TYPES, 'key')
 
 // This comes as a bool from opendota, so no need to freeze keys atm.
 export type Outcome = 'win' | 'loss'
@@ -312,13 +310,19 @@ export interface PlayerMatchSummary {
 	}
 }
 
-export function bindMatchSummary(summary: PlayerMatchDTO, player: AccountId)
-	: Result<PlayerMatchSummary> {
-	const log: LogEntry[] = []
+export function bindMatchSummary(summary:PlayerMatchDTO, player:AccountId
+):Result<PlayerMatchSummary> {
+	const trace = {
+		where:TARGET.MATCH_SUM,
+		who:summary.match_id,
+		what:{events:[] as TraceEvent<any>[]}
+	} satisfies Omit<TracePoint, 'when'>
+
 	const heroId = HERO_BY_EXT[summary.hero_id]
 	if(!heroId) {
-		logError(`Could not bind match Summary: ${summary.hero_id} is not in HERO_BY_EXT`, log)
-		return {log, ok: false}
+		const eventData = {key:summary.hero_id, lookup:'HERO_BY_EXT'}
+		trace.what.events.push(traceEventBun(EVENT.NOT_IN, eventData))
+		return {trace:traceBun(trace), ok: false}
 	}
 	const data = {
 		match: {
@@ -348,8 +352,7 @@ export function bindMatchSummary(summary: PlayerMatchDTO, player: AccountId)
 	}
 	// TODO: check if facets are still deprecated through dotaconstants,
 	// and assign hero_variant if not
-	logMessage(`Bound match summary ${summary.match_id}`, log)
-	return {data, log, ok: true}
+	return {data, ok:true, trace:traceBun(trace)}
 }
 
 export interface SparseMatch extends MatchBase {
@@ -379,7 +382,7 @@ export interface SparseMatch extends MatchBase {
 	preGameLengthSeconds: number
 }
 
-export function formatSparseMatch(match: SparseMatchDTO): SparseMatch {
+export function formatSparseMatch(match: UnparsedMatchDTO): SparseMatch {
 	return {
 		id: match.match_id,
 		fetchTime: new Date().getTime() as UnixTimestamp,
@@ -433,7 +436,7 @@ export function formatSparseMatch(match: SparseMatchDTO): SparseMatch {
 			kills: match.dire_score
 		},
 		draft: match.picks_bans.map(pb => parsePickBan(pb)),
-		players: match.players.map(player => formatSparsePlayer(player)),
+		players: match.players.map(player => formatSparsePlayer(player, match.match_id)),
 		firstBloodSeconds: match.first_blood_time,
 		humanPlayerCount: match.human_players,
 		preGameLengthSeconds: match.pre_game_duration,
@@ -504,7 +507,7 @@ export function formatFullMatch(match: ParsedMatchDTO): FullMatch {
 		},
 		draft: match.picks_bans.map(pb => parsePickBan(pb)),
 		players: match.players.map(player => {
-			return formatFullInGamePlayer(player)
+			return parseParsedPlayer(player, match.match_id)
 		}),
 		firstBloodSeconds: match.first_blood_time,
 		humanPlayerCount: match.human_players,
@@ -572,49 +575,67 @@ export interface OpenDotaMetadata {
 }
 
 export interface SparsePlayer {
+	match:MatchId,
 	account: {
-		id: AccountId,
-		personaName?: string,
-		name?: string,
-		rank?: RankBitmask,
-		mmrGuess?: number, // Have been pretty bad...
-		oDota: {subscriber: boolean, contributor: boolean}
+		id?:AccountId,
+		personaName?:string,
+		name?:string,
+		rank?:RankBitmask,
+		mmrGuess?:number, // Have been pretty bad...
+		oDota:{subscriber:boolean, contributor:boolean}
 	},
-	slot?: PlayerSlot,
-	partyId?: number,
-	left: LeaverStatus,
-	performance: Performance,
-	kda: {kills: number, deaths: number, assists: number, ratio: number},
-	cs: {lastHits: number, denies: number},
+	slot?:PlayerSlot,
+	partyId?:number,
+	left:LeaverStatus,
+	performance:Performance,
+	kda:{kills:number, deaths:number, assists:number, ratio:number},
+	cs:{lastHits:number, denies:number},
 	// if total-spent != remaining, gold lost is not concidered spent by the API.
-	gold: {total: number, spent: number, remaining: number},
+	gold:{total:number, spent:number, remaining:number},
 	hero: {
-		id: Hero,
-		lvl: number,
-		abilityUpgrades: AbilityId[],
-		permanentBuffs?: PermanentBuff[],
-		netWorth: number,
-		inventory: Item[], // 0-5 for main, 6-8 for backpack
-		neutralItem: {artifact: Item, enchantment: Item}
+		id:Hero,
+		lvl:number,
+		abilityUpgrades:AbilityId[],
+		permanentBuffs?:PermanentBuff[],
+		netWorth:number,
+		inventory:Inventory,
+		neutralItem:{artifact:Item, enchantment:Item}
 	},
-	damage: {
-		toHeroes: number,
-		toBuildings: number
-	}
-	healing: {
-		amt: number
-	}
+	damage:{toHeroes:number, toBuildings:number}
+	healing:{amt:number}
 }
 
-function formatSparsePlayer(player: SparsePlayerDTO): SparsePlayer {
-	const sparsePlayer: SparsePlayer = {
+// 0-5 for main, 6-8 for backpack
+type Inventory = [Item, Item, Item, Item, Item, Item, Item, Item, Item]
+
+function formatSparsePlayer(player:UnparsedPlayerDTO, matchId:MatchId):SparsePlayer {
+	const inventory: Item[] = [
+		ITEM_BY_EXT[player.item_0], ITEM_BY_EXT[player.item_1],
+		ITEM_BY_EXT[player.item_2], ITEM_BY_EXT[player.item_3],
+		ITEM_BY_EXT[player.item_4], ITEM_BY_EXT[player.item_5],
+		ITEM_BY_EXT[player.backpack_0],
+		ITEM_BY_EXT[player.backpack_1],
+		ITEM_BY_EXT[player.backpack_2]
+		].forEach(itemId => {
+			if(!itemId) {
+				return
+			}
+		})
+	const sparsePlayer:SparsePlayer = {
+		match:matchId,
 		account: {
-			id: player.account_id,
+			id: player.account_id ?? undefined,
+			personaName: player.personaname ?? undefined,
+			name: player.name ?? undefined,
+			rank: player.rank_tier ?? undefined,
+			mmrGuess: player.computed_mmr ?? undefined,
 			oDota: {
 				subscriber: player.is_subscriber,
 				contributor: player.is_contributor
 			}
 		},
+		slot: player.player_slot ?? undefined,
+		partyId: player.party_id ?? undefined,
 		left: player.leaver_status,
 		performance: {
 			gpm: {
@@ -679,7 +700,6 @@ function formatSparsePlayer(player: SparsePlayerDTO): SparsePlayer {
 				ITEM_BY_EXT[player.backpack_0],
 				ITEM_BY_EXT[player.backpack_1],
 				ITEM_BY_EXT[player.backpack_2],
-
 			],
 			neutralItem: {
 				artifact: ITEM_BY_EXT[player.item_neutral],
@@ -688,24 +708,6 @@ function formatSparsePlayer(player: SparsePlayerDTO): SparsePlayer {
 		},
 		damage: {toHeroes: player.hero_damage, toBuildings: player.tower_damage},
 		healing: {amt: player.hero_healing}
-	}
-	if(player.personaname) {
-		sparsePlayer.account.personaName = player.personaname
-	}
-	if(player.name) {
-		sparsePlayer.account.name = player.name
-	}
-	if(player.rank_tier) {
-		sparsePlayer.account.rank = player.rank_tier
-	}
-	if(player.computed_mmr) {
-		sparsePlayer.account.mmrGuess = player.computed_mmr
-	}
-	if(player.player_slot) {
-		sparsePlayer.slot = player.player_slot
-	}
-	if(player.party_id) {
-		sparsePlayer.partyId = player.party_id as PartyId
 	}
 	return sparsePlayer
 }
@@ -784,34 +786,29 @@ export interface ParsedPlayer extends SparsePlayer {
 }
 export interface Timestamped<T extends number | string> {whenSeconds: number, id: T}
 
-export function formatFullInGamePlayer(player: ParsedPlayerDTO): Result<ParsedPlayer> {
-	const log: LogEntry[] = []
-
+export function parseParsedPlayer(player: ParsedPlayerDTO, matchId:MatchId): Result<ParsedPlayer> {
+	const trace = {
+		where:TARGET.PARSED_PLAYER,
+		who:player.account_id,
+		what:{children:[] as TracePoint[]}
+	} satisfies Omit<TracePoint, 'when'>
 	const neutralItems = bindNeutralItemsLog(player.neutral_item_history)
-	log.push(...neutralItems.log)
-	if(!(neutralItems.ok)) {
-		return {log, ok: false}
-	}
-
 	const runesLog = translateTimings(player.runes_log, RUNE_BY_EXT)
-	log.push(...runesLog.log)
-	if(!(runesLog.ok)) {
-		return {log, ok: false}
-	}
-
 	const killsLog = translateTimings(player.kills_log, HERO_BY_EXT)
-	log.push(...killsLog.log)
-	if(!(killsLog.ok)) {
-		return {log, ok: false}
-	}
+	const purchaseLog = translateTimings(player.purchase_log, ITEM_BY_EXT)
 
-	const purchaseLog= translateTimings(player.purchase_log, ITEM_BY_EXT)
-	log.push(...purchaseLog.log)
-	if(!(purchaseLog.ok)) {
-		return {log, ok: false}
+	if(!(neutralItems.ok && runesLog.ok && killsLog.ok && purchaseLog.ok)) {
+		trace.what.children.push(
+			neutralItems.trace,
+			runesLog.trace,
+			killsLog.trace,
+			purchaseLog.trace
+		)
+		return {trace:traceBun(trace), ok:false}
 	}
 
 	const parsedPlayer: ParsedPlayer = {
+		match:matchId,
 		account: {
 			id: player.account_id,
 			personaName: player.personaname ?? undefined,
@@ -981,49 +978,76 @@ export function formatFullInGamePlayer(player: ParsedPlayerDTO): Result<ParsedPl
 		additionalUnits: player.additional_units ?? undefined,
 		cosmetics: player.cosmetics ?? undefined
 	}
-	return {data: parsedPlayer, log, ok: true}
+	return {data: parsedPlayer, trace:traceBun(trace), ok: true}
 }
+
+function translateArray<K extends PropertyKey>(lookup:Record<K, number>, array:K[]) {
+	const outArray:number[] = []
+	const badKeys:K[] = []
+	for(const item of array) {
+		const id = lookup[item]
+		id ? outArray.push(id) : badKeys.push(item)
+	}
+}
+
 function bindNeutralItemsLog(itemLog: NeutralItemHistoryDTO[]): Result<NeutralItem[]> {
-	const log: LogEntry[] = []
+	const where = TARGET.LOG_NI
 	const items: NeutralItem[] = []
+	const invalidItemKeys: string[] = []
 	itemLog.forEach((entry => {
 		const artifact = ITEM_BY_EXT[entry.item_neutral]
 		const enchantment = ITEM_BY_EXT[entry.item_neutral_enhancement]
-		if(!(artifact && enchantment)) {
-			logError(`Could not bind neutral item: ${stringify(entry)}`, log)
+		if(!(artifact && enchantment)){
+			if(!artifact) {
+				invalidItemKeys.push(entry.item_neutral)
+			}
+			if(!enchantment) {
+				invalidItemKeys.push(entry.item_neutral_enhancement)
+			}
 		}
 		else {
 			items.push({artifact, enchantment, craftedSeconds: entry.time})
 		}
 	}))
-	if(items.length !== itemLog.length) {
-		return {log, ok: false}
+	if(invalidItemKeys.length > 0) {
+		const trace = traceBun({where, what:{
+			events:[traceEventBun(EVENT.NOT_IN, {
+				key:invalidItemKeys.join(', '), lookup:'ITEM_BY_EXT'
+			})]
+		}})
+		return {trace, ok: false}
 	}
-	return {data: items, log, ok: true}
+	return {data:items, ok:true, trace:traceBun({where})}
 }
 
-function translateTimings<T extends number | string>(
-	timings: TimingDTO[], lookup: IdMap<Ids<Binding<T>>, 'ext'>
-): Result<Timestamped<T>[]> {
-	const log: LogEntry[] = []
-	const data: Timestamped<T>[] = []
+function translateTimings<T>(
+	timings: TimingDTO[], lookup: Lookup<IdRecord<{ext:T}>, 'ext'>
+):Result<Timestamped<number>[]> {
+	const trace = {
+		where:TARGET.TIMINGS,
+		what:{events:[] as TraceEvent<any>[]}
+	} satisfies Omit<TracePoint, 'when'>
+	const data: Timestamped<number>[] = []
+	const undefinedKeys: string[] = []
 	timings.forEach(({time, key}) => {
 		const id = lookup[key]
 		if(!id) {
-			logError(`Could not bind timing with key: ${key}`)
+			undefinedKeys.push(key)
 		}
 		else {
 			data.push({whenSeconds: time, id})
 		}
 	})
-	if(data.length !== timings.length) {
-		return {log, ok: false}
+	if(undefinedKeys.length > 0) {
+		const eventData = {key:undefinedKeys.join(', '), lookup:'lookup'}
+		trace.what.events.push(traceEventBun(EVENT.NOT_IN, eventData))
+		return {trace:traceBun(trace), ok: false}
 	}
-	return {data, log, ok: true}
+	return {data, ok:true, trace:traceBun(trace)}
 }
 
 function translateRecord<K extends number | string, V, P extends 'key'|'ext'>(
-	record: Record<K, V>, lookup: IdMap<Ids<Binding<K>>, P>
+	record: Record<K, V>, lookup: Lookup<Record<number, Id<{ext:K}>>,P>
 ): Record<number, V> {
 	return Object.fromEntries(
 		Object.entries(record).map(([k, v]) => [lookup[parseInt(k)], v])
@@ -1072,11 +1096,11 @@ export interface HardestHitDealt {
 }
 
 export interface MatchTimings {
-	timedSeconds: number[],
-	goldValues: number[],
-	xpValues: number[],
-	lastHits: number[],
-	denies: number[]
+	timedSeconds:number[],
+	goldValues:number[],
+	xpValues:number[],
+	lastHits:number[],
+	denies:number[]
 }
 
 export interface PermanentBuff {
@@ -1097,12 +1121,20 @@ export interface DraftStep {
 }
 
 export function parsePickBan(pickBan: PickBanDTO): Result<DraftStep> {
-	const log: LogEntry[] = []
+	const trace = {
+		where:TARGET.PICK_BAN,
+		who:pickBan.order,
+		what:{events:[] as TraceEvent<any>[]}
+	} satisfies Omit<TracePoint, 'when'>
 	const team = SIDE_BY_EXT[pickBan.team]
 	const hero = HERO_BY_EXT[pickBan.hero_id]
-	if (!(team && hero)) {
-		logError(`Could not parse pickBan: hero: ${hero}, team: ${team}`)
-		return {ok: false, log}
+	if(!hero || !team) {
+		let eventData
+		if(!hero) eventData = {key:pickBan.hero_id, lookup:'HERO_BY_EXT'}
+		else eventData = {key:pickBan.team, lookup:'SIDE_BY_EXT'}
+
+		trace.what.events.push(traceEventBun(EVENT.NOT_IN, eventData))
+		return {trace:traceBun(trace), ok:false}
 	}
 	const data: DraftStep = {
 		order: pickBan.order,
@@ -1110,7 +1142,8 @@ export function parsePickBan(pickBan: PickBanDTO): Result<DraftStep> {
 		team,
 		hero
 	}
-	return {data, log, ok: true}
+	trace.what.events.push(traceEventBun(EVENT.DONE))
+	return {data, trace:traceBun(trace), ok: true}
 }
 
 export interface CaptainsModeDraftStep extends DraftStep {

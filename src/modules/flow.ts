@@ -1,4 +1,4 @@
-import {getTraceDom, LOG_EVENT, logDomEvent, startTracingDom, WHERE, type Result} from "./log"
+import { EVENT, TARGET, traceDom, traceEvent, traceEventDom, type Result, type TraceEvent, type TracePoint } from "./log"
 
 // USER LIBRARY WITH UNIQUE NAME TO AVOID STANDARD COLLISIONS
 export declare const _brand: unique symbol
@@ -7,79 +7,6 @@ export type Id<B> = Unique<number, B>
 
 export type UnixTimestamp = Unique<number, 'unix_timestamp'>
 export type ISO8601TimeString = Unique<string, 'ISO8601_timestamp'>
-
-export const RESPONSE_CODES: Record<number, string> = {
-	// Informational responses
-	100: 'Continue',
-	101: 'Switching Protocols',
-	102: 'Processing (deprecated)',
-	103: 'Early Hints',
-	// Success responses
-	200: 'Ok',
-	201: 'Created',
-	202: 'Accepted',
-	203: 'Non-Authoritative Information',
-	204: 'No Content',
-	205: 'Reset Content',
-	206: 'Partial Content',
-	207: 'Multi-Status (WebDAV)',
-	208: 'Already Reported (WebDav)',
-	226: 'IM Used (HTTP Delta encoding)',
-	// Redirection messages
-	300: 'Multiple Choices',
-	301: 'Moved Permanently',
-	302: 'Found',
-	303: 'See Other',
-	304: 'Not Modified', // Server usually handle, so we receive a 200 OK with the cached content.
-	305: 'Use Proxy (deprecated)',
-	306: 'unused, but reserved response_code',
-	307: 'Temporary Redirect',
-	308: 'Permanent Redirect',
-	// Client error responses
-	400: 'Bad Request',
-	401: 'Unauthorized',
-	402: 'Payment Required',
-	403: 'Forbidden',
-	404: 'Not Found', // Not billed by OpenDotaAPI. Maybe not counted?
-	405: 'Method Not Allowed',
-	406: 'Not Acceptable',
-	407: 'Proxy Authentication Required',
-	408: 'Request Timeout',
-	409: 'Confilct',
-	410: 'Gone',
-	411: 'Length Required',
-	412: 'Precondition Failed',
-	413: 'Content Too Large',
-	414: 'URI Too Long',
-	415: 'Unsupported Media Type',
-	416: 'Range Not Satisfiable',
-	417: 'Expectation Failed',
-	418: "I'm a teapot",
-	421: 'Misdirected Request',
-	422: 'Unprocessable Content (WebDAV)',
-	423: 'Locked (WebDAV)',
-	424: 'Failed Dependency (WebDAV)',
-	425: 'Too Early (experimental)',
-	426: 'Upgrade Required',
-	428: 'Precondition Required',
-	429: 'Too Many Requests', // Not billed by OpenDotaAPI. Maybe not counted?
-	431: 'Request Header Fields Too Large',
-	451: 'Unavailable For Legal Reasons',
-	// Server error responses
-	500: 'Internal Server Error', // Not billed by OpenDotaAPI. Maybe not counted?
-	501: 'Not Implemented',
-	502: 'Bad Gateway',
-	503: 'Service Unavailable',
-	504: 'Gateway Timeout',
-	505: 'HTTP Version Not Supported',
-	506: 'Variant Also Negotiates',
-	507: 'Insufficient Storage (WebDAV)',
-	508: 'Loop Detected (WebDAV)',
-	510: 'Not Extended',
-	511: 'Network Authentication Required'
-}
-
-const EVENT = LOG_EVENT.FLOW
 
 type NullsAsUndefined<T> = {
 	[K in keyof T]: null extends T[K] ? Exclude<T[K], null> | undefined : T[K];
@@ -106,48 +33,53 @@ export function setLocal<T>(key: string, value: T) {
 }
 
 export async function tryFetchJson<T>(url: URL, requestInit: RequestInit = {}): Promise<Result<T>> {
-	const startTime = startTracingDom()
+	const trace = {
+		where:TARGET.FETCH,
+		what:{events:[] as TraceEvent<any>[]}
+	} satisfies Omit<TracePoint, 'when'>
 	try {
 		const response = await fetch(url, requestInit)
 		const status = `${response.status}: ${response.statusText}`
 		if(!response.ok) {
-			const log = logDomEvent(EVENT.FETCH.BAD_RES, {url, status})
-			log.trace.points.push(getTraceDom(WHERE.FLOW, startTime))
-			return {log, ok:false}
+			trace.what.events.push(traceEventDom(EVENT.FETCH_BAD, {url, status}))
+			return {trace:traceDom(trace), ok:false}
 		}
 		const data = await response.json() as T
-		const log = logDomEvent(EVENT.FETCH.OK, {url, status})
-		log.trace.points.push(getTraceDom(WHERE.FLOW, startTime))
-		return {data, ok:true, log}
+		trace.what.events.push(traceEventDom(EVENT.FETCH_OK, {url, status}))
+		return {data, ok:true, trace:traceDom(trace)}
 	}
 	catch (error) {
 		const msg = error instanceof Error ? error.message : 'error not instance of Error'
-		const log = logDomEvent(EVENT.FETCH.ERROR, {url, msg})
-		log.trace.points.push(getTraceDom(WHERE.FLOW, startTime))
-		return {log, ok:false}
+		trace.what.events.push(traceEventDom(EVENT.THROW, msg))
+		return {trace:traceDom(trace), ok:false}
 	}
 }
 
 export async function tryGetImg(url: URL):Promise<Result<ArrayBuffer>> {
-	const startTime = startTracingDom()
+	const trace = {
+		where:TARGET.FETCH,
+		what:{events:[] as TraceEvent<any>[]}
+	} satisfies Omit<TracePoint, 'when'>
 	try {
 		const response = await fetch(url)
 		const status = `${response.status}: ${response.statusText}`
 		if (!response.ok) {
-			const log = logDomEvent(EVENT.FETCH.BAD_RES, {url, status})
-			log.trace.points.push(getTraceDom(WHERE.FLOW, startTime))
-			return {log, ok:false}
+			trace.what.events.push(
+				traceEventDom(EVENT.FETCH_BAD, {url, status})
+			)
+			return {trace:traceDom(trace), ok:false}
 		}
 		const data = await response.arrayBuffer()
-		const log = logDomEvent(EVENT.FETCH.OK, {url, status})
-		log.trace.points.push(getTraceDom(WHERE.FLOW, startTime))
-		return {data, ok:true, log}
+		trace.what.events.push(traceEventDom(EVENT.FETCH_OK, {url, status}))
+		return {data, ok:true, trace:traceDom(trace)}
 	}
 	catch (error) {
 		const msg = error instanceof Error ? error.message : 'error not instance of Error'
-		const log = logDomEvent(EVENT.FETCH.ERROR, {url, msg})
-		log.trace.points.push(getTraceDom(WHERE.FLOW, startTime))
-		return {log, ok:false}
+		trace.what.events.push(traceEventDom(EVENT.THROW, msg))
+		const namedTrace:Omit<TracePoint, 'when'> = {
+			...trace, who:url.href
+		}
+		return {trace:traceDom(namedTrace), ok:false}
 	}
 }
 
@@ -155,43 +87,36 @@ export async function tryGetImg(url: URL):Promise<Result<ArrayBuffer>> {
 export interface NamedElement {node: Element | DocumentFragment, name: string}
 
 export function tryGetElement<T extends Element>(selector: string, root?: NamedElement): Result<T> {
-	const startTime = startTracingDom()
+	const where = TARGET.GET_ELEMENT
 	const rootNode = root? root.node : document;
 	const fullSelector = `${root? root.name : 'document'} selector`;
 	const element = rootNode.querySelector(selector)
 	if(!element) {
-		const log = logDomEvent(EVENT.GET_ELEMENT.NULL, {
-			selector:fullSelector
+		const trace = traceDom({
+			where,
+			who:fullSelector,
+			what:{events:[traceEventDom(EVENT.GOT_NULL)]}
 		})
-		log.trace.points.push(getTraceDom(WHERE.FLOW, startTime))
-		return {log, ok:false}
+		return {trace, ok:false}
 	}
-	const log = logDomEvent(EVENT.GET_ELEMENT.OK, {
-		selector:fullSelector, all:false
-	})
-	log.trace.points.push(getTraceDom(WHERE.FLOW, startTime))
-	return {log, data:element as T, ok:true}
+	return {data:element as T, ok:true, trace:traceDom({where})}
 }
 
 export function tryGetElements(selector: string, root?: NamedElement): Result<NodeListOf<Element>> {
-	const startTime = startTracingDom()
+	const where = TARGET.GET_ELEMENT
 	const rootNode = root ? root.node : document;
 	const fullSelector = `${root? root.name : 'document'} selector`;
 	try {
 		const elements = rootNode.querySelectorAll(selector)
-		const log = logDomEvent(EVENT.GET_ELEMENT.OK, {
-			selector: fullSelector, all:true
-		})
-		log.trace.points.push(getTraceDom(WHERE.FLOW, startTime))
-		return {log, data: elements, ok:true}
+		return {data:elements, ok:true, trace:traceDom({where})}
 	}
 	catch(error) {
-		const log = logDomEvent(EVENT.GET_ELEMENT.ERROR, {
-			selector: fullSelector, all:true,
-			msg:error instanceof Error ? error.message : 'error not instance of Error'
+		const msg = error instanceof Error ? error.message : 'error not instance of Error'
+		const event = traceEventDom(EVENT.THROW, msg)
+		const trace = traceDom({
+			where, who:fullSelector, what:{events:[event]}
 		})
-		log.trace.points.push(getTraceDom(WHERE.FLOW, startTime))
-		return {log, ok:false}
+		return {trace, ok:false}
 	}
 }
 

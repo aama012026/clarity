@@ -11,7 +11,7 @@ import {bindPlayer, formatFullMatch, bindMatchSummary, formatRankDistribution,
 } from './modules/bindings.js';
 import {type RankDistDTO, type AccountId, type PlayerDTO, type SearchResDTO,
 	type PlayerMatchDTO, leaverStatusByKey, LEAVER_STATUS, type RankBitmask,
-	type SparseMatchDTO, type ParsedMatchDTO, type MatchId
+	type UnparsedMatchDTO, type ParsedMatchDTO, type MatchId
 } from './types/openDotaTypes.js'
 import type { Result } from './modules/log.js';
 
@@ -205,7 +205,7 @@ async function tryGetMatch(matchId: number): Promise<SparseMatch | FullMatch | n
 	if(match) {
 		return match
 	}
-	const response = await axios.get<SparseMatchDTO | ParsedMatchDTO>(`${ENDPOINT.MATCHES}/${matchId}`)
+	const response = await axios.get<UnparsedMatchDTO | ParsedMatchDTO>(`${ENDPOINT.MATCHES}/${matchId}`)
 	updateCallsLeft()
 	if(response.status != 200) {
 		return null

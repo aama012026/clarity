@@ -5,9 +5,10 @@ import { lookup, type Id, type IdRecord } from "./id"
 type UnixTimestamp = number
 type Nanoseconds = number
 type Milliseconds = number
-interface Success<T = null> {ok:true, data:T}
-interface Failure {ok:false}
-export type Result<T = null> = {log:BaseLogEvent} & (Success<T> | Failure)
+type Success<T = null> = {ok:true, data:T}
+interface Failure {ok:false, data?:never}
+export type Result<T = null> = {trace:TracePoint} & (Success<T> | Failure)
+export type Status = {trace:TracePoint, ok:boolean}
 
 const LVLS = {
 	0: {key:'MSG', name:'message'},
@@ -15,256 +16,166 @@ const LVLS = {
 	2: {key:'ERR', name:'error'},
 	3: {key:'DBG', name:'debug'},
 	4: {key:'TIP', name:'hint'}
-} as const satisfies IdRecord<{name: string}>
+} as const satisfies IdRecord<{name:string}>
 const LVL = lookup(LVLS, 'key')
 type LogLvl = keyof typeof LVLS
+
+const SOURCES = {
+	0:{key:'DOM', name:'flow DOM'},
+	1:{key:'FILE', name:'file'},
+	2:{key:'BUN', name:'server'},
+	3:{key:'BUILD', name:'build'},
+	4:{key:'TEST', name:'test'},
+	5:{key:'LOG', name:'log'},
+	6:{key:'ROUTE', name:'route'},
+} as const satisfies IdRecord<{name:string}>
+const SRC = lookup(SOURCES, 'key')
+type Source = typeof SOURCES[keyof typeof SOURCES]
+type SourceId = keyof typeof SOURCES
+
 // Add an entry for each module / subprocess.
-export const SOURCES = {
-	0:{key:'FLOW', name:'flow DOM', targets:{
-		0:{key:'FETCH', name:'fetch', events:{
-			0:{key:'START', level:LVL.MSG, format:(e:{url:URL}) => `Fetching ${e.url}`},
-			1:{key:'OK', level:LVL.MSG, format:(e:{url:URL, status:string}) => `Fetched${e.url} (${e.status})`},
-			2:{key:'BAD_RES', level:LVL.ERR, format:(e:{url:URL, status:string}) => `Could not fetch ${e.url}, (${e.status})`},
-			3:{key:'ERROR', level:LVL.ERR, format:(e:{url:URL, msg:string})=> `Fetch for ${e.url} threw with error msg: ${e.msg}`}
-		}},
-		1:{key:'GET_ELEMENT', name:'get element', events:{
-			0:{key:'OK', level:LVL.MSG, format:(e:{selector:string, all:boolean}) => `Got ${e.all? 'all elements':'element'} for ${e.selector}`},
-			1:{key:'NULL', level:LVL.ERR, format:(e:{selector:string}) => `${e.selector} returned NULL`},
-			2:{key:'ERROR', level:LVL.ERR, format:(e:{selector:string, all:boolean, msg:string}) => `selector query for ${e.all ? 'all elements':'element'} ${e.selector} threw: ${e.msg}`}
-		}}
-	}},
-	1:{key:'SERVER', name:'server'},
-	2:{key:'BUILD', name:'build'},
-	3:{key:'SSE', name:'sse'},
-	4:{key:'TEMPLATES', name:'html templates'},
-	5:{key:'PARSE', name:'parse', targets:{
-		0:{key:'MATCH_SUM', name:'match summary', events:{
-			0: {key:'NOT_IN', level:LVL.ERR, format:(e:{matchId:number, lookup: string, key: number|string}) => `Could not parse match summary for ${e.matchId}: ${e.key} is not in ${e.lookup}`}
-		}}
-	}},
-	6:{key:'LOG', name:'log'},
-	7:{key:'ROUTE', name:'router'},
-	8:{key:'FILE', name:'file'}
-} as const
+const TARGETS = {
+	0:{key:'FETCH', name:'fetch'},
+	1:{key:'GET_ELEMENT', name:'get element'},
+	2:{key:'READ', name:'read'},
+	3:{key:'WRITE', name:'write'},
+	4:{key:'ID_BINDS', name:'update id bindings'},
+	5:{key:'HEROES', name:'heroes'},
+	6:{key:'ITEMS', name:'items'},
+	7:{key:'ABILITIES', name:'abilities'},
+	8:{key:'MATCH_SUM', name:'match summary'},
+	9:{key:'PICK_BAN', name: 'pick/ban'},
+	10:{key:'TIMINGS', name:'timings'},
+	11:{key:'LOG_NI', name:'neutral items log'},
+	12:{key:'PARSED_PLAYER', name:'parsed player'},
+	13:{key:'BIND_ITEM', name:'bind item'}
+} as const satisfies IdRecord<{name:string}>
+export const TARGET = lookup(TARGETS, 'key')
+type Target = typeof TARGETS
+type TargetId = keyof typeof TARGETS
 
-type Sources = typeof SOURCES
-type Source = keyof Sources
-// Filters to only sources that have targets prop.
-type EventSource = {
-	[K in Source]:Sources[K] extends {targets:any} ? K : never
-}[Source]
-// Union of keys in targets for a given EventSource.
-type EventTarget<Src extends EventSource
-> = Sources[Src] extends {targets:infer E} ? E : never
-// Union of keys in events for a given EventTarget.
-type EventKind<S extends EventSource, T extends keyof EventTarget<S>
-> = EventTarget<S>[T] extends {events:infer K} ? K : never
-// typeof signature for a given event format function
-type EventData<
-	S extends EventSource,
-	T extends keyof EventTarget<S>,
-	K extends keyof EventKind<S, T>
-> = (
-	// typeof format function or never if not present
-	EventKind<S, T>[K] extends {format: infer F} ? F : never
-) extends (e: infer P) => any ? P : never
+const EVENTS = {
+	0:{key:'START', lvl:LVL.DBG},
+	1:{key:'DONE', lvl:LVL.DBG},
+	2:{key:'THROW', lvl:LVL.ERR, msg:(e:string) => `Threw with error msg: ${e}`},
+	3:{key:'FETCH_OK', lvl:LVL.MSG, msg:(e:{url:URL, status:string}
+	) => `Fetched${e.url} (${e.status})`},
+	4:{key:'FETCH_BAD', lvl:LVL.ERR, msg:(e:{url:URL, status:string}
+	) => `Could not fetch ${e.url}, (${e.status})`},
+	5:{key:'GOT_NULL', lvl:LVL.ERR, msg:() => `returned NULL`},
+	6:{key:'DUPE_KEYS', lvl:LVL.ERR, msg:(e:{msgs:string[]}
+	) => `Duplicate entries in existing bindings:${e.msgs.join()}`},
+	7:{key:'KEY_REBIND', lvl:LVL.WRN, msg:(
+		e:{key:string, oldExt:number, newExt:number}
+	) => `External id for key ${e.key} changed from ${e.oldExt} to ${e.newExt}`},
+	8:{key:'EXT_REBIND', lvl:LVL.WRN, msg:(e:{key:string, oldBinding:string}
+	) => `External id for new key ${e.key} was already bound: ${e.oldBinding}`},
+	9:{key:'RETIRE_BIND', lvl:LVL.WRN, msg:(e:{binding:string}
+	) => `Retired binding ${e.binding} which is not present in new dataset`},
+	10:{key:'NEW_BIND', lvl:LVL.MSG, msg:(e:{binding:string}
+	) => `Added new binding ${e.binding}`},
+	11:{key:'MISSING_ITEM_NAME', lvl:LVL.WRN, msg:(
+		e:{dataName:string, generatedName:string}
+	) => `${e.dataName} does not have property dname. Generated name: ${e.generatedName}`},
+	12:{key:'NOT_IN', lvl:LVL.ERR, msg:(
+		e:{lookup:string, key:number|string}
+	) => `${e.key} not in ${e.lookup}`},
+	13:{key:'WROTE', lvl:LVL.MSG, msg:(
+		e:{filePath:string, bytesWritten:number}
+	) => `Wrote ${e.bytesWritten} to ${e.filePath}`}
+} as const satisfies IdRecord<{lvl:LogLvl, msg?:(...args: any[]) => string}>
+export const EVENT = lookup(EVENTS, 'key')
+type EventId = Extract<keyof typeof EVENTS, number>
 
-// Maps EVENT.FLOW.FETCH.OK → { source: 0, target: 0, kind: 1 }
-type EventId = {[S in EventSource as Sources[S]['key']]: {
-	[T in keyof EventTarget<S> as
-		// only include targets that have events
-		EventTarget<S>[T] extends {
-			key:infer K extends string, events:any
-		} ? K : never
-	]: {
-		[K in keyof EventKind<S, T> as
-			EventKind<S, T>[K] extends {
-				key:infer EK extends string
-			} ? EK : never
-		]: {source:S, target:T, kind:K}
-	}}
-}
-
-function buildEventLookup(): EventId {
-	const lookup: Record<string, Record<string, Record<string, {
-		source:number, target:number, kind:number }>>> = {}
-	for (const [srcId, src] of Object.entries(SOURCES)) {
-		if (!('targets' in src)){
-			continue
-		}
-		lookup[src.key] = {}
-		for (const [tgtId, tgt] of Object.entries(src.targets)) {
-			if (!('events' in tgt)){
-				continue
-			}
-			lookup[src.key]![tgt.key] = {}
-			for (const [evtId, evt] of Object.entries(tgt.events) as any) {
-				lookup[src.key]![tgt.key]![evt.key] = {
-					source:parseInt(srcId),
-					target:parseInt(tgtId),
-					kind:parseInt(evtId)
-				}
-			}
-		}
-	}
-	return lookup as EventId
-}
-export const WHERE = lookup(SOURCES, 'key')
-export const LOG_EVENT = buildEventLookup()
-
-export const PARSE = {
-	0:{key:'MATCH', next:{
-		0:{key:'SUM', name:'match summary'},
-		1:{key:'SPARSE', name:'sparse match'},
-		2:{key:'FULL', name:'parsed match'}
-	}},
-	1:{key:'PLAYER', next:{
-		0:{key:'PROFILE', name:'player profile'},
-		1:{key:'SPARSE', name:'sparse player'},
-		2:{key:'FULL', name:'full player'}
-	}},
-	3:{key:'STEAM', name:'steam details'},
-	4:{key:'RNKS', name:'rank distribution'},
-}
-export const ODOTA = {
-	0:{key:'MATCH', name:'match', next:{
-		1:{key:'PRO', name:'pro match'},
-		2:{key:'PUB', name:'public match'},
-		3:{key:'PRS', name:'parsed matches'}
-	}},
-	1:{key:'PLAYERS', name:'players', next:{
-		0:{key:'PLR', name:'player', next:{
-			0:{key:'WLC', name:'win/loss count'},
-			1:{key:'RGM', name:'recent matches'},
-			2:{key:'AGM', name:'matches'},
-			3:{key:'HRS', name:'heroes'},
-			4:{key:'PRS', name:'peers'},
-			5:{key:'PRO', name:'pros'},
-			6:{key:'TOT', name:'totals'},
-			7:{key:'CNT', name:'counts'},
-			8:{key:'HST', name:'histograms'},
-			9:{key:'WRD', name:'wardmap'},
-			10:{key:'CLD', name:'wordcloud'},
-			11:{key:'RAT', name:'ratings'},
-			12:{key:'RNK', name:'rankings'},
-			13:{key:'RFS', name:'refresh'}
-		}},
-	}},
-	2:{key:'TOP', name:'top players'},
-	3:{key:'PROS', name:'pro players'},
-	4:{key:'EXPLORER', name:'explorer'},
-	5:{key:'META', name:'metadata'},
-	6:{key:'DIST', name:'distributions'},
-	7:{key:'SEARCH', name:'search'},
-	8:{key:'RANKS', name:'rankings'},
-	9:{key:'BENCH', name:'benchmarks'},
-	10:{key:'HEALTH', name:'health'},
-	11:{key:'REQU', name:'request'},
-	12:{key:'FIND', name:'find matches'},
-	13:{key:'HERO', name:'hero', next:{
-		0:{key:'MATCHES', name:'matches'},
-		1:{key:'MATCHUPS', name:'matchups'},
-		2:{key:'LENGTH', name:'durations'},
-		3:{key:'PLAYERS', name:'players'},
-		4:{key:'ITEMS', name:'item popularity'},
-		5:{key:'STATS', name:'stats'},
-	}},
-	14:{key:'LGS', name:'leagues', next:{
-		0:{key:'LEAGUE', name:'league'},
-		1:{key:'MATCHES', name:'league matches'},
-		2:{key:'MATCH_IDS', name:'league match ids'},
-		3:{key:'TEAMS', name:'league teams'}
-	}},
-	15:{key:'TEAM', name:'team', next:{
-		0:{key:'MATCHES', name:'matches'},
-		1:{key:'PLAYERS', name:'players'},
-		2:{key:'HEROES', name:'heroes'},
-	}},
-	16:{key:'RCD', name:'records'},
-	17:{key:'LIVE', name:'live'},
-	18:{key:'SCN', name:'scenarios', next:{
-		0:{key:'ITEM', name:'item timings'},
-		1:{key:'ROLE', name:'lane roles'},
-		2:{key:'MISC', name:'misc scenarios'},
-	},
-	19:{key:'SCHEMA', name:'schema'}},
-	20:{key:'CNST', name:'constants'}
+type EventData<E extends EventId> = (
+	typeof EVENTS[E] extends {msg: infer Fn extends (...args: any[]) => string }
+	? Parameters<Fn> extends [infer P] ? P : never
+	: never
+)
+type EventArgs<E extends EventId> = (
+	EventData<E> extends never ? [] : [args:EventData<E>]
+)
+export type TraceEvent<E extends EventId> = {
+	kind:E, time:number, data?:EventData<E>
 }
 
-interface BaseLogEvent {
-	time:UnixTimestamp,
-	trace:Trace,
-	target:number,
-	kind:number,
-	data:object,
-	children:BaseLogEvent[]
+export function traceEvent<E extends EventId> (
+	event:E, time:number, ...args:EventArgs<E>
+):TraceEvent<E> {
+	return {kind:event, time, data:args[0]}
 }
-interface LogEvent<
-	S extends EventSource,
-	T extends keyof EventTarget<S>,
-	K extends keyof EventKind<S, T>
-> {
-	time:UnixTimestamp,
-	trace:Trace,
-	target:T,
-	kind:K,
-	data:EventData<S, T, K>,
-	children:BaseLogEvent[]
+export function traceEventBun<E extends EventId>(event:E, ...args:EventArgs<E>
+):TraceEvent<E> {
+	return traceEvent(event, nanoseconds(), ...args)
 }
-function logEvent<
-	S extends EventSource,
-	T extends keyof EventTarget<S>,
-	K extends keyof EventKind<S, T>
-> (
-	event:{source:S, target:T, kind:K},
-	data:EventData<S, T, K>,
-	timeUnit:'ns'|'ms',
-	...children:BaseLogEvent[]
-):LogEvent<S, T, K> {
-	return {
-		time:Date.now(),
-		trace:{points:[], timeUnit},
-		target:event.target,
-		kind:event.kind,
-		data,
-		children
+export function traceEventDom<E extends EventId>(event:E, ...args:EventArgs<E>
+):TraceEvent<E> {
+	return traceEvent(event, performance.now(), ...args)
+}
+
+type TimeUnit = 'ns'|'ms'
+export interface TracePoint {
+	when:number,
+	where:TargetId,
+	who?:number|string,
+	what?:{
+		children?:TracePoint[],		// Acts like branches in practice
+		events?:TraceEvent<any>[],	// Acts like leaves in practice
 	}
 }
-export function logDomEvent<
-	S extends EventSource,
-	T extends keyof EventTarget<S>,
-	K extends keyof EventKind<S, T>
-> (
-	event:{source:S, target:T, kind:K},
-	data:EventData<S, T, K>,
-	...children:BaseLogEvent[]
-):LogEvent<S, T, K> {
-	return logEvent(event, data, 'ms', ...children)
+export type TraceInfo = TracePoint['what']
+export function traceBun(trace:Omit<TracePoint, 'when'>):TracePoint {
+	return {when:nanoseconds()*0.001, ...trace}
 }
-export function logBunEvent<
-	S extends EventSource,
-	T extends keyof EventTarget<S>,
-	K extends keyof EventKind<S, T>
-> (
-	event:{source:S, target:T, kind:K},
-	data:EventData<S, T, K>,
-	...children:BaseLogEvent[]
-):LogEvent<S, T, K> {
-	return logEvent(event, data, 'ns', ...children)
+export function traceDom(trace:Omit<TracePoint, 'when'>):TracePoint {
+	return {when:performance.now(), ...trace}
 }
-interface TracePoint {where:Source, took?:Nanoseconds}
-type Trace = {points: TracePoint[], timeUnit:'ns'|'ms'}
-export function startTracingBun():Nanoseconds {return nanoseconds()}
-export function startTracingDom():Milliseconds {return performance.now()}
-export function getTraceBun(where:Source, startTime:Nanoseconds):TracePoint {
-	return {where, took:nanoseconds() - startTime}
-}
-export function getTraceDom(where:Source, startTime:Milliseconds):TracePoint {
-	return {where, took:performance.now() - startTime}
+interface Log {
+	lvls:IdRecord<{name:string}>
+	targets:IdRecord<{name:string}>,
+	events:IdRecord<{lvl:LogLvl, msg?:(e:any) => string}>,
+	traces:TracePoint[],
+	timestamp:UnixTimestamp,
 }
 
-function formatLogEvent(evt: BaseLogEvent, depth = 0): string {
-    const src = SOURCES[evt.trace.points[0]?.where as EventSource] as any
+function formatTraceEvent(
+	event:TraceEvent<any>,
+	prevTime:number,
+	lvls:IdRecord<{name:string}>,
+	events:IdRecord<{lvl:LogLvl, msg?:(...args:any[]) => string}>
+):{msg:string|null, time:number} {
+	const getMsg = events[event.kind]?.msg
+	if(getMsg === undefined) {
+		return {msg:null, time:event.time}
+	}
+	const msg = getMsg(event.data)
+	const lvl = lvls[events[event.kind]?.lvl!]?.name ?? ''
+	const deltaTime = event.time - prevTime
+	return {msg:`${lvl.toUpperCase()}: ${msg} (${deltaTime}ms)`, time:event.time}
+}
+function formatTraceLine(tracePoints:string[]):string {
+	const target = ` > ${tracePoints.pop()}`
+	return tracePoints.join(':') + target
+}
+function formatTracePoint(log:Log, depth = 0): string {
+	const {targets, events, traces, timestamp} = log
+	const dateTime = new Date(timestamp).toUTCString()
+	for(const trace of traces) {
+		const startTime = trace.when
+		const startString = new Date(timestamp-startTime).toUTCString()
+		const tracePath:string[] = []
+		let target = targets[trace.where]?.name ?? 'unknown'
+		if(trace.who) {
+			target += ` ${trace.who}`
+		}
+		if(trace.what?.children?.length === 1 && (!trace.what.events || trace.what.events.length > 0)) {
+			// Recursion, but without indentation and linebreak
+			// Current target should be on same line with <:name> unless it is first
+		}
+		if(!trace.what) {
+			tracePath.push(target)
+		}
+	}
     const targetInfo = src?.targets?.[evt.target]
     const kindInfo = targetInfo?.events?.[evt.kind]
     const logLevel = (
@@ -272,7 +183,7 @@ function formatLogEvent(evt: BaseLogEvent, depth = 0): string {
     ).toUpperCase()
 
     const tracePath = evt.trace.points.toReversed().map(
-    	tp => SOURCES[tp.where as Source].name
+    	tp => SOURCES[tp.where as SourceId].name
     ).join(':')
     const where = `[${tracePath} > ${targetInfo?.name ?? evt.target}]`
     const what = kindInfo?.format(evt.data) ?? `[unknown event]`
@@ -285,6 +196,6 @@ function formatLogEvent(evt: BaseLogEvent, depth = 0): string {
     return [
         `${indent}${timeStr} ${logLevel}: ${where}`,
         `${indent}\t${what}`,
-        ...evt.children.map(c => formatLogEvent(c, depth + 1))
+        ...evt.children.map(c => formatTracePoint(c, depth + 1))
     ].join('\n')
 }

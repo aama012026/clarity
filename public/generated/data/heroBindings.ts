@@ -1,4 +1,4 @@
-import type {Ids, Binding} from '../../../src/types/clarityTypes'
+import type {IdRecord} from '../../../src/modules/id'
 export const HERO_IDS = {
 	1: {key: "antimage", ext: 1},
 	2: {key: "axe", ext: 2},
@@ -127,4 +127,4 @@ export const HERO_IDS = {
 	138: {key: "muerta", ext: 138},
 	145: {key: "kez", ext: 145},
 	155: {key: "largo", ext: 155}
-} as const satisfies Ids<Binding>
+} as const satisfies IdRecord<{ext:number}>
